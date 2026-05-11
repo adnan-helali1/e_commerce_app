@@ -1,6 +1,6 @@
-import 'package:e_commerce_app/app/core/routing/routes.dart';
-import 'package:e_commerce_app/app/features/auth/ui/screens/registerscreen.dart';
-import 'package:e_commerce_app/app/features/auth/ui/screens/loginscreen.dart';
+import 'package:B2B/app/core/routing/routes.dart';
+import 'package:B2B/app/features/auth/ui/screens/registerscreen.dart';
+import 'package:B2B/app/features/auth/ui/screens/loginscreen.dart';
 import 'package:flutter/material.dart';
 
 class AppRouter {

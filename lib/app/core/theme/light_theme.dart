@@ -1,4 +1,4 @@
-import 'package:e_commerce_app/app/core/theme/app_color_scheme_extention.dart';
+import 'package:B2B/app/core/theme/app_color_scheme_extention.dart';
 import 'package:flutter/material.dart';
 
 import 'app_colors.dart';

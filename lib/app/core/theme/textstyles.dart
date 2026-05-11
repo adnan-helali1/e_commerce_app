@@ -1,4 +1,4 @@
-import 'package:e_commerce_app/app/core/helpers/extensions.dart';
+import 'package:B2B/app/core/helpers/extensions.dart';
 import 'package:flutter/material.dart';
 
 class TextStyles {

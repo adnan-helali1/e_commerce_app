@@ -38,7 +38,7 @@ Any new screen or widget must follow these rules to keep one visual identity.
 - Do not duplicate near-identical widget trees across modules.
 
 ## 6) App Bars and Page Structure
-- Use shared app bar component (`B2bAppBar`) when the screen follows the standard header pattern.
+- Use shared app bar component (`B2BAppBar`) when the screen follows the standard header pattern.
 - Standard body structure should stay clean and predictable:
   - Scaffold
   - Page padding

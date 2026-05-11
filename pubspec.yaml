@@ -1,4 +1,4 @@
-name: e_commerce_app
+name: B2B
 description: "A new Flutter project."
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -19,18 +19,30 @@ dependencies:
   # state management library
   bloc: ^9.2.0
   cupertino_icons: ^1.0.8
+  flutter_native_splash: ^2.4.7
 
 dev_dependencies:
+  flutter_launcher_icons: ^0.13.1
+
   flutter_test:
     sdk: flutter
 
- 
+flutter_launcher_icons:
+
+  android: true
+  ios: true
+
+  image_path: "assets/images/icon.png"
+
+  adaptive_icon_background: "#0B4D83"
+  # adaptive_icon_foreground: "assets/images/icon_foreground.png"
   flutter_lints: ^6.0.0
 
 
 flutter:
   uses-material-design: true
-    
+  assets:
+     - assets/images/  
   fonts:
     - family: Cairo
       fonts:

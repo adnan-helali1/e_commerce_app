@@ -1,9 +1,9 @@
-import 'package:e_commerce_app/app/core/helpers/extensions.dart';
-import 'package:e_commerce_app/app/core/helpers/spacing.dart';
-import 'package:e_commerce_app/app/core/routing/routes.dart';
-import 'package:e_commerce_app/app/core/theme/textstyles.dart';
-import 'package:e_commerce_app/app/features/auth/ui/widgets/auth_header.dart';
-import 'package:e_commerce_app/app/features/auth/ui/widgets/login_textfiled.dart';
+import 'package:B2B/app/core/helpers/extensions.dart';
+import 'package:B2B/app/core/helpers/spacing.dart';
+import 'package:B2B/app/core/routing/routes.dart';
+import 'package:B2B/app/core/theme/textstyles.dart';
+import 'package:B2B/app/features/auth/ui/widgets/auth_header.dart';
+import 'package:B2B/app/features/auth/ui/widgets/login_textfiled.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

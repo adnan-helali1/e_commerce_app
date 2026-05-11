@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:e_commerce_app/app/core/helpers/extensions.dart';
-import 'package:e_commerce_app/app/core/helpers/spacing.dart';
-import 'package:e_commerce_app/app/core/theme/textstyles.dart';
+import 'package:B2B/app/core/helpers/extensions.dart';
+import 'package:B2B/app/core/helpers/spacing.dart';
+import 'package:B2B/app/core/theme/textstyles.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AuthHeader extends StatelessWidget {

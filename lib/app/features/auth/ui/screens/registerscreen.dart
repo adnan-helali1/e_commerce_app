@@ -1,4 +1,4 @@
-import 'package:e_commerce_app/app/features/auth/ui/widgets/register_container.dart';
+import 'package:B2B/app/features/auth/ui/widgets/register_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

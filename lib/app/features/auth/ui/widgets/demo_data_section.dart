@@ -1,6 +1,6 @@
-import 'package:e_commerce_app/app/core/helpers/extensions.dart';
-import 'package:e_commerce_app/app/core/helpers/spacing.dart';
-import 'package:e_commerce_app/app/core/theme/textstyles.dart';
+import 'package:B2B/app/core/helpers/extensions.dart';
+import 'package:B2B/app/core/helpers/spacing.dart';
+import 'package:B2B/app/core/theme/textstyles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -42,7 +42,7 @@ class DemoCredentials extends StatelessWidget {
             children: [
               Expanded(
                 child: Text(
-                  'demo@b2b.com',
+                  'demo@B2B.com',
                   style: TextStyles.note(this.context),
                 ),
               ),

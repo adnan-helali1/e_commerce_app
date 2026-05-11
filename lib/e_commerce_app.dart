@@ -1,8 +1,7 @@
-import 'package:e_commerce_app/app/core/routing/app_router.dart';
-import 'package:e_commerce_app/app/core/routing/routes.dart';
-import 'package:e_commerce_app/app/core/theme/dark_theme.dart';
-import 'package:e_commerce_app/app/core/theme/light_theme.dart';
-import 'package:e_commerce_app/app/features/auth/ui/screens/loginscreen.dart';
+import 'package:B2B/app/core/routing/app_router.dart';
+import 'package:B2B/app/core/routing/routes.dart';
+import 'package:B2B/app/core/theme/dark_theme.dart';
+import 'package:B2B/app/core/theme/light_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
