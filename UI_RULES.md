@@ -34,6 +34,7 @@ Any new screen or widget must follow these rules to keep one visual identity.
 ## 5) Shared Components First
 - Reuse shared UI components before creating new ones (app bar, cards, inputs, buttons, badges).
 - If a new pattern appears in 2+ places, extract it into a shared widget.
+- If two widgets differ only by a few optional fields or labels, extend one shared widget with parameters instead of creating a second copy.
 - Do not duplicate near-identical widget trees across modules.
 
 ## 6) App Bars and Page Structure
@@ -68,6 +69,7 @@ Any new screen or widget must follow these rules to keep one visual identity.
 
 ## 11) Code Quality for UI
 - Keep build methods readable; split complex sections into private widgets.
+- Private widgets are only for small helpers; if a helper starts acting like a real UI block or screen section, extract it into its own widget file under `ui/widgets` instead of nesting it deeper.
 - Avoid deep nesting when a dedicated widget improves clarity.
 - Keep comments minimal and useful (only for non-obvious logic).
 

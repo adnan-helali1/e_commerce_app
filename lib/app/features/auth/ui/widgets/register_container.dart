@@ -2,19 +2,16 @@ import 'package:e_commerce_app/app/core/helpers/extensions.dart';
 import 'package:e_commerce_app/app/core/helpers/spacing.dart';
 import 'package:e_commerce_app/app/core/routing/routes.dart';
 import 'package:e_commerce_app/app/core/theme/textstyles.dart';
-import 'package:e_commerce_app/app/features/auth/ui/widgets/demo_data_section.dart';
 import 'package:e_commerce_app/app/features/auth/ui/widgets/auth_header.dart';
 import 'package:e_commerce_app/app/features/auth/ui/widgets/login_textfiled.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class LoginContainer extends StatelessWidget {
-  const LoginContainer({super.key});
+class RegisterContainer extends StatelessWidget {
+  const RegisterContainer({super.key});
 
   @override
   Widget build(BuildContext context) {
-    bool rememberMe = true;
-
     return Container(
       padding: EdgeInsets.all(20.w),
       decoration: BoxDecoration(
@@ -35,79 +32,76 @@ class LoginContainer extends StatelessWidget {
         children: [
           AuthHeader(
             context: context,
-            title: 'Welcome Back',
-            subtitle: 'Sign in to your supermarket account',
+            title: 'Create Account',
+            subtitle: 'Register your store account',
           ),
-
           verticalSpace(24),
-          Text('Email Address *', style: TextStyles.label(context)),
-          verticalSpace(8),
           Field(
             context: context,
-            hintText: 'store@example.com',
+            label: 'Store Name *',
+            hintText: 'My Store',
+            icon: Icons.storefront_outlined,
+          ),
+          verticalSpace(16),
+          Field(
+            context: context,
+            label: 'Owner Name *',
+            hintText: 'Owner',
+            icon: Icons.person_outline,
+          ),
+          verticalSpace(16),
+          Field(
+            context: context,
+            label: 'Phone *',
+            hintText: '0999999999',
+            icon: Icons.phone_outlined,
+            keyboardType: TextInputType.phone,
+          ),
+          verticalSpace(16),
+          Field(
+            context: context,
+            label: 'Email *',
+            hintText: 'store1@example.com',
             icon: Icons.mail_outline,
             keyboardType: TextInputType.emailAddress,
           ),
           verticalSpace(16),
-          Text('Password *', style: TextStyles.label(context)),
-          verticalSpace(8),
           Field(
             context: context,
-            hintText: 'Enter your password',
+            label: 'Password *',
+            hintText: 'password123',
             icon: Icons.lock_outline,
             obscureText: true,
           ),
-          verticalSpace(12),
-          Row(
-            children: [
-              Checkbox(
-                value: rememberMe,
-                onChanged: (value) {
-                  //   setState(() {
-                  //     rememberMe = value ?? false;
-                  //   });
-                  //
-                },
-              ),
-              Expanded(
-                child: Text(
-                  'Remember me',
-                  style: TextStyles.fieldText(context),
-                ),
-              ),
-              TextButton(
-                onPressed: () {},
-                child: Text(
-                  'Forgot password?',
-                  style: TextStyle(
-                    color: context.cs.primary,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ),
-            ],
+          verticalSpace(16),
+          Field(
+            context: context,
+            label: 'Address',
+            hintText: 'Address',
+            icon: Icons.location_on_outlined,
+            maxLines: 3,
           ),
-          verticalSpace(8),
+          verticalSpace(20),
           SizedBox(
             height: 50.h,
             child: FilledButton(
               onPressed: () {},
-              child: Text('Sign In', style: TextStyles.button(context)),
+              child: Text('Create Account', style: TextStyles.button(context)),
             ),
           ),
           verticalSpace(20),
           Text(
-            "Don't have an account?",
+            'Already have an account?',
             textAlign: TextAlign.center,
             style: TextStyles.note(context),
           ),
           verticalSpace(4),
           TextButton(
             onPressed: () {
-              context.pushReplacementNamed(Routes.registerscreen);
+              context.pushReplacementNamed(Routes.loginscreen);
             },
             child: Text(
-              'Create account',
+              'Sign In',
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: context.cs.primary,
@@ -115,10 +109,6 @@ class LoginContainer extends StatelessWidget {
               ),
             ),
           ),
-          verticalSpace(20),
-          Divider(color: context.appColors.borderColor),
-          verticalSpace(14),
-          DemoCredentials(context: context),
         ],
       ),
     );

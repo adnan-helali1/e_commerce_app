@@ -4,10 +4,17 @@ import 'package:e_commerce_app/app/core/helpers/spacing.dart';
 import 'package:e_commerce_app/app/core/theme/textstyles.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class BrandHeader extends StatelessWidget {
-  const BrandHeader({required this.context});
+class AuthHeader extends StatelessWidget {
+  const AuthHeader({
+    super.key,
+    required this.context,
+    required this.title,
+    required this.subtitle,
+  });
 
   final BuildContext context;
+  final String title;
+  final String subtitle;
 
   @override
   Widget build(BuildContext context) {
@@ -32,13 +39,13 @@ class BrandHeader extends StatelessWidget {
         ),
         verticalSpace(20),
         Text(
-          'Welcome Back',
+          title,
           textAlign: TextAlign.center,
           style: TextStyles.screenTitle(context),
         ),
         verticalSpace(8),
         Text(
-          'Sign in to your supermarket account',
+          subtitle,
           textAlign: TextAlign.center,
           style: TextStyles.screenSubtitle(context),
         ),
