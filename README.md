@@ -210,7 +210,7 @@ lib/
 ## 🚀 Getting Started
 
 ```bash
-git clone https://github.com/adnan-helali1/e_commerce_app.git
+git clone https://github.com/adnan-helali1/B2B.git
 cd project
 flutter pub get
 flutter run
