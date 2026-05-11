@@ -1,5 +1,6 @@
 import 'package:B2B/app/core/helpers/extensions.dart';
 import 'package:B2B/app/core/helpers/spacing.dart';
+import 'package:B2B/app/core/helpers/validation_helper.dart';
 import 'package:B2B/app/core/routing/routes.dart';
 import 'package:B2B/app/core/theme/textstyles.dart';
 import 'package:B2B/app/features/auth/ui/widgets/demo_data_section.dart';
@@ -8,13 +9,61 @@ import 'package:B2B/app/features/auth/ui/widgets/login_textfiled.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class LoginContainer extends StatelessWidget {
+class LoginContainer extends StatefulWidget {
   const LoginContainer({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    bool rememberMe = true;
+  State<LoginContainer> createState() => _LoginContainerState();
+}
 
+class _LoginContainerState extends State<LoginContainer> {
+  bool rememberMe = true;
+  late TextEditingController emailController;
+  late TextEditingController passwordController;
+
+  @override
+  void initState() {
+    super.initState();
+    emailController = TextEditingController();
+    passwordController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
+  void _handleLogin() {
+    // Validate both fields
+    final emailError = ValidationHelper.validateEmail(emailController.text);
+    final passwordError = ValidationHelper.validatePassword(
+      passwordController.text,
+    );
+
+    if (emailError == null && passwordError == null) {
+      // All validations passed, proceed with login
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Login successful for: ${emailController.text}'),
+          backgroundColor: Colors.green,
+        ),
+      );
+      // TODO: Implement actual login logic here
+    } else {
+      // Show error message
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(emailError ?? passwordError ?? 'Validation failed'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(20.w),
       decoration: BoxDecoration(
@@ -38,24 +87,25 @@ class LoginContainer extends StatelessWidget {
             title: 'Welcome Back',
             subtitle: 'Sign in to your supermarket account',
           ),
-
           verticalSpace(24),
-          Text('Email Address *', style: TextStyles.label(context)),
-          verticalSpace(8),
           Field(
             context: context,
+            label: 'Email Address *',
             hintText: 'store@example.com',
             icon: Icons.mail_outline,
             keyboardType: TextInputType.emailAddress,
+            controller: emailController,
+            validator: ValidationHelper.validateEmail,
           ),
           verticalSpace(16),
-          Text('Password *', style: TextStyles.label(context)),
-          verticalSpace(8),
           Field(
             context: context,
+            label: 'Password *',
             hintText: 'Enter your password',
             icon: Icons.lock_outline,
             obscureText: true,
+            controller: passwordController,
+            validator: ValidationHelper.validatePassword,
           ),
           verticalSpace(12),
           Row(
@@ -63,10 +113,9 @@ class LoginContainer extends StatelessWidget {
               Checkbox(
                 value: rememberMe,
                 onChanged: (value) {
-                  //   setState(() {
-                  //     rememberMe = value ?? false;
-                  //   });
-                  //
+                  setState(() {
+                    rememberMe = value ?? false;
+                  });
                 },
               ),
               Expanded(
@@ -91,7 +140,7 @@ class LoginContainer extends StatelessWidget {
           SizedBox(
             height: 50.h,
             child: FilledButton(
-              onPressed: () {},
+              onPressed: _handleLogin,
               child: Text('Sign In', style: TextStyles.button(context)),
             ),
           ),
