@@ -174,7 +174,9 @@ This app is powered by a Laravel backend:
 
 ## 📸 Screenshots
 
-> Add screenshots in the `/screenshots` folder and reference them here.
+> /screenshots
+>
+> system design
 > <img width="366" height="668" alt="image" src="https://github.com/user-attachments/assets/95b434cf-6271-4257-a178-22f259e5b114" />
 
 ---
