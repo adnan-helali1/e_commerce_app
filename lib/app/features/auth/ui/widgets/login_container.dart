@@ -125,7 +125,9 @@ class _LoginContainerState extends State<LoginContainer> {
                 ),
               ),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  context.pushNamed(Routes.forgotpasswordscreen);
+                },
                 child: Text(
                   'Forgot password?',
                   style: TextStyle(
