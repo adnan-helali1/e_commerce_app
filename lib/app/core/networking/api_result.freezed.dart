@@ -291,12 +291,13 @@ class Failure<T> implements ApiResult<T> {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is Failure<T> &&
-            (identical(other.errorHandler, errorHandler) ||
-                other.errorHandler == errorHandler));
+            const DeepCollectionEquality()
+                .equals(other.errorHandler, errorHandler));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, errorHandler);
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(errorHandler));
 
   @override
   String toString() {
@@ -324,10 +325,10 @@ class _$FailureCopyWithImpl<T, $Res> implements $FailureCopyWith<T, $Res> {
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   $Res call({
-    Object? errorHandler = null,
+    Object? errorHandler = freezed,
   }) {
     return _then(Failure<T>(
-      null == errorHandler
+      freezed == errorHandler
           ? _self.errorHandler
           : errorHandler // ignore: cast_nullable_to_non_nullable
               as ErrorHandler,

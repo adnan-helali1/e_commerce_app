@@ -1,4 +1,4 @@
-import 'package:B2B/app/core/networking/networking/api_constans.dart';
+import 'package:B2B/app/core/networking/api_constans.dart';
 import 'package:dio/dio.dart';
 
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';

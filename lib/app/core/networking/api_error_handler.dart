@@ -1,6 +1,6 @@
 // ignore_for_file: constant_identifier_names
 
-import 'package:B2B/app/core/networking/networking/api_constans.dart';
+import 'package:B2B/app/core/networking/api_constans.dart';
 import 'package:dio/dio.dart';
 import 'api_error_model.dart';
 
