@@ -176,10 +176,7 @@ This app is powered by a Laravel backend:
 
 > /screenshots
 >
-> <img width="1080" height="2400" alt="register screen" src="https://github.com/user-attachments/assets/b70b1c36-3bf7-4e87-81de-f8a4d8098a7d" />
-<img width="1080" height="2400" alt="forget password" src="https://github.com/user-attachments/assets/2e0ac1e1-bb36-4a1d-be32-b7d06d5a7397" />
-<img width="1080" height="2400" alt="recover password" src="https://github.com/user-attachments/assets/6de6beb4-6478-4d34-9f9d-c5d2eb82865e" />
-<img width="1080" height="2400" alt="login screen" src="https://github.com/user-attachments/assets/57204757-6480-44f6-a875-4d0b6de823ca" />
+
 
 >
 > system design
