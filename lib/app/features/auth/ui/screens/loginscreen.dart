@@ -1,40 +1,86 @@
-import 'package:B2B/app/core/helpers/extensions.dart';
+// login_screen.dart
 
+import 'package:B2B/app/core/helpers/extensions.dart';
+import 'package:B2B/app/core/routing/routes.dart';
+import 'package:B2B/app/core/widgets/app_gradient.dart';
+import 'package:B2B/app/core/widgets/base_screen.dart';
+import 'package:B2B/app/features/auth/logic/cubit/login_cubit.dart';
+import 'package:B2B/app/features/auth/logic/cubit/login_state.dart';
 import 'package:B2B/app/features/auth/ui/widgets/login_container.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              const Color.fromARGB(255, 0, 40, 108),
-              context.cs.primaryContainer,
-              context.cs.primary,
-              context.cs.secondaryFixed,
-            ],
-          ),
-        ),
-        child: SafeArea(
-          child: Center(
-            child: SingleChildScrollView(
-              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 24.h),
-              child: ConstrainedBox(
-                constraints: BoxConstraints(maxWidth: 420.w),
-                child: LoginContainer(),
-              ),
-            ),
-          ),
+    return BaseScreen<LoginCubit, LoginState>(
+      backgroundDecoration: BoxDecoration(
+        gradient: AppGradients.authGradient(
+          context,
         ),
       ),
+
+      /// LOADING
+      loadingWhen: (state) {
+        return state.maybeWhen(
+          loading: () => true,
+          orElse: () => false,
+        );
+      },
+
+      /// SUCCESS
+      successWhen: (state) {
+        return state.maybeWhen(
+          success: (_) => true,
+          orElse: () => false,
+        );
+      },
+
+      /// ERROR
+      errorWhen: (state) {
+        return state.maybeWhen(
+          failure: (_) => true,
+          orElse: () => false,
+        );
+      },
+
+      /// SUCCESS MESSAGE
+      successMessage: (state) {
+        return state.maybeWhen(
+          success: (_) => 'Login successful',
+          orElse: () => '',
+        );
+      },
+
+      /// ERROR MESSAGE
+      errorMessage: (state) {
+        return state.maybeWhen(
+          failure: (error) => error,
+          orElse: () => '',
+        );
+      },
+
+      /// SUCCESS ACTION
+      onSuccess: (context, state) {
+        context.pushReplacementNamed(
+          Routes.forgotpasswordscreen,
+        );
+      },
+
+      /// SCREEN UI
+      builder: (context, state) {
+        return Center(
+          child: SingleChildScrollView(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(
+                maxWidth: 480,
+              ),
+              child: const LoginContainer(),
+            ),
+          ),
+        );
+      },
     );
   }
 }
