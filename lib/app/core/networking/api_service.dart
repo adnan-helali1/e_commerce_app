@@ -1,6 +1,8 @@
 import 'package:B2B/app/core/networking/api_constans.dart';
 import 'package:B2B/app/features/auth/data/models/login_request_body.dart';
 import 'package:B2B/app/features/auth/data/models/login_response.dart';
+import 'package:B2B/app/features/auth/data/models/register_request_body.dart';
+import 'package:B2B/app/features/auth/data/models/register_response.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
@@ -12,4 +14,7 @@ abstract class ApiService {
 
   @POST(ApiConstants.login)
   Future<LoginResponse> login(@Body() LoginRequestBody request);
+
+  @POST(ApiConstants.register)
+  Future<RegisterResponse> register(@Body() RegisterRequestBody request);
 }
