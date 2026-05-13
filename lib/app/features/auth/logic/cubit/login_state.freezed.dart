@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'api_result.dart';
+part of 'login_state.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -13,11 +13,11 @@ part of 'api_result.dart';
 T _$identity<T>(T value) => value;
 
 /// @nodoc
-mixin _$ApiResult<T> {
+mixin _$LoginState<T> {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is ApiResult<T>);
+        (other.runtimeType == runtimeType && other is LoginState<T>);
   }
 
   @override
@@ -25,17 +25,17 @@ mixin _$ApiResult<T> {
 
   @override
   String toString() {
-    return 'ApiResult<$T>()';
+    return 'LoginState<$T>()';
   }
 }
 
 /// @nodoc
-class $ApiResultCopyWith<T, $Res> {
-  $ApiResultCopyWith(ApiResult<T> _, $Res Function(ApiResult<T>) __);
+class $LoginStateCopyWith<T, $Res> {
+  $LoginStateCopyWith(LoginState<T> _, $Res Function(LoginState<T>) __);
 }
 
-/// Adds pattern-matching-related methods to [ApiResult].
-extension ApiResultPatterns<T> on ApiResult<T> {
+/// Adds pattern-matching-related methods to [LoginState].
+extension LoginStatePatterns<T> on LoginState<T> {
   /// A variant of `map` that fallback to returning `orElse`.
   ///
   /// It is equivalent to doing:
@@ -50,15 +50,21 @@ extension ApiResultPatterns<T> on ApiResult<T> {
 
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial<T> value)? initial,
+    TResult Function(Loading<T> value)? loading,
     TResult Function(Success<T> value)? success,
-    TResult Function(Failure<T> value)? failure,
+    TResult Function(Error<T> value)? failure,
     required TResult orElse(),
   }) {
     final _that = this;
     switch (_that) {
+      case _Initial() when initial != null:
+        return initial(_that);
+      case Loading() when loading != null:
+        return loading(_that);
       case Success() when success != null:
         return success(_that);
-      case Failure() when failure != null:
+      case Error() when failure != null:
         return failure(_that);
       case _:
         return orElse();
@@ -80,14 +86,20 @@ extension ApiResultPatterns<T> on ApiResult<T> {
 
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_Initial<T> value) initial,
+    required TResult Function(Loading<T> value) loading,
     required TResult Function(Success<T> value) success,
-    required TResult Function(Failure<T> value) failure,
+    required TResult Function(Error<T> value) failure,
   }) {
     final _that = this;
     switch (_that) {
+      case _Initial():
+        return initial(_that);
+      case Loading():
+        return loading(_that);
       case Success():
         return success(_that);
-      case Failure():
+      case Error():
         return failure(_that);
       case _:
         throw StateError('Unexpected subclass');
@@ -108,14 +120,20 @@ extension ApiResultPatterns<T> on ApiResult<T> {
 
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial<T> value)? initial,
+    TResult? Function(Loading<T> value)? loading,
     TResult? Function(Success<T> value)? success,
-    TResult? Function(Failure<T> value)? failure,
+    TResult? Function(Error<T> value)? failure,
   }) {
     final _that = this;
     switch (_that) {
+      case _Initial() when initial != null:
+        return initial(_that);
+      case Loading() when loading != null:
+        return loading(_that);
       case Success() when success != null:
         return success(_that);
-      case Failure() when failure != null:
+      case Error() when failure != null:
         return failure(_that);
       case _:
         return null;
@@ -136,16 +154,22 @@ extension ApiResultPatterns<T> on ApiResult<T> {
 
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
     TResult Function(T data)? success,
-    TResult Function(ErrorHandler errorHandler)? failure,
+    TResult Function(String error)? failure,
     required TResult orElse(),
   }) {
     final _that = this;
     switch (_that) {
+      case _Initial() when initial != null:
+        return initial();
+      case Loading() when loading != null:
+        return loading();
       case Success() when success != null:
         return success(_that.data);
-      case Failure() when failure != null:
-        return failure(_that.errorHandler);
+      case Error() when failure != null:
+        return failure(_that.error);
       case _:
         return orElse();
     }
@@ -166,15 +190,21 @@ extension ApiResultPatterns<T> on ApiResult<T> {
 
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
     required TResult Function(T data) success,
-    required TResult Function(ErrorHandler errorHandler) failure,
+    required TResult Function(String error) failure,
   }) {
     final _that = this;
     switch (_that) {
+      case _Initial():
+        return initial();
+      case Loading():
+        return loading();
       case Success():
         return success(_that.data);
-      case Failure():
-        return failure(_that.errorHandler);
+      case Error():
+        return failure(_that.error);
       case _:
         throw StateError('Unexpected subclass');
     }
@@ -194,15 +224,21 @@ extension ApiResultPatterns<T> on ApiResult<T> {
 
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
     TResult? Function(T data)? success,
-    TResult? Function(ErrorHandler errorHandler)? failure,
+    TResult? Function(String error)? failure,
   }) {
     final _that = this;
     switch (_that) {
+      case _Initial() when initial != null:
+        return initial();
+      case Loading() when loading != null:
+        return loading();
       case Success() when success != null:
         return success(_that.data);
-      case Failure() when failure != null:
-        return failure(_that.errorHandler);
+      case Error() when failure != null:
+        return failure(_that.error);
       case _:
         return null;
     }
@@ -211,12 +247,52 @@ extension ApiResultPatterns<T> on ApiResult<T> {
 
 /// @nodoc
 
-class Success<T> implements ApiResult<T> {
+class _Initial<T> implements LoginState<T> {
+  const _Initial();
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _Initial<T>);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  String toString() {
+    return 'LoginState<$T>.initial()';
+  }
+}
+
+/// @nodoc
+
+class Loading<T> implements LoginState<T> {
+  const Loading();
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is Loading<T>);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  String toString() {
+    return 'LoginState<$T>.loading()';
+  }
+}
+
+/// @nodoc
+
+class Success<T> implements LoginState<T> {
   const Success(this.data);
 
   final T data;
 
-  /// Create a copy of ApiResult
+  /// Create a copy of LoginState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
@@ -237,13 +313,13 @@ class Success<T> implements ApiResult<T> {
 
   @override
   String toString() {
-    return 'ApiResult<$T>.success(data: $data)';
+    return 'LoginState<$T>.success(data: $data)';
   }
 }
 
 /// @nodoc
 abstract mixin class $SuccessCopyWith<T, $Res>
-    implements $ApiResultCopyWith<T, $Res> {
+    implements $LoginStateCopyWith<T, $Res> {
   factory $SuccessCopyWith(Success<T> value, $Res Function(Success<T>) _then) =
       _$SuccessCopyWithImpl;
   @useResult
@@ -257,7 +333,7 @@ class _$SuccessCopyWithImpl<T, $Res> implements $SuccessCopyWith<T, $Res> {
   final Success<T> _self;
   final $Res Function(Success<T>) _then;
 
-  /// Create a copy of ApiResult
+  /// Create a copy of LoginState
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   $Res call({
@@ -274,63 +350,62 @@ class _$SuccessCopyWithImpl<T, $Res> implements $SuccessCopyWith<T, $Res> {
 
 /// @nodoc
 
-class Failure<T> implements ApiResult<T> {
-  const Failure(this.errorHandler);
+class Error<T> implements LoginState<T> {
+  const Error({required this.error});
 
-  final ErrorHandler errorHandler;
+  final String error;
 
-  /// Create a copy of ApiResult
+  /// Create a copy of LoginState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
-  $FailureCopyWith<T, Failure<T>> get copyWith =>
-      _$FailureCopyWithImpl<T, Failure<T>>(this, _$identity);
+  $ErrorCopyWith<T, Error<T>> get copyWith =>
+      _$ErrorCopyWithImpl<T, Error<T>>(this, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is Failure<T> &&
-            (identical(other.errorHandler, errorHandler) ||
-                other.errorHandler == errorHandler));
+            other is Error<T> &&
+            (identical(other.error, error) || other.error == error));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, errorHandler);
+  int get hashCode => Object.hash(runtimeType, error);
 
   @override
   String toString() {
-    return 'ApiResult<$T>.failure(errorHandler: $errorHandler)';
+    return 'LoginState<$T>.failure(error: $error)';
   }
 }
 
 /// @nodoc
-abstract mixin class $FailureCopyWith<T, $Res>
-    implements $ApiResultCopyWith<T, $Res> {
-  factory $FailureCopyWith(Failure<T> value, $Res Function(Failure<T>) _then) =
-      _$FailureCopyWithImpl;
+abstract mixin class $ErrorCopyWith<T, $Res>
+    implements $LoginStateCopyWith<T, $Res> {
+  factory $ErrorCopyWith(Error<T> value, $Res Function(Error<T>) _then) =
+      _$ErrorCopyWithImpl;
   @useResult
-  $Res call({ErrorHandler errorHandler});
+  $Res call({String error});
 }
 
 /// @nodoc
-class _$FailureCopyWithImpl<T, $Res> implements $FailureCopyWith<T, $Res> {
-  _$FailureCopyWithImpl(this._self, this._then);
+class _$ErrorCopyWithImpl<T, $Res> implements $ErrorCopyWith<T, $Res> {
+  _$ErrorCopyWithImpl(this._self, this._then);
 
-  final Failure<T> _self;
-  final $Res Function(Failure<T>) _then;
+  final Error<T> _self;
+  final $Res Function(Error<T>) _then;
 
-  /// Create a copy of ApiResult
+  /// Create a copy of LoginState
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   $Res call({
-    Object? errorHandler = null,
+    Object? error = null,
   }) {
-    return _then(Failure<T>(
-      null == errorHandler
-          ? _self.errorHandler
-          : errorHandler // ignore: cast_nullable_to_non_nullable
-              as ErrorHandler,
+    return _then(Error<T>(
+      error: null == error
+          ? _self.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }

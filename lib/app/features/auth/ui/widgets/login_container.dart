@@ -3,10 +3,12 @@ import 'package:B2B/app/core/helpers/spacing.dart';
 import 'package:B2B/app/core/helpers/validation_helper.dart';
 import 'package:B2B/app/core/routing/routes.dart';
 import 'package:B2B/app/core/theme/textstyles.dart';
+import 'package:B2B/app/features/auth/logic/cubit/login_cubit.dart';
 import 'package:B2B/app/features/auth/ui/widgets/demo_data_section.dart';
 import 'package:B2B/app/features/auth/ui/widgets/auth_header.dart';
 import 'package:B2B/app/features/auth/ui/widgets/login_textfiled.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class LoginContainer extends StatefulWidget {
@@ -18,14 +20,14 @@ class LoginContainer extends StatefulWidget {
 
 class _LoginContainerState extends State<LoginContainer> {
   bool rememberMe = true;
+
   late TextEditingController emailController;
   late TextEditingController passwordController;
-
   @override
   void initState() {
     super.initState();
-    emailController = TextEditingController();
-    passwordController = TextEditingController();
+    emailController = context.read<LoginCubit>().emailController;
+    passwordController = context.read<LoginCubit>().passwordController;
   }
 
   @override
@@ -94,7 +96,7 @@ class _LoginContainerState extends State<LoginContainer> {
             hintText: 'store@example.com',
             icon: Icons.mail_outline,
             keyboardType: TextInputType.emailAddress,
-            controller: emailController,
+            controller: context.read<LoginCubit>().emailController,
             validator: ValidationHelper.validateEmail,
           ),
           verticalSpace(16),
@@ -104,7 +106,7 @@ class _LoginContainerState extends State<LoginContainer> {
             hintText: 'Enter your password',
             icon: Icons.lock_outline,
             obscureText: true,
-            controller: passwordController,
+            controller: context.read<LoginCubit>().passwordController,
             validator: ValidationHelper.validatePassword,
           ),
           verticalSpace(12),
