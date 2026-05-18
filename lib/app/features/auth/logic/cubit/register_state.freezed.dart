@@ -154,7 +154,7 @@ extension RegisterStatePatterns on RegisterState {
 
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
+    TResult Function(bool isFormValid)? initial,
     TResult Function()? loading,
     TResult Function(RegisterResponse response)? success,
     TResult Function(String error)? failure,
@@ -163,7 +163,7 @@ extension RegisterStatePatterns on RegisterState {
     final _that = this;
     switch (_that) {
       case _Initial() when initial != null:
-        return initial();
+        return initial(_that.isFormValid);
       case _Loading() when loading != null:
         return loading();
       case _Success() when success != null:
@@ -190,7 +190,7 @@ extension RegisterStatePatterns on RegisterState {
 
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() initial,
+    required TResult Function(bool isFormValid) initial,
     required TResult Function() loading,
     required TResult Function(RegisterResponse response) success,
     required TResult Function(String error) failure,
@@ -198,7 +198,7 @@ extension RegisterStatePatterns on RegisterState {
     final _that = this;
     switch (_that) {
       case _Initial():
-        return initial();
+        return initial(_that.isFormValid);
       case _Loading():
         return loading();
       case _Success():
@@ -224,7 +224,7 @@ extension RegisterStatePatterns on RegisterState {
 
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
+    TResult? Function(bool isFormValid)? initial,
     TResult? Function()? loading,
     TResult? Function(RegisterResponse response)? success,
     TResult? Function(String error)? failure,
@@ -232,7 +232,7 @@ extension RegisterStatePatterns on RegisterState {
     final _that = this;
     switch (_that) {
       case _Initial() when initial != null:
-        return initial();
+        return initial(_that.isFormValid);
       case _Loading() when loading != null:
         return loading();
       case _Success() when success != null:
@@ -248,20 +248,64 @@ extension RegisterStatePatterns on RegisterState {
 /// @nodoc
 
 class _Initial implements RegisterState {
-  const _Initial();
+  const _Initial({this.isFormValid = false});
+
+  @JsonKey()
+  final bool isFormValid;
+
+  /// Create a copy of RegisterState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$InitialCopyWith<_Initial> get copyWith =>
+      __$InitialCopyWithImpl<_Initial>(this, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _Initial);
+        (other.runtimeType == runtimeType &&
+            other is _Initial &&
+            (identical(other.isFormValid, isFormValid) ||
+                other.isFormValid == isFormValid));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, isFormValid);
 
   @override
   String toString() {
-    return 'RegisterState.initial()';
+    return 'RegisterState.initial(isFormValid: $isFormValid)';
+  }
+}
+
+/// @nodoc
+abstract mixin class _$InitialCopyWith<$Res>
+    implements $RegisterStateCopyWith<$Res> {
+  factory _$InitialCopyWith(_Initial value, $Res Function(_Initial) _then) =
+      __$InitialCopyWithImpl;
+  @useResult
+  $Res call({bool isFormValid});
+}
+
+/// @nodoc
+class __$InitialCopyWithImpl<$Res> implements _$InitialCopyWith<$Res> {
+  __$InitialCopyWithImpl(this._self, this._then);
+
+  final _Initial _self;
+  final $Res Function(_Initial) _then;
+
+  /// Create a copy of RegisterState
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? isFormValid = null,
+  }) {
+    return _then(_Initial(
+      isFormValid: null == isFormValid
+          ? _self.isFormValid
+          : isFormValid // ignore: cast_nullable_to_non_nullable
+              as bool,
+    ));
   }
 }
 

@@ -4,6 +4,7 @@ import 'package:B2B/app/core/helpers/validation_helper.dart';
 import 'package:B2B/app/core/routing/routes.dart';
 import 'package:B2B/app/core/theme/textstyles.dart';
 import 'package:B2B/app/features/auth/logic/cubit/register_cubit.dart';
+import 'package:B2B/app/features/auth/logic/cubit/register_state.dart';
 import 'package:B2B/app/features/auth/ui/widgets/auth_header.dart';
 import 'package:B2B/app/features/auth/ui/widgets/login_textfiled.dart';
 import 'package:flutter/material.dart';
@@ -36,6 +37,15 @@ class _RegisterContainerState extends State<RegisterContainer> {
     passwordController = TextEditingController();
     confirmPasswordController = TextEditingController();
     addressController = TextEditingController();
+
+    // Listen for changes and validate in real-time
+    storeNameController.addListener(_validateForm);
+    ownerNameController.addListener(_validateForm);
+    phoneController.addListener(_validateForm);
+    emailController.addListener(_validateForm);
+    passwordController.addListener(_validateForm);
+    confirmPasswordController.addListener(_validateForm);
+    addressController.addListener(_validateForm);
   }
 
   @override
@@ -50,55 +60,28 @@ class _RegisterContainerState extends State<RegisterContainer> {
     super.dispose();
   }
 
+  void _validateForm() {
+    context.read<RegisterCubit>().validateForm(
+          storeName: storeNameController.text,
+          ownerName: ownerNameController.text,
+          email: emailController.text,
+          phone: phoneController.text,
+          password: passwordController.text,
+          passwordConfirmation: confirmPasswordController.text,
+          address: addressController.text,
+        );
+  }
+
   void _handleRegister(BuildContext context) {
-    // Validate all required fields
-    final storeNameError = ValidationHelper.validateStoreName(
-      storeNameController.text,
-    );
-    final ownerNameError = ValidationHelper.validateName(
-      ownerNameController.text,
-      fieldName: 'Owner name',
-    );
-    final phoneError = ValidationHelper.validatePhone(phoneController.text);
-    final emailError = ValidationHelper.validateEmail(emailController.text);
-    final passwordError = ValidationHelper.validatePassword(
-      passwordController.text,
-    );
-    final confirmPasswordError = ValidationHelper.validatePasswordMatch(
-      passwordController.text,
-      confirmPasswordController.text,
-    );
-    final addressError = ValidationHelper.validateAddress(
-      addressController.text,
-    );
-
-    final allErrors = [
-      storeNameError,
-      ownerNameError,
-      phoneError,
-      emailError,
-      passwordError,
-      confirmPasswordError,
-      addressError,
-    ].where((e) => e != null).toList();
-
-    if (allErrors.isEmpty) {
-      // All validations passed, call Cubit
-      context.read<RegisterCubit>().emitRegisterStates(
-            storeName: storeNameController.text,
-            ownerName: ownerNameController.text,
-            email: emailController.text,
-            phone: phoneController.text,
-            password: passwordController.text,
-            passwordConfirmation: confirmPasswordController.text,
-            address: addressController.text,
-          );
-    } else {
-      // Show first error message
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(allErrors.first!), backgroundColor: Colors.red),
-      );
-    }
+    context.read<RegisterCubit>().emitRegisterStates(
+          storeName: storeNameController.text,
+          ownerName: ownerNameController.text,
+          email: emailController.text,
+          phone: phoneController.text,
+          password: passwordController.text,
+          passwordConfirmation: confirmPasswordController.text,
+          address: addressController.text,
+        );
   }
 
   @override
@@ -199,12 +182,25 @@ class _RegisterContainerState extends State<RegisterContainer> {
             validator: ValidationHelper.validateAddress,
           ),
           verticalSpace(20),
-          SizedBox(
-            height: 50.h,
-            child: FilledButton(
-              onPressed: () => _handleRegister(context),
-              child: Text('Create Account', style: TextStyles.button(context)),
-            ),
+          BlocBuilder<RegisterCubit, RegisterState>(
+            builder: (context, state) {
+              final isFormValid = state.maybeWhen(
+                initial: (isFormValid) => isFormValid,
+                orElse: () => false,
+              );
+
+              return SizedBox(
+                height: 50.h,
+                child: FilledButton(
+                  onPressed:
+                      isFormValid ? () => _handleRegister(context) : null,
+                  child: Text(
+                    'Create Account',
+                    style: TextStyles.button(context),
+                  ),
+                ),
+              );
+            },
           ),
           verticalSpace(20),
           Text(
