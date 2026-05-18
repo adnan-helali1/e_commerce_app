@@ -22,7 +22,7 @@ class LoginContainer extends StatefulWidget {
 }
 
 class _LoginContainerState extends State<LoginContainer> {
-  bool rememberMe = true;
+  bool rememberMe = false;
   bool isFormValid = false;
 
   late final TextEditingController emailController;

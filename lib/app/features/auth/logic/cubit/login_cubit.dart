@@ -27,8 +27,14 @@ class LoginCubit extends Cubit<LoginState> {
     response.when(
       success: (loginResponse) async {
         final token = loginResponse.userData?.token;
-        if (token != null && token.isNotEmpty && rememberMe) {
-          await SharedPrefHelper.setUserToken(token);
+        if (rememberMe) {
+          // Save token if Remember Me is checked
+          if (token != null && token.isNotEmpty) {
+            await SharedPrefHelper.setUserToken(token);
+          }
+        } else {
+          // Remove any saved token if Remember Me is NOT checked
+          await SharedPrefHelper.removeUserToken();
         }
         emit(LoginState.success(loginResponse));
       },
