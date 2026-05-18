@@ -1,3 +1,4 @@
+import 'package:B2B/app/core/di/dependency_injection.dart';
 import 'package:B2B/app/core/theme/app_color_scheme_extention.dart';
 import 'package:flutter/material.dart';
 
@@ -25,10 +26,6 @@ extension Navigation on BuildContext {
   void pop() => Navigator.of(this).pop();
 }
 
-extension StringExtension on String? {
-  bool isNullOrEmpty() => this == null || this == "";
-}
-
 extension ListExtension<T> on List<T>? {
   bool isNullOrEmpty() => this == null || this!.isEmpty;
 }
@@ -36,4 +33,12 @@ extension ListExtension<T> on List<T>? {
 extension ThemeGetter on BuildContext {
   ColorScheme get cs => Theme.of(this).colorScheme;
   AppColorScheme get appColors => Theme.of(this).extension<AppColorScheme>()!;
+}
+
+extension StringExtension on String? {
+  /// Check if string is null or empty
+  bool get isNullOrEmpty => this == null || this!.isEmpty;
+
+  /// Check if string is not null and not empty
+  bool get isNotNullOrEmpty => !isNullOrEmpty;
 }

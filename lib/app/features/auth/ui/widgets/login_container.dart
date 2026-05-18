@@ -246,6 +246,7 @@ class _LoginContainerState extends State<LoginContainer> {
       cubit.emitLoginStates(
         email: emailController.text.trim(),
         password: passwordController.text.trim(),
+        rememberMe: rememberMe,
       );
     }
   }
