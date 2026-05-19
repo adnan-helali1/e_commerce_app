@@ -27,6 +27,12 @@ class LoginCubit extends Cubit<LoginState> {
     response.when(
       success: (loginResponse) async {
         final token = loginResponse.userData?.token;
+        // Always persist store name and owner name (or fallback to email)
+        final storeName = loginResponse.userData?.storeData?.name;
+        if (storeName != null && storeName.isNotEmpty) {
+          await SharedPrefHelper.setStoreName(storeName);
+        }
+
         if (rememberMe) {
           // Save token if Remember Me is checked
           if (token != null && token.isNotEmpty) {
@@ -36,6 +42,7 @@ class LoginCubit extends Cubit<LoginState> {
           // Remove any saved token if Remember Me is NOT checked
           await SharedPrefHelper.removeUserToken();
         }
+
         emit(LoginState.success(loginResponse));
       },
       failure: (error) {

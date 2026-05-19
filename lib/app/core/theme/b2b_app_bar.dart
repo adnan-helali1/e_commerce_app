@@ -1,8 +1,11 @@
 import 'package:B2B/app/core/helpers/extensions.dart';
 import 'package:B2B/app/core/helpers/spacing.dart';
+
 import 'package:B2B/app/core/routing/routes.dart';
-import 'package:B2B/app/core/theme/textstyles.dart';
 import 'package:B2B/app/core/theme/theme_mode_cubit.dart';
+import 'package:B2B/app/features/auth/data/repos/login_repo.dart';
+
+import 'package:B2B/app/features/auth/logic/cubit/logout_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -76,7 +79,9 @@ class B2bAppBar extends StatelessWidget implements PreferredSizeWidget {
         ),
         IconButton(
           icon: Icon(Icons.logout, color: cs.error),
-          onPressed: () {},
+          onPressed: () async {
+            await logout(context, context.read<LoginRepo>());
+          },
         ),
         horizontalSpace(8.w),
       ],
