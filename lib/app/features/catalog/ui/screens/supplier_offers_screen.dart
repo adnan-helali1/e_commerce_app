@@ -1,5 +1,4 @@
 import 'package:B2B/app/core/helpers/spacing.dart';
-import 'package:B2B/app/core/widgets/b2b_app_bar.dart';
 import 'package:B2B/app/features/catalog/ui/widgets/catalog_search_field.dart';
 import 'package:B2B/app/features/catalog/ui/widgets/catalog_ui_models.dart';
 import 'package:B2B/app/features/catalog/ui/widgets/supplier_offer_card.dart';
@@ -62,23 +61,24 @@ class SupplierOffersScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const B2BAppBar(title: 'Supplier Offers'),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            verticalSpace(16),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.w),
-              child: const CatalogSearchField(
-                hintText: 'Search products or suppliers...',
-                showFilter: true,
+    return SafeArea(
+      child: Scaffold(
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              verticalSpace(16),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                child: const CatalogSearchField(
+                  hintText: 'Search products or suppliers...',
+                  showFilter: true,
+                ),
               ),
-            ),
-            verticalSpace(16),
-            ..._offers.map((offer) => SupplierOfferCard(offer: offer)),
-            verticalSpace(24),
-          ],
+              verticalSpace(16),
+              ..._offers.map((offer) => SupplierOfferCard(offer: offer)),
+              verticalSpace(24),
+            ],
+          ),
         ),
       ),
     );

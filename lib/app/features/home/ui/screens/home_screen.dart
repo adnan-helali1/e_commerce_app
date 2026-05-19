@@ -1,5 +1,4 @@
 import 'package:B2B/app/core/helpers/spacing.dart';
-import 'package:B2B/app/core/widgets/b2b_app_bar.dart';
 import 'package:B2B/app/features/home/ui/widgets/home_metrics_section.dart';
 import 'package:B2B/app/features/home/ui/widgets/home_quick_actions_section.dart';
 import 'package:B2B/app/features/home/ui/widgets/home_ui_models.dart';
@@ -96,21 +95,22 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const B2BAppBar(title: 'Home'),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const HomeWelcomePanel(),
-            verticalSpace(16),
-            const HomeMetricsSection(metrics: _metrics),
-            verticalSpace(16),
-            const RecentOrdersSection(orders: _recentOrders),
-            verticalSpace(4),
-            const HomeQuickActionsSection(),
-            verticalSpace(24),
-          ],
+    return SafeArea(
+      child: Scaffold(
+        body: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const HomeWelcomePanel(),
+              verticalSpace(16),
+              const HomeMetricsSection(metrics: _metrics),
+              verticalSpace(16),
+              const RecentOrdersSection(orders: _recentOrders),
+              verticalSpace(4),
+              const HomeQuickActionsSection(),
+              verticalSpace(24),
+            ],
+          ),
         ),
       ),
     );
