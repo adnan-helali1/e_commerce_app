@@ -3,6 +3,7 @@ import 'package:B2B/app/core/helpers/extensions.dart';
 import 'package:B2B/app/core/helpers/spacing.dart';
 
 import 'package:B2B/app/core/routing/routes.dart';
+import 'package:B2B/app/core/theme/textstyles.dart';
 import 'package:B2B/app/core/theme/theme_mode_cubit.dart';
 import 'package:B2B/app/features/auth/data/repos/login_repo.dart';
 
@@ -14,13 +15,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class B2bAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final String subtitle;
-  final IconData icon;
 
   const B2bAppBar({
     super.key,
     required this.title,
     required this.subtitle,
-    required this.icon,
   });
 
   @override
@@ -44,20 +43,14 @@ class B2bAppBar extends StatelessWidget implements PreferredSizeWidget {
               color: cs.primary,
               shape: BoxShape.circle,
             ),
-            child: Icon(icon, color: cs.onPrimary, size: 20),
+            child:
+                Icon(Icons.fire_truck_outlined, color: cs.onPrimary, size: 20),
           ),
           horizontalSpace(10),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                title,
-                //   style: TextStyles.font18Bold.copyWith(color: cs.onSurface),
-              ),
-              Text(
-                subtitle,
-                //    style: TextStyles.font14.copyWith(color: cs.onSurfaceVariant),
-              ),
+              Text(title, style: TextStyles.font18blackBold(context)),
             ],
           ),
         ],

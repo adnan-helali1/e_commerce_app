@@ -4,24 +4,24 @@ import 'package:flutter/material.dart';
 class TextStyles {
   static TextStyle screenTitle(BuildContext context) {
     return Theme.of(context).textTheme.headlineMedium!.copyWith(
-      fontWeight: FontWeight.w700,
-      color: context.cs.onSurface,
-      height: 1.1,
-    );
+          fontWeight: FontWeight.w700,
+          color: context.cs.onSurface,
+          height: 1.1,
+        );
   }
 
   static TextStyle screenSubtitle(BuildContext context) {
     return Theme.of(context).textTheme.bodyMedium!.copyWith(
-      color: context.cs.onSurfaceVariant,
-      height: 1.4,
-    );
+          color: context.cs.onSurfaceVariant,
+          height: 1.4,
+        );
   }
 
   static TextStyle label(BuildContext context) {
     return Theme.of(context).textTheme.labelLarge!.copyWith(
-      fontWeight: FontWeight.w600,
-      color: context.cs.onSurface,
-    );
+          fontWeight: FontWeight.w600,
+          color: context.cs.onSurface,
+        );
   }
 
   static TextStyle fieldText(BuildContext context) {
@@ -32,14 +32,19 @@ class TextStyles {
 
   static TextStyle button(BuildContext context) {
     return Theme.of(context).textTheme.titleMedium!.copyWith(
-      fontWeight: FontWeight.w700,
-      color: context.cs.onPrimary,
-    );
+          fontWeight: FontWeight.w700,
+          color: context.cs.onPrimary,
+        );
   }
 
   static TextStyle note(BuildContext context) {
     return Theme.of(
       context,
     ).textTheme.bodySmall!.copyWith(color: context.cs.onSurfaceVariant);
+  }
+
+  static TextStyle font18blackBold(BuildContext context) {
+    return Theme.of(context).textTheme.headlineMedium!.copyWith(
+        fontWeight: FontWeight.w700, color: context.cs.onSurface, fontSize: 21);
   }
 }

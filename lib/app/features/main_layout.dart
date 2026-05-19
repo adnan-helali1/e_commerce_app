@@ -47,7 +47,6 @@ class _MainLayoutState extends State<MainLayout> {
       appBar: B2bAppBar(
         title: _storeName ?? 't',
         subtitle: _ownerName ?? 's',
-        icon: Icons.home_rounded,
       ),
       extendBody: true, // مهم للـ floating
       body: PageView(
