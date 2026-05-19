@@ -1,5 +1,4 @@
 import 'package:B2B/app/core/helpers/spacing.dart';
-import 'package:B2B/app/core/widgets/b2b_app_bar.dart';
 import 'package:B2B/app/features/orders/ui/widgets/orders_filter_bar.dart';
 import 'package:B2B/app/features/orders/ui/widgets/orders_result_summary.dart';
 import 'package:B2B/app/features/orders/ui/widgets/orders_summary_header.dart';
@@ -77,44 +76,45 @@ class _PurchaseOrdersScreenState extends State<PurchaseOrdersScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const B2BAppBar(title: 'Purchase Orders'),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const OrdersSummaryHeader(),
-            verticalSpace(12),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.w),
-              child: SizedBox(
-                width: double.infinity,
-                child: ElevatedButton.icon(
-                  onPressed: () {},
-                  icon: Icon(Icons.add, size: 18.sp),
-                  label: const Text('Create New Order'),
+    return SafeArea(
+      child: Scaffold(
+        body: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const OrdersSummaryHeader(),
+              verticalSpace(12),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                child: SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton.icon(
+                    onPressed: () {},
+                    icon: Icon(Icons.add, size: 18.sp),
+                    label: const Text('Create New Order'),
+                  ),
                 ),
               ),
-            ),
-            verticalSpace(12),
-            OrdersFilterBar(controller: _tabController),
-            verticalSpace(12),
-            const OrdersResultSummary(),
-            verticalSpace(12),
-            ...List.generate(
-              _orders.length,
-              (index) => PurchaseOrderCard(
-                order: _orders[index],
-                isExpanded: _expandedStates[index],
-                onTap: () {
-                  setState(() {
-                    _expandedStates[index] = !_expandedStates[index];
-                  });
-                },
+              verticalSpace(12),
+              OrdersFilterBar(controller: _tabController),
+              verticalSpace(12),
+              const OrdersResultSummary(),
+              verticalSpace(12),
+              ...List.generate(
+                _orders.length,
+                (index) => PurchaseOrderCard(
+                  order: _orders[index],
+                  isExpanded: _expandedStates[index],
+                  onTap: () {
+                    setState(() {
+                      _expandedStates[index] = !_expandedStates[index];
+                    });
+                  },
+                ),
               ),
-            ),
-            verticalSpace(24),
-          ],
+              verticalSpace(24),
+            ],
+          ),
         ),
       ),
     );

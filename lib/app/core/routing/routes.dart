@@ -1,4 +1,8 @@
+import 'package:B2B/app/core/routing/app_router.dart';
+
 class Routes {
+  static final appRouter = AppRouter().generateRoute;
+
   static const String loginscreen = '/loginscreen';
   static const String registerscreen = '/registerscreen';
   static const String forgotpasswordscreen = '/forgotpasswordscreen';

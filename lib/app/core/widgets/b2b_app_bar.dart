@@ -1,102 +1,87 @@
+import 'package:B2B/app/core/di/dependency_injection.dart';
 import 'package:B2B/app/core/helpers/extensions.dart';
+import 'package:B2B/app/core/helpers/spacing.dart';
+
+import 'package:B2B/app/core/routing/routes.dart';
 import 'package:B2B/app/core/theme/textstyles.dart';
+import 'package:B2B/app/core/theme/theme_mode_cubit.dart';
+import 'package:B2B/app/features/auth/data/repos/login_repo.dart';
+
+import 'package:B2B/app/features/auth/logic/logout_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class B2BAppBar extends StatelessWidget implements PreferredSizeWidget {
+class B2bAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
+  final String subtitle;
 
-  const B2BAppBar({
-    required this.title,
+  const B2bAppBar({
     super.key,
+    required this.title,
+    required this.subtitle,
   });
 
   @override
-  Size get preferredSize => Size.fromHeight(56.h);
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 
   @override
   Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+
     return AppBar(
-      elevation: 0,
-      backgroundColor: context.cs.surface,
-      surfaceTintColor: context.cs.surface,
-      titleSpacing: 16.w,
-      title: Text(title, style: TextStyles.label(context)),
-      actions: [
-        _HeaderIconButton(
-          icon: Icons.phone_android_rounded,
-          isActive: true,
-          showNotification: true,
-          onTap: () {},
-        ),
-        _HeaderIconButton(
-          icon: Icons.desktop_windows_outlined,
-          onTap: () {},
-        ),
-        SizedBox(width: 8.w),
-      ],
-    );
-  }
-}
-
-class _HeaderIconButton extends StatelessWidget {
-  final IconData icon;
-  final bool isActive;
-  final bool showNotification;
-  final VoidCallback onTap;
-
-  const _HeaderIconButton({
-    required this.icon,
-    required this.onTap,
-    this.isActive = false,
-    this.showNotification = false,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final backgroundColor = isActive
-        ? context.cs.primary
-        : context.cs.surfaceContainerHighest.withValues(alpha: 0.55);
-    final foregroundColor =
-        isActive ? context.cs.onPrimary : context.cs.onSurfaceVariant;
-
-    return Padding(
-      padding: EdgeInsetsDirectional.only(start: 6.w),
-      child: Stack(
-        clipBehavior: Clip.none,
+      backgroundColor: cs.surface,
+      elevation: 1,
+      automaticallyImplyLeading: false,
+      titleSpacing: 16,
+      title: Row(
         children: [
-          SizedBox(
+          Container(
             width: 40.w,
-            height: 36.h,
-            child: IconButton(
-              onPressed: onTap,
-              style: IconButton.styleFrom(
-                backgroundColor: backgroundColor,
-                foregroundColor: foregroundColor,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.r),
-                  side: BorderSide(color: context.appColors.borderColor),
-                ),
-              ),
-              icon: Icon(icon, size: 18.sp),
-              padding: EdgeInsets.zero,
+            height: 40.h,
+            decoration: BoxDecoration(
+              color: cs.primary,
+              shape: BoxShape.circle,
             ),
+            child:
+                Icon(Icons.fire_truck_outlined, color: cs.onPrimary, size: 20),
           ),
-          if (showNotification)
-            PositionedDirectional(
-              top: -2.h,
-              end: -2.w,
-              child: Container(
-                width: 6.r,
-                height: 6.r,
-                decoration: BoxDecoration(
-                  color: context.cs.error,
-                  shape: BoxShape.circle,
-                ),
-              ),
-            ),
+          horizontalSpace(10),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(title, style: TextStyles.font18blackBold(context)),
+            ],
+          ),
         ],
       ),
+      actions: [
+        IconButton(
+          icon: Icon(Icons.person_outline, color: cs.primary),
+          onPressed: () => context.pushNamed(Routes.forgotpasswordscreen),
+        ),
+        IconButton(
+          icon: Icon(
+            Theme.of(context).brightness == Brightness.light
+                ? Icons.dark_mode_outlined
+                : Icons.light_mode_outlined,
+            color: cs.onSurface,
+          ),
+          onPressed: () {
+            context.read<ThemeModeCubit>().toggle();
+          },
+        ),
+        IconButton(
+          icon: Icon(Icons.logout, color: cs.error),
+          onPressed: () async {
+            await logout(
+              context,
+              getIt<LoginRepo>(),
+            );
+          },
+        ),
+        horizontalSpace(8.w),
+      ],
     );
   }
 }

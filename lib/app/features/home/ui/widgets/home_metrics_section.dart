@@ -37,8 +37,8 @@ class HomeMetricsSection extends StatelessWidget {
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
               crossAxisSpacing: 12.w,
-              mainAxisSpacing: 12.h,
-              childAspectRatio: 1.18,
+              mainAxisSpacing: 1.h,
+              childAspectRatio: 1.8,
             ),
             itemBuilder: (context, index) =>
                 _MetricCard(metric: metrics[index]),

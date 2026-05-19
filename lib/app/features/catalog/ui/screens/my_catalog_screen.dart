@@ -1,7 +1,6 @@
 import 'package:B2B/app/core/helpers/extensions.dart';
 import 'package:B2B/app/core/helpers/spacing.dart';
 import 'package:B2B/app/core/theme/textstyles.dart';
-import 'package:B2B/app/core/widgets/b2b_app_bar.dart';
 import 'package:B2B/app/features/catalog/ui/widgets/catalog_product_card.dart';
 import 'package:B2B/app/features/catalog/ui/widgets/catalog_search_field.dart';
 import 'package:B2B/app/features/catalog/ui/widgets/catalog_summary_header.dart';
@@ -61,71 +60,74 @@ class _MyCatalogScreenState extends State<MyCatalogScreen> {
         ? _products.where((product) => product.isActive).toList()
         : _products;
 
-    return Scaffold(
-      appBar: const B2BAppBar(title: 'My Catalog'),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const CatalogSummaryHeader(),
-            verticalSpace(12),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.w),
-              child: const CatalogSearchField(hintText: 'Search catalog...'),
-            ),
-            verticalSpace(10),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.w),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: _ActiveOnlyFilter(
-                      value: activeOnly,
-                      onChanged: (value) => setState(() => activeOnly = value),
-                    ),
-                  ),
-                  horizontalSpace(8),
-                  SizedBox(
-                    height: 40.h,
-                    child: ElevatedButton.icon(
-                      onPressed: () {},
-                      icon: Icon(Icons.add, size: 15.sp),
-                      label: Text(
-                        'Add Product',
-                        style: TextStyles.button(context)
-                            .copyWith(fontSize: 12.sp),
+    return SafeArea(
+      child: Scaffold(
+        body: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const CatalogSummaryHeader(),
+              verticalSpace(12),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                child: const CatalogSearchField(hintText: 'Search catalog...'),
+              ),
+              verticalSpace(10),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: _ActiveOnlyFilter(
+                        value: activeOnly,
+                        onChanged: (value) =>
+                            setState(() => activeOnly = value),
                       ),
                     ),
-                  ),
-                ],
-              ),
-            ),
-            verticalSpace(14),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.w),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Text(
-                      '${visibleProducts.length} products',
-                      style: TextStyles.note(context).copyWith(fontSize: 12.sp),
+                    horizontalSpace(8),
+                    SizedBox(
+                      height: 40.h,
+                      child: ElevatedButton.icon(
+                        onPressed: () {},
+                        icon: Icon(Icons.add, size: 15.sp),
+                        label: Text(
+                          'Add Product',
+                          style: TextStyles.button(context)
+                              .copyWith(fontSize: 12.sp),
+                        ),
+                      ),
                     ),
-                  ),
-                  Text(
-                    'Est. Profit: \$475.60',
-                    style: TextStyles.label(context).copyWith(
-                      color: context.appColors.success,
-                      fontSize: 12.sp,
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-            verticalSpace(12),
-            ...visibleProducts
-                .map((product) => CatalogProductCard(product: product)),
-            verticalSpace(24),
-          ],
+              verticalSpace(14),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        '${visibleProducts.length} products',
+                        style:
+                            TextStyles.note(context).copyWith(fontSize: 12.sp),
+                      ),
+                    ),
+                    Text(
+                      'Est. Profit: \$475.60',
+                      style: TextStyles.label(context).copyWith(
+                        color: context.appColors.success,
+                        fontSize: 12.sp,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              verticalSpace(12),
+              ...visibleProducts
+                  .map((product) => CatalogProductCard(product: product)),
+              verticalSpace(24),
+            ],
+          ),
         ),
       ),
     );

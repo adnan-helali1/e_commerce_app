@@ -1,8 +1,8 @@
 import 'package:B2B/app/core/helpers/extensions.dart';
 import 'package:B2B/app/core/routing/routes.dart';
 import 'package:B2B/app/core/widgets/loading_overlay.dart';
-import 'package:B2B/app/features/auth/logic/cubit/register_cubit.dart';
-import 'package:B2B/app/features/auth/logic/cubit/register_state.dart';
+import 'package:B2B/app/features/auth/logic/register/register_cubit.dart';
+import 'package:B2B/app/features/auth/logic/register/register_state.dart';
 import 'package:B2B/app/features/auth/ui/widgets/register_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
