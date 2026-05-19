@@ -20,4 +20,14 @@ class LoginRepo {
       return ApiResult.failure(ErrorHandler.handle(error));
     }
   }
+
+  Future<ApiResult<void>> logout() async {
+    try {
+      await _apiService.logout();
+      return ApiResult.success(null);
+    } catch (error) {
+      debugPrint('LoginRepo logout error: $error');
+      return ApiResult.failure(ErrorHandler.handle(error));
+    }
+  }
 }

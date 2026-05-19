@@ -2,7 +2,7 @@ import 'package:B2B/app/core/helpers/validation_helper.dart';
 import 'package:B2B/app/core/networking/api_result.dart';
 import 'package:B2B/app/features/auth/data/models/register_request_body.dart';
 import 'package:B2B/app/features/auth/data/repos/register_repo.dart';
-import 'package:B2B/app/features/auth/logic/cubit/register_state.dart';
+import 'package:B2B/app/features/auth/logic/register/register_state.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 

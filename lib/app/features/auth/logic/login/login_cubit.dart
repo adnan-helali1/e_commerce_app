@@ -2,7 +2,7 @@ import 'package:B2B/app/core/helpers/shared_pref_helper.dart';
 import 'package:B2B/app/core/networking/api_result.dart';
 import 'package:B2B/app/features/auth/data/models/login_request_body.dart';
 import 'package:B2B/app/features/auth/data/repos/login_repo.dart';
-import 'package:B2B/app/features/auth/logic/cubit/login_state.dart';
+import 'package:B2B/app/features/auth/logic/login/login_state.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 

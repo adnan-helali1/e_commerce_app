@@ -1,4 +1,4 @@
-import 'package:B2B/app/core/theme/b2b_app_bar.dart';
+import 'package:B2B/app/core/widgets/b2b_app_bar.dart';
 import 'package:B2B/app/core/widgets/app_bottm_bar.dart';
 import 'package:B2B/app/core/widgets/app_bottom_bar.dart';
 import 'package:B2B/app/features/catalog/ui/screens/my_catalog_screen.dart';
