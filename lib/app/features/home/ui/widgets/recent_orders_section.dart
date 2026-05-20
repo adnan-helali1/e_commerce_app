@@ -28,14 +28,17 @@ class RecentOrdersSection extends StatelessWidget {
                   color: context.cs.primary, size: 18.sp),
               horizontalSpace(6),
               Expanded(
-                  child:
-                      Text('Recent Orders', style: TextStyles.label(context))),
+                  child: Text('Recent Orders',
+                      style: TextStyles.label(context).copyWith(
+                          fontSize: 17.sp, fontWeight: FontWeight.w700))),
               TextButton(
                 onPressed: () {},
                 child: Text(
                   'View All',
-                  style: TextStyles.note(context)
-                      .copyWith(color: context.cs.primary),
+                  style: TextStyles.note(context).copyWith(
+                      color: context.cs.primary,
+                      fontSize: 15.sp,
+                      fontWeight: FontWeight.w700),
                 ),
               ),
             ],
@@ -44,7 +47,7 @@ class RecentOrdersSection extends StatelessWidget {
           ...orders.map(
             (order) => _RecentOrderCard(
               order: order,
-              margin: EdgeInsets.only(bottom: 12.h),
+              margin: EdgeInsets.only(bottom: 15.h),
             ),
           ),
         ],
@@ -78,7 +81,8 @@ class _RecentOrderCard extends StatelessWidget {
                 child: Text(
                   'Order ${order.id}',
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyles.label(context).copyWith(fontSize: 15.sp),
+                  style: TextStyles.label(context)
+                      .copyWith(fontSize: 15.sp, fontWeight: FontWeight.w700),
                 ),
               ),
               B2BStatusBadge(label: order.status, color: statusColor),
@@ -96,13 +100,13 @@ class _RecentOrderCard extends StatelessWidget {
                     child: Text(
                       line.title,
                       overflow: TextOverflow.ellipsis,
-                      style: TextStyles.note(context).copyWith(fontSize: 12.sp),
+                      style: TextStyles.note(context).copyWith(fontSize: 14.sp),
                     ),
                   ),
                   horizontalSpace(8),
                   Text(
                     line.amount,
-                    style: TextStyles.label(context).copyWith(fontSize: 12.sp),
+                    style: TextStyles.label(context).copyWith(fontSize: 14.sp),
                   ),
                 ],
               ),
@@ -115,7 +119,7 @@ class _RecentOrderCard extends StatelessWidget {
                   size: 12.sp, color: context.cs.onSurfaceVariant),
               horizontalSpace(4),
               Text(order.date,
-                  style: TextStyles.note(context).copyWith(fontSize: 10.sp)),
+                  style: TextStyles.note(context).copyWith(fontSize: 12.sp)),
               horizontalSpace(12),
               Icon(Icons.inventory_2_outlined,
                   size: 12.sp, color: context.cs.onSurfaceVariant),
@@ -123,14 +127,14 @@ class _RecentOrderCard extends StatelessWidget {
               Expanded(
                 child: Text(
                   '${order.itemCount} items',
-                  style: TextStyles.note(context).copyWith(fontSize: 10.sp),
+                  style: TextStyles.note(context).copyWith(fontSize: 12.sp),
                 ),
               ),
               Text(
                 order.total,
                 style: TextStyles.label(context).copyWith(
                   color: context.cs.primary,
-                  fontSize: 14.sp,
+                  fontSize: 12.sp,
                 ),
               ),
             ],

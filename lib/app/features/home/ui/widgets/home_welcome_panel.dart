@@ -11,19 +11,24 @@ class HomeWelcomePanel extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
+      height: 180.h,
       padding: EdgeInsets.all(16.r),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [
-            context.cs.primary,
-            context.cs.primary.withValues(alpha: 0.78),
-          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
+          colors: [
+            const Color.fromARGB(255, 0, 40, 108),
+            context.cs.primaryContainer,
+            context.cs.primaryContainer.withValues(alpha: 0.95),
+            context.cs.primary,
+            context.cs.secondaryFixed,
+          ],
         ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
             'Welcome Back!',
@@ -40,7 +45,7 @@ class HomeWelcomePanel extends StatelessWidget {
               fontSize: 13.sp,
             ),
           ),
-          verticalSpace(16),
+          verticalSpace(22),
           Row(
             children: [
               Expanded(
@@ -84,13 +89,14 @@ class _WelcomeActionButton extends StatelessWidget {
       icon: Icon(icon, size: 16.sp),
       label: Text(
         label,
-        overflow: TextOverflow.ellipsis,
-        style: TextStyles.button(context).copyWith(fontSize: 12.sp),
+        overflow: TextOverflow.fade,
+        style: TextStyles.button(context).copyWith(fontSize: 16.sp),
       ),
       style: OutlinedButton.styleFrom(
-        foregroundColor: context.cs.onPrimary,
-        side: BorderSide(color: context.cs.onPrimary.withValues(alpha: 0.35)),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6.r)),
+        foregroundColor: context.cs.onPrimaryContainer,
+        side: BorderSide(color: context.cs.onPrimary.withValues(alpha: 0.45)),
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.r)),
         padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 8.w),
       ),
     );
