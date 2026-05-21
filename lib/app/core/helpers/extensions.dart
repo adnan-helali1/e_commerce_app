@@ -40,4 +40,18 @@ extension StringExtension on String? {
 
   /// Check if string is not null and not empty
   bool get isNotNullOrEmpty => !isNullOrEmpty;
+
+  /// Format API date like `2026-05-21 17:53:36` to `dd/MM/yyyy`.
+  String get toDayMonthYear {
+    if (this == null || this!.isEmpty) return '';
+
+    final normalized = this!.replaceFirst(' ', 'T');
+    final parsedDate = DateTime.tryParse(normalized);
+    if (parsedDate == null) return this!;
+
+    final day = parsedDate.day.toString().padLeft(2, '0');
+    final month = parsedDate.month.toString().padLeft(2, '0');
+    final year = parsedDate.year.toString();
+    return '$day/$month/$year';
+  }
 }

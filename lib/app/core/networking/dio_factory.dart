@@ -1,3 +1,4 @@
+import 'package:B2B/app/core/helpers/shared_pref_helper.dart';
 import 'package:B2B/app/core/networking/api_constans.dart';
 import 'package:dio/dio.dart';
 
@@ -21,7 +22,6 @@ class DioFactory {
           headers: {'Accept': 'application/json'},
         ),
       );
-      // await _addAuthorizationHeader(dio);
       _addInterceptors(dio);
       _dio = dio;
       return dio;
@@ -34,6 +34,24 @@ class DioFactory {
   /// ===============================
   static void _addInterceptors(Dio dio) {
     dio.interceptors.add(
+      QueuedInterceptorsWrapper(
+        onRequest: (options, handler) async {
+          final isAuthRequest = options.path == ApiConstants.login ||
+              options.path == ApiConstants.register;
+
+          if (!isAuthRequest) {
+            final token = await SharedPrefHelper.getUserToken();
+            if (token != null && token.isNotEmpty) {
+              options.headers['Authorization'] = 'Bearer $token';
+            }
+          }
+
+          handler.next(options);
+        },
+      ),
+    );
+
+    dio.interceptors.add(
       PrettyDioLogger(
         requestHeader: true,
         requestBody: true,
@@ -44,31 +62,3 @@ class DioFactory {
     );
   }
 }
- /// ===============================
-  /// Add token from SharedPreferences
-  /// ===============================
-  // static Future<void> _addAuthorizationHeader(Dio dio) async {
-  //   final token = await SharedPrefHelper.getSecuredString(
-  //     SharedPrefKeys.userToken,
-  //   );
-
-  //   if (token.isNotEmpty) {
-  //     dio.options.headers['Authorization'] = 'Bearer $token';
-  //   }
-  // }
-
-  // /// ===============================
-  // /// Set token after login
-  // /// ===============================
-  // static void setTokenAfterLogin(String token) {
-  //   if (_dio == null) return;
-
-  //   _dio!.options.headers['Authorization'] = 'Bearer $token';
-  // }
-
-  // /// ===============================
-  // /// Clear token on logout
-  // /// ===============================
-  // static void clearToken() {
-  //   _dio?.options.headers.remove('Authorization');
-  // }

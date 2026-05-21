@@ -31,7 +31,7 @@ class HomeQuickActionsSection extends StatelessWidget {
                 Expanded(
                   child: _QuickActionButton(
                     icon: Icons.menu_book_outlined,
-                    label: 'Manage\nCatalog',
+                    label: 'Manage Catalog',
                     onTap: () {},
                   ),
                 ),
@@ -73,13 +73,13 @@ class _QuickActionButton extends StatelessWidget {
         textAlign: TextAlign.center,
         overflow: TextOverflow.ellipsis,
         style: TextStyles.label(context).copyWith(
-          color: context.cs.primary,
+          color: context.cs.onSurface,
           fontSize: 12.sp,
         ),
       ),
       style: OutlinedButton.styleFrom(
-        foregroundColor: context.cs.primary,
-        side: BorderSide(color: context.cs.primary),
+        foregroundColor: context.cs.onSurface,
+        side: BorderSide(color: context.cs.onSurface),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6.r)),
         padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 8.w),
       ),

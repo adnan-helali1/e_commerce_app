@@ -38,7 +38,7 @@ class B2bAppBar extends StatelessWidget implements PreferredSizeWidget {
         children: [
           Container(
             width: 40.w,
-            height: 40.h,
+            height: 30.h,
             decoration: BoxDecoration(
               color: cs.primary,
               shape: BoxShape.circle,

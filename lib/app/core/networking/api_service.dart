@@ -3,6 +3,7 @@ import 'package:B2B/app/features/auth/data/models/login_request_body.dart';
 import 'package:B2B/app/features/auth/data/models/login_response.dart';
 import 'package:B2B/app/features/auth/data/models/register_request_body.dart';
 import 'package:B2B/app/features/auth/data/models/register_response.dart';
+import 'package:B2B/app/features/home/data/models/home_dashboard_response.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
@@ -11,7 +12,7 @@ part 'api_service.g.dart';
 @RestApi()
 abstract class ApiService {
   factory ApiService(Dio dio, {String baseUrl}) = _ApiService;
-
+// Auth Endpoints
   @POST(ApiConstants.login)
   Future<LoginResponse> login(@Body() LoginRequestBody request);
 
@@ -20,4 +21,8 @@ abstract class ApiService {
 
   @POST(ApiConstants.logout)
   Future<void> logout();
+
+  // Home Endpoints
+  @GET(ApiConstants.homeDashboard)
+  Future<HomeDashboardResponse> getHomeDashboard();
 }

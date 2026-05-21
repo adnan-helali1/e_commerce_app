@@ -26,8 +26,12 @@ class B2BInfoCard extends StatelessWidget {
       padding: padding ?? EdgeInsets.all(12.r),
       decoration: BoxDecoration(
         color: color ?? context.cs.surface,
-        border: border ?? Border.all(color: context.appColors.borderColor),
-        borderRadius: BorderRadius.circular(8.r),
+        border: border ??
+            Border.all(
+                color: context.cs.outline,
+                width: 0.2.r,
+                style: BorderStyle.solid),
+        borderRadius: BorderRadius.circular(6.r),
       ),
       child: child,
     );

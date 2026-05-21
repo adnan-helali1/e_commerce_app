@@ -57,10 +57,10 @@ class _MainLayoutState extends State<MainLayout> {
       ),
       bottomNavigationBar: AppBottomNavBar(
         items: const [
-          AppBottomNavItem(label: 'الرئيسية', icon: Icons.home_rounded),
-          AppBottomNavItem(label: 'الطلبات', icon: Icons.receipt_long),
-          AppBottomNavItem(label: 'المخزون', icon: Icons.inventory_2),
-          AppBottomNavItem(label: 'الفواتير', icon: Icons.receipt),
+          AppBottomNavItem(label: 'Home', icon: Icons.home_rounded),
+          AppBottomNavItem(label: 'Orders', icon: Icons.receipt_long),
+          AppBottomNavItem(label: 'Inventory', icon: Icons.inventory_2),
+          AppBottomNavItem(label: 'Invoices', icon: Icons.receipt),
         ],
       ),
     );

@@ -26,7 +26,9 @@ class HomeMetricsSection extends StatelessWidget {
               Icon(Icons.trending_up_rounded,
                   color: context.cs.primary, size: 18.sp),
               horizontalSpace(6),
-              Text('Key Metrics', style: TextStyles.label(context)),
+              Text('Key Metrics',
+                  style: TextStyles.label(context)
+                      .copyWith(fontSize: 17.sp, fontWeight: FontWeight.w700)),
             ],
           ),
           verticalSpace(12),
@@ -36,9 +38,9 @@ class HomeMetricsSection extends StatelessWidget {
             physics: const NeverScrollableScrollPhysics(),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
-              crossAxisSpacing: 12.w,
-              mainAxisSpacing: 1.h,
-              childAspectRatio: 1.8,
+              crossAxisSpacing: 22.w,
+              mainAxisSpacing: 24.h,
+              childAspectRatio: 2.1,
             ),
             itemBuilder: (context, index) =>
                 _MetricCard(metric: metrics[index]),
@@ -58,7 +60,8 @@ class _MetricCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final color = _toneColor(context, metric.tone);
     final isTinted = metric.tone == HomeMetricTone.warning ||
-        metric.tone == HomeMetricTone.info;
+        metric.tone == HomeMetricTone.info ||
+        metric.tone == HomeMetricTone.error;
 
     return B2BInfoCard(
       color: isTinted ? color.withValues(alpha: 0.12) : context.cs.surface,
@@ -69,7 +72,6 @@ class _MetricCard extends StatelessWidget {
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -77,12 +79,13 @@ class _MetricCard extends StatelessWidget {
               Expanded(
                 child: Text(
                   metric.title,
-                  style: TextStyles.note(context).copyWith(fontSize: 11.sp),
+                  style: TextStyles.note(context)
+                      .copyWith(fontSize: 15.sp, fontWeight: FontWeight.w700),
                 ),
               ),
               Container(
-                width: 36.r,
-                height: 36.r,
+                width: 25.r,
+                height: 25.r,
                 decoration: BoxDecoration(
                   color: color,
                   borderRadius: BorderRadius.circular(8.r),
@@ -124,6 +127,8 @@ class _MetricCard extends StatelessWidget {
         return context.appColors.info;
       case HomeMetricTone.warning:
         return context.appColors.warning;
+      case HomeMetricTone.error:
+        return context.cs.error;
     }
   }
 }
