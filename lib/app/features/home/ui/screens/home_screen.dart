@@ -1,7 +1,7 @@
 import 'package:B2B/app/core/di/dependency_injection.dart';
 import 'package:B2B/app/core/helpers/spacing.dart';
-import 'package:B2B/app/features/home/data/models/lists/list_metrics.dart';
-import 'package:B2B/app/features/home/data/models/lists/list_recent_order.dart';
+import 'package:B2B/app/features/home/data/lists/list_metrics.dart';
+import 'package:B2B/app/features/home/data/lists/list_recent_order.dart';
 import 'package:B2B/app/features/home/logic/home_cubit.dart';
 import 'package:B2B/app/features/home/logic/home_state.dart';
 import 'package:B2B/app/features/home/ui/widgets/home_metrics_section.dart';

@@ -1,3 +1,4 @@
+import 'package:B2B/app/core/helpers/extensions.dart';
 import 'package:B2B/app/features/home/data/models/home_dashboard_response.dart';
 import 'package:B2B/app/features/home/ui/widgets/home_ui_models.dart';
 
@@ -8,7 +9,7 @@ List<RecentOrderPreview> mapRecentOrders(HomeDashboardResponse r) {
       id: '#${o.code ?? o.id ?? ''}',
       status: (o.status ?? '').toString(),
       supplier: supplier,
-      date: o.createdAt ?? '',
+      date: o.createdAt.toDayMonthYear,
       itemCount: o.itemsCount ?? 1,
       total: o.total != null ? '\$${o.total!.toStringAsFixed(2)}' : '-',
       lines: (o.items ?? []).map((it) {

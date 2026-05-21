@@ -12,7 +12,7 @@ HomeMetricTone salesTodayTone(int? salesToday) {
 
 HomeMetricTone lowStockTone(int? lowStock) {
   if (lowStock == null) return HomeMetricTone.info;
-  if (lowStock <= 2) return HomeMetricTone.error;
+  if (lowStock <= 3) return HomeMetricTone.error;
   if (lowStock <= 5) return HomeMetricTone.warning;
   return HomeMetricTone.success;
 }
