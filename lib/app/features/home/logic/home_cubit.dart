@@ -1,5 +1,4 @@
 import 'package:B2B/app/core/networking/api_result.dart';
-import 'package:B2B/app/features/home/data/models/home_dashboard_response.dart';
 import 'package:B2B/app/features/home/data/repos/home_repo.dart';
 import 'package:B2B/app/features/home/logic/home_state.dart';
 import 'package:bloc/bloc.dart';
@@ -12,8 +11,8 @@ class HomeCubit extends Cubit<HomeState> {
     emit(const HomeState.loading());
     final response = await _homeRepo.getHomeDashboard();
     response.when(
-      success: (HomeDashboardResponse) async {
-        emit(HomeState.success(HomeDashboardResponse));
+      success: (dashboardResponse) async {
+        emit(HomeState.success(dashboardResponse));
       },
       failure: (error) {
         emit(HomeState.failure(error: error.apiErrorModel.message ?? ''));

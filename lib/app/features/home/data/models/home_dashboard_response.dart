@@ -37,19 +37,53 @@ class HomeDashboardResponse {
 class HomeRecentOrder {
   String? id;
   String? code;
+  String? type;
+  @JsonKey(name: 'party_name')
+  String? partyName;
+  @JsonKey(name: 'customer_name')
+  String? customerName;
+  @JsonKey(name: 'supplier_name')
+  String? supplierName;
   String? status;
   double? total;
+  @JsonKey(name: 'items_count')
+  int? itemsCount;
+  @JsonKey(name: 'items')
+  List<HomeOrderItem>? items;
   @JsonKey(name: 'created_at')
   String? createdAt;
 
   HomeRecentOrder({
     this.id,
     this.code,
+    this.type,
+    this.partyName,
+    this.customerName,
+    this.supplierName,
     this.status,
     this.total,
+    this.itemsCount,
+    this.items,
     this.createdAt,
   });
 
   factory HomeRecentOrder.fromJson(Map<String, dynamic> json) =>
       _$HomeRecentOrderFromJson(json);
+}
+
+@JsonSerializable()
+class HomeOrderItem {
+  @JsonKey(name: 'product_name')
+  String? productName;
+  int? quantity;
+  @JsonKey(name: 'unit_price')
+  double? unitPrice;
+  @JsonKey(name: 'line_total')
+  double? lineTotal;
+
+  HomeOrderItem(
+      {this.productName, this.quantity, this.unitPrice, this.lineTotal});
+
+  factory HomeOrderItem.fromJson(Map<String, dynamic> json) =>
+      _$HomeOrderItemFromJson(json);
 }
