@@ -16,7 +16,7 @@ class HomeMetric {
   });
 }
 
-enum HomeMetricTone { success, primary, info, warning }
+enum HomeMetricTone { success, primary, info, warning, error }
 
 class RecentOrderPreview {
   final String id;

@@ -1,3 +1,4 @@
+import 'package:B2B/app/core/helpers/colors_changer_extension.dart';
 import 'package:B2B/app/core/helpers/extensions.dart';
 import 'package:B2B/app/core/helpers/spacing.dart';
 import 'package:B2B/app/core/theme/textstyles.dart';
@@ -67,7 +68,7 @@ class _RecentOrderCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final statusColor = b2bStatusColor(context, order.status);
+    final statusColor = homeRecentOrderStatusColor(context, order.status);
 
     return B2BInfoCard(
       margin: margin,

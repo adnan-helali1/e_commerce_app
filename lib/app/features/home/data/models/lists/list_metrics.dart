@@ -1,3 +1,4 @@
+import 'package:B2B/app/core/helpers/colors_changer_extension.dart';
 import 'package:B2B/app/features/home/data/models/home_dashboard_response.dart';
 import 'package:B2B/app/features/home/ui/widgets/home_ui_models.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +25,7 @@ List<HomeMetric> mapMetrics(HomeDashboardResponse r) {
       value: r.salesToday?.toString() ?? '-',
       note: null,
       icon: Icons.trending_up_rounded,
-      tone: HomeMetricTone.info,
+      tone: salesTodayTone(r.salesToday),
     ),
     HomeMetric(
       title: 'Profit Margin',
@@ -37,14 +38,14 @@ List<HomeMetric> mapMetrics(HomeDashboardResponse r) {
       value: r.lowStock?.toString() ?? '-',
       note: 'Items need restocking',
       icon: Icons.warning_amber_rounded,
-      tone: HomeMetricTone.warning,
+      tone: lowStockTone(r.lowStock),
     ),
     HomeMetric(
       title: 'Pending',
       value: r.pendingOrders?.toString() ?? '-',
       note: 'Orders to process',
       icon: Icons.check_circle_outline_rounded,
-      tone: HomeMetricTone.info,
+      tone: pendingOrdersTone(r.pendingOrders),
     ),
   ];
 }

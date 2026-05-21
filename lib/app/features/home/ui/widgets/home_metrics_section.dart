@@ -60,7 +60,8 @@ class _MetricCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final color = _toneColor(context, metric.tone);
     final isTinted = metric.tone == HomeMetricTone.warning ||
-        metric.tone == HomeMetricTone.info;
+        metric.tone == HomeMetricTone.info ||
+        metric.tone == HomeMetricTone.error;
 
     return B2BInfoCard(
       color: isTinted ? color.withValues(alpha: 0.12) : context.cs.surface,
@@ -126,6 +127,8 @@ class _MetricCard extends StatelessWidget {
         return context.appColors.info;
       case HomeMetricTone.warning:
         return context.appColors.warning;
+      case HomeMetricTone.error:
+        return context.cs.error;
     }
   }
 }
