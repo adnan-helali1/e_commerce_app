@@ -6,10 +6,18 @@ part 'home_dashboard_response.g.dart';
 class HomeDashboardResponse {
   @JsonKey(name: 'revenue_today')
   double? revenueToday;
+  @JsonKey(name: 'revenue_change_percent')
+  double? revenueChangePercent;
+  @JsonKey(name: 'revenue_trend')
+  String? revenueTrend;
   @JsonKey(name: 'total_orders')
   int? totalOrders;
   @JsonKey(name: 'sales_today')
   int? salesToday;
+  @JsonKey(name: 'sales_change_percent')
+  double? salesChangePercent;
+  @JsonKey(name: 'sales_trend')
+  String? salesTrend;
   @JsonKey(name: 'profit_margin')
   double? profitMargin;
   @JsonKey(name: 'low_stock')
@@ -21,8 +29,12 @@ class HomeDashboardResponse {
 
   HomeDashboardResponse({
     this.revenueToday,
+    this.revenueChangePercent,
+    this.revenueTrend,
     this.totalOrders,
     this.salesToday,
+    this.salesChangePercent,
+    this.salesTrend,
     this.profitMargin,
     this.lowStock,
     this.pendingOrders,

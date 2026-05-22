@@ -1,6 +1,6 @@
 import 'package:B2B/app/core/helpers/colors_changer_extension.dart';
 import 'package:B2B/app/features/home/data/models/home_dashboard_response.dart';
-import 'package:B2B/app/features/home/ui/widgets/home_ui_models.dart';
+import 'package:B2B/app/features/home/data/models/home_ui_models.dart';
 import 'package:flutter/material.dart';
 
 List<HomeMetric> mapMetrics(HomeDashboardResponse r) {
@@ -10,7 +10,7 @@ List<HomeMetric> mapMetrics(HomeDashboardResponse r) {
       value: r.revenueToday != null
           ? '\$${r.revenueToday!.toStringAsFixed(2)}'
           : '-',
-      note: null,
+      note: _changeNote(r.revenueTrend, r.revenueChangePercent),
       icon: Icons.attach_money_rounded,
       tone: HomeMetricTone.success,
     ),
@@ -23,7 +23,7 @@ List<HomeMetric> mapMetrics(HomeDashboardResponse r) {
     HomeMetric(
       title: 'Sales Today',
       value: r.salesToday?.toString() ?? '-',
-      note: null,
+      note: _changeNote(r.salesTrend, r.salesChangePercent),
       icon: Icons.trending_up_rounded,
       tone: salesTodayTone(r.salesToday),
     ),
@@ -48,4 +48,14 @@ List<HomeMetric> mapMetrics(HomeDashboardResponse r) {
       tone: pendingOrdersTone(r.pendingOrders),
     ),
   ];
+}
+
+String? _changeNote(String? trend, double? percent) {
+  if (percent == null || trend == null || trend.isEmpty) {
+    return null;
+  }
+
+  final normalizedTrend = trend.toLowerCase();
+  final label = normalizedTrend == 'down' ? ' decrease' : ' increase';
+  return '${percent.toStringAsFixed(1)}% $label';
 }

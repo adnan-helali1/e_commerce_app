@@ -2,7 +2,7 @@ import 'package:B2B/app/core/helpers/extensions.dart';
 import 'package:B2B/app/core/helpers/spacing.dart';
 import 'package:B2B/app/core/theme/textstyles.dart';
 import 'package:B2B/app/core/widgets/b2b_info_card.dart';
-import 'package:B2B/app/features/home/ui/widgets/home_ui_models.dart';
+import 'package:B2B/app/features/home/data/models/home_ui_models.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -72,6 +72,7 @@ class _MetricCard extends StatelessWidget {
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -99,6 +100,7 @@ class _MetricCard extends StatelessWidget {
             metric.value,
             style: TextStyles.screenTitle(context).copyWith(fontSize: 24.sp),
           ),
+          verticalSpace(0.3),
           if (metric.note != null)
             Text(
               metric.note!,
@@ -107,9 +109,12 @@ class _MetricCard extends StatelessWidget {
               style: TextStyles.note(context).copyWith(
                 color: metric.note!.contains('increase')
                     ? context.appColors.success
-                    : context.cs.onSurfaceVariant,
-                fontSize: 10.sp,
+                    : metric.note!.contains('decrease')
+                        ? context.cs.error
+                        : context.cs.onSurfaceVariant,
+                fontSize: 12.sp,
                 height: 1.2,
+                fontWeight: FontWeight.w700,
               ),
             ),
         ],

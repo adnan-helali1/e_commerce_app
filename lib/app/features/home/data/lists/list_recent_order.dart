@@ -1,6 +1,6 @@
 import 'package:B2B/app/core/helpers/extensions.dart';
 import 'package:B2B/app/features/home/data/models/home_dashboard_response.dart';
-import 'package:B2B/app/features/home/ui/widgets/home_ui_models.dart';
+import 'package:B2B/app/features/home/data/models/home_ui_models.dart';
 
 List<RecentOrderPreview> mapRecentOrders(HomeDashboardResponse r) {
   return (r.recentOrders ?? []).map((o) {
