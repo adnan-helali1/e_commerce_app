@@ -1,5 +1,5 @@
 import 'package:B2B/app/core/helpers/extensions.dart';
-import 'package:B2B/app/features/home/ui/widgets/home_ui_models.dart';
+import 'package:B2B/app/features/home/data/models/home_ui_models.dart';
 import 'package:flutter/material.dart';
 
 HomeMetricTone salesTodayTone(int? salesToday) {

@@ -10,8 +10,13 @@ HomeDashboardResponse _$HomeDashboardResponseFromJson(
         Map<String, dynamic> json) =>
     HomeDashboardResponse(
       revenueToday: (json['revenue_today'] as num?)?.toDouble(),
+      revenueChangePercent:
+          (json['revenue_change_percent'] as num?)?.toDouble(),
+      revenueTrend: json['revenue_trend'] as String?,
       totalOrders: (json['total_orders'] as num?)?.toInt(),
       salesToday: (json['sales_today'] as num?)?.toInt(),
+      salesChangePercent: (json['sales_change_percent'] as num?)?.toDouble(),
+      salesTrend: json['sales_trend'] as String?,
       profitMargin: (json['profit_margin'] as num?)?.toDouble(),
       lowStock: (json['low_stock'] as num?)?.toInt(),
       pendingOrders: (json['pending_orders'] as num?)?.toInt(),
@@ -24,8 +29,12 @@ Map<String, dynamic> _$HomeDashboardResponseToJson(
         HomeDashboardResponse instance) =>
     <String, dynamic>{
       'revenue_today': instance.revenueToday,
+      'revenue_change_percent': instance.revenueChangePercent,
+      'revenue_trend': instance.revenueTrend,
       'total_orders': instance.totalOrders,
       'sales_today': instance.salesToday,
+      'sales_change_percent': instance.salesChangePercent,
+      'sales_trend': instance.salesTrend,
       'profit_margin': instance.profitMargin,
       'low_stock': instance.lowStock,
       'pending_orders': instance.pendingOrders,
