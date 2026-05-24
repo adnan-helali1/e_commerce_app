@@ -1,4 +1,3 @@
-import 'package:B2B/app/core/di/dependency_injection.dart';
 import 'package:B2B/app/core/helpers/spacing.dart';
 import 'package:B2B/app/features/home/data/lists/list_metrics.dart';
 import 'package:B2B/app/features/home/data/lists/list_recent_order.dart';
@@ -11,36 +10,44 @@ import 'package:B2B/app/features/home/ui/widgets/recent_orders_section.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  late final HomeCubit _cubit;
-
-  @override
-  void initState() {
-    super.initState();
-    _cubit = getIt<HomeCubit>();
-    _cubit.emitHomeStates();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return BlocProvider.value(
-      value: _cubit,
-      child: SafeArea(
-        child: Scaffold(
-          body: SingleChildScrollView(
+    return SafeArea(
+      child: Scaffold(
+        body: RefreshIndicator(
+          onRefresh: () async => context.read<HomeCubit>().refresh(),
+          child: SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
             child: BlocBuilder<HomeCubit, HomeState>(
               builder: (context, state) {
-                return state.maybeWhen(
-                  orElse: () => Column(
+                return state.when(
+                  initial: () {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: const [
+                        HomeWelcomePanel(),
+                        SizedBox(height: 20),
+                        Center(child: CircularProgressIndicator()),
+                      ],
+                    );
+                  },
+                  loading: () => Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      IconButton(
+                        tooltip: 'مسح الكاش',
+                        icon: const Icon(Icons.delete_outline),
+                        onPressed: () async {
+                          await context.read<HomeCubit>().clearCache();
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                content: Text('تم مسح الكاش وجلب البيانات')),
+                          );
+                        },
+                      ),
                       const HomeWelcomePanel(),
                       verticalSpace(16),
                       const HomeMetricsSection(metrics: []),
@@ -57,7 +64,23 @@ class _HomeScreenState extends State<HomeScreen> {
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const HomeWelcomePanel(),
+                        Row(
+                          children: [
+                            IconButton(
+                              tooltip: 'مسح الكاش',
+                              icon: const Icon(Icons.delete_outline),
+                              onPressed: () async {
+                                await context.read<HomeCubit>().clearCache();
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      content:
+                                          Text('تم مسح الكاش وجلب البيانات')),
+                                );
+                              },
+                            ),
+                            const Expanded(child: HomeWelcomePanel()),
+                          ],
+                        ),
                         verticalSpace(16),
                         HomeMetricsSection(metrics: metrics),
                         verticalSpace(16),

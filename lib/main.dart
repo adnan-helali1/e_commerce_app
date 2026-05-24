@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  setupGetIt();
+  await setupGetIt();
   await checkIfLoggedInUser();
 
   runApp(const ECommerceApp());
