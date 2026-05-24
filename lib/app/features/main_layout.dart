@@ -21,18 +21,9 @@ class _MainLayoutState extends State<MainLayout> {
   String? _storeName;
   String? _ownerName;
 
-  late final HomeCubit _homeCubit;
-
   @override
   void initState() {
     super.initState();
-
-    /// 🔥 خذ الكيوبت مرة وحدة
-    _homeCubit = getIt<HomeCubit>();
-
-    /// 🔥 أهم سطر (حل المشكلة)
-    _homeCubit.load();
-
     _loadIdentity();
   }
 
@@ -54,8 +45,8 @@ class _MainLayoutState extends State<MainLayout> {
       const MyCatalogScreen(),
     ];
 
-    return BlocProvider.value(
-      value: _homeCubit,
+    return BlocProvider(
+      create: (_) => getIt<HomeCubit>()..load(),
       child: Scaffold(
         appBar: B2bAppBar(
           title: _storeName ?? 'Store',
