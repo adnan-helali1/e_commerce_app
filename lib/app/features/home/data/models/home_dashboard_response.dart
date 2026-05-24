@@ -43,6 +43,8 @@ class HomeDashboardResponse {
 
   factory HomeDashboardResponse.fromJson(Map<String, dynamic> json) =>
       _$HomeDashboardResponseFromJson(json);
+
+  Map<String, dynamic> toJson() => _$HomeDashboardResponseToJson(this);
 }
 
 @JsonSerializable()
@@ -81,6 +83,8 @@ class HomeRecentOrder {
 
   factory HomeRecentOrder.fromJson(Map<String, dynamic> json) =>
       _$HomeRecentOrderFromJson(json);
+
+  Map<String, dynamic> toJson() => _$HomeRecentOrderToJson(this);
 }
 
 @JsonSerializable()
@@ -98,4 +102,6 @@ class HomeOrderItem {
 
   factory HomeOrderItem.fromJson(Map<String, dynamic> json) =>
       _$HomeOrderItemFromJson(json);
+
+  Map<String, dynamic> toJson() => _$HomeOrderItemToJson(this);
 }

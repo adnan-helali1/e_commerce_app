@@ -22,8 +22,6 @@ class AppBottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-
     return BlocBuilder<BottomNavCubit, BottomNavState>(
       buildWhen: (p, c) => p.index != c.index,
       builder: (context, state) {

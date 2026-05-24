@@ -38,7 +38,11 @@ dependencies:
   freezed_annotation: ^3.1.0
 
   # for dependency injection
-  get_it: ^7.6.4  
+  get_it: ^7.6.4 
+
+  #for caching
+  hive_flutter: ^1.1.0 
+  hive: ^2.2.3
 
 # ---------------- DEV DEPENDENCIES ----------------
 dev_dependencies:

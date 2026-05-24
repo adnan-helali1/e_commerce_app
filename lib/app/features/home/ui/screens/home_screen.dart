@@ -1,4 +1,3 @@
-import 'package:B2B/app/core/di/dependency_injection.dart';
 import 'package:B2B/app/core/helpers/spacing.dart';
 import 'package:B2B/app/features/home/data/lists/list_metrics.dart';
 import 'package:B2B/app/features/home/data/lists/list_recent_order.dart';
@@ -19,68 +18,118 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  late final HomeCubit _cubit;
+  bool _loadScheduled = false;
 
   @override
-  void initState() {
-    super.initState();
-    _cubit = getIt<HomeCubit>();
-    _cubit.emitHomeStates();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    if (_loadScheduled) {
+      return;
+    }
+
+    _loadScheduled = true;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) {
+        return;
+      }
+
+      context.read<HomeCubit>().load();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider.value(
-      value: _cubit,
-      child: SafeArea(
+    return SafeArea(
         child: Scaffold(
-          body: SingleChildScrollView(
-            child: BlocBuilder<HomeCubit, HomeState>(
-              builder: (context, state) {
-                return state.maybeWhen(
-                  orElse: () => Column(
+      body: RefreshIndicator(
+        onRefresh: () async => context.read<HomeCubit>().refresh(),
+        child: SingleChildScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          child: BlocBuilder<HomeCubit, HomeState>(
+            builder: (context, state) {
+              return state.when(
+                initial: () {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: const [
+                      HomeWelcomePanel(),
+                      SizedBox(height: 20),
+                      Center(child: CircularProgressIndicator()),
+                    ],
+                  );
+                },
+                loading: () => Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    IconButton(
+                      tooltip: 'مسح الكاش',
+                      icon: const Icon(Icons.delete_outline),
+                      onPressed: () async {
+                        await context.read<HomeCubit>().clearCache();
+                        if (!mounted) return;
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                              content: Text('تم مسح الكاش وجلب البيانات')),
+                        );
+                      },
+                    ),
+                    const HomeWelcomePanel(),
+                    verticalSpace(16),
+                    const HomeMetricsSection(metrics: []),
+                    verticalSpace(16),
+                    const RecentOrdersSection(orders: []),
+                    verticalSpace(4),
+                    const HomeQuickActionsSection(),
+                    verticalSpace(24),
+                  ],
+                ),
+                success: (response) {
+                  final metrics = mapMetrics(response);
+                  final recent = mapRecentOrders(response);
+                  return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const HomeWelcomePanel(),
+                      Row(
+                        children: [
+                          IconButton(
+                            tooltip: 'مسح الكاش',
+                            icon: const Icon(Icons.delete_outline),
+                            onPressed: () async {
+                              await context.read<HomeCubit>().clearCache();
+                              if (!mounted) return;
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                    content:
+                                        Text('تم مسح الكاش وجلب البيانات')),
+                              );
+                            },
+                          ),
+                          const Expanded(child: HomeWelcomePanel()),
+                        ],
+                      ),
                       verticalSpace(16),
-                      const HomeMetricsSection(metrics: []),
+                      HomeMetricsSection(metrics: metrics),
                       verticalSpace(16),
-                      const RecentOrdersSection(orders: []),
+                      RecentOrdersSection(orders: recent),
                       verticalSpace(4),
                       const HomeQuickActionsSection(),
                       verticalSpace(24),
                     ],
-                  ),
-                  success: (response) {
-                    final metrics = mapMetrics(response);
-                    final recent = mapRecentOrders(response);
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const HomeWelcomePanel(),
-                        verticalSpace(16),
-                        HomeMetricsSection(metrics: metrics),
-                        verticalSpace(16),
-                        RecentOrdersSection(orders: recent),
-                        verticalSpace(4),
-                        const HomeQuickActionsSection(),
-                        verticalSpace(24),
-                      ],
-                    );
-                  },
-                  failure: (error) => Column(
-                    children: [
-                      const HomeWelcomePanel(),
-                      const SizedBox(height: 20),
-                      Center(child: Text('Error: $error')),
-                    ],
-                  ),
-                );
-              },
-            ),
+                  );
+                },
+                failure: (error) => Column(
+                  children: [
+                    const HomeWelcomePanel(),
+                    const SizedBox(height: 20),
+                    Center(child: Text('Error: $error')),
+                  ],
+                ),
+              );
+            },
           ),
         ),
       ),
-    );
+    ));
   }
 }
