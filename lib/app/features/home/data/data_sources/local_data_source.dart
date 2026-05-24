@@ -25,7 +25,7 @@ class HomeLocalDataSource {
 
     // Hive may return Map<dynamic, dynamic> and nested structures may contain
     // Map<dynamic, dynamic> as well. Convert recursively to Map<String, dynamic>.
-    Map<String, dynamic> casted = _deepCastMap(entry as Map);
+    final Map<String, dynamic> casted = _deepCastMap(entry);
 
     return HomeDashboardCacheModel.fromJson(casted);
   }

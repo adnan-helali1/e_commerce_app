@@ -3,11 +3,6 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'home_dashboard_cache_model.g.dart';
 
-DateTime _cachedAtFromJson(String? s) =>
-    DateTime.tryParse(s ?? '') ?? DateTime.fromMillisecondsSinceEpoch(0);
-
-String _cachedAtToJson(DateTime dt) => dt.toIso8601String();
-
 @JsonSerializable(fieldRename: FieldRename.snake, explicitToJson: true)
 class HomeDashboardCacheModel {
   final double? revenueToday;
