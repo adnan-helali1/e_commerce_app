@@ -3,7 +3,6 @@ import 'package:B2B/app/core/networking/api_result.dart';
 import 'package:B2B/app/features/home/data/repos/home_repo.dart';
 import 'package:B2B/app/features/home/logic/home_state.dart';
 import 'package:bloc/bloc.dart';
-import 'package:flutter/material.dart';
 
 class HomeCubit extends Cubit<HomeState> {
   final HomeRepo _homeRepo;
@@ -20,19 +19,11 @@ class HomeCubit extends Cubit<HomeState> {
     if (_isLoading) return;
     _isLoading = true;
 
-    // diagnostic
-    // ignore: avoid_print
-    debugPrint('[HomeCubit] load() called');
-
     final cached = await _homeRepo.getCachedHomeDashboard();
 
     /// ✅ عرض الكاش فوراً
     if (cached != null) {
       emit(HomeState.success(cached));
-
-      // diagnostic
-      // ignore: avoid_print
-      debugPrint('[HomeCubit] emitted success from cache');
 
       /// 🔥 دايماً اعمل background refresh
       unawaited(_refreshSilently());
@@ -56,20 +47,28 @@ class HomeCubit extends Cubit<HomeState> {
 
           // diagnostic
           // ignore: avoid_print
-          debugPrint('[HomeCubit] emitted success from remote');
+          ('[HomeCubit] emitted success from remote');
         }
       },
       failure: (error) {
-        if (!isClosed) {
+        if (isClosed) return;
+
+        // Try to recover from failure by loading cached data if available.
+        _homeRepo.getCachedHomeDashboard().then((cachedOnFailure) {
+          if (isClosed) return;
+
+          if (cachedOnFailure != null) {
+            emit(HomeState.success(cachedOnFailure));
+            return;
+          }
+
           emit(HomeState.failure(
             error: error.apiErrorModel.message ?? '',
           ));
 
           // diagnostic
           // ignore: avoid_print
-          debugPrint(
-              '[HomeCubit] emitted failure: ${error.apiErrorModel.message}');
-        }
+        });
       },
     );
 

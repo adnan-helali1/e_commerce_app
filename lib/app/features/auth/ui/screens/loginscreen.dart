@@ -45,7 +45,10 @@ class LoginScreen extends StatelessWidget {
                           ),
                         );
                         Future.delayed(const Duration(seconds: 2), () {
-                          context.pushReplacementNamed(Routes.homescreen);
+                          context.pushNamedAndRemoveUntil(
+                            Routes.homescreen,
+                            predicate: (route) => false,
+                          );
                         });
                       },
                       failure: (error) {

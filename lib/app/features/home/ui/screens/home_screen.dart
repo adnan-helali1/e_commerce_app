@@ -37,17 +37,6 @@ class HomeScreen extends StatelessWidget {
                   loading: () => Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      IconButton(
-                        tooltip: 'مسح الكاش',
-                        icon: const Icon(Icons.delete_outline),
-                        onPressed: () async {
-                          await context.read<HomeCubit>().clearCache();
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                                content: Text('تم مسح الكاش وجلب البيانات')),
-                          );
-                        },
-                      ),
                       const HomeWelcomePanel(),
                       verticalSpace(16),
                       const HomeMetricsSection(metrics: []),
@@ -66,18 +55,6 @@ class HomeScreen extends StatelessWidget {
                       children: [
                         Row(
                           children: [
-                            IconButton(
-                              tooltip: 'مسح الكاش',
-                              icon: const Icon(Icons.delete_outline),
-                              onPressed: () async {
-                                await context.read<HomeCubit>().clearCache();
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                      content:
-                                          Text('تم مسح الكاش وجلب البيانات')),
-                                );
-                              },
-                            ),
                             const Expanded(child: HomeWelcomePanel()),
                           ],
                         ),
@@ -93,7 +70,6 @@ class HomeScreen extends StatelessWidget {
                   },
                   failure: (error) => Column(
                     children: [
-                      const HomeWelcomePanel(),
                       const SizedBox(height: 20),
                       Center(child: Text('Error: $error')),
                     ],
