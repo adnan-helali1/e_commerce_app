@@ -5,6 +5,7 @@ import 'package:B2B/app/core/di/dependency_injection.dart';
 import 'package:B2B/app/features/catalog/ui/screens/my_catalog_screen.dart';
 import 'package:B2B/app/features/home/logic/home_cubit.dart';
 import 'package:B2B/app/features/home/ui/screens/home_screen.dart';
+import 'package:B2B/app/features/offers/ui/screens/offers_screen.dart';
 import 'package:B2B/app/features/orders/ui/screens/purchase_orders_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -40,9 +41,9 @@ class _MainLayoutState extends State<MainLayout> {
 
     final screens = [
       const HomeScreen(),
-      const PurchaseOrdersScreen(),
-      const MyCatalogScreen(),
-      const MyCatalogScreen(),
+      const OffersScreen(),
+      // const PurchaseOrdersScreen(),
+      // const MyCatalogScreen(),
     ];
 
     return BlocProvider(
@@ -70,7 +71,4 @@ class _MainLayoutState extends State<MainLayout> {
       ),
     );
   }
-
-  /// ❌ لا تسكر Singleton Cubit
-  /// (مهم جداً)
 }
