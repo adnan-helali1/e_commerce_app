@@ -1,15 +1,15 @@
 import 'package:B2B/app/core/helpers/extensions.dart';
 import 'package:B2B/app/core/helpers/spacing.dart';
 import 'package:B2B/app/features/offers/ui/widgets/offer_card.dart';
-import 'package:B2B/app/features/offers/data/offer_empty_state.dart';
 import 'package:B2B/app/features/offers/ui/widgets/offer_screen_header.dart';
 import 'package:B2B/app/features/offers/ui/widgets/offer_search_row.dart';
+import 'package:B2B/app/features/catalog/ui/widgets/category_filter.dart';
 import 'package:B2B/app/features/offers/ui/widgets/offer_summary_row.dart';
 import 'package:B2B/app/features/offers/data/offer_ui_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class OffersScreen extends StatelessWidget {
+class OffersScreen extends StatefulWidget {
   const OffersScreen({super.key});
 
   static const _offers = [
@@ -64,13 +64,32 @@ class OffersScreen extends StatelessWidget {
   ];
 
   @override
+  State<OffersScreen> createState() => _OffersScreenState();
+}
+
+class _OffersScreenState extends State<OffersScreen> {
+  String _selectedCategory = 'all';
+  String _search = '';
+
+  List<OfferUiModel> get _filteredOffers {
+    return OffersScreen._offers.where((offer) {
+      final matchesCategory = _selectedCategory == 'all' || offer.category == _selectedCategory;
+      final matchesSearch = _search.isEmpty ||
+          offer.name.toLowerCase().contains(_search.toLowerCase()) ||
+          offer.supplier.toLowerCase().contains(_search.toLowerCase());
+      return matchesCategory && matchesSearch;
+    }).toList();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final availableOffers =
-        _offers.where((offer) => offer.status == 'Available').length;
+        OffersScreen._offers.where((offer) => offer.status == 'Available').length;
+
+    final categories = <String>['all', 'Dairy', 'Bakery', 'Fruits', 'Eggs'];
 
     return SafeArea(
       child: Scaffold(
-        backgroundColor: context.cs.surface,
         body: ListView(
           padding: EdgeInsets.only(bottom: 112.h),
           children: [
@@ -82,17 +101,21 @@ class OffersScreen extends StatelessWidget {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 24.w),
               child: OfferSummaryRow(
-                totalOffers: _offers.length,
+                totalOffers: OffersScreen._offers.length,
                 availableOffers: availableOffers,
               ),
             ),
             verticalSpace(12),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 24.w),
-              child: const OfferSearchRow(),
+              child: CategoryFilter(
+                categories: categories,
+                onCategorySelected: (c) => setState(() => _selectedCategory = c),
+                onSearchChanged: (s) => setState(() => _search = s),
+              ),
             ),
             verticalSpace(12),
-            ..._offers.map((offer) => OfferCard(offer: offer)),
+            ..._filteredOffers.map((offer) => OfferCard(offer: offer)),
           ],
         ),
       ),

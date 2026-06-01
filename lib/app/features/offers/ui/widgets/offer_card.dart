@@ -58,7 +58,7 @@ class OfferCard extends StatelessWidget {
                     ),
                     Expanded(
                       child: _OfferMetric(
-                        label: 'Category',
+                        label: 'Category\n',
                         value: offer.category,
                       ),
                     ),
@@ -109,6 +109,7 @@ class _OfferTitleRow extends StatelessWidget {
       children: [
         Expanded(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
@@ -199,19 +200,19 @@ class _AddOfferButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(color: Colors.yellow),
       width: 78.w,
       height: 36.h,
       child: ElevatedButton.icon(
         onPressed: isEnabled ? () {} : null,
-        icon: Icon(Icons.add_rounded, size: 17.sp),
+        icon: Icon(Icons.add_rounded, size: 17.sp, color: context.cs.surface),
         label: Text(
           'Add',
           style: TextStyles.button(context).copyWith(fontSize: 14.sp),
         ),
         style: ElevatedButton.styleFrom(
           backgroundColor: context.cs.primary,
-          foregroundColor: context.cs.onPrimary,
+          foregroundColor:
+              context.cs.onSecondary.withValues(alpha: isEnabled ? 1 : 0.2),
           padding: EdgeInsets.symmetric(horizontal: 8.w),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(6.r),
