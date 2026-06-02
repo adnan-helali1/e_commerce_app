@@ -4,6 +4,7 @@ import 'package:B2B/app/features/auth/data/models/login_response.dart';
 import 'package:B2B/app/features/auth/data/models/register_request_body.dart';
 import 'package:B2B/app/features/auth/data/models/register_response.dart';
 import 'package:B2B/app/features/home/data/models/home_dashboard_response.dart';
+import 'package:B2B/app/features/offers/data/models/offers_response.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
@@ -25,4 +26,12 @@ abstract class ApiService {
   // Home Endpoints
   @GET(ApiConstants.homeDashboard)
   Future<HomeDashboardResponse> getHomeDashboard();
+
+  // offers Endpoints
+  @GET(ApiConstants.offers)
+  Future<OffersResponse> getOffers(
+      @Query('page') int page,
+      @Query('category') int category,
+      @Query('status') String status,
+      @Query('search') String search);
 }

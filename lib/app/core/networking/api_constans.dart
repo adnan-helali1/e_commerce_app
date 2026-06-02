@@ -4,6 +4,7 @@ class ApiConstants {
   static const String register = 'register';
   static const String logout = 'logout';
   static const String homeDashboard = 'dashboard';
+  static const String offers = 'offers';
 }
 
 class ApiErrors {
