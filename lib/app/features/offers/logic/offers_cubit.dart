@@ -18,7 +18,9 @@ class OffersCubit extends Cubit<OffersState> {
   String _status = '';
   String _search = '';
 
-  OffersCubit(this._offersRepo) : super(const OffersState.initial());
+  OffersCubit(this._offersRepo) : super(const OffersState.initial()) {
+    load();
+  }
 
   Future<void> load({
     int page = 1,
