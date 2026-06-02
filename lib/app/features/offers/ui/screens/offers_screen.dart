@@ -1,4 +1,3 @@
-import 'package:B2B/app/core/helpers/extensions.dart';
 import 'package:B2B/app/core/helpers/spacing.dart';
 import 'package:B2B/app/features/offers/ui/widgets/offer_card.dart';
 import 'package:B2B/app/features/offers/ui/widgets/offer_screen_header.dart';

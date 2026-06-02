@@ -62,8 +62,10 @@ class OfferCard extends StatelessWidget {
                         value: offer.category,
                       ),
                     ),
-                    horizontalSpace(10),
-                    _AddOfferButton(isEnabled: isAvailable),
+                    if (isAvailable) ...[
+                      horizontalSpace(10),
+                      const _AddOfferButton(),
+                    ],
                   ],
                 ),
               ],
@@ -193,9 +195,7 @@ class _OfferMetric extends StatelessWidget {
 }
 
 class _AddOfferButton extends StatelessWidget {
-  final bool isEnabled;
-
-  const _AddOfferButton({required this.isEnabled});
+  const _AddOfferButton();
 
   @override
   Widget build(BuildContext context) {
@@ -203,7 +203,7 @@ class _AddOfferButton extends StatelessWidget {
       width: 78.w,
       height: 36.h,
       child: ElevatedButton.icon(
-        onPressed: isEnabled ? () {} : null,
+        onPressed: () {},
         icon: Icon(Icons.add_rounded, size: 17.sp, color: context.cs.surface),
         label: Text(
           'Add',
@@ -211,8 +211,7 @@ class _AddOfferButton extends StatelessWidget {
         ),
         style: ElevatedButton.styleFrom(
           backgroundColor: context.cs.primary,
-          foregroundColor:
-              context.cs.onSecondary.withValues(alpha: isEnabled ? 1 : 0.2),
+          foregroundColor: context.cs.onSecondary,
           padding: EdgeInsets.symmetric(horizontal: 8.w),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(6.r),
