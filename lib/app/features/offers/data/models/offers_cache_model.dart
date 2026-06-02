@@ -1,3 +1,10 @@
+import 'package:B2B/app/features/offers/data/models/offers_mode_response/category_model.dart';
+import 'package:B2B/app/features/offers/data/models/offers_mode_response/offer_data_model.dart';
+import 'package:B2B/app/features/offers/data/models/offers_mode_response/pagination_model.dart';
+import 'package:B2B/app/features/offers/data/models/offers_mode_response/product_model.dart';
+import 'package:B2B/app/features/offers/data/models/offers_mode_response/state_model.dart';
+import 'package:B2B/app/features/offers/data/models/offers_mode_response/supplier_model.dart';
+import 'package:B2B/app/features/offers/data/models/offers_mode_response/supplier_product_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'offers_response.dart';
 
