@@ -70,10 +70,12 @@ class OffersScreen extends StatefulWidget {
 class _OffersScreenState extends State<OffersScreen> {
   String _selectedCategory = 'all';
   String _search = '';
+  bool _showFilter = false;
 
   List<OfferUiModel> get _filteredOffers {
     return OffersScreen._offers.where((offer) {
-      final matchesCategory = _selectedCategory == 'all' || offer.category == _selectedCategory;
+      final matchesCategory =
+          _selectedCategory == 'all' || offer.category == _selectedCategory;
       final matchesSearch = _search.isEmpty ||
           offer.name.toLowerCase().contains(_search.toLowerCase()) ||
           offer.supplier.toLowerCase().contains(_search.toLowerCase());
@@ -83,8 +85,9 @@ class _OffersScreenState extends State<OffersScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final availableOffers =
-        OffersScreen._offers.where((offer) => offer.status == 'Available').length;
+    final availableOffers = OffersScreen._offers
+        .where((offer) => offer.status == 'Available')
+        .length;
 
     final categories = <String>['all', 'Dairy', 'Bakery', 'Fruits', 'Eggs'];
 
@@ -108,12 +111,24 @@ class _OffersScreenState extends State<OffersScreen> {
             verticalSpace(12),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 24.w),
-              child: CategoryFilter(
-                categories: categories,
-                onCategorySelected: (c) => setState(() => _selectedCategory = c),
+              child: OfferSearchRow(
+                onFilterPressed: () =>
+                    setState(() => _showFilter = !_showFilter),
                 onSearchChanged: (s) => setState(() => _search = s),
               ),
             ),
+            if (_showFilter) ...[
+              verticalSpace(12),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 24.w),
+                child: CategoryFilter(
+                  categories: categories,
+                  onCategorySelected: (c) =>
+                      setState(() => _selectedCategory = c),
+                  onClose: () => setState(() => _showFilter = false),
+                ),
+              ),
+            ],
             verticalSpace(12),
             ..._filteredOffers.map((offer) => OfferCard(offer: offer)),
           ],

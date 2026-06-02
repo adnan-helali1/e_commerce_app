@@ -5,7 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class OfferSearchRow extends StatelessWidget {
-  const OfferSearchRow({super.key});
+  final VoidCallback? onFilterPressed;
+  final ValueChanged<String>? onSearchChanged;
+
+  const OfferSearchRow({
+    super.key,
+    this.onFilterPressed,
+    this.onSearchChanged,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +39,7 @@ class OfferSearchRow extends StatelessWidget {
                   horizontalSpace(10),
                   Expanded(
                     child: TextField(
+                      onChanged: onSearchChanged,
                       style: TextStyles.fieldText(context).copyWith(
                         fontSize: 15.sp,
                         height: 1.1,
@@ -60,7 +68,7 @@ class OfferSearchRow extends StatelessWidget {
             width: 52.w,
             height: 58.h,
             child: OutlinedButton(
-              onPressed: () {},
+              onPressed: onFilterPressed,
               style: OutlinedButton.styleFrom(
                 padding: EdgeInsets.zero,
                 foregroundColor: context.cs.onSurface,
