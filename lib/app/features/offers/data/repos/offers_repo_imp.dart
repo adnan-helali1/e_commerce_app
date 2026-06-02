@@ -11,8 +11,7 @@ class OffersRepoImpl implements OffersRepo {
   final OffersLocalDataSource _local;
   final OffersRemoteDataSource _remote;
 
-  bool _isFetching = false;
-
+  final Set<String> _activeRequests = {};
   OffersRepoImpl(this._local, this._remote);
 
   @override
@@ -78,6 +77,7 @@ class OffersRepoImpl implements OffersRepo {
     required String search,
     bool forceRefresh = false,
   }) async {
+    final requestKey = '$page-$category-$status-$search';
     try {
       // 🧠 1. رجّع الكاش فوراً إذا موجود
       if (!forceRefresh) {
@@ -93,20 +93,20 @@ class OffersRepoImpl implements OffersRepo {
       }
 
       // 🧠 2. منع duplicate calls
-      if (_isFetching) {
+      if (_activeRequests.contains(requestKey)) {
         final cached = await getCachedOffers(
           page: page,
           category: category,
           status: status,
           search: search,
         );
+
         if (cached != null) {
           return ApiResult.success(cached);
         }
       }
 
-      _isFetching = true;
-
+      _activeRequests.add(requestKey);
       // 🌐 API CALL
       final response = await _remote.getOffers(
         page,
@@ -139,7 +139,7 @@ class OffersRepoImpl implements OffersRepo {
 
       return ApiResult.failure(ErrorHandler.handle(error));
     } finally {
-      _isFetching = false;
+      _activeRequests.remove(requestKey);
     }
   }
 }

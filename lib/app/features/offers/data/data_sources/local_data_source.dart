@@ -21,7 +21,7 @@ class OffersLocalDataSource {
     );
 
     return _cache.read(
-      boxKey: CacheKeys.homeBox,
+      boxKey: CacheKeys.offersBox,
       dataKey: key,
       fromJson: OffersCacheModel.fromJson,
     );
@@ -42,7 +42,7 @@ class OffersLocalDataSource {
     );
 
     return _cache.save(
-      boxKey: CacheKeys.homeBox,
+      boxKey: CacheKeys.offersBox,
       dataKey: key,
       data: model.toJson(),
     );
@@ -62,7 +62,7 @@ class OffersLocalDataSource {
     );
 
     return _cache.clear(
-      boxKey: CacheKeys.homeBox,
+      boxKey: CacheKeys.offersBox,
       dataKey: key,
     );
   }
