@@ -2,9 +2,26 @@ import 'package:B2B/app/core/networking/api_result.dart';
 import 'package:B2B/app/features/offers/data/models/offers_response.dart';
 
 abstract class OffersRepo {
-  Future<OffersResponse?> getCachedOffers();
+  Future<OffersResponse?> getCachedOffers({
+    required int page,
+    required int category,
+    required String status,
+    required String search,
+  });
 
-  Future<DateTime?> getCachedOffersAt();
+  Future<DateTime?> getCachedOffersAt({
+    required int page,
+    required int category,
+    required String status,
+    required String search,
+  });
+
+  Future<void> clearOffers({
+    required int page,
+    required int category,
+    required String status,
+    required String search,
+  });
 
   bool shouldRefreshOffers(DateTime? cachedAt);
 
@@ -15,6 +32,4 @@ abstract class OffersRepo {
     required String search,
     bool forceRefresh = false,
   });
-
-  Future<void> clearOffers();
 }

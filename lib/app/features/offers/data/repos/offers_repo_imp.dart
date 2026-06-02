@@ -16,7 +16,12 @@ class OffersRepoImpl implements OffersRepo {
   OffersRepoImpl(this._local, this._remote);
 
   @override
-  Future<OffersResponse?> getCachedOffers() async {
+  Future<OffersResponse?> getCachedOffers({
+    required int page,
+    required int category,
+    required String status,
+    required String search,
+  }) async {
     final cached = await _local.read(
       page: page,
       category: category,
@@ -27,7 +32,12 @@ class OffersRepoImpl implements OffersRepo {
   }
 
   @override
-  Future<void> clearOffers() async {
+  Future<void> clearOffers({
+    required int page,
+    required int category,
+    required String status,
+    required String search,
+  }) async {
     await _local.clear(
       page: page,
       category: category,
@@ -37,13 +47,19 @@ class OffersRepoImpl implements OffersRepo {
   }
 
   @override
-  Future<DateTime?> getCachedOffersAt() async {
+  Future<DateTime?> getCachedOffersAt({
+    required int page,
+    required int category,
+    required String status,
+    required String search,
+  }) async {
     final cached = await _local.read(
       page: page,
       category: category,
       status: status,
       search: search,
     );
+
     return cached?.cachedAt;
   }
 
@@ -65,7 +81,12 @@ class OffersRepoImpl implements OffersRepo {
     try {
       // 🧠 1. رجّع الكاش فوراً إذا موجود
       if (!forceRefresh) {
-        final cached = await getCachedOffers();
+        final cached = await getCachedOffers(
+          page: page,
+          category: category,
+          status: status,
+          search: search,
+        );
         if (cached != null) {
           return ApiResult.success(cached);
         }
@@ -73,7 +94,12 @@ class OffersRepoImpl implements OffersRepo {
 
       // 🧠 2. منع duplicate calls
       if (_isFetching) {
-        final cached = await getCachedOffers();
+        final cached = await getCachedOffers(
+          page: page,
+          category: category,
+          status: status,
+          search: search,
+        );
         if (cached != null) {
           return ApiResult.success(cached);
         }
@@ -101,7 +127,12 @@ class OffersRepoImpl implements OffersRepo {
       return ApiResult.success(response);
     } catch (error) {
       // 🧠 fallback للكاش
-      final cached = await getCachedOffers();
+      final cached = await getCachedOffers(
+        page: page,
+        category: category,
+        status: status,
+        search: search,
+      );
       if (cached != null) {
         return ApiResult.success(cached);
       }
