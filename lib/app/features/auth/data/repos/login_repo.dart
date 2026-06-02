@@ -16,7 +16,6 @@ class LoginRepo {
       final response = await _apiService.login(loginRequestBody);
       return ApiResult.success(response);
     } catch (error) {
-      debugPrint('LoginRepo login error: $error');
       return ApiResult.failure(ErrorHandler.handle(error));
     }
   }
@@ -26,7 +25,6 @@ class LoginRepo {
       await _apiService.logout();
       return ApiResult.success(null);
     } catch (error) {
-      debugPrint('LoginRepo logout error: $error');
       return ApiResult.failure(ErrorHandler.handle(error));
     }
   }

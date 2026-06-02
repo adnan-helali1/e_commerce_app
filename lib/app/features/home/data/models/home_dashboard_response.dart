@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:json_annotation/json_annotation.dart';
 
 part 'home_dashboard_response.g.dart';
@@ -45,6 +47,16 @@ class HomeDashboardResponse {
       _$HomeDashboardResponseFromJson(json);
 
   Map<String, dynamic> toJson() => _$HomeDashboardResponseToJson(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    return other is HomeDashboardResponse &&
+        jsonEncode(toJson()) == jsonEncode(other.toJson());
+  }
+
+  @override
+  int get hashCode => jsonEncode(toJson()).hashCode;
 }
 
 @JsonSerializable()
@@ -85,6 +97,16 @@ class HomeRecentOrder {
       _$HomeRecentOrderFromJson(json);
 
   Map<String, dynamic> toJson() => _$HomeRecentOrderToJson(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    return other is HomeRecentOrder &&
+        jsonEncode(toJson()) == jsonEncode(other.toJson());
+  }
+
+  @override
+  int get hashCode => jsonEncode(toJson()).hashCode;
 }
 
 @JsonSerializable()
@@ -104,4 +126,14 @@ class HomeOrderItem {
       _$HomeOrderItemFromJson(json);
 
   Map<String, dynamic> toJson() => _$HomeOrderItemToJson(this);
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    return other is HomeOrderItem &&
+        jsonEncode(toJson()) == jsonEncode(other.toJson());
+  }
+
+  @override
+  int get hashCode => jsonEncode(toJson()).hashCode;
 }

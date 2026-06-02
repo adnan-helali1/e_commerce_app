@@ -10,6 +10,7 @@ import 'package:B2B/app/features/auth/ui/screens/forgotpasswordscreen.dart';
 import 'package:B2B/app/features/catalog/ui/screens/my_catalog_screen.dart';
 import 'package:B2B/app/features/catalog/ui/screens/supplier_offers_screen.dart';
 import 'package:B2B/app/features/main_layout.dart';
+import 'package:B2B/app/features/offers/ui/screens/offers_screen.dart';
 import 'package:B2B/app/features/orders/ui/screens/purchase_orders_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -50,6 +51,12 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (_) => MainShellWidget(
             child: const MyCatalogScreen(),
+          ),
+        );
+      case Routes.offersScreen:
+        return MaterialPageRoute(
+          builder: (_) => MainShellWidget(
+            child: const OffersScreen(),
           ),
         );
 

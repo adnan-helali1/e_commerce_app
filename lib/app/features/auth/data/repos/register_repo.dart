@@ -16,7 +16,6 @@ class RegisterRepo {
       final response = await _apiService.register(registerRequestBody);
       return ApiResult.success(response);
     } catch (error) {
-      debugPrint('RegisterRepo register error: $error');
       return ApiResult.failure(ErrorHandler.handle(error));
     }
   }

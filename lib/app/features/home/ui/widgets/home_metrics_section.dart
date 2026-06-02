@@ -113,7 +113,7 @@ class _MetricCard extends StatelessWidget {
                         ? context.cs.error
                         : context.cs.onSurfaceVariant,
                 fontSize: 12.sp,
-                height: 1.2,
+                height: 1,
                 fontWeight: FontWeight.w700,
               ),
             ),
