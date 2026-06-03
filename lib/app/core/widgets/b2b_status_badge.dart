@@ -53,6 +53,7 @@ Color b2bStatusColor(BuildContext context, String status) {
     case 'Approved':
     case 'Available':
     case 'Active':
+    case 'available':
       return context.appColors.success;
     case 'Preparing':
       return context.appColors.info;

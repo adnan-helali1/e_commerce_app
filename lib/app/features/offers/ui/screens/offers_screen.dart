@@ -1,136 +1,147 @@
 import 'package:B2B/app/core/helpers/spacing.dart';
+import 'package:B2B/app/core/theme/textstyles.dart';
+import 'package:B2B/app/features/catalog/ui/widgets/category_filter.dart';
+import 'package:B2B/app/features/offers/logic/offers_cubit.dart';
+import 'package:B2B/app/features/offers/logic/offers_state.dart';
 import 'package:B2B/app/features/offers/ui/widgets/offer_card.dart';
 import 'package:B2B/app/features/offers/ui/widgets/offer_screen_header.dart';
 import 'package:B2B/app/features/offers/ui/widgets/offer_search_row.dart';
-import 'package:B2B/app/features/catalog/ui/widgets/category_filter.dart';
 import 'package:B2B/app/features/offers/ui/widgets/offer_summary_row.dart';
-import 'package:B2B/app/features/offers/data/offer_ui_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class OffersScreen extends StatefulWidget {
   const OffersScreen({super.key});
-
-  static const _offers = [
-    OfferUiModel(
-      name: 'Premium Organic Milk',
-      supplier: 'FreshDairy Co.',
-      status: 'Available',
-      buyPrice: '\$2.50',
-      stock: '150',
-      category: 'Dairy',
-    ),
-    OfferUiModel(
-      name: 'Premium Organic Milk',
-      supplier: 'GreenFarm Suppliers',
-      status: 'Available',
-      buyPrice: '\$2.35',
-      stock: '200',
-      category: 'Dairy',
-    ),
-    OfferUiModel(
-      name: 'Whole Wheat Bread',
-      supplier: 'BakeMaster Ltd.',
-      status: 'Available',
-      buyPrice: '\$1.80',
-      stock: '80',
-      category: 'Bakery',
-    ),
-    OfferUiModel(
-      name: 'Free Range Eggs',
-      supplier: 'FreshDairy Co.',
-      status: 'Available',
-      buyPrice: '\$4.20',
-      stock: '60',
-      category: 'Eggs',
-    ),
-    OfferUiModel(
-      name: 'Organic Bananas',
-      supplier: 'Tropical Import',
-      status: 'Unavailable',
-      buyPrice: '\$1.20',
-      stock: '0',
-      category: 'Fruits',
-    ),
-    OfferUiModel(
-      name: 'Greek Yogurt 500g',
-      supplier: 'GreenFarm Supplies',
-      status: 'Available',
-      buyPrice: '\$3.50',
-      stock: '120',
-      category: 'Dairy',
-    ),
-  ];
 
   @override
   State<OffersScreen> createState() => _OffersScreenState();
 }
 
 class _OffersScreenState extends State<OffersScreen> {
-  String _selectedCategory = 'all';
-  String _search = '';
   bool _showFilter = false;
 
-  List<OfferUiModel> get _filteredOffers {
-    return OffersScreen._offers.where((offer) {
-      final matchesCategory =
-          _selectedCategory == 'all' || offer.category == _selectedCategory;
-      final matchesSearch = _search.isEmpty ||
-          offer.name.toLowerCase().contains(_search.toLowerCase()) ||
-          offer.supplier.toLowerCase().contains(_search.toLowerCase());
-      return matchesCategory && matchesSearch;
-    }).toList();
-  }
+  int _category = 0;
 
   @override
   Widget build(BuildContext context) {
-    final availableOffers = OffersScreen._offers
-        .where((offer) => offer.status == 'Available')
-        .length;
-
-    final categories = <String>['all', 'Dairy', 'Bakery', 'Fruits', 'Eggs'];
-
-    return SafeArea(
-      child: Scaffold(
-        body: ListView(
-          padding: EdgeInsets.only(bottom: 112.h),
-          children: [
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 24.w),
-              child: const OfferScreenHeader(),
-            ),
-            verticalSpace(10),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 24.w),
-              child: OfferSummaryRow(
-                totalOffers: OffersScreen._offers.length,
-                availableOffers: availableOffers,
-              ),
-            ),
-            verticalSpace(12),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 24.w),
-              child: OfferSearchRow(
-                onFilterPressed: () =>
-                    setState(() => _showFilter = !_showFilter),
-                onSearchChanged: (s) => setState(() => _search = s),
-              ),
-            ),
-            if (_showFilter) ...[
-              verticalSpace(12),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 24.w),
-                child: CategoryFilter(
-                  categories: categories,
-                  onCategorySelected: (c) =>
-                      setState(() => _selectedCategory = c),
-                  onClose: () => setState(() => _showFilter = false),
+    return Scaffold(
+      body: RefreshIndicator(
+        onRefresh: () => context.read<OffersCubit>().refresh(),
+        child: BlocBuilder<OffersCubit, OffersState>(
+          builder: (context, state) {
+            return state.when(
+              initial: () => const SizedBox.shrink(),
+              loading: () => Padding(
+                padding: EdgeInsets.all(16),
+                child: Center(
+                  child: SizedBox(
+                    width: 20,
+                    height: 20,
+                    child: CircularProgressIndicator(strokeWidth: 2),
+                  ),
                 ),
               ),
-            ],
-            verticalSpace(12),
-            ..._filteredOffers.map((offer) => OfferCard(offer: offer)),
-          ],
+              failure: (error) => Center(
+                child: Text(error),
+              ),
+              success: (data) {
+                final offers = data.data;
+
+                return ListView(
+                  padding: EdgeInsets.only(bottom: 112.h),
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 24.w),
+                      child: const OfferScreenHeader(),
+                    ),
+                    verticalSpace(10),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 24.w),
+                      child: OfferSummaryRow(
+                        totalOffers: data.stats.totalOffers,
+                        availableOffers: data.stats.availableOffers,
+                      ),
+                    ),
+                    verticalSpace(12),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 24.w),
+                      child: OfferSearchRow(
+                        onFilterPressed: () {
+                          setState(() {
+                            _showFilter = !_showFilter;
+                          });
+                        },
+                        onSearchChanged: (value) {
+                          context.read<OffersCubit>().search(value);
+                        },
+                      ),
+                    ),
+                    if (_showFilter) ...[
+                      verticalSpace(12),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 24.w),
+                        child: CategoryFilter(
+                          categories: const [
+                            'all',
+                            'Dairy',
+                            'Bakery',
+                            'Fruits',
+                            'Eggs',
+                          ],
+                          onCategorySelected: (value) {
+                            final categoryMap = {
+                              'all': 0,
+                              'Beverages': 1,
+                              'Snacks': 2,
+                            };
+
+                            final selectedCategory = categoryMap[value] ?? 0;
+
+                            setState(() {
+                              _category = selectedCategory;
+                            });
+
+                            context
+                                .read<OffersCubit>()
+                                .filterByCategory(selectedCategory);
+                          },
+                        ),
+                      ),
+                      if (offers.isEmpty)
+                        Center(
+                          child: Padding(
+                            padding: const EdgeInsets.all(40),
+                            child: Column(
+                              children: [
+                                Icon(Icons.search_off,
+                                    size: 60, color: Colors.grey),
+                                verticalSpace(10),
+                                Text(
+                                  'No results found',
+                                  style: TextStyles.label(context),
+                                ),
+                                verticalSpace(6),
+                                Text(
+                                  'Try different keywords',
+                                  style: TextStyles.note(context),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                    ],
+                    verticalSpace(12),
+                    ...offers.map(
+                      (offer) => OfferCard(
+                        offer: offer,
+                      ),
+                    ),
+                  ],
+                );
+              },
+            );
+          },
         ),
       ),
     );

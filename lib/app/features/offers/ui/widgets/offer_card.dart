@@ -2,12 +2,12 @@ import 'package:B2B/app/core/helpers/extensions.dart';
 import 'package:B2B/app/core/helpers/spacing.dart';
 import 'package:B2B/app/core/theme/textstyles.dart';
 import 'package:B2B/app/core/widgets/b2b_status_badge.dart';
-import 'package:B2B/app/features/offers/data/offer_ui_model.dart';
+import 'package:B2B/app/features/offers/data/models/offers_mode_response/offer_data_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class OfferCard extends StatelessWidget {
-  final OfferUiModel offer;
+  final OfferData offer;
 
   const OfferCard({
     required this.offer,
@@ -16,17 +16,24 @@ class OfferCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isAvailable = offer.status == 'Available';
+    final isAvailable = offer.status.toLowerCase() == 'available';
 
     return Container(
       width: double.infinity,
       constraints: BoxConstraints(minHeight: 156.h),
       margin: EdgeInsets.symmetric(horizontal: 24.w).copyWith(bottom: 12.h),
-      padding: EdgeInsetsDirectional.fromSTEB(18.w, 14.h, 12.w, 14.h),
+      padding: EdgeInsetsDirectional.fromSTEB(
+        18.w,
+        14.h,
+        12.w,
+        14.h,
+      ),
       decoration: BoxDecoration(
         color: context.appColors.cardBackground,
         borderRadius: BorderRadius.circular(8.r),
-        border: Border.all(color: context.appColors.borderColor),
+        border: Border.all(
+          color: context.appColors.borderColor,
+        ),
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -46,20 +53,20 @@ class OfferCard extends StatelessWidget {
                     Expanded(
                       child: _OfferMetric(
                         label: 'Buy\nPrice',
-                        value: offer.buyPrice,
+                        value: offer.offerPrice,
                         valueColor: context.cs.primary,
                       ),
                     ),
                     Expanded(
                       child: _OfferMetric(
                         label: 'Stock',
-                        value: '${offer.stock}\nunits',
+                        value: '${offer.offerStock}\nunits',
                       ),
                     ),
                     Expanded(
                       child: _OfferMetric(
                         label: 'Category\n',
-                        value: offer.category,
+                        value: offer.supplierProduct.product.category.name,
                       ),
                     ),
                     if (isAvailable) ...[
@@ -100,9 +107,11 @@ class _OfferThumb extends StatelessWidget {
 }
 
 class _OfferTitleRow extends StatelessWidget {
-  final OfferUiModel offer;
+  final OfferData offer;
 
-  const _OfferTitleRow({required this.offer});
+  const _OfferTitleRow({
+    required this.offer,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -115,7 +124,7 @@ class _OfferTitleRow extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                offer.name,
+                offer.supplierProduct.product.name,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyles.label(context).copyWith(
@@ -126,7 +135,7 @@ class _OfferTitleRow extends StatelessWidget {
               ),
               verticalSpace(4),
               Text(
-                offer.supplier,
+                offer.supplierProduct.supplier.name,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyles.note(context).copyWith(
@@ -140,8 +149,11 @@ class _OfferTitleRow extends StatelessWidget {
         ),
         horizontalSpace(8),
         B2BStatusBadge(
-          label: offer.status,
-          color: b2bStatusColor(context, offer.status),
+          label: offer.status.toUpperCase().substring(0),
+          color: b2bStatusColor(
+            context,
+            offer.status,
+          ),
         ),
       ],
     );
@@ -199,15 +211,21 @@ class _AddOfferButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: 78.w,
       height: 36.h,
       child: ElevatedButton.icon(
         onPressed: () {},
-        icon: Icon(Icons.add_rounded, size: 17.sp, color: context.cs.surface),
+        icon: Icon(
+          Icons.add_rounded,
+          size: 17.sp,
+          color: context.cs.surface,
+        ),
         label: Text(
           'Add',
-          style: TextStyles.button(context).copyWith(fontSize: 14.sp),
+          style: TextStyles.button(context).copyWith(
+            fontSize: 14.sp,
+          ),
         ),
         style: ElevatedButton.styleFrom(
           backgroundColor: context.cs.primary,

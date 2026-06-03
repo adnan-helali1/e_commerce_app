@@ -17,20 +17,20 @@ class HomeRepoImpl implements HomeRepo {
 // get the cached dashboard, if available and not expired
   @override
   Future<HomeDashboardResponse?> getCachedHomeDashboard() async {
-    final cached = await _localDataSource.readHomeDashboard();
+    final cached = await _localDataSource.read();
     return cached?.toDashboardResponse();
   }
 
 // clear the cached dashboard
   @override
   Future<void> clearHomeDashboard() async {
-    await _localDataSource.clearHomeDashboard();
+    await _localDataSource.clear();
   }
 
 // get the timestamp of when the dashboard was cached
   @override
   Future<DateTime?> getCachedHomeDashboardAt() async {
-    final cached = await _localDataSource.readHomeDashboard();
+    final cached = await _localDataSource.read();
     return cached?.cachedAt;
   }
 
@@ -70,7 +70,7 @@ class HomeRepoImpl implements HomeRepo {
       _isFetching = true;
       final response = await _remoteDataSource.getHomeDashboard();
       final cacheModel = HomeDashboardCacheModel.fromDashboard(response);
-      await _localDataSource.saveHomeDashboard(cacheModel);
+      await _localDataSource.save(cacheModel);
 
       return ApiResult.success(response);
     } catch (error) {

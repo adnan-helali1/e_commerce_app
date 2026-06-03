@@ -38,7 +38,9 @@ class OfferSearchRow extends StatelessWidget {
                   ),
                   horizontalSpace(10),
                   Expanded(
-                    child: TextField(
+                    child: TextFormField(
+                      onFieldSubmitted: (_) => FocusScope.of(context).unfocus(),
+                      textInputAction: TextInputAction.search,
                       onChanged: onSearchChanged,
                       style: TextStyles.fieldText(context).copyWith(
                         fontSize: 15.sp,

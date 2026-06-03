@@ -1,58 +1,32 @@
+import 'package:B2B/app/core/cache/cache_data_source.dart';
 import 'package:B2B/app/core/cache/cache_keyes.dart';
-import 'package:B2B/app/core/cache/hive_service.dart';
 import 'package:B2B/app/features/home/data/models/home_dashboard_cache_model.dart';
 
 class HomeLocalDataSource {
-  final HiveService _hiveService;
+  final CacheDataSource<HomeDashboardCacheModel> _cache;
 
-  HomeLocalDataSource(this._hiveService);
+  HomeLocalDataSource(this._cache);
 
-  Future<HomeDashboardCacheModel?> readHomeDashboard() async {
-   
-    final box = await _hiveService.openBox(CacheKeys.homeBox);
-    final entry = box.get(CacheKeys.homeDashboard);
-
-    if (entry is! Map) {
-      return null;
-    }
-
-    final Map<String, dynamic> casted = _deepCastMap(entry);
-
-    return HomeDashboardCacheModel.fromJson(casted);
+  Future<HomeDashboardCacheModel?> read() {
+    return _cache.read(
+      boxKey: CacheKeys.homeBox,
+      dataKey: CacheKeys.homeDashboard,
+      fromJson: HomeDashboardCacheModel.fromJson,
+    );
   }
 
-  Map<String, dynamic> _deepCastMap(Map src) {
-    final Map<String, dynamic> result = <String, dynamic>{};
-    src.forEach((key, value) {
-      final k = key.toString();
-      if (value is Map) {
-        result[k] = _deepCastMap(value);
-      } else if (value is List) {
-        result[k] = _deepCastList(value);
-      } else {
-        result[k] = value;
-      }
-    });
-    return result;
+  Future<void> save(HomeDashboardCacheModel model) {
+    return _cache.save(
+      boxKey: CacheKeys.homeBox,
+      dataKey: CacheKeys.homeDashboard,
+      data: model.toJson(),
+    );
   }
 
-  List<dynamic> _deepCastList(List src) {
-    return src.map((e) {
-      if (e is Map) return _deepCastMap(e);
-      if (e is List) return _deepCastList(e);
-      return e;
-    }).toList(growable: false);
-  }
-
-  Future<void> saveHomeDashboard(HomeDashboardCacheModel model) async {
-   
-    final box = await _hiveService.openBox(CacheKeys.homeBox);
-    await box.put(CacheKeys.homeDashboard, model.toJson());
-  }
-
-  Future<void> clearHomeDashboard() async {
-   
-    final box = await _hiveService.openBox(CacheKeys.homeBox);
-    await box.delete(CacheKeys.homeDashboard);
+  Future<void> clear() {
+    return _cache.clear(
+      boxKey: CacheKeys.homeBox,
+      dataKey: CacheKeys.homeDashboard,
+    );
   }
 }
