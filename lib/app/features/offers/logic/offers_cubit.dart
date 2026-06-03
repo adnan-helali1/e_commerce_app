@@ -12,7 +12,7 @@ class OffersCubit extends Cubit<OffersState> {
   bool _isRefreshing = false;
 
   Timer? _periodicTimer;
-
+  Timer? _searchDebounce;
   int _page = 1;
   int _category = 0;
   String _status = '';
@@ -65,8 +65,14 @@ class OffersCubit extends Cubit<OffersState> {
       return;
     }
 
-    emit(const OffersState.loading());
+    final hasData = state.maybeWhen(
+      success: (_) => true,
+      orElse: () => false,
+    );
 
+    if (!hasData) {
+      emit(const OffersState.loading());
+    }
     final response = await _offersRepo.getOffers(
       page: page,
       category: category,
@@ -236,7 +242,33 @@ class OffersCubit extends Cubit<OffersState> {
 
   @override
   Future<void> close() {
+    _searchDebounce?.cancel();
     _periodicTimer?.cancel();
     return super.close();
+  }
+
+  void search(String value) {
+    _searchDebounce?.cancel();
+
+    _searchDebounce = Timer(
+      const Duration(milliseconds: 600),
+      () {
+        load(
+          page: 1,
+          category: _category,
+          status: _status,
+          search: value,
+        );
+      },
+    );
+  }
+
+  void filterByCategory(int category) {
+    load(
+      page: 1,
+      category: category,
+      status: _status,
+      search: _search,
+    );
   }
 }

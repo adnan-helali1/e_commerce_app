@@ -1,4 +1,5 @@
 import 'package:B2B/app/core/helpers/spacing.dart';
+import 'package:B2B/app/core/theme/textstyles.dart';
 import 'package:B2B/app/features/catalog/ui/widgets/category_filter.dart';
 import 'package:B2B/app/features/offers/logic/offers_cubit.dart';
 import 'package:B2B/app/features/offers/logic/offers_state.dart';
@@ -21,100 +22,127 @@ class _OffersScreenState extends State<OffersScreen> {
   bool _showFilter = false;
 
   int _category = 0;
-  String _search = '';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocBuilder<OffersCubit, OffersState>(
-        builder: (context, state) {
-          return state.when(
-            initial: () => const SizedBox.shrink(),
-            loading: () => const Center(
-              child: CircularProgressIndicator(),
-            ),
-            failure: (error) => Center(
-              child: Text(error),
-            ),
-            success: (data) {
-              final offers = data.data;
+      body: RefreshIndicator(
+        onRefresh: () => context.read<OffersCubit>().refresh(),
+        child: BlocBuilder<OffersCubit, OffersState>(
+          builder: (context, state) {
+            return state.when(
+              initial: () => const SizedBox.shrink(),
+              loading: () => Padding(
+                padding: EdgeInsets.all(16),
+                child: Center(
+                  child: SizedBox(
+                    width: 20,
+                    height: 20,
+                    child: CircularProgressIndicator(strokeWidth: 2),
+                  ),
+                ),
+              ),
+              failure: (error) => Center(
+                child: Text(error),
+              ),
+              success: (data) {
+                final offers = data.data;
 
-              return ListView(
-                padding: EdgeInsets.only(bottom: 112.h),
-                children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 24.w),
-                    child: const OfferScreenHeader(),
-                  ),
-                  verticalSpace(10),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 24.w),
-                    child: OfferSummaryRow(
-                      totalOffers: data.stats.totalOffers,
-                      availableOffers: data.stats.availableOffers,
+                return ListView(
+                  padding: EdgeInsets.only(bottom: 112.h),
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 24.w),
+                      child: const OfferScreenHeader(),
                     ),
-                  ),
-                  verticalSpace(12),
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 24.w),
-                    child: OfferSearchRow(
-                      onFilterPressed: () {
-                        setState(() {
-                          _showFilter = !_showFilter;
-                        });
-                      },
-                      onSearchChanged: (value) {
-                        _search = value;
-
-                        context.read<OffersCubit>().load(
-                              category: _category,
-                              search: value,
-                            );
-                      },
+                    verticalSpace(10),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 24.w),
+                      child: OfferSummaryRow(
+                        totalOffers: data.stats.totalOffers,
+                        availableOffers: data.stats.availableOffers,
+                      ),
                     ),
-                  ),
-                  if (_showFilter) ...[
                     verticalSpace(12),
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 24.w),
-                      child: CategoryFilter(
-                        categories: const [
-                          'all',
-                          'Dairy',
-                          'Bakery',
-                          'Fruits',
-                          'Eggs',
-                        ],
-                        onCategorySelected: (value) {
+                      child: OfferSearchRow(
+                        onFilterPressed: () {
                           setState(() {
-                            _category =
-                                value == 'all' ? 0 : int.tryParse(value) ?? 0;
+                            _showFilter = !_showFilter;
                           });
-
-                          context.read<OffersCubit>().load(
-                                category: _category,
-                                search: _search,
-                              );
                         },
-                        onClose: () {
-                          setState(() {
-                            _showFilter = false;
-                          });
+                        onSearchChanged: (value) {
+                          context.read<OffersCubit>().search(value);
                         },
                       ),
                     ),
-                  ],
-                  verticalSpace(12),
-                  ...offers.map(
-                    (offer) => OfferCard(
-                      offer: offer,
+                    if (_showFilter) ...[
+                      verticalSpace(12),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 24.w),
+                        child: CategoryFilter(
+                          categories: const [
+                            'all',
+                            'Dairy',
+                            'Bakery',
+                            'Fruits',
+                            'Eggs',
+                          ],
+                          onCategorySelected: (value) {
+                            final categoryMap = {
+                              'all': 0,
+                              'Beverages': 1,
+                              'Snacks': 2,
+                            };
+
+                            final selectedCategory = categoryMap[value] ?? 0;
+
+                            setState(() {
+                              _category = selectedCategory;
+                            });
+
+                            context
+                                .read<OffersCubit>()
+                                .filterByCategory(selectedCategory);
+                          },
+                        ),
+                      ),
+                      if (offers.isEmpty)
+                        Center(
+                          child: Padding(
+                            padding: const EdgeInsets.all(40),
+                            child: Column(
+                              children: [
+                                Icon(Icons.search_off,
+                                    size: 60, color: Colors.grey),
+                                verticalSpace(10),
+                                Text(
+                                  'No results found',
+                                  style: TextStyles.label(context),
+                                ),
+                                verticalSpace(6),
+                                Text(
+                                  'Try different keywords',
+                                  style: TextStyles.note(context),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                    ],
+                    verticalSpace(12),
+                    ...offers.map(
+                      (offer) => OfferCard(
+                        offer: offer,
+                      ),
                     ),
-                  ),
-                ],
-              );
-            },
-          );
-        },
+                  ],
+                );
+              },
+            );
+          },
+        ),
       ),
     );
   }
