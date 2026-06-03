@@ -149,7 +149,7 @@ class _OfferTitleRow extends StatelessWidget {
         ),
         horizontalSpace(8),
         B2BStatusBadge(
-          label: offer.status,
+          label: offer.status.toUpperCase().substring(0),
           color: b2bStatusColor(
             context,
             offer.status,
