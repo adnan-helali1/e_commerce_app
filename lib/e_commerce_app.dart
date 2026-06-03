@@ -1,3 +1,4 @@
+import 'package:B2B/app/core/helpers/constans.dart';
 import 'package:B2B/app/core/routing/routes.dart';
 import 'package:B2B/app/core/theme/dark_theme.dart';
 import 'package:B2B/app/core/theme/light_theme.dart';
@@ -23,8 +24,8 @@ class ECommerceApp extends StatelessWidget {
               return MaterialApp(
                 title: 'B2B App',
                 debugShowCheckedModeBanner: false,
-                initialRoute: Routes.homescreen,
-                //   isLoggedInUser ? Routes.homescreen : Routes.loginscreen,
+                initialRoute:
+                    isLoggedInUser ? Routes.homescreen : Routes.loginscreen,
                 onGenerateRoute: Routes.appRouter,
                 theme: lightTheme,
                 darkTheme: darkTheme,

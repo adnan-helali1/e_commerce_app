@@ -46,21 +46,6 @@ class _CategoryFilterState extends State<CategoryFilter> {
                   ),
                 ),
               ),
-              IconButton(
-                padding: EdgeInsets.zero,
-                constraints: BoxConstraints.tight(Size(28.w, 28.h)),
-                icon: Icon(Icons.close, size: 18.sp),
-                onPressed: () {
-                  if (widget.onClose != null) {
-                    widget.onClose!.call();
-                  } else {
-                    setState(() {
-                      _selected = 'all';
-                      widget.onCategorySelected?.call(_selected);
-                    });
-                  }
-                },
-              ),
             ],
           ),
           verticalSpace(8),

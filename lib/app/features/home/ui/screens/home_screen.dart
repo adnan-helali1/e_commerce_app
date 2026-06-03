@@ -25,14 +25,7 @@ class HomeScreen extends StatelessWidget {
               builder: (context, state) {
                 return state.when(
                   initial: () {
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: const [
-                        HomeWelcomePanel(),
-                        SizedBox(height: 20),
-                        Center(child: CircularProgressIndicator()),
-                      ],
-                    );
+                    return const SizedBox.shrink();
                   },
                   loading: () => Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
