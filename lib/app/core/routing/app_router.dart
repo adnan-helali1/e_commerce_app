@@ -1,7 +1,6 @@
 import 'package:B2B/app/core/di/dependency_injection.dart';
 import 'package:B2B/app/core/routing/routes.dart';
-import 'package:B2B/app/core/widgets/app_bottm_bar.dart';
-import 'package:B2B/app/core/widgets/connection_status.dart';
+import 'package:B2B/app/core/widgets/app_bottom_bar_cubit.dart';
 import 'package:B2B/app/core/widgets/main_shell_widget.dart';
 import 'package:B2B/app/features/auth/logic/login/login_cubit.dart';
 import 'package:B2B/app/features/auth/logic/register/register_cubit.dart';
@@ -13,7 +12,6 @@ import 'package:B2B/app/features/catalog/ui/screens/supplier_offers_screen.dart'
 import 'package:B2B/app/features/main_layout.dart';
 import 'package:B2B/app/features/offers/ui/screens/offers_screen.dart';
 import 'package:B2B/app/features/orders/ui/screens/purchase_orders_screen.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -45,10 +43,7 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
             create: (_) => BottomNavCubit(),
-            child: BlocProvider(
-              create: (_) => ConnectivityCubit(Connectivity()),
-              child: const MainLayout(),
-            ),
+            child: const MainLayout(),
           ),
         );
 

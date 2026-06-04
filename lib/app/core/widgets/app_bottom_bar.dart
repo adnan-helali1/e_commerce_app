@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:B2B/app/core/helpers/extensions.dart';
-import 'package:B2B/app/core/widgets/app_bottm_bar.dart';
+import 'package:B2B/app/core/widgets/app_bottom_bar_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
