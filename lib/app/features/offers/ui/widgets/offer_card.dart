@@ -18,7 +18,7 @@ class OfferCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isAvailable = offer.status.toLowerCase() == 'Available';
+    final isAvailable = offer.status.toLowerCase() == 'available';
 
     return Container(
       width: double.infinity,

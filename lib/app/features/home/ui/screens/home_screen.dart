@@ -9,6 +9,7 @@ import 'package:B2B/app/features/home/ui/widgets/home_quick_actions_section.dart
 import 'package:B2B/app/features/home/ui/widgets/home_welcome_panel.dart';
 import 'package:B2B/app/features/home/ui/widgets/recent_orders_section.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -18,6 +19,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: DoubleBackToExit(
+        onSecondBackPressed: () => SystemNavigator.pop(),
         onFirstBackPressed: () {
           context.read<HomeCubit>().refresh();
         },

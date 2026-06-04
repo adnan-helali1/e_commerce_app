@@ -7,12 +7,14 @@ class DoubleBackToExit extends StatefulWidget {
     super.key,
     required this.child,
     this.onFirstBackPressed,
-    this.message = 'Click one more time to close the app',
+    required this.onSecondBackPressed,
+    this.messageTwo = 'Click one more time to close the app',
   });
 
   final Widget child;
   final VoidCallback? onFirstBackPressed;
-  final String message;
+  final VoidCallback? onSecondBackPressed;
+  final String messageTwo;
 
   @override
   State<DoubleBackToExit> createState() => _DoubleBackToExitState();
@@ -32,13 +34,13 @@ class _DoubleBackToExitState extends State<DoubleBackToExit> {
 
       AppOverlayMessage.show(
         context,
-        message: 'Press back again to exit',
+        message: widget.messageTwo,
       );
 
       return;
     }
 
-    await SystemNavigator.pop();
+    widget.onSecondBackPressed?.call();
   }
 
   @override

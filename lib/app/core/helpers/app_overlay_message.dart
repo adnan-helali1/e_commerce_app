@@ -1,3 +1,4 @@
+import 'package:B2B/app/core/helpers/extensions.dart';
 import 'package:flutter/material.dart';
 
 class AppOverlayMessage {
@@ -108,15 +109,15 @@ class _AnimatedOverlayState extends State<_AnimatedOverlay>
           child: SlideTransition(
             position: _slide,
             child: Material(
-              color: Colors.transparent,
+              color: context.cs.primary,
               child: Container(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 18,
                   vertical: 14,
                 ),
                 decoration: BoxDecoration(
-                  color: Colors.black87,
-                  borderRadius: BorderRadius.circular(16),
+                  color: context.cs.primary,
+                  borderRadius: BorderRadius.circular(14),
                   boxShadow: const [
                     BoxShadow(
                       blurRadius: 20,
@@ -128,16 +129,13 @@ class _AnimatedOverlayState extends State<_AnimatedOverlay>
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Icon(
-                      Icons.info_outline,
-                      color: Colors.white,
-                    ),
+                    Icon(Icons.info_outline, color: context.cs.surface),
                     const SizedBox(width: 12),
                     Expanded(
                       child: Text(
                         widget.message,
-                        style: const TextStyle(
-                          color: Colors.white,
+                        style: TextStyle(
+                          color: context.cs.surface,
                           fontSize: 14,
                           fontWeight: FontWeight.w600,
                         ),
