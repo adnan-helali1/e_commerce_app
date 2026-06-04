@@ -68,7 +68,7 @@ class CategoryFilter extends StatelessWidget {
                         cat,
                         style: TextStyles.note(context).copyWith(
                           fontSize: 13.sp,
-                          fontWeight: FontWeight.w600,
+                          fontWeight: FontWeight.w700,
                           color: selected
                               ? context.cs.onPrimary
                               : Colors.grey.shade800,

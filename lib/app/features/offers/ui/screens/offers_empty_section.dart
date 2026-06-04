@@ -1,3 +1,4 @@
+import 'package:B2B/app/core/helpers/extensions.dart';
 import 'package:B2B/app/core/helpers/spacing.dart';
 import 'package:B2B/app/core/theme/textstyles.dart';
 import 'package:flutter/material.dart';
@@ -19,12 +20,17 @@ class OffersEmptySection extends StatelessWidget {
           verticalSpace(10),
           Text(
             'No results found',
-            style: TextStyles.label(context),
+            style: TextStyles.label(context).copyWith(
+              fontSize: 18,
+              fontWeight: FontWeight.w700,
+            ),
           ),
           verticalSpace(6),
           Text(
-            'Try different keywords',
-            style: TextStyles.note(context),
+            'Try Again Later',
+            style: TextStyles.note(context).copyWith(
+              fontWeight: FontWeight.w700,
+            ),
           ),
         ],
       ),

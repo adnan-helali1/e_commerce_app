@@ -24,10 +24,10 @@ class OffersScreen extends StatefulWidget {
 
 class _OffersScreenState extends State<OffersScreen> {
   bool showFilter = false;
-  String selectedCategory = 'all';
+  String selectedCategory = 'All';
 
   static const categoryMap = {
-    'all': 0,
+    'All': 0,
     'Beverages': 1,
     'Snacks': 2,
     'Fruits': 3,
@@ -79,7 +79,7 @@ class _OffersScreenState extends State<OffersScreen> {
                   child: CategoryFilter(
                     selectedCategory: selectedCategory,
                     categories: const [
-                      'all',
+                      'All',
                       'Beverages',
                       'Snacks',
                       'Fruits',
