@@ -30,6 +30,10 @@ class _OffersScreenState extends State<OffersScreen> {
     'all': 0,
     'Beverages': 1,
     'Snacks': 2,
+    'Fruits': 3,
+    'Vegetables': 4,
+    'Dairy': 5,
+    'Eggs': 6,
   };
 
   @override
@@ -78,6 +82,10 @@ class _OffersScreenState extends State<OffersScreen> {
                       'all',
                       'Beverages',
                       'Snacks',
+                      'Fruits',
+                      'Vegetables',
+                      'Dairy',
+                      'Eggs'
                     ],
                     onCategorySelected: (value) {
                       setState(() {
