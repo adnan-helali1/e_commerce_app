@@ -8,15 +8,3 @@ abstract class ApiResult<T> with _$ApiResult<T> {
   const factory ApiResult.success(T data) = Success<T>;
   const factory ApiResult.failure(ErrorHandler errorHandler) = Failure<T>;
 }
-
-
-/*result.when(
-  success: (data) {
-    // success logic
-  },
-  failure: (error) {
-    final message = error.apiErrorModel.getErrorMessage();
-
-    print(message); // 🔥 رح يعطيك error حقيقي
-  },
-);*/

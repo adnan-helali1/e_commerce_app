@@ -90,6 +90,7 @@ class OffersCubit extends Cubit<OffersState> {
       failure: (error) {
         if (isClosed) return;
 
+        // 🔥 أول شي: جرّب cache بنفس search
         _offersRepo
             .getCachedOffers(
           page: page,
@@ -97,7 +98,7 @@ class OffersCubit extends Cubit<OffersState> {
           status: status,
           search: search,
         )
-            .then((cachedOnFailure) {
+            .then((cachedOnFailure) async {
           if (isClosed) return;
 
           if (cachedOnFailure != null) {
@@ -105,6 +106,20 @@ class OffersCubit extends Cubit<OffersState> {
             return;
           }
 
+          // 🔥 الحل: fallback بدون search
+          final fallbackCache = await _offersRepo.getCachedOffers(
+            page: page,
+            category: category,
+            status: status,
+            search: '', // ✅ بدون search
+          );
+
+          if (fallbackCache != null) {
+            emit(OffersState.success(fallbackCache));
+            return;
+          }
+
+          // ❌ ما في شي نهائياً
           emit(
             OffersState.failure(
               error: error.apiErrorModel.message ?? '',

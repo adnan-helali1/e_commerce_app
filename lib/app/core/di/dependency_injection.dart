@@ -39,6 +39,12 @@ Future<void> setupGetIt() async {
   getIt.registerLazySingleton(
     () => CacheDataSource<OffersCacheModel>(getIt()),
   );
+  // Auth
+  getIt.registerLazySingleton(() => LoginRepo(getIt()));
+  getIt.registerFactory(() => LoginCubit(getIt()));
+
+  getIt.registerLazySingleton(() => RegisterRepo(getIt()));
+  getIt.registerFactory(() => RegisterCubit(getIt()));
 
   // Home
   getIt.registerLazySingleton(() => HomeRemoteDataSource(getIt()));
@@ -55,13 +61,6 @@ Future<void> setupGetIt() async {
     () => OffersRepoImpl(getIt(), getIt()),
   );
   getIt.registerFactory(() => OffersCubit(getIt()));
-
-  // Auth
-  getIt.registerLazySingleton(() => LoginRepo(getIt()));
-  getIt.registerFactory(() => LoginCubit(getIt()));
-
-  getIt.registerLazySingleton(() => RegisterRepo(getIt()));
-  getIt.registerFactory(() => RegisterCubit(getIt()));
 
   // ⚠️ cache fix (important)
 }

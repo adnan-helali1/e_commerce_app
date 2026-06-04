@@ -1,4 +1,4 @@
-import 'package:B2B/app/core/widgets/app_bottm_bar.dart';
+import 'package:B2B/app/core/widgets/app_bottom_bar_cubit.dart';
 import 'package:B2B/app/core/widgets/b2b_app_bar.dart';
 import 'package:B2B/app/core/widgets/app_bottom_bar.dart';
 import 'package:B2B/app/core/di/dependency_injection.dart';
@@ -39,41 +39,35 @@ class _MainLayoutState extends State<MainLayout> {
     final cubit = context.read<BottomNavCubit>();
 
     final screens = [
-      const HomeScreen(),
-      const OffersScreen(),
-      // const PurchaseOrdersScreen(),
-      // const MyCatalogScreen(),
+      BlocProvider(
+        create: (_) => getIt<HomeCubit>()..load(),
+        child: const HomeScreen(),
+      ),
+      BlocProvider(
+        create: (_) => getIt<OffersCubit>(),
+        child: const OffersScreen(),
+      ),
     ];
 
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (_) => getIt<HomeCubit>()..load(),
-        ),
-        BlocProvider(
-          create: (_) => getIt<OffersCubit>(),
-        ),
-      ],
-      child: Scaffold(
-        appBar: B2bAppBar(
-          title: _storeName ?? 'Store',
-          subtitle: _ownerName ?? '',
-        ),
-        extendBody: true,
-        body: PageView(
-          controller: cubit.pageController,
-          onPageChanged: cubit.onPageChanged,
-          physics: const BouncingScrollPhysics(),
-          children: screens,
-        ),
-        bottomNavigationBar: AppBottomNavBar(
-          items: const [
-            AppBottomNavItem(label: 'Home', icon: Icons.home_rounded),
-            AppBottomNavItem(label: 'Offers', icon: Icons.map_outlined),
-            AppBottomNavItem(label: 'Inventory', icon: Icons.inventory_2),
-            AppBottomNavItem(label: 'Invoices', icon: Icons.receipt),
-          ],
-        ),
+    return Scaffold(
+      appBar: B2bAppBar(
+        title: _storeName ?? 'Store',
+        subtitle: _ownerName ?? '',
+      ),
+      extendBody: true,
+      body: PageView(
+        controller: cubit.pageController,
+        onPageChanged: cubit.onPageChanged,
+        physics: const BouncingScrollPhysics(),
+        children: screens,
+      ),
+      bottomNavigationBar: AppBottomNavBar(
+        items: const [
+          AppBottomNavItem(label: 'Home', icon: Icons.home_rounded),
+          AppBottomNavItem(label: 'Offers', icon: Icons.map_outlined),
+          AppBottomNavItem(label: 'Inventory', icon: Icons.inventory_2),
+          AppBottomNavItem(label: 'Invoices', icon: Icons.receipt),
+        ],
       ),
     );
   }

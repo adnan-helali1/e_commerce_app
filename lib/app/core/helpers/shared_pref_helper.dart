@@ -12,19 +12,19 @@ class SharedPrefHelper {
 
   /// Save user token securely
   static Future<void> setUserToken(String token) async {
-    debugPrint('SharedPrefHelper: Token saved securely');
+    debugPrint('FlutterSecureStorage: Token saved securely');
     await _secureStorage.write(key: 'userToken', value: token);
   }
 
   /// Get user token
   static Future<String?> getUserToken() async {
-    debugPrint('SharedPrefHelper: Getting user token');
+    debugPrint('FlutterSecureStorage: Getting user token');
     return await _secureStorage.read(key: 'userToken');
   }
 
   /// Remove user token
   static Future<void> removeUserToken() async {
-    debugPrint('SharedPrefHelper: User token removed');
+    debugPrint('FlutterSecureStorage: User token removed');
     await _secureStorage.delete(key: 'userToken');
   }
 

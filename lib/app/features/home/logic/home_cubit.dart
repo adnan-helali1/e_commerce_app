@@ -36,7 +36,14 @@ class HomeCubit extends Cubit<HomeState> {
     }
 
     /// ❗ ما في كاش
-    emit(const HomeState.loading());
+
+    final hasData = state.maybeWhen(
+      success: (_) => true,
+      orElse: () => false,
+    );
+    if (!hasData) {
+      emit(const HomeState.loading());
+    }
 
     final response = await _homeRepo.getHomeDashboard(forceRefresh: true);
 
