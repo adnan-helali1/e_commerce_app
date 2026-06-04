@@ -21,7 +21,7 @@ class OffersScreen extends StatefulWidget {
 class _OffersScreenState extends State<OffersScreen> {
   bool _showFilter = false;
 
-  int _category = 0;
+  int category = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -30,18 +30,8 @@ class _OffersScreenState extends State<OffersScreen> {
         onRefresh: () => context.read<OffersCubit>().refresh(),
         child: BlocBuilder<OffersCubit, OffersState>(
           builder: (context, state) {
-            return state.when(
-              initial: () => const SizedBox.shrink(),
-              loading: () => Padding(
-                padding: EdgeInsets.all(16),
-                child: Center(
-                  child: SizedBox(
-                    width: 20,
-                    height: 20,
-                    child: CircularProgressIndicator(strokeWidth: 2),
-                  ),
-                ),
-              ),
+            return state.maybeWhen(
+              orElse: () => const SizedBox.shrink(),
               failure: (error) => Center(
                 child: Text(error),
               ),
@@ -99,7 +89,7 @@ class _OffersScreenState extends State<OffersScreen> {
                             final selectedCategory = categoryMap[value] ?? 0;
 
                             setState(() {
-                              _category = selectedCategory;
+                              category = selectedCategory;
                             });
 
                             context

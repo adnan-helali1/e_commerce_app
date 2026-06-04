@@ -210,7 +210,7 @@ class _LoginContainerState extends State<LoginContainer> {
 
             TextButton(
               onPressed: () {
-                context.pushReplacementNamed(
+                context.pushNamed(
                   Routes.registerscreen,
                 );
               },
