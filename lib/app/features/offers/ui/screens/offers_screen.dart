@@ -1,16 +1,12 @@
 import 'package:B2B/app/core/helpers/extensions.dart';
 import 'package:B2B/app/core/helpers/spacing.dart';
 import 'package:B2B/app/core/routing/routes.dart';
-import 'package:B2B/app/core/theme/textstyles.dart';
 import 'package:B2B/app/features/offers/ui/screens/offers_list_section.dart';
 import 'package:B2B/app/features/offers/ui/screens/offers_summery_section.dart';
 import 'package:B2B/app/features/offers/ui/widgets/category_filter.dart';
 import 'package:B2B/app/features/offers/logic/offers_cubit.dart';
-import 'package:B2B/app/features/offers/logic/offers_state.dart';
-import 'package:B2B/app/features/offers/ui/widgets/offer_card.dart';
 import 'package:B2B/app/features/offers/ui/widgets/offer_screen_header.dart';
 import 'package:B2B/app/features/offers/ui/widgets/offer_search_row.dart';
-import 'package:B2B/app/features/offers/ui/widgets/offer_summary_row.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
