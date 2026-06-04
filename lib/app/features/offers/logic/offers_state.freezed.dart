@@ -53,6 +53,7 @@ extension OffersStatePatterns on OffersState {
     TResult Function(_Initial value)? initial,
     TResult Function(_Loading value)? loading,
     TResult Function(_Success value)? success,
+    TResult Function(_Empty value)? empty,
     TResult Function(_Failure value)? failure,
     required TResult orElse(),
   }) {
@@ -64,6 +65,8 @@ extension OffersStatePatterns on OffersState {
         return loading(_that);
       case _Success() when success != null:
         return success(_that);
+      case _Empty() when empty != null:
+        return empty(_that);
       case _Failure() when failure != null:
         return failure(_that);
       case _:
@@ -89,6 +92,7 @@ extension OffersStatePatterns on OffersState {
     required TResult Function(_Initial value) initial,
     required TResult Function(_Loading value) loading,
     required TResult Function(_Success value) success,
+    required TResult Function(_Empty value) empty,
     required TResult Function(_Failure value) failure,
   }) {
     final _that = this;
@@ -99,6 +103,8 @@ extension OffersStatePatterns on OffersState {
         return loading(_that);
       case _Success():
         return success(_that);
+      case _Empty():
+        return empty(_that);
       case _Failure():
         return failure(_that);
       case _:
@@ -123,6 +129,7 @@ extension OffersStatePatterns on OffersState {
     TResult? Function(_Initial value)? initial,
     TResult? Function(_Loading value)? loading,
     TResult? Function(_Success value)? success,
+    TResult? Function(_Empty value)? empty,
     TResult? Function(_Failure value)? failure,
   }) {
     final _that = this;
@@ -133,6 +140,8 @@ extension OffersStatePatterns on OffersState {
         return loading(_that);
       case _Success() when success != null:
         return success(_that);
+      case _Empty() when empty != null:
+        return empty(_that);
       case _Failure() when failure != null:
         return failure(_that);
       case _:
@@ -157,6 +166,7 @@ extension OffersStatePatterns on OffersState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(OffersResponse response)? success,
+    TResult Function()? empty,
     TResult Function(String error)? failure,
     required TResult orElse(),
   }) {
@@ -168,6 +178,8 @@ extension OffersStatePatterns on OffersState {
         return loading();
       case _Success() when success != null:
         return success(_that.response);
+      case _Empty() when empty != null:
+        return empty();
       case _Failure() when failure != null:
         return failure(_that.error);
       case _:
@@ -193,6 +205,7 @@ extension OffersStatePatterns on OffersState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(OffersResponse response) success,
+    required TResult Function() empty,
     required TResult Function(String error) failure,
   }) {
     final _that = this;
@@ -203,6 +216,8 @@ extension OffersStatePatterns on OffersState {
         return loading();
       case _Success():
         return success(_that.response);
+      case _Empty():
+        return empty();
       case _Failure():
         return failure(_that.error);
       case _:
@@ -227,6 +242,7 @@ extension OffersStatePatterns on OffersState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(OffersResponse response)? success,
+    TResult? Function()? empty,
     TResult? Function(String error)? failure,
   }) {
     final _that = this;
@@ -237,6 +253,8 @@ extension OffersStatePatterns on OffersState {
         return loading();
       case _Success() when success != null:
         return success(_that.response);
+      case _Empty() when empty != null:
+        return empty();
       case _Failure() when failure != null:
         return failure(_that.error);
       case _:
@@ -357,6 +375,26 @@ class __$SuccessCopyWithImpl<$Res> implements _$SuccessCopyWith<$Res> {
     return $OffersResponseCopyWith<$Res>(_self.response, (value) {
       return _then(_self.copyWith(response: value));
     });
+  }
+}
+
+/// @nodoc
+
+class _Empty implements OffersState {
+  const _Empty();
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _Empty);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  String toString() {
+    return 'OffersState.empty()';
   }
 }
 

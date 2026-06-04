@@ -106,19 +106,6 @@ class OffersCubit extends Cubit<OffersState> {
             return;
           }
 
-          // 🔥 الحل: fallback بدون search
-          final fallbackCache = await _offersRepo.getCachedOffers(
-            page: page,
-            category: category,
-            status: status,
-            search: '', // ✅ بدون search
-          );
-
-          if (fallbackCache != null) {
-            emit(OffersState.success(fallbackCache));
-            return;
-          }
-
           // ❌ ما في شي نهائياً
           emit(
             OffersState.failure(

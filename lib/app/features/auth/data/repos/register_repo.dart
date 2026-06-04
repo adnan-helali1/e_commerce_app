@@ -3,7 +3,6 @@ import 'package:B2B/app/core/networking/api_result.dart';
 import 'package:B2B/app/core/networking/api_service.dart';
 import 'package:B2B/app/features/auth/data/models/register_request_body.dart';
 import 'package:B2B/app/features/auth/data/models/register_response.dart';
-import 'package:flutter/material.dart';
 
 class RegisterRepo {
   final ApiService _apiService;
