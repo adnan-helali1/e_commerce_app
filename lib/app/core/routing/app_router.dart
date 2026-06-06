@@ -1,7 +1,6 @@
 import 'package:B2B/app/core/di/dependency_injection.dart';
 import 'package:B2B/app/core/routing/routes.dart';
 import 'package:B2B/app/core/widgets/app_bottom_bar_cubit.dart';
-import 'package:B2B/app/core/widgets/main_shell_widget.dart';
 import 'package:B2B/app/features/auth/logic/login/login_cubit.dart';
 import 'package:B2B/app/features/auth/logic/register/register_cubit.dart';
 import 'package:B2B/app/features/auth/ui/screens/register_screen.dart';
@@ -49,29 +48,21 @@ class AppRouter {
 
       case Routes.orderDetailsScreen:
         return MaterialPageRoute(
-          builder: (_) => MainShellWidget(
-            child: const MyCatalogScreen(),
-          ),
+          builder: (_) => const MyCatalogScreen(),
         );
       case Routes.offersScreen:
         return MaterialPageRoute(
-          builder: (_) => MainShellWidget(
-            child: const OffersScreen(),
-          ),
+          builder: (_) => const OffersScreen(),
         );
 
       case Routes.purchaseOrdersScreen:
         return MaterialPageRoute(
-          builder: (_) => MainShellWidget(
-            child: const PurchaseOrdersScreen(),
-          ),
+          builder: (_) => const PurchaseOrdersScreen(),
         );
 
       case Routes.supplierOffersScreen:
         return MaterialPageRoute(
-          builder: (_) => MainShellWidget(
-            child: const SupplierOffersScreen(),
-          ),
+          builder: (_) => const SupplierOffersScreen(),
         );
 
       default:
