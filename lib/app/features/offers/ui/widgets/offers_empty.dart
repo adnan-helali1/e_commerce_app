@@ -2,11 +2,35 @@ import 'package:B2B/app/core/helpers/spacing.dart';
 import 'package:B2B/app/core/theme/textstyles.dart';
 import 'package:flutter/material.dart';
 
-class OffersEmptySection extends StatelessWidget {
+class OffersEmptySection extends StatefulWidget {
   const OffersEmptySection({super.key});
 
   @override
+  State<OffersEmptySection> createState() => _OffersEmptySectionState();
+}
+
+class _OffersEmptySectionState extends State<OffersEmptySection> {
+  bool _show = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    Future.delayed(const Duration(milliseconds: 500), () {
+      if (mounted) {
+        setState(() {
+          _show = true;
+        });
+      }
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+    if (!_show) {
+      return const SizedBox.shrink();
+    }
+
     return Padding(
       padding: const EdgeInsets.all(40),
       child: Column(
