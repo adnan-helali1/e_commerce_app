@@ -1,4 +1,4 @@
-import 'package:B2B/app/features/offers/data/models/offers_mode_response/category_model.dart';
+import 'package:B2B/app/features/offers/data/models/offers_model_response/category_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 part 'product_model.g.dart';
 part 'product_model.freezed.dart';

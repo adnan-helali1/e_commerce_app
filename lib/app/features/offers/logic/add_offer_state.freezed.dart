@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'offers_state.dart';
+part of 'add_offer_state.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -13,11 +13,11 @@ part of 'offers_state.dart';
 T _$identity<T>(T value) => value;
 
 /// @nodoc
-mixin _$OffersState {
+mixin _$AddOfferState {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is OffersState);
+        (other.runtimeType == runtimeType && other is AddOfferState);
   }
 
   @override
@@ -25,17 +25,17 @@ mixin _$OffersState {
 
   @override
   String toString() {
-    return 'OffersState()';
+    return 'AddOfferState()';
   }
 }
 
 /// @nodoc
-class $OffersStateCopyWith<$Res> {
-  $OffersStateCopyWith(OffersState _, $Res Function(OffersState) __);
+class $AddOfferStateCopyWith<$Res> {
+  $AddOfferStateCopyWith(AddOfferState _, $Res Function(AddOfferState) __);
 }
 
-/// Adds pattern-matching-related methods to [OffersState].
-extension OffersStatePatterns on OffersState {
+/// Adds pattern-matching-related methods to [AddOfferState].
+extension AddOfferStatePatterns on AddOfferState {
   /// A variant of `map` that fallback to returning `orElse`.
   ///
   /// It is equivalent to doing:
@@ -156,7 +156,7 @@ extension OffersStatePatterns on OffersState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(OffersResponse response)? success,
+    TResult Function(AddOfferResponse response)? success,
     TResult Function(String error)? failure,
     required TResult orElse(),
   }) {
@@ -192,7 +192,7 @@ extension OffersStatePatterns on OffersState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(OffersResponse response) success,
+    required TResult Function(AddOfferResponse response) success,
     required TResult Function(String error) failure,
   }) {
     final _that = this;
@@ -226,7 +226,7 @@ extension OffersStatePatterns on OffersState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(OffersResponse response)? success,
+    TResult? Function(AddOfferResponse response)? success,
     TResult? Function(String error)? failure,
   }) {
     final _that = this;
@@ -247,7 +247,7 @@ extension OffersStatePatterns on OffersState {
 
 /// @nodoc
 
-class _Initial implements OffersState {
+class _Initial implements AddOfferState {
   const _Initial();
 
   @override
@@ -261,13 +261,13 @@ class _Initial implements OffersState {
 
   @override
   String toString() {
-    return 'OffersState.initial()';
+    return 'AddOfferState.initial()';
   }
 }
 
 /// @nodoc
 
-class _Loading implements OffersState {
+class _Loading implements AddOfferState {
   const _Loading();
 
   @override
@@ -281,18 +281,18 @@ class _Loading implements OffersState {
 
   @override
   String toString() {
-    return 'OffersState.loading()';
+    return 'AddOfferState.loading()';
   }
 }
 
 /// @nodoc
 
-class _Success implements OffersState {
+class _Success implements AddOfferState {
   const _Success(this.response);
 
-  final OffersResponse response;
+  final AddOfferResponse response;
 
-  /// Create a copy of OffersState
+  /// Create a copy of AddOfferState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
@@ -313,19 +313,19 @@ class _Success implements OffersState {
 
   @override
   String toString() {
-    return 'OffersState.success(response: $response)';
+    return 'AddOfferState.success(response: $response)';
   }
 }
 
 /// @nodoc
 abstract mixin class _$SuccessCopyWith<$Res>
-    implements $OffersStateCopyWith<$Res> {
+    implements $AddOfferStateCopyWith<$Res> {
   factory _$SuccessCopyWith(_Success value, $Res Function(_Success) _then) =
       __$SuccessCopyWithImpl;
   @useResult
-  $Res call({OffersResponse response});
+  $Res call({AddOfferResponse response});
 
-  $OffersResponseCopyWith<$Res> get response;
+  $AddOfferResponseCopyWith<$Res> get response;
 }
 
 /// @nodoc
@@ -335,7 +335,7 @@ class __$SuccessCopyWithImpl<$Res> implements _$SuccessCopyWith<$Res> {
   final _Success _self;
   final $Res Function(_Success) _then;
 
-  /// Create a copy of OffersState
+  /// Create a copy of AddOfferState
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   $Res call({
@@ -345,16 +345,16 @@ class __$SuccessCopyWithImpl<$Res> implements _$SuccessCopyWith<$Res> {
       null == response
           ? _self.response
           : response // ignore: cast_nullable_to_non_nullable
-              as OffersResponse,
+              as AddOfferResponse,
     ));
   }
 
-  /// Create a copy of OffersState
+  /// Create a copy of AddOfferState
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  $OffersResponseCopyWith<$Res> get response {
-    return $OffersResponseCopyWith<$Res>(_self.response, (value) {
+  $AddOfferResponseCopyWith<$Res> get response {
+    return $AddOfferResponseCopyWith<$Res>(_self.response, (value) {
       return _then(_self.copyWith(response: value));
     });
   }
@@ -362,12 +362,12 @@ class __$SuccessCopyWithImpl<$Res> implements _$SuccessCopyWith<$Res> {
 
 /// @nodoc
 
-class _Failure implements OffersState {
+class _Failure implements AddOfferState {
   const _Failure({required this.error});
 
   final String error;
 
-  /// Create a copy of OffersState
+  /// Create a copy of AddOfferState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
@@ -387,13 +387,13 @@ class _Failure implements OffersState {
 
   @override
   String toString() {
-    return 'OffersState.failure(error: $error)';
+    return 'AddOfferState.failure(error: $error)';
   }
 }
 
 /// @nodoc
 abstract mixin class _$FailureCopyWith<$Res>
-    implements $OffersStateCopyWith<$Res> {
+    implements $AddOfferStateCopyWith<$Res> {
   factory _$FailureCopyWith(_Failure value, $Res Function(_Failure) _then) =
       __$FailureCopyWithImpl;
   @useResult
@@ -407,7 +407,7 @@ class __$FailureCopyWithImpl<$Res> implements _$FailureCopyWith<$Res> {
   final _Failure _self;
   final $Res Function(_Failure) _then;
 
-  /// Create a copy of OffersState
+  /// Create a copy of AddOfferState
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   $Res call({

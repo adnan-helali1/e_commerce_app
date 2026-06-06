@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:B2B/app/features/offers/logic/offers_state.dart';
 import 'package:bloc/bloc.dart';
 import 'package:B2B/app/core/networking/api_result.dart';
-import 'package:B2B/app/features/offers/data/repos/offers_repo.dart';
+import 'package:B2B/app/features/offers/data/repos/offers_repos/offers_repo.dart';
 
 class OffersCubit extends Cubit<OffersState> {
   final OffersRepo _offersRepo;

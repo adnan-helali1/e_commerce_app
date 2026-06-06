@@ -15,8 +15,8 @@ import 'package:B2B/app/features/home/logic/home_cubit.dart';
 import 'package:B2B/app/features/offers/data/data_sources/local_data_source.dart';
 import 'package:B2B/app/features/offers/data/models/offers_cache_model.dart';
 import 'package:B2B/app/features/offers/data/data_sources/remote_data_source.dart';
-import 'package:B2B/app/features/offers/data/repos/offers_repo.dart';
-import 'package:B2B/app/features/offers/data/repos/offers_repo_imp.dart';
+import 'package:B2B/app/features/offers/data/repos/offers_repos/offers_repo.dart';
+import 'package:B2B/app/features/offers/data/repos/offers_repos/offers_repo_imp.dart';
 import 'package:B2B/app/features/offers/logic/offers_cubit.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
