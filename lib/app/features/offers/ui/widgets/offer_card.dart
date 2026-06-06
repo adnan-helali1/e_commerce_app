@@ -73,7 +73,9 @@ class OfferCard extends StatelessWidget {
                     ),
                     if (isAvailable) ...[
                       horizontalSpace(10),
-                      const AddOfferButton(),
+                      AddOfferButton(
+                        supplierProductId: offer.supplierProduct.id,
+                      ),
                     ],
                   ],
                 ),

@@ -17,19 +17,3 @@ class OffersRemoteDataSource {
     return _apiService.getOffers(page, category, status, search);
   }
 }
-
-class AddOfferRemoteDataSource {
-  final ApiService _apiService;
-
-  AddOfferRemoteDataSource(this._apiService);
-
-  Future<AddOfferResponse> addOffer(
-    int supplierProductId,
-    AddOfferRequestBody body,
-  ) {
-    return _apiService.addOfferToCatalog(
-      supplierProductId,
-      body,
-    );
-  }
-}
