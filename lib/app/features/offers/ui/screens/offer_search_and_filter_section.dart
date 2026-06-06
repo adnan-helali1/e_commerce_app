@@ -22,47 +22,50 @@ class OfferSearchAndFilterSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<OffersUiCubit, OffersUiState>(
-      builder: (context, state) {
-        return Column(
-          children: [
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 24.w),
-              child: OfferSearchRow(
-                onFilterPressed: () {
-                  context.read<OffersUiCubit>().toggleFilter();
-                },
-                onSearchChanged: context.read<OffersCubit>().search,
-              ),
-            ),
-            if (state.showFilter) ...[
-              verticalSpace(12),
+    return BlocProvider(
+      create: (context) => OffersUiCubit(),
+      child: BlocBuilder<OffersUiCubit, OffersUiState>(
+        builder: (context, state) {
+          return Column(
+            children: [
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 24.w),
-                child: CategoryFilter(
-                  selectedCategory: state.selectedCategory,
-                  categories: const [
-                    'All',
-                    'Beverages',
-                    'Snacks',
-                    'Fruits',
-                    'Vegetables',
-                    'Dairy',
-                    'Eggs',
-                  ],
-                  onCategorySelected: (value) {
-                    context.read<OffersUiCubit>().selectCategory(value);
-
-                    context.read<OffersCubit>().filterByCategory(
-                          categoryMap[value] ?? 0,
-                        );
+                child: OfferSearchRow(
+                  onFilterPressed: () {
+                    context.read<OffersUiCubit>().toggleFilter();
                   },
+                  onSearchChanged: context.read<OffersCubit>().search,
                 ),
               ),
+              if (state.showFilter) ...[
+                verticalSpace(12),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 24.w),
+                  child: CategoryFilter(
+                    selectedCategory: state.selectedCategory,
+                    categories: const [
+                      'All',
+                      'Beverages',
+                      'Snacks',
+                      'Fruits',
+                      'Vegetables',
+                      'Dairy',
+                      'Eggs',
+                    ],
+                    onCategorySelected: (value) {
+                      context.read<OffersUiCubit>().selectCategory(value);
+
+                      context.read<OffersCubit>().filterByCategory(
+                            categoryMap[value] ?? 0,
+                          );
+                    },
+                  ),
+                ),
+              ],
             ],
-          ],
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }
