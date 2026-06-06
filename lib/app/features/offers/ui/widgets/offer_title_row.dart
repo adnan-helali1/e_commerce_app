@@ -1,7 +1,7 @@
 import 'package:B2B/app/core/helpers/spacing.dart';
 import 'package:B2B/app/core/theme/textstyles.dart';
 import 'package:B2B/app/core/widgets/b2b_status_badge.dart';
-import 'package:B2B/app/features/offers/data/models/offers_mode_response/offer_data_model.dart';
+import 'package:B2B/app/features/offers/data/models/offers_model_response/offer_data_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

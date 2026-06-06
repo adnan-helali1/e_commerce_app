@@ -1,6 +1,6 @@
-import 'package:B2B/app/features/offers/data/models/offers_mode_response/offer_data_model.dart';
-import 'package:B2B/app/features/offers/data/models/offers_mode_response/pagination_model.dart';
-import 'package:B2B/app/features/offers/data/models/offers_mode_response/state_model.dart';
+import 'package:B2B/app/features/offers/data/models/offers_model_response/offer_data_model.dart';
+import 'package:B2B/app/features/offers/data/models/offers_model_response/pagination_model.dart';
+import 'package:B2B/app/features/offers/data/models/offers_model_response/state_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'offers_response.freezed.dart';
