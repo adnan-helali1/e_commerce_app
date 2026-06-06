@@ -5,7 +5,7 @@ import 'package:B2B/app/features/offers/data/data_sources/local_data_source.dart
 import 'package:B2B/app/features/offers/data/data_sources/remote_data_source.dart';
 import 'package:B2B/app/features/offers/data/models/offers_cache_model.dart';
 import 'package:B2B/app/features/offers/data/models/offers_response.dart';
-import 'package:B2B/app/features/offers/data/repos/offers_repo.dart';
+import 'package:B2B/app/features/offers/data/repos/offers_repos/offers_repo.dart';
 
 class OffersRepoImpl implements OffersRepo {
   final OffersLocalDataSource _local;
