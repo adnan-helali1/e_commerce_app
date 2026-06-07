@@ -2,6 +2,7 @@ import 'package:B2B/app/core/widgets/app_bottom_bar_cubit.dart';
 import 'package:B2B/app/core/widgets/b2b_app_bar.dart';
 import 'package:B2B/app/core/widgets/app_bottom_bar.dart';
 import 'package:B2B/app/core/di/dependency_injection.dart';
+import 'package:B2B/app/features/catalog/ui/screens/my_catalog_screen.dart';
 import 'package:B2B/app/features/home/logic/home_cubit.dart';
 import 'package:B2B/app/features/home/ui/screens/home_screen.dart';
 import 'package:B2B/app/features/offers/logic/offers_cubit.dart';
@@ -47,6 +48,7 @@ class _MainLayoutState extends State<MainLayout> {
         create: (_) => getIt<OffersCubit>(),
         child: const OffersScreen(),
       ),
+      const MyCatalogScreen(),
     ];
 
     return Scaffold(

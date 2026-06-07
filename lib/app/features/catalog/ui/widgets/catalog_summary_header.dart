@@ -14,12 +14,15 @@ class CatalogSummaryHeader extends StatelessWidget {
       padding: EdgeInsets.all(16.r),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [
-            context.cs.primary,
-            context.cs.primary.withValues(alpha: 0.78),
-          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
+          colors: [
+            const Color.fromARGB(255, 0, 40, 108),
+            context.cs.primaryContainer,
+            context.cs.primaryContainer.withValues(alpha: 0.95),
+            context.cs.primary,
+            context.cs.secondaryFixed,
+          ],
         ),
       ),
       child: Column(
@@ -29,11 +32,13 @@ class CatalogSummaryHeader extends StatelessWidget {
             'My Store Catalog',
             style: TextStyles.label(context).copyWith(
               color: context.cs.onPrimary,
-              fontSize: 17.sp,
+              fontSize: 20.sp,
+              fontWeight: FontWeight.w700,
             ),
           ),
           verticalSpace(14),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Expanded(
                 child: _CatalogStatTile(
@@ -42,7 +47,7 @@ class CatalogSummaryHeader extends StatelessWidget {
                   label: 'Active Products',
                 ),
               ),
-              horizontalSpace(12),
+              horizontalSpace(20),
               Expanded(
                 child: _CatalogStatTile(
                   icon: Icons.attach_money_rounded,
@@ -87,14 +92,16 @@ class _CatalogStatTile extends StatelessWidget {
             value,
             style: TextStyles.screenTitle(context).copyWith(
               color: context.cs.onPrimary,
-              fontSize: 24.sp,
+              fontSize: 27.sp,
+              fontWeight: FontWeight.w700,
             ),
           ),
           Text(
             label,
             style: TextStyles.note(context).copyWith(
               color: context.cs.onPrimary.withValues(alpha: 0.9),
-              fontSize: 11.sp,
+              fontSize: 13.sp,
+              fontWeight: FontWeight.w500,
             ),
           ),
         ],
