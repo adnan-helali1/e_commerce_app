@@ -7,7 +7,6 @@ final lightTheme = ThemeData(
   fontFamily: 'cairo',
   useMaterial3: true,
   brightness: Brightness.light,
-
   colorScheme: const ColorScheme.light(
     primary: AppColors.primary,
     secondary: AppColors.secondary,
@@ -18,9 +17,7 @@ final lightTheme = ThemeData(
     surfaceContainerLow: AppColors.redCard,
     surfaceContainerHighest: AppColors.purpleCard,
   ),
-
   scaffoldBackgroundColor: AppColors.lightBackground,
-
   extensions: const [
     AppColorScheme(
       success: AppColors.success,
@@ -28,6 +25,7 @@ final lightTheme = ThemeData(
       info: AppColors.info,
       cardBackground: AppColors.lightSurface,
       borderColor: AppColors.lightOutline,
+      failure: AppColors.error,
     ),
   ],
 );

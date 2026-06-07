@@ -12,11 +12,15 @@ import 'package:B2B/app/features/home/data/models/home_dashboard_cache_model.dar
 import 'package:B2B/app/features/home/data/repos/home_repo.dart';
 import 'package:B2B/app/features/home/data/repos/home_repo_impl.dart';
 import 'package:B2B/app/features/home/logic/home_cubit.dart';
+import 'package:B2B/app/features/offers/data/data_sources/add_offer_remote_data_source.dart';
 import 'package:B2B/app/features/offers/data/data_sources/local_data_source.dart';
 import 'package:B2B/app/features/offers/data/models/offers_cache_model.dart';
 import 'package:B2B/app/features/offers/data/data_sources/remote_data_source.dart';
+import 'package:B2B/app/features/offers/data/repos/add_offer_to_cataolg_repo/add_offer_imp.dart';
+import 'package:B2B/app/features/offers/data/repos/add_offer_to_cataolg_repo/add_offer_repo.dart';
 import 'package:B2B/app/features/offers/data/repos/offers_repos/offers_repo.dart';
 import 'package:B2B/app/features/offers/data/repos/offers_repos/offers_repo_imp.dart';
+import 'package:B2B/app/features/offers/logic/add_offer_cubit.dart';
 import 'package:B2B/app/features/offers/logic/offers_cubit.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -62,5 +66,13 @@ Future<void> setupGetIt() async {
   );
   getIt.registerFactory(() => OffersCubit(getIt()));
 
-  // ⚠️ cache fix (important)
+// add offer to catalog
+  getIt.registerFactory(() => AddOfferRemoteDataSource(getIt()));
+  getIt.registerLazySingleton<AddOfferRepo>(
+    () => AddOfferRepoImpl(getIt()),
+  );
+
+  getIt.registerFactory(
+    () => AddOfferCubit(getIt()),
+  );
 }

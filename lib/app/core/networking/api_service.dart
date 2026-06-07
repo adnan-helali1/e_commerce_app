@@ -37,7 +37,7 @@ abstract class ApiService {
       @Query('status') String status,
       @Query('search') String search);
 
-  @POST('/api/store/catalog/{supplierProductId}')
+  @POST(ApiConstants.catalog)
   Future<AddOfferResponse> addOfferToCatalog(
     @Path('supplierProductId') int supplierProductId,
     @Body() AddOfferRequestBody body,
