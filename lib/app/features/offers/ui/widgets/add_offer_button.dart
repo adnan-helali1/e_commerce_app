@@ -21,6 +21,7 @@ class AddOfferButton extends StatelessWidget {
       child: ElevatedButton.icon(
         onPressed: () {
           showModalBottomSheet(
+            backgroundColor: context.cs.surface,
             context: context,
             isScrollControlled: true,
             useSafeArea: true,

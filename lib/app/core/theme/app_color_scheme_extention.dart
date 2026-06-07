@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 @immutable
 class AppColorScheme extends ThemeExtension<AppColorScheme> {
   final Color success;
+  final Color failure;
+
   final Color warning;
   final Color info;
   final Color cardBackground;
@@ -10,6 +12,7 @@ class AppColorScheme extends ThemeExtension<AppColorScheme> {
 
   const AppColorScheme({
     required this.success,
+    required this.failure,
     required this.warning,
     required this.info,
     required this.cardBackground,
@@ -19,12 +22,14 @@ class AppColorScheme extends ThemeExtension<AppColorScheme> {
   @override
   AppColorScheme copyWith({
     Color? success,
+    Color? failure,
     Color? warning,
     Color? info,
     Color? cardBackground,
     Color? borderColor,
   }) {
     return AppColorScheme(
+      failure: failure ?? this.failure,
       success: success ?? this.success,
       warning: warning ?? this.warning,
       info: info ?? this.info,
@@ -37,6 +42,7 @@ class AppColorScheme extends ThemeExtension<AppColorScheme> {
   AppColorScheme lerp(ThemeExtension<AppColorScheme>? other, double t) {
     if (other is! AppColorScheme) return this;
     return AppColorScheme(
+      failure: Color.lerp(failure, other.failure, t)!,
       success: Color.lerp(success, other.success, t)!,
       warning: Color.lerp(warning, other.warning, t)!,
       info: Color.lerp(info, other.info, t)!,

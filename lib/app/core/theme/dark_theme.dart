@@ -7,7 +7,6 @@ final darkTheme = ThemeData(
   fontFamily: 'cairo',
   useMaterial3: true,
   brightness: Brightness.dark,
-
   colorScheme: const ColorScheme.dark(
     primary: AppColors.primary,
     secondary: AppColors.secondary,
@@ -18,9 +17,7 @@ final darkTheme = ThemeData(
     surfaceContainerLow: AppColors.redCardDark,
     surfaceContainerHighest: AppColors.purpleCardDark,
   ),
-
   scaffoldBackgroundColor: AppColors.darkBackground,
-
   extensions: const [
     AppColorScheme(
       success: AppColors.success,
@@ -28,6 +25,7 @@ final darkTheme = ThemeData(
       info: AppColors.info,
       cardBackground: AppColors.darkSurface,
       borderColor: AppColors.darkOutline,
+      failure: AppColors.error,
     ),
   ],
 );

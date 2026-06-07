@@ -67,7 +67,7 @@ Future<void> setupGetIt() async {
   getIt.registerFactory(() => OffersCubit(getIt()));
 
 // add offer to catalog
-  getIt.registerLazySingleton(() => AddOfferRemoteDataSource(getIt()));
+  getIt.registerFactory(() => AddOfferRemoteDataSource(getIt()));
   getIt.registerLazySingleton<AddOfferRepo>(
     () => AddOfferRepoImpl(getIt()),
   );

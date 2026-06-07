@@ -10,7 +10,7 @@ class OffersCubit extends Cubit<OffersState> {
 
   bool _isLoading = false;
   bool _isRefreshing = false;
-
+  final Set<int> addedToCatalogIds = {};
   Timer? _periodicTimer;
   Timer? _searchDebounce;
   int _page = 1;
