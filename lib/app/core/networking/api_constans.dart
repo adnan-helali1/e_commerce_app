@@ -5,6 +5,7 @@ class ApiConstants {
   static const String logout = 'logout';
   static const String homeDashboard = 'dashboard';
   static const String offers = 'offers';
+  static const String catalog = 'catalog';
 }
 
 class ApiErrors {

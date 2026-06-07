@@ -1,3 +1,4 @@
+import 'package:B2B/app/core/helpers/extensions.dart';
 import 'package:B2B/app/core/helpers/spacing.dart';
 import 'package:B2B/app/core/theme/textstyles.dart';
 import 'package:B2B/app/features/offers/logic/add_offer_cubit.dart';
@@ -48,8 +49,8 @@ class _AddOfferSheetState extends State<AddOfferSheet> {
       listener: (context, state) {
         state.whenOrNull(
           success: (_) {
-            Navigator.pop(context);
-
+            context.pop;
+            //    context.read<offersCubit>().refresh();
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
                 content: Text('Offer added successfully'),
@@ -57,6 +58,8 @@ class _AddOfferSheetState extends State<AddOfferSheet> {
             );
           },
           failure: (error) {
+            context.pop;
+
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(error),
