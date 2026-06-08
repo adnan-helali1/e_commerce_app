@@ -27,64 +27,95 @@ class CatalogProductCard extends StatelessWidget {
       child: B2BInfoCard(
         margin: EdgeInsets.symmetric(horizontal: 16.w).copyWith(bottom: 12.h),
         padding: EdgeInsets.all(12.r),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _ProductThumb(iconColor: iconColor),
-            horizontalSpace(12),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _ProductThumb(iconColor: iconColor),
+              horizontalSpace(18),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                product.name,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyles.label(context).copyWith(
+                                  color: contentColor,
+                                  fontSize: 18.sp,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                              ),
+                              verticalSpace(2),
+                              Text(
+                                product.supplier,
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyles.note(context).copyWith(
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w600),
+                              ),
+                            ],
+                          ),
+                        ),
+                        _CatalogActions(isActive: product.isActive),
+                      ],
+                    ),
+                    verticalSpace(12),
+                    Column(
+                      children: [
+                        Row(
                           children: [
-                            Text(
-                              product.name,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyles.label(context).copyWith(
-                                color: contentColor,
-                                fontSize: 15.sp,
+                            Expanded(
+                              child: _Metric(
+                                label: 'Buy Price',
+                                value: product.buyPrice,
                               ),
                             ),
-                            verticalSpace(2),
-                            Text(
-                              product.supplier,
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyles.note(context)
-                                  .copyWith(fontSize: 11.sp),
+                            SizedBox(width: 18.w),
+                            Expanded(
+                              child: _Metric(
+                                label: 'Sell Price',
+                                value: product.sellPrice,
+                              ),
                             ),
                           ],
                         ),
-                      ),
-                      _CatalogActions(isActive: product.isActive),
-                    ],
-                  ),
-                  verticalSpace(12),
-                  Wrap(
-                    spacing: 18.w,
-                    runSpacing: 8.h,
-                    children: [
-                      _Metric(label: 'Buy Price', value: product.buyPrice),
-                      _Metric(label: 'Sell Price', value: product.sellPrice),
-                      _Metric(label: 'Stock', value: '${product.stock} units'),
-                      _Metric(
-                        label: 'Profit/Unit',
-                        value: product.profit,
-                        isPositive: product.isActive,
-                      ),
-                    ],
-                  ),
-                ],
+                        SizedBox(height: 8.h),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: _Metric(
+                                label: 'Stock',
+                                value: '${product.stock} units',
+                              ),
+                            ),
+                            SizedBox(width: 18.w),
+                            Expanded(
+                              child: _Metric(
+                                label: 'Profit/Unit',
+                                value: product.profit,
+                                isPositive: product.isActive,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    )
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -102,7 +133,7 @@ class _ProductThumb extends StatelessWidget {
       width: 56.r,
       height: 56.r,
       decoration: BoxDecoration(
-        color: context.cs.surfaceContainerHighest.withValues(alpha: 0.65),
+        color: context.cs.surfaceContainer.withValues(alpha: 0.6),
         borderRadius: BorderRadius.circular(6.r),
       ),
       child: Icon(Icons.inventory_2_outlined, color: iconColor, size: 28.sp),
@@ -152,7 +183,12 @@ class _IconAction extends StatelessWidget {
       height: 28.r,
       child: IconButton(
         onPressed: () {},
-        icon: Icon(icon, color: color, size: 16.sp),
+        icon: Icon(
+          icon,
+          color: color,
+          size: 18.sp,
+          fontWeight: FontWeight.w700,
+        ),
         padding: EdgeInsets.zero,
       ),
     );
@@ -181,7 +217,8 @@ class _Metric extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(label,
-              style: TextStyles.note(context).copyWith(fontSize: 10.sp)),
+              style: TextStyles.note(context)
+                  .copyWith(fontSize: 11.sp, fontWeight: FontWeight.w600)),
           verticalSpace(2),
           Text(
             value,
@@ -189,8 +226,9 @@ class _Metric extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
             style: TextStyles.label(context).copyWith(
               color: valueColor,
-              fontSize: isPositive ? 10.sp : 12.sp,
+              fontSize: isPositive ? 15.sp : 14.sp,
               height: 1.2,
+              fontWeight: isPositive ? FontWeight.w800 : FontWeight.w700,
             ),
           ),
         ],

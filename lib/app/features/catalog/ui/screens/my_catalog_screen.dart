@@ -1,6 +1,7 @@
 import 'package:B2B/app/core/helpers/extensions.dart';
 import 'package:B2B/app/core/helpers/spacing.dart';
 import 'package:B2B/app/core/theme/textstyles.dart';
+import 'package:B2B/app/features/catalog/ui/widgets/catalog_center_row.dart';
 import 'package:B2B/app/features/catalog/ui/widgets/catalog_product_card.dart';
 import 'package:B2B/app/features/catalog/ui/widgets/catalog_search_field.dart';
 import 'package:B2B/app/features/catalog/ui/widgets/catalog_summary_header.dart';
@@ -85,46 +86,35 @@ class _MyCatalogScreenState extends State<MyCatalogScreen> {
                       ),
                     ),
                     horizontalSpace(8),
-                    SizedBox(
-                      height: 40.h,
-                      child: ElevatedButton.icon(
-                        onPressed: () {},
-                        icon: Icon(Icons.add, size: 15.sp),
-                        label: Text(
-                          'Add Product',
-                          style: TextStyles.button(context)
-                              .copyWith(fontSize: 12.sp),
+                    ElevatedButton.icon(
+                      onPressed: () {},
+                      icon: Icon(Icons.add,
+                          size: 16.sp, color: context.cs.onPrimary),
+                      label: Text(
+                        'Add Product',
+                        style: TextStyles.button(context)
+                            .copyWith(fontSize: 13.sp),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: context.cs.primary,
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 18.w, vertical: 0.h),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(3.r),
                         ),
                       ),
                     ),
                   ],
                 ),
               ),
-              verticalSpace(14),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.w),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Text(
-                        '${visibleProducts.length} products',
-                        style:
-                            TextStyles.note(context).copyWith(fontSize: 12.sp),
-                      ),
-                    ),
-                    Text(
-                      'Est. Profit: \$475.60',
-                      style: TextStyles.label(context).copyWith(
-                        color: context.appColors.success,
-                        fontSize: 12.sp,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              verticalSpace(12),
-              ...visibleProducts
-                  .map((product) => CatalogProductCard(product: product)),
+              verticalSpace(15),
+              CatalogSummaryCenter(visibleProducts: visibleProducts),
+              verticalSpace(10),
+              ...visibleProducts.map((product) => Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 7.0, vertical: 6.0),
+                    child: CatalogProductCard(product: product),
+                  )),
               verticalSpace(24),
             ],
           ),
@@ -149,7 +139,7 @@ class _ActiveOnlyFilter extends StatelessWidget {
       onTap: () => onChanged(!value),
       borderRadius: BorderRadius.circular(6.r),
       child: Container(
-        height: 40.h,
+        height: 47.h,
         padding: EdgeInsets.symmetric(horizontal: 10.w),
         decoration: BoxDecoration(
           color: context.cs.surface,
@@ -167,7 +157,8 @@ class _ActiveOnlyFilter extends StatelessWidget {
               child: Text(
                 'Active Only',
                 overflow: TextOverflow.ellipsis,
-                style: TextStyles.label(context).copyWith(fontSize: 12.sp),
+                style: TextStyles.label(context)
+                    .copyWith(fontSize: 14.sp, fontWeight: FontWeight.w700),
               ),
             ),
           ],

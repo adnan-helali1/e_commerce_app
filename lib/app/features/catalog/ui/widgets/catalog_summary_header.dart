@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CatalogSummaryHeader extends StatelessWidget {
-  const CatalogSummaryHeader({super.key});
+  const CatalogSummaryHeader({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
