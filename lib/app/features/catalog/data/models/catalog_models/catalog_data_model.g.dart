@@ -7,20 +7,16 @@ part of 'catalog_data_model.dart';
 // **************************************************************************
 
 _CatalogData _$CatalogDataFromJson(Map<String, dynamic> json) => _CatalogData(
-      currentPage: (json['current_page'] as num).toInt(),
       data: (json['data'] as List<dynamic>)
           .map((e) => CatalogItem.fromJson(e as Map<String, dynamic>))
           .toList(),
-      perPage: (json['per_page'] as num).toInt(),
-      lastPage: (json['last_page'] as num).toInt(),
-      total: (json['total'] as num).toInt(),
+      summary: CatalogSummary.fromJson(json['summary'] as Map<String, dynamic>),
+      meta: CatalogMeta.fromJson(json['meta'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$CatalogDataToJson(_CatalogData instance) =>
     <String, dynamic>{
-      'current_page': instance.currentPage,
       'data': instance.data,
-      'per_page': instance.perPage,
-      'last_page': instance.lastPage,
-      'total': instance.total,
+      'summary': instance.summary,
+      'meta': instance.meta,
     };

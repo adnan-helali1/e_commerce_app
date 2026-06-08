@@ -6,6 +6,10 @@ import 'package:B2B/app/features/auth/data/repos/login_repo.dart';
 import 'package:B2B/app/features/auth/data/repos/register_repo.dart';
 import 'package:B2B/app/features/auth/logic/login/login_cubit.dart';
 import 'package:B2B/app/features/auth/logic/register/register_cubit.dart';
+import 'package:B2B/app/features/catalog/data/data_sources/catalog_remote_data_source.dart';
+import 'package:B2B/app/features/catalog/data/repos/catalog_repo.dart';
+import 'package:B2B/app/features/catalog/data/repos/catalog_repo_imp.dart';
+import 'package:B2B/app/features/catalog/logic/catalog_cubit.dart';
 import 'package:B2B/app/features/home/data/data_sources/local_data_source.dart';
 import 'package:B2B/app/features/home/data/data_sources/remote_data_source.dart';
 import 'package:B2B/app/features/home/data/models/home_dashboard_cache_model.dart';
@@ -74,5 +78,14 @@ Future<void> setupGetIt() async {
 
   getIt.registerFactory(
     () => AddOfferCubit(getIt()),
+  );
+
+// catalog
+  getIt.registerLazySingleton(() => CatalogRemoteDataSource(getIt()));
+  getIt.registerLazySingleton<CatalogRepo>(
+    () => CatalogRepoImpl(getIt(), getIt()),
+  );
+  getIt.registerFactory(
+    () => CatalogCubit(getIt()),
   );
 }

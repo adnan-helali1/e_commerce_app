@@ -1,68 +1,73 @@
 import 'package:B2B/app/features/catalog/data/models/catalog_models/catalog_item_model.dart';
-import 'package:B2B/app/features/offers/data/models/offers_cache_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+
 part 'catalog_item_cache_model.g.dart';
 
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable()
 class CatalogItemCacheModel {
-  final int? id;
-  final int? storeId;
-  final int? productId;
-  final int? supplierProductId;
-  final String? sellPrice;
-  final bool? isActive;
-  final DateTime? createdAt;
-  final DateTime? updatedAt;
-  final SupplierProductCacheModel? supplierProduct;
+  final int id;
+  final String name;
+  final String supplierName;
+  final double buyPrice;
+  final double sellPrice;
+  final double profitPerUnit;
+  final double profitPercentage;
+  final int stock;
+  final double totalProfit;
+  final bool isActive;
+  final String? imageUrl;
 
   CatalogItemCacheModel({
-    this.id,
-    this.storeId,
-    this.productId,
-    this.supplierProductId,
-    this.sellPrice,
-    this.isActive,
-    this.createdAt,
-    this.updatedAt,
-    this.supplierProduct,
+    required this.id,
+    required this.name,
+    required this.supplierName,
+    required this.buyPrice,
+    required this.sellPrice,
+    required this.profitPerUnit,
+    required this.profitPercentage,
+    required this.stock,
+    required this.totalProfit,
+    required this.isActive,
+    this.imageUrl,
   });
 
-  factory CatalogItemCacheModel.fromJson(
-    Map<String, dynamic> json,
-  ) =>
+  /// JSON
+  factory CatalogItemCacheModel.fromJson(Map<String, dynamic> json) =>
       _$CatalogItemCacheModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$CatalogItemCacheModelToJson(this);
 
-  factory CatalogItemCacheModel.fromResponse(
-    CatalogItem item,
-  ) {
+  /// 🔥 FROM API MODEL → CACHE
+  factory CatalogItemCacheModel.fromResponse(CatalogItem model) {
     return CatalogItemCacheModel(
-      id: item.id,
-      storeId: item.storeId,
-      productId: item.productId,
-      supplierProductId: item.supplierProductId,
-      sellPrice: item.sellPrice,
-      isActive: item.isActive,
-      createdAt: item.createdAt,
-      updatedAt: item.updatedAt,
-      supplierProduct: SupplierProductCacheModel.fromResponse(
-        item.supplierProduct,
-      ),
+      id: model.id,
+      name: model.name,
+      supplierName: model.supplierName,
+      buyPrice: model.buyPrice,
+      sellPrice: model.sellPrice,
+      profitPerUnit: model.profitPerUnit,
+      profitPercentage: model.profitPercentage,
+      stock: model.stock,
+      totalProfit: model.totalProfit,
+      isActive: model.isActive,
+      imageUrl: model.imageUrl,
     );
   }
 
+  /// 🔥 CACHE → DOMAIN MODEL
   CatalogItem toResponse() {
     return CatalogItem(
-      id: id!,
-      storeId: storeId!,
-      productId: productId!,
-      supplierProductId: supplierProductId!,
-      sellPrice: sellPrice!,
-      isActive: isActive!,
-      createdAt: createdAt!,
-      updatedAt: updatedAt!,
-      supplierProduct: supplierProduct!.toResponse(),
+      id: id,
+      name: name,
+      supplierName: supplierName,
+      buyPrice: buyPrice,
+      sellPrice: sellPrice,
+      profitPerUnit: profitPerUnit,
+      profitPercentage: profitPercentage,
+      stock: stock,
+      totalProfit: totalProfit,
+      isActive: isActive,
+      imageUrl: imageUrl,
     );
   }
 }

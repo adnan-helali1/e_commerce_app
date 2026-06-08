@@ -15,12 +15,15 @@ class CatalogRepoImpl implements CatalogRepo {
 
   CatalogRepoImpl(this._local, this._remote);
 
-  @override
-  Future<CatalogResponse?> getCachedCatalog({
-    required int page,
-    required bool? isActive,
-    required int perPage,
-  }) async {
+  String _key(int page, bool? isActive, int perPage) =>
+      '$page-${isActive ?? 'all'}-$perPage';
+
+  /// 🔥 LOCAL
+  Future<CatalogResponse?> _getCache(
+    int page,
+    bool? isActive,
+    int perPage,
+  ) async {
     final cached = await _local.read(
       page: page,
       isActive: isActive,
@@ -30,25 +33,11 @@ class CatalogRepoImpl implements CatalogRepo {
     return cached?.toResponse();
   }
 
-  @override
-  Future<void> clearCatalog({
-    required int page,
-    required bool? isActive,
-    required int perPage,
-  }) async {
-    await _local.clear(
-      page: page,
-      isActive: isActive,
-      perPage: perPage,
-    );
-  }
-
-  @override
-  Future<DateTime?> getCachedCatalogAt({
-    required int page,
-    required bool? isActive,
-    required int perPage,
-  }) async {
+  Future<DateTime?> _getCacheTime(
+    int page,
+    bool? isActive,
+    int perPage,
+  ) async {
     final cached = await _local.read(
       page: page,
       isActive: isActive,
@@ -58,13 +47,13 @@ class CatalogRepoImpl implements CatalogRepo {
     return cached?.cachedAt;
   }
 
-  @override
-  bool shouldRefreshCatalog(DateTime? cachedAt) {
+  bool _shouldRefresh(DateTime? cachedAt) {
     if (cachedAt == null) return true;
 
     return DateTime.now().difference(cachedAt) >= CacheKeys.homeDashboardTtl;
   }
 
+  /// 🔥 MAIN API
   @override
   Future<ApiResult<CatalogResponse>> getCatalog({
     required int page,
@@ -72,34 +61,76 @@ class CatalogRepoImpl implements CatalogRepo {
     required int perPage,
     bool forceRefresh = false,
   }) async {
-    final requestKey = '$page-${isActive ?? 'all'}-$perPage';
+    final key = _key(page, isActive, perPage);
 
     try {
-      if (!forceRefresh) {
-        final cached = await getCachedCatalog(
-          page: page,
-          isActive: isActive,
-          perPage: perPage,
-        );
+      final cached = await _getCache(page, isActive, perPage);
+      final cachedAt = await _getCacheTime(page, isActive, perPage);
 
+      final shouldRefresh = _shouldRefresh(cachedAt);
+
+      /// ✅ 1. Local First (instant UI)
+      if (cached != null && !forceRefresh) {
+        /// 🔥 background refresh
+        if (shouldRefresh && !_activeRequests.contains(key)) {
+          _refreshInBackground(page, isActive, perPage, key);
+        }
+
+        return ApiResult.success(cached);
+      }
+
+      /// ✅ 2. Prevent duplicate calls
+      if (_activeRequests.contains(key)) {
         if (cached != null) {
           return ApiResult.success(cached);
         }
       }
 
-      if (_activeRequests.contains(requestKey)) {
-        final cached = await getCachedCatalog(
-          page: page,
-          isActive: isActive,
-          perPage: perPage,
-        );
+      _activeRequests.add(key);
 
-        if (cached != null) {
-          return ApiResult.success(cached);
-        }
+      /// ✅ 3. Remote call
+      final response = await _remote.getCatalog(
+        page: page,
+        isActive: isActive,
+        perPage: perPage,
+      );
+
+      /// ✅ 4. Cache it
+      final cacheModel = CatalogCacheModel.fromResponse(response);
+
+      await _local.save(
+        cacheModel,
+        page: page,
+        isActive: isActive,
+        perPage: perPage,
+      );
+
+      return ApiResult.success(response);
+    } catch (error) {
+      /// ✅ fallback to cache
+      final cached = await _getCache(page, isActive, perPage);
+
+      if (cached != null) {
+        return ApiResult.success(cached);
       }
 
-      _activeRequests.add(requestKey);
+      return ApiResult.failure(
+        ErrorHandler.handle(error),
+      );
+    } finally {
+      _activeRequests.remove(key);
+    }
+  }
+
+  /// 🔥 BACKGROUND SYNC
+  Future<void> _refreshInBackground(
+    int page,
+    bool? isActive,
+    int perPage,
+    String key,
+  ) async {
+    try {
+      _activeRequests.add(key);
 
       final response = await _remote.getCatalog(
         page: page,
@@ -115,24 +146,44 @@ class CatalogRepoImpl implements CatalogRepo {
         isActive: isActive,
         perPage: perPage,
       );
-
-      return ApiResult.success(response);
-    } catch (error) {
-      final cached = await getCachedCatalog(
-        page: page,
-        isActive: isActive,
-        perPage: perPage,
-      );
-
-      if (cached != null) {
-        return ApiResult.success(cached);
-      }
-
-      return ApiResult.failure(
-        ErrorHandler.handle(error),
-      );
+    } catch (_) {
+      /// ignore background errors
     } finally {
-      _activeRequests.remove(requestKey);
+      _activeRequests.remove(key);
     }
   }
+
+  /// 🔥 CLEAR
+  @override
+  Future<void> clearCatalog({
+    required int page,
+    required bool? isActive,
+    required int perPage,
+  }) async {
+    await _local.clear(
+      page: page,
+      isActive: isActive,
+      perPage: perPage,
+    );
+  }
+
+  /// 🔥 CACHE HELPERS
+  @override
+  Future<CatalogResponse?> getCachedCatalog({
+    required int page,
+    required bool? isActive,
+    required int perPage,
+  }) =>
+      _getCache(page, isActive, perPage);
+
+  @override
+  Future<DateTime?> getCachedCatalogAt({
+    required int page,
+    required bool? isActive,
+    required int perPage,
+  }) =>
+      _getCacheTime(page, isActive, perPage);
+
+  @override
+  bool shouldRefreshCatalog(DateTime? cachedAt) => _shouldRefresh(cachedAt);
 }

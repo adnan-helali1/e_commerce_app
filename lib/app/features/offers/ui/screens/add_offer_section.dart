@@ -3,7 +3,6 @@ import 'package:B2B/app/features/offers/logic/add_offer_cubit.dart';
 import 'package:B2B/app/features/offers/logic/add_offer_state.dart';
 import 'package:B2B/app/features/offers/ui/widgets/add_offer_log.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AddOfferSheet extends StatelessWidget {

@@ -9,22 +9,19 @@ part of 'catalog_data_cache_model.dart';
 CatalogDataCacheModel _$CatalogDataCacheModelFromJson(
         Map<String, dynamic> json) =>
     CatalogDataCacheModel(
-      currentPage: (json['currentPage'] as num?)?.toInt(),
-      data: (json['data'] as List<dynamic>?)
-          ?.map(
-              (e) => CatalogItemCacheModel.fromJson(e as Map<String, dynamic>))
+      data: (json['data'] as List<dynamic>)
+          .map((e) => CatalogItemCacheModel.fromJson(e as Map<String, dynamic>))
           .toList(),
-      perPage: (json['perPage'] as num?)?.toInt(),
-      lastPage: (json['lastPage'] as num?)?.toInt(),
-      total: (json['total'] as num?)?.toInt(),
+      summary: CatalogSummaryCacheModel.fromJson(
+          json['summary'] as Map<String, dynamic>),
+      meta:
+          CatalogMetaCacheModel.fromJson(json['meta'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$CatalogDataCacheModelToJson(
         CatalogDataCacheModel instance) =>
     <String, dynamic>{
-      'currentPage': instance.currentPage,
-      'data': instance.data?.map((e) => e.toJson()).toList(),
-      'perPage': instance.perPage,
-      'lastPage': instance.lastPage,
-      'total': instance.total,
+      'data': instance.data.map((e) => e.toJson()).toList(),
+      'summary': instance.summary.toJson(),
+      'meta': instance.meta.toJson(),
     };

@@ -15,22 +15,24 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$CatalogItem {
   int get id;
-  @JsonKey(name: 'store_id')
-  int get storeId;
-  @JsonKey(name: 'product_id')
-  int get productId;
-  @JsonKey(name: 'supplier_product_id')
-  int get supplierProductId;
+  String get name;
+  @JsonKey(name: 'supplier_name')
+  String get supplierName;
+  @JsonKey(name: 'buy_price')
+  double get buyPrice;
   @JsonKey(name: 'sell_price')
-  String get sellPrice;
+  double get sellPrice;
+  @JsonKey(name: 'profit_per_unit')
+  double get profitPerUnit;
+  @JsonKey(name: 'profit_percentage')
+  double get profitPercentage;
+  int get stock;
+  @JsonKey(name: 'total_profit')
+  double get totalProfit;
   @JsonKey(name: 'is_active')
   bool get isActive;
-  @JsonKey(name: 'created_at')
-  DateTime get createdAt;
-  @JsonKey(name: 'updated_at')
-  DateTime get updatedAt;
-  @JsonKey(name: 'supplier_product')
-  SupplierProduct get supplierProduct;
+  @JsonKey(name: 'image_url')
+  String? get imageUrl;
 
   /// Create a copy of CatalogItem
   /// with the given fields replaced by the non-null parameter values.
@@ -48,21 +50,24 @@ mixin _$CatalogItem {
         (other.runtimeType == runtimeType &&
             other is CatalogItem &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.storeId, storeId) || other.storeId == storeId) &&
-            (identical(other.productId, productId) ||
-                other.productId == productId) &&
-            (identical(other.supplierProductId, supplierProductId) ||
-                other.supplierProductId == supplierProductId) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.supplierName, supplierName) ||
+                other.supplierName == supplierName) &&
+            (identical(other.buyPrice, buyPrice) ||
+                other.buyPrice == buyPrice) &&
             (identical(other.sellPrice, sellPrice) ||
                 other.sellPrice == sellPrice) &&
+            (identical(other.profitPerUnit, profitPerUnit) ||
+                other.profitPerUnit == profitPerUnit) &&
+            (identical(other.profitPercentage, profitPercentage) ||
+                other.profitPercentage == profitPercentage) &&
+            (identical(other.stock, stock) || other.stock == stock) &&
+            (identical(other.totalProfit, totalProfit) ||
+                other.totalProfit == totalProfit) &&
             (identical(other.isActive, isActive) ||
                 other.isActive == isActive) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt) &&
-            (identical(other.updatedAt, updatedAt) ||
-                other.updatedAt == updatedAt) &&
-            (identical(other.supplierProduct, supplierProduct) ||
-                other.supplierProduct == supplierProduct));
+            (identical(other.imageUrl, imageUrl) ||
+                other.imageUrl == imageUrl));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -70,18 +75,20 @@ mixin _$CatalogItem {
   int get hashCode => Object.hash(
       runtimeType,
       id,
-      storeId,
-      productId,
-      supplierProductId,
+      name,
+      supplierName,
+      buyPrice,
       sellPrice,
+      profitPerUnit,
+      profitPercentage,
+      stock,
+      totalProfit,
       isActive,
-      createdAt,
-      updatedAt,
-      supplierProduct);
+      imageUrl);
 
   @override
   String toString() {
-    return 'CatalogItem(id: $id, storeId: $storeId, productId: $productId, supplierProductId: $supplierProductId, sellPrice: $sellPrice, isActive: $isActive, createdAt: $createdAt, updatedAt: $updatedAt, supplierProduct: $supplierProduct)';
+    return 'CatalogItem(id: $id, name: $name, supplierName: $supplierName, buyPrice: $buyPrice, sellPrice: $sellPrice, profitPerUnit: $profitPerUnit, profitPercentage: $profitPercentage, stock: $stock, totalProfit: $totalProfit, isActive: $isActive, imageUrl: $imageUrl)';
   }
 }
 
@@ -93,16 +100,16 @@ abstract mixin class $CatalogItemCopyWith<$Res> {
   @useResult
   $Res call(
       {int id,
-      @JsonKey(name: 'store_id') int storeId,
-      @JsonKey(name: 'product_id') int productId,
-      @JsonKey(name: 'supplier_product_id') int supplierProductId,
-      @JsonKey(name: 'sell_price') String sellPrice,
+      String name,
+      @JsonKey(name: 'supplier_name') String supplierName,
+      @JsonKey(name: 'buy_price') double buyPrice,
+      @JsonKey(name: 'sell_price') double sellPrice,
+      @JsonKey(name: 'profit_per_unit') double profitPerUnit,
+      @JsonKey(name: 'profit_percentage') double profitPercentage,
+      int stock,
+      @JsonKey(name: 'total_profit') double totalProfit,
       @JsonKey(name: 'is_active') bool isActive,
-      @JsonKey(name: 'created_at') DateTime createdAt,
-      @JsonKey(name: 'updated_at') DateTime updatedAt,
-      @JsonKey(name: 'supplier_product') SupplierProduct supplierProduct});
-
-  $SupplierProductCopyWith<$Res> get supplierProduct;
+      @JsonKey(name: 'image_url') String? imageUrl});
 }
 
 /// @nodoc
@@ -118,63 +125,63 @@ class _$CatalogItemCopyWithImpl<$Res> implements $CatalogItemCopyWith<$Res> {
   @override
   $Res call({
     Object? id = null,
-    Object? storeId = null,
-    Object? productId = null,
-    Object? supplierProductId = null,
+    Object? name = null,
+    Object? supplierName = null,
+    Object? buyPrice = null,
     Object? sellPrice = null,
+    Object? profitPerUnit = null,
+    Object? profitPercentage = null,
+    Object? stock = null,
+    Object? totalProfit = null,
     Object? isActive = null,
-    Object? createdAt = null,
-    Object? updatedAt = null,
-    Object? supplierProduct = null,
+    Object? imageUrl = freezed,
   }) {
     return _then(_self.copyWith(
       id: null == id
           ? _self.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
-      storeId: null == storeId
-          ? _self.storeId
-          : storeId // ignore: cast_nullable_to_non_nullable
-              as int,
-      productId: null == productId
-          ? _self.productId
-          : productId // ignore: cast_nullable_to_non_nullable
-              as int,
-      supplierProductId: null == supplierProductId
-          ? _self.supplierProductId
-          : supplierProductId // ignore: cast_nullable_to_non_nullable
-              as int,
+      name: null == name
+          ? _self.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      supplierName: null == supplierName
+          ? _self.supplierName
+          : supplierName // ignore: cast_nullable_to_non_nullable
+              as String,
+      buyPrice: null == buyPrice
+          ? _self.buyPrice
+          : buyPrice // ignore: cast_nullable_to_non_nullable
+              as double,
       sellPrice: null == sellPrice
           ? _self.sellPrice
           : sellPrice // ignore: cast_nullable_to_non_nullable
-              as String,
+              as double,
+      profitPerUnit: null == profitPerUnit
+          ? _self.profitPerUnit
+          : profitPerUnit // ignore: cast_nullable_to_non_nullable
+              as double,
+      profitPercentage: null == profitPercentage
+          ? _self.profitPercentage
+          : profitPercentage // ignore: cast_nullable_to_non_nullable
+              as double,
+      stock: null == stock
+          ? _self.stock
+          : stock // ignore: cast_nullable_to_non_nullable
+              as int,
+      totalProfit: null == totalProfit
+          ? _self.totalProfit
+          : totalProfit // ignore: cast_nullable_to_non_nullable
+              as double,
       isActive: null == isActive
           ? _self.isActive
           : isActive // ignore: cast_nullable_to_non_nullable
               as bool,
-      createdAt: null == createdAt
-          ? _self.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      updatedAt: null == updatedAt
-          ? _self.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      supplierProduct: null == supplierProduct
-          ? _self.supplierProduct
-          : supplierProduct // ignore: cast_nullable_to_non_nullable
-              as SupplierProduct,
+      imageUrl: freezed == imageUrl
+          ? _self.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
-  }
-
-  /// Create a copy of CatalogItem
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $SupplierProductCopyWith<$Res> get supplierProduct {
-    return $SupplierProductCopyWith<$Res>(_self.supplierProduct, (value) {
-      return _then(_self.copyWith(supplierProduct: value));
-    });
   }
 }
 
@@ -273,14 +280,16 @@ extension CatalogItemPatterns on CatalogItem {
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(
             int id,
-            @JsonKey(name: 'store_id') int storeId,
-            @JsonKey(name: 'product_id') int productId,
-            @JsonKey(name: 'supplier_product_id') int supplierProductId,
-            @JsonKey(name: 'sell_price') String sellPrice,
+            String name,
+            @JsonKey(name: 'supplier_name') String supplierName,
+            @JsonKey(name: 'buy_price') double buyPrice,
+            @JsonKey(name: 'sell_price') double sellPrice,
+            @JsonKey(name: 'profit_per_unit') double profitPerUnit,
+            @JsonKey(name: 'profit_percentage') double profitPercentage,
+            int stock,
+            @JsonKey(name: 'total_profit') double totalProfit,
             @JsonKey(name: 'is_active') bool isActive,
-            @JsonKey(name: 'created_at') DateTime createdAt,
-            @JsonKey(name: 'updated_at') DateTime updatedAt,
-            @JsonKey(name: 'supplier_product') SupplierProduct supplierProduct)?
+            @JsonKey(name: 'image_url') String? imageUrl)?
         $default, {
     required TResult orElse(),
   }) {
@@ -289,14 +298,16 @@ extension CatalogItemPatterns on CatalogItem {
       case _CatalogItem() when $default != null:
         return $default(
             _that.id,
-            _that.storeId,
-            _that.productId,
-            _that.supplierProductId,
+            _that.name,
+            _that.supplierName,
+            _that.buyPrice,
             _that.sellPrice,
+            _that.profitPerUnit,
+            _that.profitPercentage,
+            _that.stock,
+            _that.totalProfit,
             _that.isActive,
-            _that.createdAt,
-            _that.updatedAt,
-            _that.supplierProduct);
+            _that.imageUrl);
       case _:
         return orElse();
     }
@@ -319,14 +330,16 @@ extension CatalogItemPatterns on CatalogItem {
   TResult when<TResult extends Object?>(
     TResult Function(
             int id,
-            @JsonKey(name: 'store_id') int storeId,
-            @JsonKey(name: 'product_id') int productId,
-            @JsonKey(name: 'supplier_product_id') int supplierProductId,
-            @JsonKey(name: 'sell_price') String sellPrice,
+            String name,
+            @JsonKey(name: 'supplier_name') String supplierName,
+            @JsonKey(name: 'buy_price') double buyPrice,
+            @JsonKey(name: 'sell_price') double sellPrice,
+            @JsonKey(name: 'profit_per_unit') double profitPerUnit,
+            @JsonKey(name: 'profit_percentage') double profitPercentage,
+            int stock,
+            @JsonKey(name: 'total_profit') double totalProfit,
             @JsonKey(name: 'is_active') bool isActive,
-            @JsonKey(name: 'created_at') DateTime createdAt,
-            @JsonKey(name: 'updated_at') DateTime updatedAt,
-            @JsonKey(name: 'supplier_product') SupplierProduct supplierProduct)
+            @JsonKey(name: 'image_url') String? imageUrl)
         $default,
   ) {
     final _that = this;
@@ -334,14 +347,16 @@ extension CatalogItemPatterns on CatalogItem {
       case _CatalogItem():
         return $default(
             _that.id,
-            _that.storeId,
-            _that.productId,
-            _that.supplierProductId,
+            _that.name,
+            _that.supplierName,
+            _that.buyPrice,
             _that.sellPrice,
+            _that.profitPerUnit,
+            _that.profitPercentage,
+            _that.stock,
+            _that.totalProfit,
             _that.isActive,
-            _that.createdAt,
-            _that.updatedAt,
-            _that.supplierProduct);
+            _that.imageUrl);
       case _:
         throw StateError('Unexpected subclass');
     }
@@ -363,14 +378,16 @@ extension CatalogItemPatterns on CatalogItem {
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function(
             int id,
-            @JsonKey(name: 'store_id') int storeId,
-            @JsonKey(name: 'product_id') int productId,
-            @JsonKey(name: 'supplier_product_id') int supplierProductId,
-            @JsonKey(name: 'sell_price') String sellPrice,
+            String name,
+            @JsonKey(name: 'supplier_name') String supplierName,
+            @JsonKey(name: 'buy_price') double buyPrice,
+            @JsonKey(name: 'sell_price') double sellPrice,
+            @JsonKey(name: 'profit_per_unit') double profitPerUnit,
+            @JsonKey(name: 'profit_percentage') double profitPercentage,
+            int stock,
+            @JsonKey(name: 'total_profit') double totalProfit,
             @JsonKey(name: 'is_active') bool isActive,
-            @JsonKey(name: 'created_at') DateTime createdAt,
-            @JsonKey(name: 'updated_at') DateTime updatedAt,
-            @JsonKey(name: 'supplier_product') SupplierProduct supplierProduct)?
+            @JsonKey(name: 'image_url') String? imageUrl)?
         $default,
   ) {
     final _that = this;
@@ -378,14 +395,16 @@ extension CatalogItemPatterns on CatalogItem {
       case _CatalogItem() when $default != null:
         return $default(
             _that.id,
-            _that.storeId,
-            _that.productId,
-            _that.supplierProductId,
+            _that.name,
+            _that.supplierName,
+            _that.buyPrice,
             _that.sellPrice,
+            _that.profitPerUnit,
+            _that.profitPercentage,
+            _that.stock,
+            _that.totalProfit,
             _that.isActive,
-            _that.createdAt,
-            _that.updatedAt,
-            _that.supplierProduct);
+            _that.imageUrl);
       case _:
         return null;
     }
@@ -397,43 +416,49 @@ extension CatalogItemPatterns on CatalogItem {
 class _CatalogItem implements CatalogItem {
   const _CatalogItem(
       {required this.id,
-      @JsonKey(name: 'store_id') required this.storeId,
-      @JsonKey(name: 'product_id') required this.productId,
-      @JsonKey(name: 'supplier_product_id') required this.supplierProductId,
+      required this.name,
+      @JsonKey(name: 'supplier_name') required this.supplierName,
+      @JsonKey(name: 'buy_price') required this.buyPrice,
       @JsonKey(name: 'sell_price') required this.sellPrice,
+      @JsonKey(name: 'profit_per_unit') required this.profitPerUnit,
+      @JsonKey(name: 'profit_percentage') required this.profitPercentage,
+      required this.stock,
+      @JsonKey(name: 'total_profit') required this.totalProfit,
       @JsonKey(name: 'is_active') required this.isActive,
-      @JsonKey(name: 'created_at') required this.createdAt,
-      @JsonKey(name: 'updated_at') required this.updatedAt,
-      @JsonKey(name: 'supplier_product') required this.supplierProduct});
+      @JsonKey(name: 'image_url') this.imageUrl});
   factory _CatalogItem.fromJson(Map<String, dynamic> json) =>
       _$CatalogItemFromJson(json);
 
   @override
   final int id;
   @override
-  @JsonKey(name: 'store_id')
-  final int storeId;
+  final String name;
   @override
-  @JsonKey(name: 'product_id')
-  final int productId;
+  @JsonKey(name: 'supplier_name')
+  final String supplierName;
   @override
-  @JsonKey(name: 'supplier_product_id')
-  final int supplierProductId;
+  @JsonKey(name: 'buy_price')
+  final double buyPrice;
   @override
   @JsonKey(name: 'sell_price')
-  final String sellPrice;
+  final double sellPrice;
+  @override
+  @JsonKey(name: 'profit_per_unit')
+  final double profitPerUnit;
+  @override
+  @JsonKey(name: 'profit_percentage')
+  final double profitPercentage;
+  @override
+  final int stock;
+  @override
+  @JsonKey(name: 'total_profit')
+  final double totalProfit;
   @override
   @JsonKey(name: 'is_active')
   final bool isActive;
   @override
-  @JsonKey(name: 'created_at')
-  final DateTime createdAt;
-  @override
-  @JsonKey(name: 'updated_at')
-  final DateTime updatedAt;
-  @override
-  @JsonKey(name: 'supplier_product')
-  final SupplierProduct supplierProduct;
+  @JsonKey(name: 'image_url')
+  final String? imageUrl;
 
   /// Create a copy of CatalogItem
   /// with the given fields replaced by the non-null parameter values.
@@ -456,21 +481,24 @@ class _CatalogItem implements CatalogItem {
         (other.runtimeType == runtimeType &&
             other is _CatalogItem &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.storeId, storeId) || other.storeId == storeId) &&
-            (identical(other.productId, productId) ||
-                other.productId == productId) &&
-            (identical(other.supplierProductId, supplierProductId) ||
-                other.supplierProductId == supplierProductId) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.supplierName, supplierName) ||
+                other.supplierName == supplierName) &&
+            (identical(other.buyPrice, buyPrice) ||
+                other.buyPrice == buyPrice) &&
             (identical(other.sellPrice, sellPrice) ||
                 other.sellPrice == sellPrice) &&
+            (identical(other.profitPerUnit, profitPerUnit) ||
+                other.profitPerUnit == profitPerUnit) &&
+            (identical(other.profitPercentage, profitPercentage) ||
+                other.profitPercentage == profitPercentage) &&
+            (identical(other.stock, stock) || other.stock == stock) &&
+            (identical(other.totalProfit, totalProfit) ||
+                other.totalProfit == totalProfit) &&
             (identical(other.isActive, isActive) ||
                 other.isActive == isActive) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt) &&
-            (identical(other.updatedAt, updatedAt) ||
-                other.updatedAt == updatedAt) &&
-            (identical(other.supplierProduct, supplierProduct) ||
-                other.supplierProduct == supplierProduct));
+            (identical(other.imageUrl, imageUrl) ||
+                other.imageUrl == imageUrl));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -478,18 +506,20 @@ class _CatalogItem implements CatalogItem {
   int get hashCode => Object.hash(
       runtimeType,
       id,
-      storeId,
-      productId,
-      supplierProductId,
+      name,
+      supplierName,
+      buyPrice,
       sellPrice,
+      profitPerUnit,
+      profitPercentage,
+      stock,
+      totalProfit,
       isActive,
-      createdAt,
-      updatedAt,
-      supplierProduct);
+      imageUrl);
 
   @override
   String toString() {
-    return 'CatalogItem(id: $id, storeId: $storeId, productId: $productId, supplierProductId: $supplierProductId, sellPrice: $sellPrice, isActive: $isActive, createdAt: $createdAt, updatedAt: $updatedAt, supplierProduct: $supplierProduct)';
+    return 'CatalogItem(id: $id, name: $name, supplierName: $supplierName, buyPrice: $buyPrice, sellPrice: $sellPrice, profitPerUnit: $profitPerUnit, profitPercentage: $profitPercentage, stock: $stock, totalProfit: $totalProfit, isActive: $isActive, imageUrl: $imageUrl)';
   }
 }
 
@@ -503,17 +533,16 @@ abstract mixin class _$CatalogItemCopyWith<$Res>
   @useResult
   $Res call(
       {int id,
-      @JsonKey(name: 'store_id') int storeId,
-      @JsonKey(name: 'product_id') int productId,
-      @JsonKey(name: 'supplier_product_id') int supplierProductId,
-      @JsonKey(name: 'sell_price') String sellPrice,
+      String name,
+      @JsonKey(name: 'supplier_name') String supplierName,
+      @JsonKey(name: 'buy_price') double buyPrice,
+      @JsonKey(name: 'sell_price') double sellPrice,
+      @JsonKey(name: 'profit_per_unit') double profitPerUnit,
+      @JsonKey(name: 'profit_percentage') double profitPercentage,
+      int stock,
+      @JsonKey(name: 'total_profit') double totalProfit,
       @JsonKey(name: 'is_active') bool isActive,
-      @JsonKey(name: 'created_at') DateTime createdAt,
-      @JsonKey(name: 'updated_at') DateTime updatedAt,
-      @JsonKey(name: 'supplier_product') SupplierProduct supplierProduct});
-
-  @override
-  $SupplierProductCopyWith<$Res> get supplierProduct;
+      @JsonKey(name: 'image_url') String? imageUrl});
 }
 
 /// @nodoc
@@ -529,63 +558,63 @@ class __$CatalogItemCopyWithImpl<$Res> implements _$CatalogItemCopyWith<$Res> {
   @pragma('vm:prefer-inline')
   $Res call({
     Object? id = null,
-    Object? storeId = null,
-    Object? productId = null,
-    Object? supplierProductId = null,
+    Object? name = null,
+    Object? supplierName = null,
+    Object? buyPrice = null,
     Object? sellPrice = null,
+    Object? profitPerUnit = null,
+    Object? profitPercentage = null,
+    Object? stock = null,
+    Object? totalProfit = null,
     Object? isActive = null,
-    Object? createdAt = null,
-    Object? updatedAt = null,
-    Object? supplierProduct = null,
+    Object? imageUrl = freezed,
   }) {
     return _then(_CatalogItem(
       id: null == id
           ? _self.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
-      storeId: null == storeId
-          ? _self.storeId
-          : storeId // ignore: cast_nullable_to_non_nullable
-              as int,
-      productId: null == productId
-          ? _self.productId
-          : productId // ignore: cast_nullable_to_non_nullable
-              as int,
-      supplierProductId: null == supplierProductId
-          ? _self.supplierProductId
-          : supplierProductId // ignore: cast_nullable_to_non_nullable
-              as int,
+      name: null == name
+          ? _self.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      supplierName: null == supplierName
+          ? _self.supplierName
+          : supplierName // ignore: cast_nullable_to_non_nullable
+              as String,
+      buyPrice: null == buyPrice
+          ? _self.buyPrice
+          : buyPrice // ignore: cast_nullable_to_non_nullable
+              as double,
       sellPrice: null == sellPrice
           ? _self.sellPrice
           : sellPrice // ignore: cast_nullable_to_non_nullable
-              as String,
+              as double,
+      profitPerUnit: null == profitPerUnit
+          ? _self.profitPerUnit
+          : profitPerUnit // ignore: cast_nullable_to_non_nullable
+              as double,
+      profitPercentage: null == profitPercentage
+          ? _self.profitPercentage
+          : profitPercentage // ignore: cast_nullable_to_non_nullable
+              as double,
+      stock: null == stock
+          ? _self.stock
+          : stock // ignore: cast_nullable_to_non_nullable
+              as int,
+      totalProfit: null == totalProfit
+          ? _self.totalProfit
+          : totalProfit // ignore: cast_nullable_to_non_nullable
+              as double,
       isActive: null == isActive
           ? _self.isActive
           : isActive // ignore: cast_nullable_to_non_nullable
               as bool,
-      createdAt: null == createdAt
-          ? _self.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      updatedAt: null == updatedAt
-          ? _self.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime,
-      supplierProduct: null == supplierProduct
-          ? _self.supplierProduct
-          : supplierProduct // ignore: cast_nullable_to_non_nullable
-              as SupplierProduct,
+      imageUrl: freezed == imageUrl
+          ? _self.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
-  }
-
-  /// Create a copy of CatalogItem
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $SupplierProductCopyWith<$Res> get supplierProduct {
-    return $SupplierProductCopyWith<$Res>(_self.supplierProduct, (value) {
-      return _then(_self.copyWith(supplierProduct: value));
-    });
   }
 }
 

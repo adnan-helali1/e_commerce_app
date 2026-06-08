@@ -19,47 +19,11 @@ class MyCatalogScreen extends StatefulWidget {
 class _MyCatalogScreenState extends State<MyCatalogScreen> {
   bool activeOnly = false;
 
-  static const _products = [
-    CatalogProductUiModel(
-      name: 'Premium Organic Milk',
-      supplier: 'GreenFarm Suppliers',
-      buyPrice: '\$2.35',
-      sellPrice: '\$3.99',
-      stock: '180',
-      profit: '+ \$1.64 (69.8%)',
-    ),
-    CatalogProductUiModel(
-      name: 'Whole Wheat Bread',
-      supplier: 'BakeMaster Ltd.',
-      buyPrice: '\$1.80',
-      sellPrice: '\$2.99',
-      stock: '65',
-      profit: '+ \$1.19 (66.1%)',
-    ),
-    CatalogProductUiModel(
-      name: 'Free Range Eggs',
-      supplier: 'FreshDairy Co.',
-      buyPrice: '\$4.20',
-      sellPrice: '\$6.49',
-      stock: '45',
-      profit: '+ \$2.29 (54.5%)',
-    ),
-    CatalogProductUiModel(
-      name: 'Greek Yogurt 500g',
-      supplier: 'GreenFarm Suppliers',
-      buyPrice: '\$3.50',
-      sellPrice: '\$5.49',
-      stock: '120',
-      profit: '+ \$1.99 (56.9%)',
-      isActive: false,
-    ),
-  ];
-
   @override
   Widget build(BuildContext context) {
-    final visibleProducts = activeOnly
-        ? _products.where((product) => product.isActive).toList()
-        : _products;
+    // final visibleProducts = activeOnly
+    //     ? _products.where((product) => product.isActive).toList()
+    //     : _products;
 
     return SafeArea(
       child: Scaffold(
@@ -108,13 +72,13 @@ class _MyCatalogScreenState extends State<MyCatalogScreen> {
                 ),
               ),
               verticalSpace(15),
-              CatalogSummaryCenter(visibleProducts: visibleProducts),
+              // CatalogSummaryCenter(visibleProducts: visibleProducts),
               verticalSpace(10),
-              ...visibleProducts.map((product) => Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 7.0, vertical: 6.0),
-                    child: CatalogProductCard(product: product),
-                  )),
+              // ...visibleProducts.map((product) => Padding(
+              //       padding: const EdgeInsets.symmetric(
+              //           horizontal: 7.0, vertical: 6.0),
+              //       child: CatalogProductCard(product: product),
+              //     )),
               verticalSpace(24),
             ],
           ),

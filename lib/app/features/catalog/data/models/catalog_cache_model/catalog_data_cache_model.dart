@@ -1,24 +1,26 @@
 import 'package:B2B/app/features/catalog/data/models/catalog_cache_model/catalog_item_cache_model.dart';
+import 'package:B2B/app/features/catalog/data/models/catalog_cache_model/catalog_summary_cache_model.dart';
+import 'package:B2B/app/features/catalog/data/models/catalog_cache_model/catalog_meta_cache_model.dart';
 import 'package:B2B/app/features/catalog/data/models/catalog_models/catalog_data_model.dart';
+import 'package:B2B/app/features/catalog/data/models/catalog_models/catalog_meta_model.dart';
+import 'package:B2B/app/features/catalog/data/models/catalog_models/catalog_summary_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+
 part 'catalog_data_cache_model.g.dart';
 
 @JsonSerializable(explicitToJson: true)
 class CatalogDataCacheModel {
-  final int? currentPage;
-  final List<CatalogItemCacheModel>? data;
-  final int? perPage;
-  final int? lastPage;
-  final int? total;
+  final List<CatalogItemCacheModel> data;
+  final CatalogSummaryCacheModel summary;
+  final CatalogMetaCacheModel meta;
 
   CatalogDataCacheModel({
-    this.currentPage,
-    this.data,
-    this.perPage,
-    this.lastPage,
-    this.total,
+    required this.data,
+    required this.summary,
+    required this.meta,
   });
 
+  /// JSON
   factory CatalogDataCacheModel.fromJson(
     Map<String, dynamic> json,
   ) =>
@@ -26,25 +28,43 @@ class CatalogDataCacheModel {
 
   Map<String, dynamic> toJson() => _$CatalogDataCacheModelToJson(this);
 
+  /// 🔥 FROM API → CACHE
   factory CatalogDataCacheModel.fromResponse(
     CatalogData model,
   ) {
     return CatalogDataCacheModel(
-      currentPage: model.currentPage,
-      data: model.data.map(CatalogItemCacheModel.fromResponse).toList(),
-      perPage: model.perPage,
-      lastPage: model.lastPage,
-      total: model.total,
+      data: (model.data ?? [])
+          .map((e) => CatalogItemCacheModel.fromResponse(e))
+          .toList(),
+      summary: CatalogSummaryCacheModel(
+        totalProducts: model.summary.totalProducts,
+        activeProducts: model.summary.activeProducts,
+        totalProfit: model.summary.totalProfit,
+      ),
+      meta: CatalogMetaCacheModel(
+        currentPage: model.meta.currentPage,
+        lastPage: model.meta.lastPage,
+        perPage: model.meta.perPage,
+        total: model.meta.total,
+      ),
     );
   }
 
+  /// 🔥 CACHE → DOMAIN (UI)
   CatalogData toResponse() {
     return CatalogData(
-      currentPage: currentPage!,
-      data: data!.map((e) => e.toResponse()).toList(),
-      perPage: perPage!,
-      lastPage: lastPage!,
-      total: total!,
+      data: data.map((e) => e.toResponse()).toList(),
+      summary: CatalogSummary(
+        totalProducts: summary.totalProducts,
+        activeProducts: summary.activeProducts,
+        totalProfit: summary.totalProfit,
+      ),
+      meta: CatalogMeta(
+        currentPage: meta.currentPage,
+        lastPage: meta.lastPage,
+        perPage: meta.perPage,
+        total: meta.total,
+      ),
     );
   }
 }

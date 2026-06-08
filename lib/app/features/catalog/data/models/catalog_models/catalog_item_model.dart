@@ -8,18 +8,18 @@ part 'catalog_item_model.g.dart';
 abstract class CatalogItem with _$CatalogItem {
   const factory CatalogItem({
     required int id,
-    @JsonKey(name: 'store_id') required int storeId,
-    @JsonKey(name: 'product_id') required int productId,
-    @JsonKey(name: 'supplier_product_id') required int supplierProductId,
-    @JsonKey(name: 'sell_price') required String sellPrice,
+    required String name,
+    @JsonKey(name: 'supplier_name') required String supplierName,
+    @JsonKey(name: 'buy_price') required double buyPrice,
+    @JsonKey(name: 'sell_price') required double sellPrice,
+    @JsonKey(name: 'profit_per_unit') required double profitPerUnit,
+    @JsonKey(name: 'profit_percentage') required double profitPercentage,
+    required int stock,
+    @JsonKey(name: 'total_profit') required double totalProfit,
     @JsonKey(name: 'is_active') required bool isActive,
-    @JsonKey(name: 'created_at') required DateTime createdAt,
-    @JsonKey(name: 'updated_at') required DateTime updatedAt,
-    @JsonKey(name: 'supplier_product') required SupplierProduct supplierProduct,
+    @JsonKey(name: 'image_url') String? imageUrl,
   }) = _CatalogItem;
 
-  factory CatalogItem.fromJson(
-    Map<String, dynamic> json,
-  ) =>
+  factory CatalogItem.fromJson(Map<String, dynamic> json) =>
       _$CatalogItemFromJson(json);
 }

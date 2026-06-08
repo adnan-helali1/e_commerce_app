@@ -14,9 +14,9 @@ T _$identity<T>(T value) => value;
 
 /// @nodoc
 mixin _$CatalogResponse {
-  CatalogData get data;
-  String get message;
-  dynamic get errors;
+  List<CatalogItem> get data;
+  CatalogSummary get summary;
+  CatalogMeta get meta;
 
   /// Create a copy of CatalogResponse
   /// with the given fields replaced by the non-null parameter values.
@@ -34,19 +34,19 @@ mixin _$CatalogResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is CatalogResponse &&
-            (identical(other.data, data) || other.data == data) &&
-            (identical(other.message, message) || other.message == message) &&
-            const DeepCollectionEquality().equals(other.errors, errors));
+            const DeepCollectionEquality().equals(other.data, data) &&
+            (identical(other.summary, summary) || other.summary == summary) &&
+            (identical(other.meta, meta) || other.meta == meta));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
-      runtimeType, data, message, const DeepCollectionEquality().hash(errors));
+      runtimeType, const DeepCollectionEquality().hash(data), summary, meta);
 
   @override
   String toString() {
-    return 'CatalogResponse(data: $data, message: $message, errors: $errors)';
+    return 'CatalogResponse(data: $data, summary: $summary, meta: $meta)';
   }
 }
 
@@ -56,9 +56,10 @@ abstract mixin class $CatalogResponseCopyWith<$Res> {
           CatalogResponse value, $Res Function(CatalogResponse) _then) =
       _$CatalogResponseCopyWithImpl;
   @useResult
-  $Res call({CatalogData data, String message, dynamic errors});
+  $Res call({List<CatalogItem> data, CatalogSummary summary, CatalogMeta meta});
 
-  $CatalogDataCopyWith<$Res> get data;
+  $CatalogSummaryCopyWith<$Res> get summary;
+  $CatalogMetaCopyWith<$Res> get meta;
 }
 
 /// @nodoc
@@ -75,22 +76,22 @@ class _$CatalogResponseCopyWithImpl<$Res>
   @override
   $Res call({
     Object? data = null,
-    Object? message = null,
-    Object? errors = freezed,
+    Object? summary = null,
+    Object? meta = null,
   }) {
     return _then(_self.copyWith(
       data: null == data
           ? _self.data
           : data // ignore: cast_nullable_to_non_nullable
-              as CatalogData,
-      message: null == message
-          ? _self.message
-          : message // ignore: cast_nullable_to_non_nullable
-              as String,
-      errors: freezed == errors
-          ? _self.errors
-          : errors // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as List<CatalogItem>,
+      summary: null == summary
+          ? _self.summary
+          : summary // ignore: cast_nullable_to_non_nullable
+              as CatalogSummary,
+      meta: null == meta
+          ? _self.meta
+          : meta // ignore: cast_nullable_to_non_nullable
+              as CatalogMeta,
     ));
   }
 
@@ -98,9 +99,19 @@ class _$CatalogResponseCopyWithImpl<$Res>
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  $CatalogDataCopyWith<$Res> get data {
-    return $CatalogDataCopyWith<$Res>(_self.data, (value) {
-      return _then(_self.copyWith(data: value));
+  $CatalogSummaryCopyWith<$Res> get summary {
+    return $CatalogSummaryCopyWith<$Res>(_self.summary, (value) {
+      return _then(_self.copyWith(summary: value));
+    });
+  }
+
+  /// Create a copy of CatalogResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $CatalogMetaCopyWith<$Res> get meta {
+    return $CatalogMetaCopyWith<$Res>(_self.meta, (value) {
+      return _then(_self.copyWith(meta: value));
     });
   }
 }
@@ -198,14 +209,15 @@ extension CatalogResponsePatterns on CatalogResponse {
 
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
-    TResult Function(CatalogData data, String message, dynamic errors)?
+    TResult Function(
+            List<CatalogItem> data, CatalogSummary summary, CatalogMeta meta)?
         $default, {
     required TResult orElse(),
   }) {
     final _that = this;
     switch (_that) {
       case _CatalogResponse() when $default != null:
-        return $default(_that.data, _that.message, _that.errors);
+        return $default(_that.data, _that.summary, _that.meta);
       case _:
         return orElse();
     }
@@ -226,12 +238,14 @@ extension CatalogResponsePatterns on CatalogResponse {
 
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
-    TResult Function(CatalogData data, String message, dynamic errors) $default,
+    TResult Function(
+            List<CatalogItem> data, CatalogSummary summary, CatalogMeta meta)
+        $default,
   ) {
     final _that = this;
     switch (_that) {
       case _CatalogResponse():
-        return $default(_that.data, _that.message, _that.errors);
+        return $default(_that.data, _that.summary, _that.meta);
       case _:
         throw StateError('Unexpected subclass');
     }
@@ -251,13 +265,14 @@ extension CatalogResponsePatterns on CatalogResponse {
 
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(CatalogData data, String message, dynamic errors)?
+    TResult? Function(
+            List<CatalogItem> data, CatalogSummary summary, CatalogMeta meta)?
         $default,
   ) {
     final _that = this;
     switch (_that) {
       case _CatalogResponse() when $default != null:
-        return $default(_that.data, _that.message, _that.errors);
+        return $default(_that.data, _that.summary, _that.meta);
       case _:
         return null;
     }
@@ -268,16 +283,25 @@ extension CatalogResponsePatterns on CatalogResponse {
 @JsonSerializable()
 class _CatalogResponse implements CatalogResponse {
   const _CatalogResponse(
-      {required this.data, required this.message, this.errors});
+      {required final List<CatalogItem> data,
+      required this.summary,
+      required this.meta})
+      : _data = data;
   factory _CatalogResponse.fromJson(Map<String, dynamic> json) =>
       _$CatalogResponseFromJson(json);
 
+  final List<CatalogItem> _data;
   @override
-  final CatalogData data;
+  List<CatalogItem> get data {
+    if (_data is EqualUnmodifiableListView) return _data;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_data);
+  }
+
   @override
-  final String message;
+  final CatalogSummary summary;
   @override
-  final dynamic errors;
+  final CatalogMeta meta;
 
   /// Create a copy of CatalogResponse
   /// with the given fields replaced by the non-null parameter values.
@@ -299,19 +323,19 @@ class _CatalogResponse implements CatalogResponse {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _CatalogResponse &&
-            (identical(other.data, data) || other.data == data) &&
-            (identical(other.message, message) || other.message == message) &&
-            const DeepCollectionEquality().equals(other.errors, errors));
+            const DeepCollectionEquality().equals(other._data, _data) &&
+            (identical(other.summary, summary) || other.summary == summary) &&
+            (identical(other.meta, meta) || other.meta == meta));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(
-      runtimeType, data, message, const DeepCollectionEquality().hash(errors));
+      runtimeType, const DeepCollectionEquality().hash(_data), summary, meta);
 
   @override
   String toString() {
-    return 'CatalogResponse(data: $data, message: $message, errors: $errors)';
+    return 'CatalogResponse(data: $data, summary: $summary, meta: $meta)';
   }
 }
 
@@ -323,10 +347,12 @@ abstract mixin class _$CatalogResponseCopyWith<$Res>
       __$CatalogResponseCopyWithImpl;
   @override
   @useResult
-  $Res call({CatalogData data, String message, dynamic errors});
+  $Res call({List<CatalogItem> data, CatalogSummary summary, CatalogMeta meta});
 
   @override
-  $CatalogDataCopyWith<$Res> get data;
+  $CatalogSummaryCopyWith<$Res> get summary;
+  @override
+  $CatalogMetaCopyWith<$Res> get meta;
 }
 
 /// @nodoc
@@ -343,22 +369,22 @@ class __$CatalogResponseCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   $Res call({
     Object? data = null,
-    Object? message = null,
-    Object? errors = freezed,
+    Object? summary = null,
+    Object? meta = null,
   }) {
     return _then(_CatalogResponse(
       data: null == data
-          ? _self.data
+          ? _self._data
           : data // ignore: cast_nullable_to_non_nullable
-              as CatalogData,
-      message: null == message
-          ? _self.message
-          : message // ignore: cast_nullable_to_non_nullable
-              as String,
-      errors: freezed == errors
-          ? _self.errors
-          : errors // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as List<CatalogItem>,
+      summary: null == summary
+          ? _self.summary
+          : summary // ignore: cast_nullable_to_non_nullable
+              as CatalogSummary,
+      meta: null == meta
+          ? _self.meta
+          : meta // ignore: cast_nullable_to_non_nullable
+              as CatalogMeta,
     ));
   }
 
@@ -366,9 +392,19 @@ class __$CatalogResponseCopyWithImpl<$Res>
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
-  $CatalogDataCopyWith<$Res> get data {
-    return $CatalogDataCopyWith<$Res>(_self.data, (value) {
-      return _then(_self.copyWith(data: value));
+  $CatalogSummaryCopyWith<$Res> get summary {
+    return $CatalogSummaryCopyWith<$Res>(_self.summary, (value) {
+      return _then(_self.copyWith(summary: value));
+    });
+  }
+
+  /// Create a copy of CatalogResponse
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $CatalogMetaCopyWith<$Res> get meta {
+    return $CatalogMetaCopyWith<$Res>(_self.meta, (value) {
+      return _then(_self.copyWith(meta: value));
     });
   }
 }

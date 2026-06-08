@@ -14,14 +14,9 @@ T _$identity<T>(T value) => value;
 
 /// @nodoc
 mixin _$CatalogData {
-  @JsonKey(name: 'current_page')
-  int get currentPage;
   List<CatalogItem> get data;
-  @JsonKey(name: 'per_page')
-  int get perPage;
-  @JsonKey(name: 'last_page')
-  int get lastPage;
-  int get total;
+  CatalogSummary get summary;
+  CatalogMeta get meta;
 
   /// Create a copy of CatalogData
   /// with the given fields replaced by the non-null parameter values.
@@ -38,23 +33,19 @@ mixin _$CatalogData {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is CatalogData &&
-            (identical(other.currentPage, currentPage) ||
-                other.currentPage == currentPage) &&
             const DeepCollectionEquality().equals(other.data, data) &&
-            (identical(other.perPage, perPage) || other.perPage == perPage) &&
-            (identical(other.lastPage, lastPage) ||
-                other.lastPage == lastPage) &&
-            (identical(other.total, total) || other.total == total));
+            (identical(other.summary, summary) || other.summary == summary) &&
+            (identical(other.meta, meta) || other.meta == meta));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, currentPage,
-      const DeepCollectionEquality().hash(data), perPage, lastPage, total);
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(data), summary, meta);
 
   @override
   String toString() {
-    return 'CatalogData(currentPage: $currentPage, data: $data, perPage: $perPage, lastPage: $lastPage, total: $total)';
+    return 'CatalogData(data: $data, summary: $summary, meta: $meta)';
   }
 }
 
@@ -64,12 +55,10 @@ abstract mixin class $CatalogDataCopyWith<$Res> {
           CatalogData value, $Res Function(CatalogData) _then) =
       _$CatalogDataCopyWithImpl;
   @useResult
-  $Res call(
-      {@JsonKey(name: 'current_page') int currentPage,
-      List<CatalogItem> data,
-      @JsonKey(name: 'per_page') int perPage,
-      @JsonKey(name: 'last_page') int lastPage,
-      int total});
+  $Res call({List<CatalogItem> data, CatalogSummary summary, CatalogMeta meta});
+
+  $CatalogSummaryCopyWith<$Res> get summary;
+  $CatalogMetaCopyWith<$Res> get meta;
 }
 
 /// @nodoc
@@ -84,34 +73,44 @@ class _$CatalogDataCopyWithImpl<$Res> implements $CatalogDataCopyWith<$Res> {
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? currentPage = null,
     Object? data = null,
-    Object? perPage = null,
-    Object? lastPage = null,
-    Object? total = null,
+    Object? summary = null,
+    Object? meta = null,
   }) {
     return _then(_self.copyWith(
-      currentPage: null == currentPage
-          ? _self.currentPage
-          : currentPage // ignore: cast_nullable_to_non_nullable
-              as int,
       data: null == data
           ? _self.data
           : data // ignore: cast_nullable_to_non_nullable
               as List<CatalogItem>,
-      perPage: null == perPage
-          ? _self.perPage
-          : perPage // ignore: cast_nullable_to_non_nullable
-              as int,
-      lastPage: null == lastPage
-          ? _self.lastPage
-          : lastPage // ignore: cast_nullable_to_non_nullable
-              as int,
-      total: null == total
-          ? _self.total
-          : total // ignore: cast_nullable_to_non_nullable
-              as int,
+      summary: null == summary
+          ? _self.summary
+          : summary // ignore: cast_nullable_to_non_nullable
+              as CatalogSummary,
+      meta: null == meta
+          ? _self.meta
+          : meta // ignore: cast_nullable_to_non_nullable
+              as CatalogMeta,
     ));
+  }
+
+  /// Create a copy of CatalogData
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $CatalogSummaryCopyWith<$Res> get summary {
+    return $CatalogSummaryCopyWith<$Res>(_self.summary, (value) {
+      return _then(_self.copyWith(summary: value));
+    });
+  }
+
+  /// Create a copy of CatalogData
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $CatalogMetaCopyWith<$Res> get meta {
+    return $CatalogMetaCopyWith<$Res>(_self.meta, (value) {
+      return _then(_self.copyWith(meta: value));
+    });
   }
 }
 
@@ -209,19 +208,14 @@ extension CatalogDataPatterns on CatalogData {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(
-            @JsonKey(name: 'current_page') int currentPage,
-            List<CatalogItem> data,
-            @JsonKey(name: 'per_page') int perPage,
-            @JsonKey(name: 'last_page') int lastPage,
-            int total)?
+            List<CatalogItem> data, CatalogSummary summary, CatalogMeta meta)?
         $default, {
     required TResult orElse(),
   }) {
     final _that = this;
     switch (_that) {
       case _CatalogData() when $default != null:
-        return $default(_that.currentPage, _that.data, _that.perPage,
-            _that.lastPage, _that.total);
+        return $default(_that.data, _that.summary, _that.meta);
       case _:
         return orElse();
     }
@@ -243,18 +237,13 @@ extension CatalogDataPatterns on CatalogData {
   @optionalTypeArgs
   TResult when<TResult extends Object?>(
     TResult Function(
-            @JsonKey(name: 'current_page') int currentPage,
-            List<CatalogItem> data,
-            @JsonKey(name: 'per_page') int perPage,
-            @JsonKey(name: 'last_page') int lastPage,
-            int total)
+            List<CatalogItem> data, CatalogSummary summary, CatalogMeta meta)
         $default,
   ) {
     final _that = this;
     switch (_that) {
       case _CatalogData():
-        return $default(_that.currentPage, _that.data, _that.perPage,
-            _that.lastPage, _that.total);
+        return $default(_that.data, _that.summary, _that.meta);
       case _:
         throw StateError('Unexpected subclass');
     }
@@ -275,18 +264,13 @@ extension CatalogDataPatterns on CatalogData {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function(
-            @JsonKey(name: 'current_page') int currentPage,
-            List<CatalogItem> data,
-            @JsonKey(name: 'per_page') int perPage,
-            @JsonKey(name: 'last_page') int lastPage,
-            int total)?
+            List<CatalogItem> data, CatalogSummary summary, CatalogMeta meta)?
         $default,
   ) {
     final _that = this;
     switch (_that) {
       case _CatalogData() when $default != null:
-        return $default(_that.currentPage, _that.data, _that.perPage,
-            _that.lastPage, _that.total);
+        return $default(_that.data, _that.summary, _that.meta);
       case _:
         return null;
     }
@@ -297,18 +281,13 @@ extension CatalogDataPatterns on CatalogData {
 @JsonSerializable()
 class _CatalogData implements CatalogData {
   const _CatalogData(
-      {@JsonKey(name: 'current_page') required this.currentPage,
-      required final List<CatalogItem> data,
-      @JsonKey(name: 'per_page') required this.perPage,
-      @JsonKey(name: 'last_page') required this.lastPage,
-      required this.total})
+      {required final List<CatalogItem> data,
+      required this.summary,
+      required this.meta})
       : _data = data;
   factory _CatalogData.fromJson(Map<String, dynamic> json) =>
       _$CatalogDataFromJson(json);
 
-  @override
-  @JsonKey(name: 'current_page')
-  final int currentPage;
   final List<CatalogItem> _data;
   @override
   List<CatalogItem> get data {
@@ -318,13 +297,9 @@ class _CatalogData implements CatalogData {
   }
 
   @override
-  @JsonKey(name: 'per_page')
-  final int perPage;
+  final CatalogSummary summary;
   @override
-  @JsonKey(name: 'last_page')
-  final int lastPage;
-  @override
-  final int total;
+  final CatalogMeta meta;
 
   /// Create a copy of CatalogData
   /// with the given fields replaced by the non-null parameter values.
@@ -346,23 +321,19 @@ class _CatalogData implements CatalogData {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _CatalogData &&
-            (identical(other.currentPage, currentPage) ||
-                other.currentPage == currentPage) &&
             const DeepCollectionEquality().equals(other._data, _data) &&
-            (identical(other.perPage, perPage) || other.perPage == perPage) &&
-            (identical(other.lastPage, lastPage) ||
-                other.lastPage == lastPage) &&
-            (identical(other.total, total) || other.total == total));
+            (identical(other.summary, summary) || other.summary == summary) &&
+            (identical(other.meta, meta) || other.meta == meta));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, currentPage,
-      const DeepCollectionEquality().hash(_data), perPage, lastPage, total);
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(_data), summary, meta);
 
   @override
   String toString() {
-    return 'CatalogData(currentPage: $currentPage, data: $data, perPage: $perPage, lastPage: $lastPage, total: $total)';
+    return 'CatalogData(data: $data, summary: $summary, meta: $meta)';
   }
 }
 
@@ -374,12 +345,12 @@ abstract mixin class _$CatalogDataCopyWith<$Res>
       __$CatalogDataCopyWithImpl;
   @override
   @useResult
-  $Res call(
-      {@JsonKey(name: 'current_page') int currentPage,
-      List<CatalogItem> data,
-      @JsonKey(name: 'per_page') int perPage,
-      @JsonKey(name: 'last_page') int lastPage,
-      int total});
+  $Res call({List<CatalogItem> data, CatalogSummary summary, CatalogMeta meta});
+
+  @override
+  $CatalogSummaryCopyWith<$Res> get summary;
+  @override
+  $CatalogMetaCopyWith<$Res> get meta;
 }
 
 /// @nodoc
@@ -394,34 +365,44 @@ class __$CatalogDataCopyWithImpl<$Res> implements _$CatalogDataCopyWith<$Res> {
   @override
   @pragma('vm:prefer-inline')
   $Res call({
-    Object? currentPage = null,
     Object? data = null,
-    Object? perPage = null,
-    Object? lastPage = null,
-    Object? total = null,
+    Object? summary = null,
+    Object? meta = null,
   }) {
     return _then(_CatalogData(
-      currentPage: null == currentPage
-          ? _self.currentPage
-          : currentPage // ignore: cast_nullable_to_non_nullable
-              as int,
       data: null == data
           ? _self._data
           : data // ignore: cast_nullable_to_non_nullable
               as List<CatalogItem>,
-      perPage: null == perPage
-          ? _self.perPage
-          : perPage // ignore: cast_nullable_to_non_nullable
-              as int,
-      lastPage: null == lastPage
-          ? _self.lastPage
-          : lastPage // ignore: cast_nullable_to_non_nullable
-              as int,
-      total: null == total
-          ? _self.total
-          : total // ignore: cast_nullable_to_non_nullable
-              as int,
+      summary: null == summary
+          ? _self.summary
+          : summary // ignore: cast_nullable_to_non_nullable
+              as CatalogSummary,
+      meta: null == meta
+          ? _self.meta
+          : meta // ignore: cast_nullable_to_non_nullable
+              as CatalogMeta,
     ));
+  }
+
+  /// Create a copy of CatalogData
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $CatalogSummaryCopyWith<$Res> get summary {
+    return $CatalogSummaryCopyWith<$Res>(_self.summary, (value) {
+      return _then(_self.copyWith(summary: value));
+    });
+  }
+
+  /// Create a copy of CatalogData
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $CatalogMetaCopyWith<$Res> get meta {
+    return $CatalogMetaCopyWith<$Res>(_self.meta, (value) {
+      return _then(_self.copyWith(meta: value));
+    });
   }
 }
 
