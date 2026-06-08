@@ -303,12 +303,8 @@ class _CatalogData implements CatalogData {
       @JsonKey(name: 'last_page') required this.lastPage,
       required this.total})
       : _data = data;
-  factory _CatalogData.fromJson(
-    Map<String, dynamic> json,
-  ) =>
-      _$CatalogDataFromJson(
-        json,
-      );
+  factory _CatalogData.fromJson(Map<String, dynamic> json) =>
+      _$CatalogDataFromJson(json);
 
   @override
   @JsonKey(name: 'current_page')

@@ -3,6 +3,7 @@ import 'package:B2B/app/features/auth/data/models/login_request_body.dart';
 import 'package:B2B/app/features/auth/data/models/login_response.dart';
 import 'package:B2B/app/features/auth/data/models/register_request_body.dart';
 import 'package:B2B/app/features/auth/data/models/register_response.dart';
+import 'package:B2B/app/features/catalog/data/models/catalog_response.dart';
 import 'package:B2B/app/features/home/data/models/home_dashboard_response.dart';
 import 'package:B2B/app/features/offers/data/models/add_offer_models/add_offer_request_body.dart';
 import 'package:B2B/app/features/offers/data/models/add_offer_models/add_offer_response.dart';
@@ -41,5 +42,12 @@ abstract class ApiService {
   Future<AddOfferResponse> addOfferToCatalog(
     @Path('supplierProductId') int supplierProductId,
     @Body() AddOfferRequestBody body,
+  );
+  // Catalog Endpoints
+  @GET('/store/catalog')
+  Future<CatalogResponse> getCatalog(
+    @Query('page') int page,
+    @Query('is_active') bool? isActive,
+    @Query('per_page') int perPage,
   );
 }

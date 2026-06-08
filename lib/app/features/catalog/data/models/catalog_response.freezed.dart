@@ -269,12 +269,8 @@ extension CatalogResponsePatterns on CatalogResponse {
 class _CatalogResponse implements CatalogResponse {
   const _CatalogResponse(
       {required this.data, required this.message, this.errors});
-  factory _CatalogResponse.fromJson(
-    Map<String, dynamic> json,
-  ) =>
-      _$CatalogResponseFromJson(
-        json,
-      );
+  factory _CatalogResponse.fromJson(Map<String, dynamic> json) =>
+      _$CatalogResponseFromJson(json);
 
   @override
   final CatalogData data;
