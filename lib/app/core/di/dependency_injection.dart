@@ -2,10 +2,17 @@ import 'package:B2B/app/core/cache/cache_data_source.dart';
 import 'package:B2B/app/core/networking/api_service.dart';
 import 'package:B2B/app/core/cache/hive_service.dart';
 import 'package:B2B/app/core/networking/dio_factory.dart';
+import 'package:B2B/app/core/widgets/events_bus/catalog_refresh_cubit.dart';
 import 'package:B2B/app/features/auth/data/repos/login_repo.dart';
 import 'package:B2B/app/features/auth/data/repos/register_repo.dart';
 import 'package:B2B/app/features/auth/logic/login/login_cubit.dart';
 import 'package:B2B/app/features/auth/logic/register/register_cubit.dart';
+import 'package:B2B/app/features/catalog/data/data_sources/catalog_local_data_source.dart';
+import 'package:B2B/app/features/catalog/data/data_sources/catalog_remote_data_source.dart';
+import 'package:B2B/app/features/catalog/data/models/catalog_cache_model/catalog_cache_model.dart';
+import 'package:B2B/app/features/catalog/data/repos/catalog_repo.dart';
+import 'package:B2B/app/features/catalog/data/repos/catalog_repo_imp.dart';
+import 'package:B2B/app/features/catalog/logic/catalog_cubit.dart';
 import 'package:B2B/app/features/home/data/data_sources/local_data_source.dart';
 import 'package:B2B/app/features/home/data/data_sources/remote_data_source.dart';
 import 'package:B2B/app/features/home/data/models/home_dashboard_cache_model.dart';
@@ -59,6 +66,9 @@ Future<void> setupGetIt() async {
   getIt.registerFactory(() => HomeCubit(getIt()));
 
   // Offers
+  getIt.registerLazySingleton<CatalogRefreshCubit>(
+    () => CatalogRefreshCubit(),
+  );
   getIt.registerLazySingleton(() => OffersRemoteDataSource(getIt()));
   getIt.registerLazySingleton(() => OffersLocalDataSource(getIt()));
   getIt.registerLazySingleton<OffersRepo>(
@@ -74,5 +84,18 @@ Future<void> setupGetIt() async {
 
   getIt.registerFactory(
     () => AddOfferCubit(getIt()),
+  );
+
+// catalog
+  getIt.registerLazySingleton(
+    () => CacheDataSource<CatalogCacheModel>(getIt()),
+  );
+  getIt.registerLazySingleton(() => CatalogLocalDataSource(getIt()));
+  getIt.registerLazySingleton(() => CatalogRemoteDataSource(getIt()));
+  getIt.registerLazySingleton<CatalogRepo>(
+    () => CatalogRepoImpl(getIt(), getIt()),
+  );
+  getIt.registerFactory(
+    () => CatalogCubit(getIt()),
   );
 }

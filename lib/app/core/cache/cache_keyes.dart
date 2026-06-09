@@ -6,9 +6,21 @@ class CacheKeys {
   static const String homeDashboardCachedAt = 'home_dashboard_cached_at';
 
   static const String offersBox = 'offers_box';
+  static const String catalogBox = 'catalog_box';
+
   static const Duration homeDashboardTtl = Duration(minutes: 5);
 }
 
+// catalog
+String buildCatalogCacheKey({
+  required int page,
+  required bool? isActive,
+  required int perPage,
+}) {
+  return 'catalog_${page}_${isActive ?? 'all'}_$perPage';
+}
+
+// offers
 String buildOffersCacheKey({
   required int page,
   required int category,

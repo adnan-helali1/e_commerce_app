@@ -20,7 +20,7 @@ class CatalogSearchField extends StatelessWidget {
       children: [
         Expanded(
           child: Container(
-            height: 44.h,
+            height: 52.h,
             padding: EdgeInsets.symmetric(horizontal: 12.w),
             decoration: BoxDecoration(
               color: context.cs.surface,
@@ -30,17 +30,17 @@ class CatalogSearchField extends StatelessWidget {
             child: Row(
               children: [
                 Icon(Icons.search,
-                    color: context.cs.onSurfaceVariant, size: 18.sp),
-                horizontalSpace(8),
+                    color: context.cs.onSurfaceVariant, size: 22.sp),
+                horizontalSpace(10),
                 Expanded(
                   child: TextField(
-                    style:
-                        TextStyles.fieldText(context).copyWith(fontSize: 13.sp),
+                    style: TextStyles.fieldText(context)
+                        .copyWith(fontSize: 16.sp, fontWeight: FontWeight.w600),
                     decoration: InputDecoration(
                       hintText: hintText,
                       border: InputBorder.none,
-                      hintStyle:
-                          TextStyles.note(context).copyWith(fontSize: 12.sp),
+                      hintStyle: TextStyles.note(context).copyWith(
+                          fontSize: 15.sp, fontWeight: FontWeight.w600),
                       isDense: true,
                     ),
                   ),
@@ -50,7 +50,7 @@ class CatalogSearchField extends StatelessWidget {
           ),
         ),
         if (showFilter) ...[
-          horizontalSpace(8),
+          horizontalSpace(10),
           SizedBox(
             width: 44.w,
             height: 44.h,
@@ -63,7 +63,7 @@ class CatalogSearchField extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(6.r)),
               ),
-              child: Icon(Icons.filter_alt_outlined, size: 18.sp),
+              child: Icon(Icons.filter_alt_outlined, size: 22.sp),
             ),
           ),
         ],
