@@ -194,12 +194,14 @@ class _ApiService implements ApiService {
     int page,
     bool? isActive,
     int perPage,
+    String search,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{
       r'page': page,
       r'is_active': isActive,
       r'per_page': perPage,
+      r'search': search,
     };
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};

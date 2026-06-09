@@ -49,5 +49,6 @@ abstract class ApiService {
     @Query('page') int page,
     @Query('is_active') bool? isActive,
     @Query('per_page') int perPage,
+    @Query('search') String search,
   );
 }

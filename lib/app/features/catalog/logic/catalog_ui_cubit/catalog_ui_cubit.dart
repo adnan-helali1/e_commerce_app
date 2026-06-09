@@ -4,12 +4,13 @@ import 'package:B2B/app/features/catalog/logic/catalog_cubit/catalog_cubit.dart'
 import 'package:B2B/app/features/catalog/logic/catalog_cubit/catalog_state.dart';
 import 'package:B2B/app/features/catalog/logic/catalog_ui_cubit/catalog_ui_state.dart';
 import 'package:bloc/bloc.dart';
+import 'package:flutter/widgets.dart';
 
 class CatalogUiCubit extends Cubit<CatalogUiState> {
   final CatalogCubit _catalogCubit;
   StreamSubscription<CatalogState>? _subscription;
   bool _hasRetriedAfterFailure = false;
-
+  TextEditingController searchController = TextEditingController();
   CatalogUiCubit(this._catalogCubit) : super(const CatalogUiState()) {
     _subscription = _catalogCubit.stream.listen(_onCatalogState);
     _onCatalogState(_catalogCubit.state);
@@ -17,6 +18,13 @@ class CatalogUiCubit extends Cubit<CatalogUiState> {
     _catalogCubit.state.maybeWhen(
       initial: () => _catalogCubit.load(),
       orElse: () {},
+    );
+  }
+  void search(String value) {
+    _catalogCubit.load(
+      page: 1,
+      isActive: state.activeOnly,
+      search: searchController.text,
     );
   }
 
