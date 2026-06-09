@@ -6,6 +6,8 @@ import 'package:B2B/app/features/offers/ui/widgets/add_offer_log.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../core/di/dependency_injection.dart';
+
 class AddOfferSheet extends StatelessWidget {
   final int supplierProductId;
 
@@ -21,7 +23,7 @@ class AddOfferSheet extends StatelessWidget {
         state.whenOrNull(
           success: (_) {
             Navigator.of(context).pop(true);
-            context.read<CatalogRefreshCubit>().notifyRefresh();
+            getIt<CatalogRefreshCubit>().notifyRefresh();
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 backgroundColor: context.appColors.success,
