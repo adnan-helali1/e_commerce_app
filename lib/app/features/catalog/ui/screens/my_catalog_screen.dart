@@ -6,6 +6,7 @@ import 'package:B2B/app/features/catalog/logic/catalog_ui_cubit/catalog_ui_cubit
 import 'package:B2B/app/features/catalog/logic/catalog_ui_cubit/catalog_ui_state.dart';
 import 'package:B2B/app/features/catalog/ui/screens/catalog_list_section.dart';
 import 'package:B2B/app/features/catalog/ui/widgets/catalog_active_filter.dart';
+import 'package:B2B/app/features/catalog/ui/widgets/catalog_add_prod.dart';
 import 'package:B2B/app/features/catalog/ui/widgets/catalog_center_row.dart';
 import 'package:B2B/app/features/catalog/ui/widgets/catalog_search_field.dart';
 import 'package:B2B/app/features/catalog/ui/widgets/catalog_summary_header.dart';
@@ -81,29 +82,7 @@ class _MyCatalogBody extends StatelessWidget {
                           ),
                         ),
                         horizontalSpace(8),
-                        ElevatedButton.icon(
-                          onPressed: () {},
-                          icon: Icon(
-                            Icons.add,
-                            size: 16.sp,
-                            color: context.cs.onPrimary,
-                          ),
-                          label: Text(
-                            'Add Product',
-                            style: TextStyles.button(context)
-                                .copyWith(fontSize: 13.sp),
-                          ),
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: context.cs.primary,
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 18.w,
-                              vertical: 0.h,
-                            ),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(3.r),
-                            ),
-                          ),
-                        ),
+                        CatalogAddProd(),
                       ],
                     ),
                   ),

@@ -17,6 +17,7 @@ class CatalogCubit extends Cubit<CatalogState> {
   int _page = 1;
   bool? _isActive;
   int _perPage = 15;
+  String _search = '';
 
   /// AUTO REFRESH
   Timer? _timer;
@@ -31,6 +32,7 @@ class CatalogCubit extends Cubit<CatalogState> {
     int page = 1,
     bool? isActive,
     int perPage = 15,
+    String search = '',
   }) async {
     if (_isLoading) return;
 
@@ -42,12 +44,14 @@ class CatalogCubit extends Cubit<CatalogState> {
     _page = page;
     _isActive = isActive;
     _perPage = perPage;
+    _search = search;
 
     /// ✅ 1. GET CACHE
     final cached = await _repo.getCachedCatalog(
       page: page,
       isActive: isActive,
       perPage: perPage,
+      search: search,
     );
 
     if (cached != null) {
@@ -67,6 +71,7 @@ class CatalogCubit extends Cubit<CatalogState> {
 
     /// ✅ 3. FETCH FROM API
     final result = await _repo.getCatalog(
+      search: _search,
       page: page,
       isActive: isActive,
       perPage: perPage,
@@ -106,6 +111,7 @@ class CatalogCubit extends Cubit<CatalogState> {
       page: _page,
       isActive: _isActive,
       perPage: _perPage,
+      search: _search,
       forceRefresh: true,
     );
 
@@ -135,6 +141,7 @@ class CatalogCubit extends Cubit<CatalogState> {
       page: _page,
       isActive: _isActive,
       perPage: _perPage,
+      search: _search,
     );
 
     if (!_repo.shouldRefreshCatalog(cachedAt)) return;
@@ -151,6 +158,7 @@ class CatalogCubit extends Cubit<CatalogState> {
       page: _page,
       isActive: _isActive,
       perPage: _perPage,
+      search: _search,
       forceRefresh: true,
     );
 
@@ -182,12 +190,14 @@ class CatalogCubit extends Cubit<CatalogState> {
       page: _page,
       isActive: _isActive,
       perPage: _perPage,
+      search: _search,
     );
 
     await load(
       page: _page,
       isActive: _isActive,
       perPage: _perPage,
+      search: _search,
     );
   }
 

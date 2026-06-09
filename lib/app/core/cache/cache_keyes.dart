@@ -16,8 +16,9 @@ String buildCatalogCacheKey({
   required int page,
   required bool? isActive,
   required int perPage,
+  required String search,
 }) {
-  return 'catalog_${page}_${isActive ?? 'all'}_$perPage';
+  return 'catalog_${page}_${isActive ?? 'all'}_${perPage}_$search';
 }
 
 // offers

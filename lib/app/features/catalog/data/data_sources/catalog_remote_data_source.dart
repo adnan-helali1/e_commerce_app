@@ -10,11 +10,13 @@ class CatalogRemoteDataSource {
     required int page,
     bool? isActive,
     int perPage = 15,
+    required String search,
   }) {
     return _apiService.getCatalog(
       page,
       isActive,
       perPage,
+      search,
     );
   }
 }

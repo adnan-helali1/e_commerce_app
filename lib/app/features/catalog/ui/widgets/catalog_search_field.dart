@@ -1,7 +1,9 @@
 import 'package:B2B/app/core/helpers/extensions.dart';
 import 'package:B2B/app/core/helpers/spacing.dart';
 import 'package:B2B/app/core/theme/textstyles.dart';
+import 'package:B2B/app/features/catalog/logic/catalog_ui_cubit/catalog_ui_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CatalogSearchField extends StatelessWidget {
@@ -33,7 +35,11 @@ class CatalogSearchField extends StatelessWidget {
                     color: context.cs.onSurfaceVariant, size: 22.sp),
                 horizontalSpace(10),
                 Expanded(
-                  child: TextField(
+                  child: TextFormField(
+                    enableSuggestions: true,
+                    textInputAction: TextInputAction.search,
+                    onChanged: context.read<CatalogUiCubit>().search,
+                    controller: context.read<CatalogUiCubit>().searchController,
                     style: TextStyles.fieldText(context)
                         .copyWith(fontSize: 16.sp, fontWeight: FontWeight.w600),
                     decoration: InputDecoration(

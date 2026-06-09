@@ -11,11 +11,13 @@ class CatalogLocalDataSource {
     required int page,
     required bool? isActive,
     required int perPage,
+    required String search,
   }) {
     final key = buildCatalogCacheKey(
       page: page,
       isActive: isActive,
       perPage: perPage,
+      search: search,
     );
 
     return _cache.read(
@@ -30,11 +32,13 @@ class CatalogLocalDataSource {
     required int page,
     required bool? isActive,
     required int perPage,
+    required String search,
   }) {
     final key = buildCatalogCacheKey(
       page: page,
       isActive: isActive,
       perPage: perPage,
+      search: search,
     );
 
     return _cache.save(
@@ -48,11 +52,13 @@ class CatalogLocalDataSource {
     required int page,
     required bool? isActive,
     required int perPage,
+    required String search,
   }) {
     final key = buildCatalogCacheKey(
       page: page,
       isActive: isActive,
       perPage: perPage,
+      search: search,
     );
 
     return _cache.clear(

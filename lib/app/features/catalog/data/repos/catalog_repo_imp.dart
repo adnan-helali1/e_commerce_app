@@ -23,8 +23,10 @@ class CatalogRepoImpl implements CatalogRepo {
     int page,
     bool? isActive,
     int perPage,
+    String search,
   ) async {
     final cached = await _local.read(
+      search: search,
       page: page,
       isActive: isActive,
       perPage: perPage,
@@ -37,8 +39,10 @@ class CatalogRepoImpl implements CatalogRepo {
     int page,
     bool? isActive,
     int perPage,
+    String search,
   ) async {
     final cached = await _local.read(
+      search: search,
       page: page,
       isActive: isActive,
       perPage: perPage,
@@ -56,6 +60,7 @@ class CatalogRepoImpl implements CatalogRepo {
   /// 🔥 MAIN API
   @override
   Future<ApiResult<CatalogResponse>> getCatalog({
+    required String search,
     required int page,
     required bool? isActive,
     required int perPage,
@@ -64,8 +69,8 @@ class CatalogRepoImpl implements CatalogRepo {
     final key = _key(page, isActive, perPage);
 
     try {
-      final cached = await _getCache(page, isActive, perPage);
-      final cachedAt = await _getCacheTime(page, isActive, perPage);
+      final cached = await _getCache(page, isActive, perPage, search);
+      final cachedAt = await _getCacheTime(page, isActive, perPage, search);
 
       final shouldRefresh = _shouldRefresh(cachedAt);
 
@@ -73,7 +78,7 @@ class CatalogRepoImpl implements CatalogRepo {
       if (cached != null && !forceRefresh) {
         /// 🔥 background refresh
         if (shouldRefresh && !_activeRequests.contains(key)) {
-          _refreshInBackground(page, isActive, perPage, key);
+          _refreshInBackground(page, isActive, perPage, key, search);
         }
 
         return ApiResult.success(cached);
@@ -93,6 +98,7 @@ class CatalogRepoImpl implements CatalogRepo {
         page: page,
         isActive: isActive,
         perPage: perPage,
+        search: search,
       );
 
       /// ✅ 4. Cache it
@@ -103,12 +109,13 @@ class CatalogRepoImpl implements CatalogRepo {
         page: page,
         isActive: isActive,
         perPage: perPage,
+        search: search,
       );
 
       return ApiResult.success(response);
     } catch (error) {
       /// ✅ fallback to cache
-      final cached = await _getCache(page, isActive, perPage);
+      final cached = await _getCache(page, isActive, perPage, search);
 
       if (cached != null) {
         return ApiResult.success(cached);
@@ -128,6 +135,7 @@ class CatalogRepoImpl implements CatalogRepo {
     bool? isActive,
     int perPage,
     String key,
+    String search,
   ) async {
     try {
       _activeRequests.add(key);
@@ -136,12 +144,14 @@ class CatalogRepoImpl implements CatalogRepo {
         page: page,
         isActive: isActive,
         perPage: perPage,
+        search: search,
       );
 
       final cacheModel = CatalogCacheModel.fromResponse(response);
 
       await _local.save(
         cacheModel,
+        search: search,
         page: page,
         isActive: isActive,
         perPage: perPage,
@@ -156,11 +166,13 @@ class CatalogRepoImpl implements CatalogRepo {
   /// 🔥 CLEAR
   @override
   Future<void> clearCatalog({
+    required String search,
     required int page,
     required bool? isActive,
     required int perPage,
   }) async {
     await _local.clear(
+      search: search,
       page: page,
       isActive: isActive,
       perPage: perPage,
@@ -173,16 +185,18 @@ class CatalogRepoImpl implements CatalogRepo {
     required int page,
     required bool? isActive,
     required int perPage,
+    required String search,
   }) =>
-      _getCache(page, isActive, perPage);
+      _getCache(page, isActive, perPage, search);
 
   @override
   Future<DateTime?> getCachedCatalogAt({
     required int page,
     required bool? isActive,
     required int perPage,
+    required String search,
   }) =>
-      _getCacheTime(page, isActive, perPage);
+      _getCacheTime(page, isActive, perPage, search);
 
   @override
   bool shouldRefreshCatalog(DateTime? cachedAt) => _shouldRefresh(cachedAt);
