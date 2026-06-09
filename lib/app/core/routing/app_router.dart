@@ -6,6 +6,7 @@ import 'package:B2B/app/features/auth/logic/register/register_cubit.dart';
 import 'package:B2B/app/features/auth/ui/screens/register_screen.dart';
 import 'package:B2B/app/features/auth/ui/screens/loginscreen.dart';
 import 'package:B2B/app/features/auth/ui/screens/forgotpasswordscreen.dart';
+import 'package:B2B/app/features/catalog/logic/catalog_cubit.dart';
 import 'package:B2B/app/features/catalog/ui/screens/my_catalog_screen.dart';
 import 'package:B2B/app/features/main_layout.dart';
 import 'package:B2B/app/features/offers/ui/screens/offers_screen.dart';
@@ -47,7 +48,10 @@ class AppRouter {
 
       case Routes.orderDetailsScreen:
         return MaterialPageRoute(
-          builder: (_) => const MyCatalogScreen(),
+          builder: (_) => BlocProvider(
+            create: (_) => getIt<CatalogCubit>(),
+            child: const MyCatalogScreen(),
+          ),
         );
       case Routes.offersScreen:
         return MaterialPageRoute(

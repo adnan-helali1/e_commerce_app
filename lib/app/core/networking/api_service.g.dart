@@ -172,7 +172,7 @@ class _ApiService implements ApiService {
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'catalog',
+            'catalog/${supplierProductId}',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -208,7 +208,7 @@ class _ApiService implements ApiService {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/store/catalog',
+            'catalog',
             queryParameters: queryParameters,
             data: _data,
           )

@@ -38,13 +38,13 @@ abstract class ApiService {
       @Query('status') String status,
       @Query('search') String search);
 
-  @POST(ApiConstants.catalog)
+  @POST(ApiConstants.catalog + '/{supplierProductId}')
   Future<AddOfferResponse> addOfferToCatalog(
     @Path('supplierProductId') int supplierProductId,
     @Body() AddOfferRequestBody body,
   );
   // Catalog Endpoints
-  @GET('/store/catalog')
+  @GET(ApiConstants.catalog)
   Future<CatalogResponse> getCatalog(
     @Query('page') int page,
     @Query('is_active') bool? isActive,

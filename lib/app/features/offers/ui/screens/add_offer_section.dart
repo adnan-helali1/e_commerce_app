@@ -1,4 +1,5 @@
 import 'package:B2B/app/core/helpers/extensions.dart';
+import 'package:B2B/app/core/widgets/events_bus/catalog_refresh_cubit.dart';
 import 'package:B2B/app/features/offers/logic/add_offer_cubit.dart';
 import 'package:B2B/app/features/offers/logic/add_offer_state.dart';
 import 'package:B2B/app/features/offers/ui/widgets/add_offer_log.dart';
@@ -20,6 +21,7 @@ class AddOfferSheet extends StatelessWidget {
         state.whenOrNull(
           success: (_) {
             Navigator.of(context).pop(true);
+            context.read<CatalogRefreshCubit>().notifyRefresh();
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 backgroundColor: context.appColors.success,

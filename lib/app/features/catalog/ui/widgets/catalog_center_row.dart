@@ -1,12 +1,12 @@
 import 'package:B2B/app/core/helpers/extensions.dart';
 import 'package:B2B/app/core/theme/textstyles.dart';
-import 'package:B2B/app/features/catalog/ui/widgets/catalog_ui_models.dart';
+import 'package:B2B/app/features/catalog/data/models/catalog_models/catalog_summary_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CatalogSummaryCenter extends StatelessWidget {
-  const CatalogSummaryCenter({super.key, required this.visibleProducts});
-  final List<CatalogProductUiModel> visibleProducts;
+  const CatalogSummaryCenter({super.key, required this.summary});
+  final CatalogSummary summary;
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class CatalogSummaryCenter extends StatelessWidget {
         children: [
           Expanded(
             child: Text(
-              '${visibleProducts.length} Products',
+              '${summary.totalProducts} Products',
               style: TextStyles.note(context).copyWith(
                 fontSize: 15.sp,
                 fontWeight: FontWeight.w600,
@@ -25,7 +25,7 @@ class CatalogSummaryCenter extends StatelessWidget {
             ),
           ),
           Text(
-            'Est. Profit: \$475.60',
+            'Est. Profit: \$${summary.totalProfit.toStringAsFixed(2)}',
             style: TextStyles.label(context).copyWith(
               color: context.appColors.success,
               fontSize: 15.sp,

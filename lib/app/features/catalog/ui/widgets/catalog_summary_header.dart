@@ -1,11 +1,15 @@
 import 'package:B2B/app/core/helpers/extensions.dart';
 import 'package:B2B/app/core/helpers/spacing.dart';
 import 'package:B2B/app/core/theme/textstyles.dart';
+import 'package:B2B/app/features/catalog/data/models/catalog_models/catalog_summary_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CatalogSummaryHeader extends StatelessWidget {
+  final CatalogSummary summary;
+
   const CatalogSummaryHeader({
+    required this.summary,
     super.key,
   });
 
@@ -45,7 +49,7 @@ class CatalogSummaryHeader extends StatelessWidget {
               Expanded(
                 child: _CatalogStatTile(
                   icon: Icons.inventory_2_outlined,
-                  value: '3',
+                  value: '${summary.activeProducts}',
                   label: 'Active Products',
                 ),
               ),
@@ -53,7 +57,7 @@ class CatalogSummaryHeader extends StatelessWidget {
               Expanded(
                 child: _CatalogStatTile(
                   icon: Icons.attach_money_rounded,
-                  value: '\$476',
+                  value: '\$${summary.totalProfit.toStringAsFixed(2)}',
                   label: 'Potential Profit',
                 ),
               ),
