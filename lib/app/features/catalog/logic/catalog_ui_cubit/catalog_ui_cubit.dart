@@ -11,6 +11,7 @@ class CatalogUiCubit extends Cubit<CatalogUiState> {
   StreamSubscription<CatalogState>? _subscription;
   bool _hasRetriedAfterFailure = false;
   TextEditingController searchController = TextEditingController();
+  Timer? _debounceTimer;
   CatalogUiCubit(this._catalogCubit) : super(const CatalogUiState()) {
     _subscription = _catalogCubit.stream.listen(_onCatalogState);
     _onCatalogState(_catalogCubit.state);
@@ -21,11 +22,14 @@ class CatalogUiCubit extends Cubit<CatalogUiState> {
     );
   }
   void search(String value) {
-    _catalogCubit.load(
-      page: 1,
-      isActive: state.activeOnly,
-      search: searchController.text,
-    );
+    _debounceTimer?.cancel();
+    _debounceTimer = Timer(const Duration(milliseconds: 500), () {
+      _catalogCubit.load(
+        page: 1,
+        isActive: state.activeOnly,
+        search: searchController.text,
+      );
+    });
   }
 
   void _onCatalogState(CatalogState catalogState) {

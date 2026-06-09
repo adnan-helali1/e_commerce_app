@@ -36,6 +36,8 @@ class CatalogSearchField extends StatelessWidget {
                 horizontalSpace(10),
                 Expanded(
                   child: TextFormField(
+                    enableSuggestions: true,
+                    textInputAction: TextInputAction.search,
                     onChanged: context.read<CatalogUiCubit>().search,
                     controller: context.read<CatalogUiCubit>().searchController,
                     style: TextStyles.fieldText(context)
