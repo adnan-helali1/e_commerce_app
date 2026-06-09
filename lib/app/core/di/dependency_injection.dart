@@ -2,7 +2,6 @@ import 'package:B2B/app/core/cache/cache_data_source.dart';
 import 'package:B2B/app/core/networking/api_service.dart';
 import 'package:B2B/app/core/cache/hive_service.dart';
 import 'package:B2B/app/core/networking/dio_factory.dart';
-import 'package:B2B/app/core/widgets/events_bus/catalog_refresh_cubit.dart';
 import 'package:B2B/app/features/auth/data/repos/login_repo.dart';
 import 'package:B2B/app/features/auth/data/repos/register_repo.dart';
 import 'package:B2B/app/features/auth/logic/login/login_cubit.dart';
@@ -66,9 +65,7 @@ Future<void> setupGetIt() async {
   getIt.registerFactory(() => HomeCubit(getIt()));
 
   // Offers
-  getIt.registerLazySingleton<CatalogRefreshCubit>(
-    () => CatalogRefreshCubit(),
-  );
+
   getIt.registerLazySingleton(() => OffersRemoteDataSource(getIt()));
   getIt.registerLazySingleton(() => OffersLocalDataSource(getIt()));
   getIt.registerLazySingleton<OffersRepo>(

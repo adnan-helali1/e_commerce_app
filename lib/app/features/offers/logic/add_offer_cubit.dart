@@ -1,4 +1,6 @@
+import 'package:B2B/app/core/di/dependency_injection.dart';
 import 'package:B2B/app/core/networking/api_result.dart';
+import 'package:B2B/app/features/catalog/logic/catalog_cubit.dart';
 import 'package:B2B/app/features/offers/data/repos/add_offer_to_cataolg_repo/add_offer_repo.dart';
 import 'package:B2B/app/features/offers/logic/add_offer_state.dart';
 import 'package:bloc/bloc.dart';
@@ -31,6 +33,7 @@ class AddOfferCubit extends Cubit<AddOfferState> {
 
     response.when(
       success: (data) {
+        getIt<CatalogCubit>().refresh();
         emit(
           AddOfferState.success(data),
         );

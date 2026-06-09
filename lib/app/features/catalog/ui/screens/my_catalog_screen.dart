@@ -2,7 +2,6 @@ import 'package:B2B/app/core/di/dependency_injection.dart';
 import 'package:B2B/app/core/helpers/extensions.dart';
 import 'package:B2B/app/core/helpers/spacing.dart';
 import 'package:B2B/app/core/theme/textstyles.dart';
-import 'package:B2B/app/core/widgets/events_bus/catalog_refresh_cubit.dart';
 import 'package:B2B/app/features/catalog/logic/catalog_cubit.dart';
 import 'package:B2B/app/features/catalog/ui/logic/catalog_ui_cubit.dart';
 import 'package:B2B/app/features/catalog/ui/logic/catalog_ui_state.dart';
@@ -33,100 +32,92 @@ class _MyCatalogBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: BlocProvider(
-        create: (context) => getIt<CatalogRefreshCubit>(),
-        child: BlocListener<CatalogRefreshCubit, int>(
-          listener: (context, state) {
-            context.read<CatalogCubit>().refresh();
-          },
-          child: BlocConsumer<CatalogUiCubit, CatalogUiState>(
-            listenWhen: (previous, current) =>
-                current.error != null && current.response != null,
-            listener: (context, state) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  backgroundColor: context.appColors.failure,
-                  content: Text(state.error!),
-                ),
-              );
-              context.read<CatalogUiCubit>().onErrorShown();
-            },
-            builder: (context, state) {
-              if (state.isLoading) {
-                return const SizedBox.shrink();
-              }
+      child: BlocConsumer<CatalogUiCubit, CatalogUiState>(
+        listenWhen: (previous, current) =>
+            current.error != null && current.response != null,
+        listener: (context, state) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              backgroundColor: context.appColors.failure,
+              content: Text(state.error!),
+            ),
+          );
+          context.read<CatalogUiCubit>().onErrorShown();
+        },
+        builder: (context, state) {
+          if (state.isLoading) {
+            return const SizedBox.shrink();
+          }
 
-              final response = state.response;
-              if (response == null) {
-                return const SizedBox.shrink();
-              }
+          final response = state.response;
+          if (response == null) {
+            return const SizedBox.shrink();
+          }
 
-              return Scaffold(
-                body: RefreshIndicator(
-                  onRefresh: () => context.read<CatalogCubit>().refresh(),
-                  child: ListView(
-                    physics: const AlwaysScrollableScrollPhysics(),
-                    children: [
-                      CatalogSummaryHeader(summary: response.summary),
-                      verticalSpace(12),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 16.w),
-                        child: const CatalogSearchField(
-                          hintText: 'Search catalog...',
-                        ),
-                      ),
-                      verticalSpace(10),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 16.w),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: CatalogActiveFilter(
-                                value: state.activeOnly,
-                                onChanged: (_) => context
-                                    .read<CatalogUiCubit>()
-                                    .toggleActiveOnly(),
-                              ),
-                            ),
-                            horizontalSpace(8),
-                            ElevatedButton.icon(
-                              onPressed: () {},
-                              icon: Icon(
-                                Icons.add,
-                                size: 16.sp,
-                                color: context.cs.onPrimary,
-                              ),
-                              label: Text(
-                                'Add Product',
-                                style: TextStyles.button(context)
-                                    .copyWith(fontSize: 13.sp),
-                              ),
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: context.cs.primary,
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: 18.w,
-                                  vertical: 0.h,
-                                ),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(3.r),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      verticalSpace(15),
-                      CatalogSummaryCenter(summary: response.summary),
-                      verticalSpace(10),
-                      const CatalogListSection(),
-                      verticalSpace(24),
-                    ],
+          return Scaffold(
+            body: RefreshIndicator(
+              onRefresh: () => context.read<CatalogCubit>().refresh(),
+              child: ListView(
+                physics: const AlwaysScrollableScrollPhysics(),
+                children: [
+                  CatalogSummaryHeader(summary: response.summary),
+                  verticalSpace(12),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.w),
+                    child: const CatalogSearchField(
+                      hintText: 'Search catalog...',
+                    ),
                   ),
-                ),
-              );
-            },
-          ),
-        ),
+                  verticalSpace(10),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.w),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: CatalogActiveFilter(
+                            value: state.activeOnly,
+                            onChanged: (_) => context
+                                .read<CatalogUiCubit>()
+                                .toggleActiveOnly(),
+                          ),
+                        ),
+                        horizontalSpace(8),
+                        ElevatedButton.icon(
+                          onPressed: () {},
+                          icon: Icon(
+                            Icons.add,
+                            size: 16.sp,
+                            color: context.cs.onPrimary,
+                          ),
+                          label: Text(
+                            'Add Product',
+                            style: TextStyles.button(context)
+                                .copyWith(fontSize: 13.sp),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: context.cs.primary,
+                            padding: EdgeInsets.symmetric(
+                              horizontal: 18.w,
+                              vertical: 0.h,
+                            ),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(3.r),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  verticalSpace(15),
+                  CatalogSummaryCenter(summary: response.summary),
+                  verticalSpace(10),
+                  const CatalogListSection(),
+                  verticalSpace(24),
+                ],
+              ),
+            ),
+          );
+        },
       ),
     );
   }

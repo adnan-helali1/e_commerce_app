@@ -56,7 +56,6 @@ class CatalogCubit extends Cubit<CatalogState> {
       /// 🔥 background refresh
       _silentRefreshIfNeeded();
 
-      _startAutoRefresh();
       _isLoading = false;
       return;
     }
@@ -92,7 +91,6 @@ class CatalogCubit extends Cubit<CatalogState> {
       },
     );
 
-    _startAutoRefresh();
     _isLoading = false;
   }
 
@@ -190,18 +188,6 @@ class CatalogCubit extends Cubit<CatalogState> {
       page: _page,
       isActive: _isActive,
       perPage: _perPage,
-    );
-  }
-
-  /// =========================
-  /// ⏱ AUTO REFRESH
-  /// =========================
-  void _startAutoRefresh() {
-    _timer?.cancel();
-
-    _timer = Timer.periodic(
-      const Duration(minutes: 5),
-      (_) => _silentRefresh(),
     );
   }
 
