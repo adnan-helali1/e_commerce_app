@@ -1,7 +1,7 @@
 import 'package:B2B/app/features/offers/data/models/offers_response.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'offers_state.freezed.dart';
+part '../offers_state.freezed.dart';
 
 @freezed
 class OffersState with _$OffersState {

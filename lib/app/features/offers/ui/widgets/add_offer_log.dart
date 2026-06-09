@@ -2,7 +2,7 @@ import 'package:B2B/app/core/helpers/extensions.dart';
 import 'package:B2B/app/core/helpers/spacing.dart';
 import 'package:B2B/app/core/theme/textstyles.dart';
 import 'package:B2B/app/core/widgets/b2b_status_badge.dart';
-import 'package:B2B/app/features/offers/logic/add_offer_cubit.dart';
+import 'package:B2B/app/features/offers/logic/add_offer_cubit/add_offer_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

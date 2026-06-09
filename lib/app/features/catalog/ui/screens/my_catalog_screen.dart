@@ -1,10 +1,9 @@
-import 'package:B2B/app/core/di/dependency_injection.dart';
 import 'package:B2B/app/core/helpers/extensions.dart';
 import 'package:B2B/app/core/helpers/spacing.dart';
 import 'package:B2B/app/core/theme/textstyles.dart';
-import 'package:B2B/app/features/catalog/logic/catalog_cubit.dart';
-import 'package:B2B/app/features/catalog/ui/logic/catalog_ui_cubit.dart';
-import 'package:B2B/app/features/catalog/ui/logic/catalog_ui_state.dart';
+import 'package:B2B/app/features/catalog/logic/catalog_cubit/catalog_cubit.dart';
+import 'package:B2B/app/features/catalog/logic/catalog_ui_cubit/catalog_ui_cubit.dart';
+import 'package:B2B/app/features/catalog/logic/catalog_ui_cubit/catalog_ui_state.dart';
 import 'package:B2B/app/features/catalog/ui/screens/catalog_list_section.dart';
 import 'package:B2B/app/features/catalog/ui/widgets/catalog_active_filter.dart';
 import 'package:B2B/app/features/catalog/ui/widgets/catalog_center_row.dart';

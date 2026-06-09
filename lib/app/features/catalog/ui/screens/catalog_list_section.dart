@@ -1,6 +1,6 @@
 import 'package:B2B/app/features/catalog/data/models/catalog_models/catalog_item_model.dart';
-import 'package:B2B/app/features/catalog/ui/logic/catalog_ui_cubit.dart';
-import 'package:B2B/app/features/catalog/ui/logic/catalog_ui_state.dart';
+import 'package:B2B/app/features/catalog/logic/catalog_ui_cubit/catalog_ui_cubit.dart';
+import 'package:B2B/app/features/catalog/logic/catalog_ui_cubit/catalog_ui_state.dart';
 import 'package:B2B/app/features/catalog/ui/widgets/catalog_empty_section.dart';
 import 'package:B2B/app/features/catalog/ui/widgets/catalog_product_card.dart';
 import 'package:flutter/material.dart';

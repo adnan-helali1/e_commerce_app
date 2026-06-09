@@ -1,8 +1,8 @@
 import 'dart:async';
 
-import 'package:B2B/app/features/catalog/logic/catalog_cubit.dart';
-import 'package:B2B/app/features/catalog/logic/catalog_state.dart';
-import 'package:B2B/app/features/catalog/ui/logic/catalog_ui_state.dart';
+import 'package:B2B/app/features/catalog/logic/catalog_cubit/catalog_cubit.dart';
+import 'package:B2B/app/features/catalog/logic/catalog_cubit/catalog_state.dart';
+import 'package:B2B/app/features/catalog/logic/catalog_ui_cubit/catalog_ui_state.dart';
 import 'package:bloc/bloc.dart';
 
 class CatalogUiCubit extends Cubit<CatalogUiState> {

@@ -6,7 +6,7 @@ import 'package:B2B/app/features/auth/logic/register/register_cubit.dart';
 import 'package:B2B/app/features/auth/ui/screens/register_screen.dart';
 import 'package:B2B/app/features/auth/ui/screens/loginscreen.dart';
 import 'package:B2B/app/features/auth/ui/screens/forgotpasswordscreen.dart';
-import 'package:B2B/app/features/catalog/logic/catalog_cubit.dart';
+import 'package:B2B/app/features/catalog/logic/catalog_cubit/catalog_cubit.dart';
 import 'package:B2B/app/features/catalog/ui/screens/my_catalog_screen.dart';
 import 'package:B2B/app/features/main_layout.dart';
 import 'package:B2B/app/features/offers/ui/screens/offers_screen.dart';

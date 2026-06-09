@@ -1,6 +1,6 @@
 import 'package:B2B/app/features/offers/data/models/offers_model_response/state_model.dart';
-import 'package:B2B/app/features/offers/logic/offers_cubit.dart';
-import 'package:B2B/app/features/offers/logic/offers_state.dart';
+import 'package:B2B/app/features/offers/logic/offers_cubit/offers_cubit.dart';
+import 'package:B2B/app/features/offers/logic/offers_cubit/offers_state.dart';
 import 'package:B2B/app/features/offers/ui/widgets/offer_summary_row.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

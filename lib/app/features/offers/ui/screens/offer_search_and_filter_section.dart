@@ -1,5 +1,5 @@
 import 'package:B2B/app/core/helpers/spacing.dart';
-import 'package:B2B/app/features/offers/logic/offers_cubit.dart';
+import 'package:B2B/app/features/offers/logic/offers_cubit/offers_cubit.dart';
 import 'package:B2B/app/features/offers/logic/offers_ui_cubit.dart';
 import 'package:B2B/app/features/offers/ui/widgets/category_filter.dart';
 import 'package:B2B/app/features/offers/ui/widgets/offer_search_row.dart';
