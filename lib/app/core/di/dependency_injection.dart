@@ -29,6 +29,9 @@ import 'package:B2B/app/features/offers/data/repos/offers_repos/offers_repo.dart
 import 'package:B2B/app/features/offers/data/repos/offers_repos/offers_repo_imp.dart';
 import 'package:B2B/app/features/offers/logic/add_offer_cubit/add_offer_cubit.dart';
 import 'package:B2B/app/features/offers/logic/offers_cubit/offers_cubit.dart';
+import 'package:B2B/app/features/orders/data/get_active_offers_remote_datasource.dart';
+import 'package:B2B/app/features/orders/data/get_active_offers_repo.dart';
+import 'package:B2B/app/features/orders/logic/cubit/get_active_offers_cubit.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import 'package:get_it/get_it.dart';
@@ -99,5 +102,14 @@ Future<void> setupGetIt() async {
   );
   getIt.registerFactory(
     () => CatalogActionCubit(getIt()),
+  );
+
+  // orders
+
+  getIt.registerLazySingleton(() => GetActiveOffersRemoteDatasource(getIt()));
+  getIt.registerLazySingleton(() => GetActiveOffersRepo(getIt()));
+
+  getIt.registerFactory(
+    () => GetActiveOffersCubit(getIt()),
   );
 }
