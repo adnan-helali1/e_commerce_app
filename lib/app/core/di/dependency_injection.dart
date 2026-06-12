@@ -6,11 +6,12 @@ import 'package:B2B/app/features/auth/data/repos/login_repo.dart';
 import 'package:B2B/app/features/auth/data/repos/register_repo.dart';
 import 'package:B2B/app/features/auth/logic/login/login_cubit.dart';
 import 'package:B2B/app/features/auth/logic/register/register_cubit.dart';
-import 'package:B2B/app/features/catalog/data/data_sources/catalog_local_data_source.dart';
-import 'package:B2B/app/features/catalog/data/data_sources/catalog_remote_data_source.dart';
+import 'package:B2B/app/features/catalog/data/data_sources/get_catalog/catalog_local_data_source.dart';
+import 'package:B2B/app/features/catalog/data/data_sources/get_catalog/catalog_remote_data_source.dart';
 import 'package:B2B/app/features/catalog/data/models/catalog_cache_model/catalog_cache_model.dart';
-import 'package:B2B/app/features/catalog/data/repos/catalog_repo.dart';
-import 'package:B2B/app/features/catalog/data/repos/catalog_repo_imp.dart';
+import 'package:B2B/app/features/catalog/data/repos/get_catalog/catalog_repo.dart';
+import 'package:B2B/app/features/catalog/data/repos/get_catalog/catalog_repo_imp.dart';
+import 'package:B2B/app/features/catalog/logic/catalog_action_cubit/catalog_action_cubit.dart';
 import 'package:B2B/app/features/catalog/logic/catalog_cubit/catalog_cubit.dart';
 import 'package:B2B/app/features/home/data/data_sources/local_data_source.dart';
 import 'package:B2B/app/features/home/data/data_sources/remote_data_source.dart';
@@ -49,6 +50,7 @@ Future<void> setupGetIt() async {
   getIt.registerLazySingleton(
     () => CacheDataSource<OffersCacheModel>(getIt()),
   );
+
   // Auth
   getIt.registerLazySingleton(() => LoginRepo(getIt()));
   getIt.registerFactory(() => LoginCubit(getIt()));
@@ -94,5 +96,8 @@ Future<void> setupGetIt() async {
   );
   getIt.registerFactory(
     () => CatalogCubit(getIt()),
+  );
+  getIt.registerFactory(
+    () => CatalogActionCubit(getIt()),
   );
 }

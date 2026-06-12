@@ -1,6 +1,7 @@
+import 'package:B2B/app/core/di/dependency_injection.dart';
 import 'package:B2B/app/core/helpers/extensions.dart';
 import 'package:B2B/app/core/helpers/spacing.dart';
-import 'package:B2B/app/core/theme/textstyles.dart';
+import 'package:B2B/app/features/catalog/logic/catalog_action_cubit/catalog_action_cubit.dart';
 import 'package:B2B/app/features/catalog/logic/catalog_cubit/catalog_cubit.dart';
 import 'package:B2B/app/features/catalog/logic/catalog_ui_cubit/catalog_ui_cubit.dart';
 import 'package:B2B/app/features/catalog/logic/catalog_ui_cubit/catalog_ui_state.dart';
@@ -21,7 +22,10 @@ class MyCatalogScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (ctx) => CatalogUiCubit(ctx.read<CatalogCubit>()),
-      child: const _MyCatalogBody(),
+      child: BlocProvider(
+        create: (context) => getIt<CatalogActionCubit>(),
+        child: const _MyCatalogBody(),
+      ),
     );
   }
 }

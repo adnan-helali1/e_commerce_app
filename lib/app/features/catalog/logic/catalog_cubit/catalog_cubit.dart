@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:B2B/app/core/networking/api_result.dart';
-import 'package:B2B/app/features/catalog/data/repos/catalog_repo.dart';
+import 'package:B2B/app/features/catalog/data/repos/get_catalog/catalog_repo.dart';
 import 'package:B2B/app/features/catalog/logic/catalog_cubit/catalog_state.dart';
 
 class CatalogCubit extends Cubit<CatalogState> {
@@ -118,6 +118,7 @@ class CatalogCubit extends Cubit<CatalogState> {
     result.when(
       success: (data) {
         if (!isClosed) {
+          clearCache();
           emit(CatalogState.success(data));
         }
       },

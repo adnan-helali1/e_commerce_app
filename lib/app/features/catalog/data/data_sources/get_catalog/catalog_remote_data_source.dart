@@ -19,4 +19,22 @@ class CatalogRemoteDataSource {
       search,
     );
   }
+
+  Future<void> patchCatalogItem({
+    required int catalogId,
+    required double sellPrice,
+    required bool isActive,
+  }) {
+    return _apiService.patchCatalogItem(
+      catalogId,
+      sellPrice.toString(),
+      isActive,
+    );
+  }
+
+  Future<void> deleteCatalogItem({
+    required int catalogId,
+  }) {
+    return _apiService.deleteCatalogItem(catalogId);
+  }
 }

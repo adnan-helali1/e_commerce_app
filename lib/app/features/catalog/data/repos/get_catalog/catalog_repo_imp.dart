@@ -1,11 +1,11 @@
 import 'package:B2B/app/core/cache/cache_keyes.dart';
 import 'package:B2B/app/core/networking/api_error_handler.dart';
 import 'package:B2B/app/core/networking/api_result.dart';
-import 'package:B2B/app/features/catalog/data/data_sources/catalog_local_data_source.dart';
-import 'package:B2B/app/features/catalog/data/data_sources/catalog_remote_data_source.dart';
+import 'package:B2B/app/features/catalog/data/data_sources/get_catalog/catalog_local_data_source.dart';
+import 'package:B2B/app/features/catalog/data/data_sources/get_catalog/catalog_remote_data_source.dart';
 import 'package:B2B/app/features/catalog/data/models/catalog_cache_model/catalog_cache_model.dart';
 import 'package:B2B/app/features/catalog/data/models/catalog_response.dart';
-import 'package:B2B/app/features/catalog/data/repos/catalog_repo.dart';
+import 'package:B2B/app/features/catalog/data/repos/get_catalog/catalog_repo.dart';
 
 class CatalogRepoImpl implements CatalogRepo {
   final CatalogLocalDataSource _local;
@@ -200,4 +200,42 @@ class CatalogRepoImpl implements CatalogRepo {
 
   @override
   bool shouldRefreshCatalog(DateTime? cachedAt) => _shouldRefresh(cachedAt);
+
+  @override
+  Future<ApiResult<void>> patchCatalogItem({
+    required int catalogId,
+    required double sellPrice,
+    required bool isActive,
+  }) async {
+    try {
+      await _remote.patchCatalogItem(
+        catalogId: catalogId,
+        sellPrice: sellPrice,
+        isActive: isActive,
+      );
+
+      return const ApiResult.success(null);
+    } catch (error) {
+      return ApiResult.failure(
+        ErrorHandler.handle(error),
+      );
+    }
+  }
+
+  @override
+  Future<ApiResult<void>> deleteCatalogItem({
+    required int catalogId,
+  }) async {
+    try {
+      await _remote.deleteCatalogItem(
+        catalogId: catalogId,
+      );
+
+      return const ApiResult.success(null);
+    } catch (error) {
+      return ApiResult.failure(
+        ErrorHandler.handle(error),
+      );
+    }
+  }
 }

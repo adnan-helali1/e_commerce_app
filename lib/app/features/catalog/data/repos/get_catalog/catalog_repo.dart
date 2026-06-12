@@ -32,4 +32,14 @@ abstract class CatalogRepo {
     required String search,
     bool forceRefresh = false,
   });
+
+  Future<ApiResult<void>> patchCatalogItem({
+    required int catalogId,
+    required double sellPrice,
+    required bool isActive,
+  });
+
+  Future<ApiResult<void>> deleteCatalogItem({
+    required int catalogId,
+  });
 }

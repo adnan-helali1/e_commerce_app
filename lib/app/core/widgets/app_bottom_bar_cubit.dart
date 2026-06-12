@@ -14,7 +14,11 @@ class BottomNavCubit extends Cubit<BottomNavState> {
 
   void changeIndex(int index) {
     emit(BottomNavState(index));
-    pageController.jumpToPage(index);
+    pageController.animateToPage(
+      index,
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
   }
 
   void onPageChanged(int index) {
