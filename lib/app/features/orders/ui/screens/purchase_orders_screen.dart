@@ -1,4 +1,6 @@
+import 'package:B2B/app/core/helpers/extensions.dart';
 import 'package:B2B/app/core/helpers/spacing.dart';
+import 'package:B2B/app/core/routing/routes.dart';
 import 'package:B2B/app/features/orders/ui/widgets/orders_filter_bar.dart';
 import 'package:B2B/app/features/orders/ui/widgets/orders_result_summary.dart';
 import 'package:B2B/app/features/orders/ui/widgets/orders_summary_header.dart';
@@ -89,7 +91,9 @@ class _PurchaseOrdersScreenState extends State<PurchaseOrdersScreen>
                 child: SizedBox(
                   width: double.infinity,
                   child: ElevatedButton.icon(
-                    onPressed: () {},
+                    onPressed: () {
+                      context.pushNamed(Routes.createOrderFromOffers);
+                    },
                     icon: Icon(Icons.add, size: 18.sp),
                     label: const Text('Create New Order'),
                   ),
