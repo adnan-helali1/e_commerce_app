@@ -1,7 +1,7 @@
 import 'package:B2B/app/core/helpers/extensions.dart';
 import 'package:B2B/app/features/offers/logic/add_offer_cubit/add_offer_cubit.dart';
 import 'package:B2B/app/features/offers/logic/add_offer_cubit/add_offer_state.dart';
-import 'package:B2B/app/features/offers/ui/widgets/add_offer_log.dart';
+import 'package:B2B/app/core/widgets/add_offer_log.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -46,7 +46,9 @@ class AddOfferSheet extends StatelessWidget {
         );
 
         return AddOfferLog(
-            supplierProductId: supplierProductId, loading: loading);
+          supplierProductId: supplierProductId,
+          loading: loading,
+        );
       },
     );
   }

@@ -3,6 +3,7 @@ import 'package:B2B/app/core/helpers/spacing.dart';
 import 'package:B2B/app/core/theme/textstyles.dart';
 import 'package:B2B/app/core/widgets/b2b_info_card.dart';
 import 'package:B2B/app/features/catalog/data/models/catalog_models/catalog_item_model.dart';
+import 'package:B2B/app/features/catalog/ui/widgets/catalog_icons_and_actions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -67,7 +68,11 @@ class CatalogProductCard extends StatelessWidget {
                             ],
                           ),
                         ),
-                        _CatalogActions(isActive: item.isActive),
+                        CatalogActions(
+                          isActive: item.isActive,
+                          catalogId: item.id,
+                          sellPrice: item.sellPrice,
+                        ),
                       ],
                     ),
                     verticalSpace(12),
@@ -78,16 +83,14 @@ class CatalogProductCard extends StatelessWidget {
                             Expanded(
                               child: _Metric(
                                 label: 'Buy Price',
-                                value:
-                                    '\$${item.buyPrice.toStringAsFixed(2)}',
+                                value: '\$${item.buyPrice.toStringAsFixed(2)}',
                               ),
                             ),
                             SizedBox(width: 18.w),
                             Expanded(
                               child: _Metric(
                                 label: 'Sell Price',
-                                value:
-                                    '\$${item.sellPrice.toStringAsFixed(2)}',
+                                value: '\$${item.sellPrice.toStringAsFixed(2)}',
                               ),
                             ),
                           ],
@@ -155,60 +158,6 @@ class _ProductThumb extends StatelessWidget {
               ),
             )
           : Icon(Icons.inventory_2_outlined, color: iconColor, size: 28.sp),
-    );
-  }
-}
-
-class _CatalogActions extends StatelessWidget {
-  final bool isActive;
-
-  const _CatalogActions({required this.isActive});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        _IconAction(
-          icon: isActive
-              ? Icons.power_settings_new_rounded
-              : Icons.power_off_rounded,
-          color: isActive
-              ? context.appColors.success
-              : context.cs.onSurfaceVariant,
-        ),
-        _IconAction(icon: Icons.edit_outlined, color: context.appColors.info),
-        _IconAction(
-            icon: Icons.delete_outline_rounded, color: context.cs.error),
-      ],
-    );
-  }
-}
-
-class _IconAction extends StatelessWidget {
-  final IconData icon;
-  final Color color;
-
-  const _IconAction({
-    required this.icon,
-    required this.color,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: 28.r,
-      height: 28.r,
-      child: IconButton(
-        onPressed: () {},
-        icon: Icon(
-          icon,
-          color: color,
-          size: 18.sp,
-          fontWeight: FontWeight.w700,
-        ),
-        padding: EdgeInsets.zero,
-      ),
     );
   }
 }

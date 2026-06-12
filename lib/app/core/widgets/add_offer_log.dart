@@ -2,6 +2,7 @@ import 'package:B2B/app/core/helpers/extensions.dart';
 import 'package:B2B/app/core/helpers/spacing.dart';
 import 'package:B2B/app/core/theme/textstyles.dart';
 import 'package:B2B/app/core/widgets/b2b_status_badge.dart';
+import 'package:B2B/app/features/catalog/logic/catalog_action_cubit/catalog_action_cubit.dart';
 import 'package:B2B/app/features/offers/logic/add_offer_cubit/add_offer_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,9 +10,17 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AddOfferLog extends StatefulWidget {
   const AddOfferLog(
-      {super.key, required this.supplierProductId, required this.loading});
+      {super.key,
+      required this.supplierProductId,
+      required this.loading,
+      this.isEdit = false,
+      this.initialSellPrice,
+      this.initialIsActive});
   final int supplierProductId;
   final bool loading;
+  final bool isEdit;
+  final double? initialSellPrice;
+  final bool? initialIsActive;
   @override
   State<AddOfferLog> createState() => _AddOfferLogState();
 }
@@ -20,6 +29,16 @@ class _AddOfferLogState extends State<AddOfferLog> {
   final _priceController = TextEditingController();
 
   bool isActive = true;
+  @override
+  void initState() {
+    super.initState();
+
+    if (widget.isEdit) {
+      _priceController.text = widget.initialSellPrice?.toString() ?? '';
+
+      isActive = widget.initialIsActive ?? true;
+    }
+  }
 
   @override
   void dispose() {
@@ -31,6 +50,15 @@ class _AddOfferLogState extends State<AddOfferLog> {
     final value = _priceController.text.trim();
 
     if (value.isEmpty) return;
+
+    if (widget.isEdit) {
+      context.read<CatalogActionCubit>().patch(
+            catalogId: widget.supplierProductId,
+            sellPrice: double.parse(value),
+            isActive: isActive,
+          );
+      return;
+    }
 
     context.read<AddOfferCubit>().addOffer(
           supplierProductId: widget.supplierProductId,
@@ -52,7 +80,7 @@ class _AddOfferLogState extends State<AddOfferLog> {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            'Add Offer To Catalog',
+            widget.isEdit ? 'Update Catalog Item' : 'Add Offer To Catalog',
             style: TextStyles.label(context).copyWith(
               fontSize: 18.sp,
               fontWeight: FontWeight.w700,
@@ -121,7 +149,9 @@ class _AddOfferLogState extends State<AddOfferLog> {
               onPressed: widget.loading ? null : _submit,
               child: widget.loading
                   ? const CircularProgressIndicator()
-                  : const Text('Submit'),
+                  : Text(
+                      widget.isEdit ? 'Update' : 'Submit',
+                    ),
             ),
           ),
         ],
