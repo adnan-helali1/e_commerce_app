@@ -21,7 +21,6 @@ class CreateOrderSection extends StatelessWidget {
           initial: () {},
           loading: () {},
           success: (response) {
-            // ✅ عند النجاح - pop ورسالة
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(
@@ -33,7 +32,6 @@ class CreateOrderSection extends StatelessWidget {
             context.pop();
           },
           failure: (error) {
-            // ✅ عند الفشل - رسالة خطأ
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
                 content: Text(error),

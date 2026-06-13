@@ -1,4 +1,3 @@
-import 'package:B2B/app/features/offers/data/models/add_offer_models/add_offer_response.dart';
 import 'package:B2B/app/features/orders/data/models/create_order/create_order_response.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
