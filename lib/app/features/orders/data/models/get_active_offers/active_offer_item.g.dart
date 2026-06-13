@@ -10,6 +10,7 @@ _ActiveOfferItem _$ActiveOfferItemFromJson(Map<String, dynamic> json) =>
     _ActiveOfferItem(
       id: (json['id'] as num).toInt(),
       name: json['name'] as String,
+      supplierProductId: (json['supplier_product_id'] as num).toInt(),
       supplierName: json['supplier_name'] as String,
       buyPrice: (json['buy_price'] as num).toDouble(),
       sellPrice: (json['sell_price'] as num).toDouble(),
@@ -25,6 +26,7 @@ Map<String, dynamic> _$ActiveOfferItemToJson(_ActiveOfferItem instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
+      'supplier_product_id': instance.supplierProductId,
       'supplier_name': instance.supplierName,
       'buy_price': instance.buyPrice,
       'sell_price': instance.sellPrice,

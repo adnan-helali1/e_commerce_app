@@ -31,7 +31,7 @@ class ActiveOfferSelectionCard extends StatelessWidget {
                 current.quantityErrors[offer.id];
       },
       builder: (context, state) {
-        final isSelected = state.selectedOffers[offer.id] ?? true;
+        final isSelected = state.selectedOffers[offer.id] ?? false;
         final quantity = state.quantities[offer.id] ?? 0; // ✅ 0 كـ default
         final error = state.quantityErrors[offer.id];
 

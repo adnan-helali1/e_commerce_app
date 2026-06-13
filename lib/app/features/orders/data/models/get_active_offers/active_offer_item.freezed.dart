@@ -16,6 +16,8 @@ T _$identity<T>(T value) => value;
 mixin _$ActiveOfferItem {
   int get id;
   String get name;
+  @JsonKey(name: 'supplier_product_id')
+  int get supplierProductId;
   @JsonKey(name: 'supplier_name')
   String get supplierName;
   @JsonKey(name: 'buy_price')
@@ -52,6 +54,8 @@ mixin _$ActiveOfferItem {
             other is ActiveOfferItem &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
+            (identical(other.supplierProductId, supplierProductId) ||
+                other.supplierProductId == supplierProductId) &&
             (identical(other.supplierName, supplierName) ||
                 other.supplierName == supplierName) &&
             (identical(other.buyPrice, buyPrice) ||
@@ -77,6 +81,7 @@ mixin _$ActiveOfferItem {
       runtimeType,
       id,
       name,
+      supplierProductId,
       supplierName,
       buyPrice,
       sellPrice,
@@ -89,7 +94,7 @@ mixin _$ActiveOfferItem {
 
   @override
   String toString() {
-    return 'ActiveOfferItem(id: $id, name: $name, supplierName: $supplierName, buyPrice: $buyPrice, sellPrice: $sellPrice, profitPerUnit: $profitPerUnit, profitPercentage: $profitPercentage, stock: $stock, totalProfit: $totalProfit, isActive: $isActive, imageUrl: $imageUrl)';
+    return 'ActiveOfferItem(id: $id, name: $name, supplierProductId: $supplierProductId, supplierName: $supplierName, buyPrice: $buyPrice, sellPrice: $sellPrice, profitPerUnit: $profitPerUnit, profitPercentage: $profitPercentage, stock: $stock, totalProfit: $totalProfit, isActive: $isActive, imageUrl: $imageUrl)';
   }
 }
 
@@ -102,6 +107,7 @@ abstract mixin class $ActiveOfferItemCopyWith<$Res> {
   $Res call(
       {int id,
       String name,
+      @JsonKey(name: 'supplier_product_id') int supplierProductId,
       @JsonKey(name: 'supplier_name') String supplierName,
       @JsonKey(name: 'buy_price') double buyPrice,
       @JsonKey(name: 'sell_price') double sellPrice,
@@ -128,6 +134,7 @@ class _$ActiveOfferItemCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? name = null,
+    Object? supplierProductId = null,
     Object? supplierName = null,
     Object? buyPrice = null,
     Object? sellPrice = null,
@@ -147,6 +154,10 @@ class _$ActiveOfferItemCopyWithImpl<$Res>
           ? _self.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      supplierProductId: null == supplierProductId
+          ? _self.supplierProductId
+          : supplierProductId // ignore: cast_nullable_to_non_nullable
+              as int,
       supplierName: null == supplierName
           ? _self.supplierName
           : supplierName // ignore: cast_nullable_to_non_nullable
@@ -283,6 +294,7 @@ extension ActiveOfferItemPatterns on ActiveOfferItem {
     TResult Function(
             int id,
             String name,
+            @JsonKey(name: 'supplier_product_id') int supplierProductId,
             @JsonKey(name: 'supplier_name') String supplierName,
             @JsonKey(name: 'buy_price') double buyPrice,
             @JsonKey(name: 'sell_price') double sellPrice,
@@ -301,6 +313,7 @@ extension ActiveOfferItemPatterns on ActiveOfferItem {
         return $default(
             _that.id,
             _that.name,
+            _that.supplierProductId,
             _that.supplierName,
             _that.buyPrice,
             _that.sellPrice,
@@ -333,6 +346,7 @@ extension ActiveOfferItemPatterns on ActiveOfferItem {
     TResult Function(
             int id,
             String name,
+            @JsonKey(name: 'supplier_product_id') int supplierProductId,
             @JsonKey(name: 'supplier_name') String supplierName,
             @JsonKey(name: 'buy_price') double buyPrice,
             @JsonKey(name: 'sell_price') double sellPrice,
@@ -350,6 +364,7 @@ extension ActiveOfferItemPatterns on ActiveOfferItem {
         return $default(
             _that.id,
             _that.name,
+            _that.supplierProductId,
             _that.supplierName,
             _that.buyPrice,
             _that.sellPrice,
@@ -381,6 +396,7 @@ extension ActiveOfferItemPatterns on ActiveOfferItem {
     TResult? Function(
             int id,
             String name,
+            @JsonKey(name: 'supplier_product_id') int supplierProductId,
             @JsonKey(name: 'supplier_name') String supplierName,
             @JsonKey(name: 'buy_price') double buyPrice,
             @JsonKey(name: 'sell_price') double sellPrice,
@@ -398,6 +414,7 @@ extension ActiveOfferItemPatterns on ActiveOfferItem {
         return $default(
             _that.id,
             _that.name,
+            _that.supplierProductId,
             _that.supplierName,
             _that.buyPrice,
             _that.sellPrice,
@@ -419,6 +436,7 @@ class _ActiveOfferItem implements ActiveOfferItem {
   const _ActiveOfferItem(
       {required this.id,
       required this.name,
+      @JsonKey(name: 'supplier_product_id') required this.supplierProductId,
       @JsonKey(name: 'supplier_name') required this.supplierName,
       @JsonKey(name: 'buy_price') required this.buyPrice,
       @JsonKey(name: 'sell_price') required this.sellPrice,
@@ -435,6 +453,9 @@ class _ActiveOfferItem implements ActiveOfferItem {
   final int id;
   @override
   final String name;
+  @override
+  @JsonKey(name: 'supplier_product_id')
+  final int supplierProductId;
   @override
   @JsonKey(name: 'supplier_name')
   final String supplierName;
@@ -484,6 +505,8 @@ class _ActiveOfferItem implements ActiveOfferItem {
             other is _ActiveOfferItem &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
+            (identical(other.supplierProductId, supplierProductId) ||
+                other.supplierProductId == supplierProductId) &&
             (identical(other.supplierName, supplierName) ||
                 other.supplierName == supplierName) &&
             (identical(other.buyPrice, buyPrice) ||
@@ -509,6 +532,7 @@ class _ActiveOfferItem implements ActiveOfferItem {
       runtimeType,
       id,
       name,
+      supplierProductId,
       supplierName,
       buyPrice,
       sellPrice,
@@ -521,7 +545,7 @@ class _ActiveOfferItem implements ActiveOfferItem {
 
   @override
   String toString() {
-    return 'ActiveOfferItem(id: $id, name: $name, supplierName: $supplierName, buyPrice: $buyPrice, sellPrice: $sellPrice, profitPerUnit: $profitPerUnit, profitPercentage: $profitPercentage, stock: $stock, totalProfit: $totalProfit, isActive: $isActive, imageUrl: $imageUrl)';
+    return 'ActiveOfferItem(id: $id, name: $name, supplierProductId: $supplierProductId, supplierName: $supplierName, buyPrice: $buyPrice, sellPrice: $sellPrice, profitPerUnit: $profitPerUnit, profitPercentage: $profitPercentage, stock: $stock, totalProfit: $totalProfit, isActive: $isActive, imageUrl: $imageUrl)';
   }
 }
 
@@ -536,6 +560,7 @@ abstract mixin class _$ActiveOfferItemCopyWith<$Res>
   $Res call(
       {int id,
       String name,
+      @JsonKey(name: 'supplier_product_id') int supplierProductId,
       @JsonKey(name: 'supplier_name') String supplierName,
       @JsonKey(name: 'buy_price') double buyPrice,
       @JsonKey(name: 'sell_price') double sellPrice,
@@ -562,6 +587,7 @@ class __$ActiveOfferItemCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? name = null,
+    Object? supplierProductId = null,
     Object? supplierName = null,
     Object? buyPrice = null,
     Object? sellPrice = null,
@@ -581,6 +607,10 @@ class __$ActiveOfferItemCopyWithImpl<$Res>
           ? _self.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
+      supplierProductId: null == supplierProductId
+          ? _self.supplierProductId
+          : supplierProductId // ignore: cast_nullable_to_non_nullable
+              as int,
       supplierName: null == supplierName
           ? _self.supplierName
           : supplierName // ignore: cast_nullable_to_non_nullable

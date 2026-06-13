@@ -8,6 +8,7 @@ abstract class ActiveOfferItem with _$ActiveOfferItem {
   const factory ActiveOfferItem({
     required int id,
     required String name,
+    @JsonKey(name: 'supplier_product_id') required int supplierProductId,
     @JsonKey(name: 'supplier_name') required String supplierName,
     @JsonKey(name: 'buy_price') required double buyPrice,
     @JsonKey(name: 'sell_price') required double sellPrice,

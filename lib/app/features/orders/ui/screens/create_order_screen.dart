@@ -5,6 +5,7 @@ import 'package:B2B/app/features/orders/logic/ui_create_order/ui_create_order_cu
 import 'package:B2B/app/features/orders/logic/ui_create_order/ui_create_order_state.dart';
 import 'package:B2B/app/features/orders/logic/get_offers/get_active_offers_cubit.dart';
 import 'package:B2B/app/features/orders/logic/get_offers/get_active_offers_state.dart';
+import 'package:B2B/app/features/orders/ui/screens/create_order_Section.dart';
 
 import 'package:B2B/app/features/orders/ui/widgets/active_offer_selection_card.dart';
 import 'package:flutter/material.dart';
@@ -170,51 +171,7 @@ class _CreateOrderFromOffersScreenState
                             verticalSpace(16),
 
                             /// ✅ Submit Button
-                            SizedBox(
-                              width: double.infinity,
-                              child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  padding: EdgeInsets.symmetric(vertical: 14.h),
-                                  backgroundColor: context.cs.primary,
-                                  foregroundColor: context.cs.onPrimary,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8.r),
-                                  ),
-                                ),
-                                onPressed: () {
-                                  final cubit =
-                                      context.read<UiCreateOrderCubit>();
-
-                                  // ✅ تحقق من الأخطاء من الـ Cubit
-                                  if (cubit.hasValidationErrors()) {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        content: const Text(
-                                          'Please fix the quantity errors before submitting',
-                                        ),
-                                        backgroundColor: context.cs.error,
-                                      ),
-                                    );
-                                    return;
-                                  }
-
-                                  final selectedIds =
-                                      cubit.getSelectedOfferIds();
-
-                                  if (selectedIds.isEmpty) {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content: Text(
-                                          'Please select at least one offer',
-                                        ),
-                                      ),
-                                    );
-                                    return;
-                                  }
-                                },
-                                child: const Text('Create Order'),
-                              ),
-                            ),
+                            CreateOrderSection(offers: offers),
                           ],
                         ),
                       ),

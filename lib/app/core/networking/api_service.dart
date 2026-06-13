@@ -72,6 +72,6 @@ abstract class ApiService {
 
   @POST(ApiConstants.orders)
   Future<CreateOrderResponse> createOrder(
-    @Body() CreateOrderRequest request,
+    @Body() Map<String, dynamic> request,
   );
 }

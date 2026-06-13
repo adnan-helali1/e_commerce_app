@@ -8,6 +8,6 @@ class CreateOrderRemoteDataSource {
   CreateOrderRemoteDataSource(this._apiService);
 
   Future<CreateOrderResponse> createOrder(CreateOrderRequest request) {
-    return _apiService.createOrder(request);
+    return _apiService.createOrder(request.toJson());
   }
 }

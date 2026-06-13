@@ -304,11 +304,12 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<CreateOrderResponse> createOrder(CreateOrderRequest request) async {
+  Future<CreateOrderResponse> createOrder(Map<String, dynamic> request) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = request;
+    final _data = <String, dynamic>{};
+    _data.addAll(request);
     final _options = _setStreamType<CreateOrderResponse>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(

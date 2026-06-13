@@ -1,6 +1,4 @@
-import 'package:B2B/app/core/di/dependency_injection.dart';
 import 'package:B2B/app/core/networking/api_result.dart';
-import 'package:B2B/app/features/catalog/logic/catalog_cubit/catalog_cubit.dart';
 import 'package:B2B/app/features/orders/data/models/create_order/create_order_request.dart';
 import 'package:B2B/app/features/orders/data/repos/create_order_repo.dart';
 import 'package:B2B/app/features/orders/logic/create_order/create_order_state.dart';
@@ -24,8 +22,6 @@ class CreateOrderCubit extends Cubit<CreateOrderState> {
 
     response.when(
       success: (data) {
-        getIt<CatalogCubit>().refresh();
-
         emit(
           CreateOrderState.success(data),
         );
