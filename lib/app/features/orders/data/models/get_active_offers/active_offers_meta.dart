@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'active_offers_meta.freezed.dart';
-part 'active_offers_meta.g.dart';
+part '../active_offers_meta.freezed.dart';
+part '../active_offers_meta.g.dart';
 
 @freezed
 abstract class ActiveOffersMeta with _$ActiveOffersMeta {

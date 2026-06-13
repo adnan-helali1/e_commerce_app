@@ -72,9 +72,9 @@ class _MainLayoutState extends State<MainLayout> {
       bottomNavigationBar: AppBottomNavBar(
         items: const [
           AppBottomNavItem(label: 'Home', icon: Icons.home_rounded),
-          AppBottomNavItem(label: 'Offers', icon: Icons.map_outlined),
-          AppBottomNavItem(label: 'Inventory', icon: Icons.inventory_2),
-          AppBottomNavItem(label: 'Invoices', icon: Icons.receipt),
+          AppBottomNavItem(label: 'Offers', icon: Icons.inventory_2_outlined),
+          AppBottomNavItem(label: 'Catalog', icon: Icons.map_outlined),
+          AppBottomNavItem(label: 'Orders', icon: Icons.shopping_bag_outlined),
         ],
       ),
     );

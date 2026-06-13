@@ -8,7 +8,10 @@ import 'package:B2B/app/features/home/data/models/home_dashboard_response.dart';
 import 'package:B2B/app/features/offers/data/models/add_offer_models/add_offer_request_body.dart';
 import 'package:B2B/app/features/offers/data/models/add_offer_models/add_offer_response.dart';
 import 'package:B2B/app/features/offers/data/models/offers_response.dart';
-import 'package:B2B/app/features/orders/data/active_offers_response.dart';
+import 'package:B2B/app/features/orders/data/models/get_active_offers/active_offers_response.dart';
+import 'package:B2B/app/features/orders/data/models/create_order/create_order_request.dart';
+import 'package:B2B/app/features/orders/data/models/create_order/create_order_response.dart';
+import 'package:B2B/app/features/orders/data/models/get_orders/models/orders_response.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
@@ -67,4 +70,15 @@ abstract class ApiService {
   //orders Endpoints
   @GET(ApiConstants.catalog + '?is_active=1&per_page=15')
   Future<ActiveOffersResponse> getActiveOffers();
+
+  @POST(ApiConstants.orders)
+  Future<CreateOrderResponse> createOrder(
+    @Body() Map<String, dynamic> request,
+  );
+
+  @GET(ApiConstants.orders)
+  Future<OrdersResponse> getOrders(
+    @Query('status') String status,
+    @Query('per_page') int perPage,
+  );
 }

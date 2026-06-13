@@ -8,6 +8,7 @@ part of 'catalog_item_model.dart';
 
 _CatalogItem _$CatalogItemFromJson(Map<String, dynamic> json) => _CatalogItem(
       id: (json['id'] as num).toInt(),
+      supplierProductId: (json['supplier_product_id'] as num).toInt(),
       name: json['name'] as String,
       supplierName: json['supplier_name'] as String,
       buyPrice: (json['buy_price'] as num).toDouble(),
@@ -23,6 +24,7 @@ _CatalogItem _$CatalogItemFromJson(Map<String, dynamic> json) => _CatalogItem(
 Map<String, dynamic> _$CatalogItemToJson(_CatalogItem instance) =>
     <String, dynamic>{
       'id': instance.id,
+      'supplier_product_id': instance.supplierProductId,
       'name': instance.name,
       'supplier_name': instance.supplierName,
       'buy_price': instance.buyPrice,

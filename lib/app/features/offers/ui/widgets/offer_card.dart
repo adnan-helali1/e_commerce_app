@@ -2,7 +2,7 @@ import 'package:B2B/app/core/helpers/extensions.dart';
 import 'package:B2B/app/core/helpers/spacing.dart';
 import 'package:B2B/app/features/offers/data/models/offers_model_response/offer_data_model.dart';
 import 'package:B2B/app/features/offers/ui/widgets/add_offer_button.dart';
-import 'package:B2B/app/features/offers/ui/widgets/offer_metric.dart';
+import 'package:B2B/app/core/widgets/offer_metric.dart';
 import 'package:B2B/app/features/offers/ui/widgets/offer_thumb.dart';
 import 'package:B2B/app/features/offers/ui/widgets/offer_title_row.dart';
 import 'package:flutter/material.dart';

@@ -1,6 +1,7 @@
 import 'package:B2B/app/core/helpers/extensions.dart';
 import 'package:B2B/app/core/helpers/spacing.dart';
 import 'package:B2B/app/core/routing/routes.dart';
+import 'package:B2B/app/core/theme/textstyles.dart';
 import 'package:B2B/app/features/orders/ui/widgets/orders_filter_bar.dart';
 import 'package:B2B/app/features/orders/ui/widgets/orders_result_summary.dart';
 import 'package:B2B/app/features/orders/ui/widgets/orders_summary_header.dart';
@@ -91,11 +92,23 @@ class _PurchaseOrdersScreenState extends State<PurchaseOrdersScreen>
                 child: SizedBox(
                   width: double.infinity,
                   child: ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                      padding: EdgeInsets.symmetric(vertical: 12.h),
+                      backgroundColor: context.cs.primary,
+                      iconColor: context.cs.onPrimary,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(6.r),
+                      ),
+                    ),
                     onPressed: () {
                       context.pushNamed(Routes.createOrderFromOffers);
                     },
-                    icon: Icon(Icons.add, size: 18.sp),
-                    label: const Text('Create New Order'),
+                    icon: Icon(Icons.add, size: 22.sp),
+                    label: Text(
+                      '  Create New Order',
+                      style:
+                          TextStyles.button(context).copyWith(fontSize: 14.sp),
+                    ),
                   ),
                 ),
               ),

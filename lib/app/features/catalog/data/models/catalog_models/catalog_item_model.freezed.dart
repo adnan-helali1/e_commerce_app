@@ -15,6 +15,8 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$CatalogItem {
   int get id;
+  @JsonKey(name: 'supplier_product_id')
+  int get supplierProductId;
   String get name;
   @JsonKey(name: 'supplier_name')
   String get supplierName;
@@ -50,6 +52,8 @@ mixin _$CatalogItem {
         (other.runtimeType == runtimeType &&
             other is CatalogItem &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.supplierProductId, supplierProductId) ||
+                other.supplierProductId == supplierProductId) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.supplierName, supplierName) ||
                 other.supplierName == supplierName) &&
@@ -75,6 +79,7 @@ mixin _$CatalogItem {
   int get hashCode => Object.hash(
       runtimeType,
       id,
+      supplierProductId,
       name,
       supplierName,
       buyPrice,
@@ -88,7 +93,7 @@ mixin _$CatalogItem {
 
   @override
   String toString() {
-    return 'CatalogItem(id: $id, name: $name, supplierName: $supplierName, buyPrice: $buyPrice, sellPrice: $sellPrice, profitPerUnit: $profitPerUnit, profitPercentage: $profitPercentage, stock: $stock, totalProfit: $totalProfit, isActive: $isActive, imageUrl: $imageUrl)';
+    return 'CatalogItem(id: $id, supplierProductId: $supplierProductId, name: $name, supplierName: $supplierName, buyPrice: $buyPrice, sellPrice: $sellPrice, profitPerUnit: $profitPerUnit, profitPercentage: $profitPercentage, stock: $stock, totalProfit: $totalProfit, isActive: $isActive, imageUrl: $imageUrl)';
   }
 }
 
@@ -100,6 +105,7 @@ abstract mixin class $CatalogItemCopyWith<$Res> {
   @useResult
   $Res call(
       {int id,
+      @JsonKey(name: 'supplier_product_id') int supplierProductId,
       String name,
       @JsonKey(name: 'supplier_name') String supplierName,
       @JsonKey(name: 'buy_price') double buyPrice,
@@ -125,6 +131,7 @@ class _$CatalogItemCopyWithImpl<$Res> implements $CatalogItemCopyWith<$Res> {
   @override
   $Res call({
     Object? id = null,
+    Object? supplierProductId = null,
     Object? name = null,
     Object? supplierName = null,
     Object? buyPrice = null,
@@ -140,6 +147,10 @@ class _$CatalogItemCopyWithImpl<$Res> implements $CatalogItemCopyWith<$Res> {
       id: null == id
           ? _self.id
           : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      supplierProductId: null == supplierProductId
+          ? _self.supplierProductId
+          : supplierProductId // ignore: cast_nullable_to_non_nullable
               as int,
       name: null == name
           ? _self.name
@@ -280,6 +291,7 @@ extension CatalogItemPatterns on CatalogItem {
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(
             int id,
+            @JsonKey(name: 'supplier_product_id') int supplierProductId,
             String name,
             @JsonKey(name: 'supplier_name') String supplierName,
             @JsonKey(name: 'buy_price') double buyPrice,
@@ -298,6 +310,7 @@ extension CatalogItemPatterns on CatalogItem {
       case _CatalogItem() when $default != null:
         return $default(
             _that.id,
+            _that.supplierProductId,
             _that.name,
             _that.supplierName,
             _that.buyPrice,
@@ -330,6 +343,7 @@ extension CatalogItemPatterns on CatalogItem {
   TResult when<TResult extends Object?>(
     TResult Function(
             int id,
+            @JsonKey(name: 'supplier_product_id') int supplierProductId,
             String name,
             @JsonKey(name: 'supplier_name') String supplierName,
             @JsonKey(name: 'buy_price') double buyPrice,
@@ -347,6 +361,7 @@ extension CatalogItemPatterns on CatalogItem {
       case _CatalogItem():
         return $default(
             _that.id,
+            _that.supplierProductId,
             _that.name,
             _that.supplierName,
             _that.buyPrice,
@@ -378,6 +393,7 @@ extension CatalogItemPatterns on CatalogItem {
   TResult? whenOrNull<TResult extends Object?>(
     TResult? Function(
             int id,
+            @JsonKey(name: 'supplier_product_id') int supplierProductId,
             String name,
             @JsonKey(name: 'supplier_name') String supplierName,
             @JsonKey(name: 'buy_price') double buyPrice,
@@ -395,6 +411,7 @@ extension CatalogItemPatterns on CatalogItem {
       case _CatalogItem() when $default != null:
         return $default(
             _that.id,
+            _that.supplierProductId,
             _that.name,
             _that.supplierName,
             _that.buyPrice,
@@ -416,6 +433,7 @@ extension CatalogItemPatterns on CatalogItem {
 class _CatalogItem implements CatalogItem {
   const _CatalogItem(
       {required this.id,
+      @JsonKey(name: 'supplier_product_id') required this.supplierProductId,
       required this.name,
       @JsonKey(name: 'supplier_name') required this.supplierName,
       @JsonKey(name: 'buy_price') required this.buyPrice,
@@ -431,6 +449,9 @@ class _CatalogItem implements CatalogItem {
 
   @override
   final int id;
+  @override
+  @JsonKey(name: 'supplier_product_id')
+  final int supplierProductId;
   @override
   final String name;
   @override
@@ -481,6 +502,8 @@ class _CatalogItem implements CatalogItem {
         (other.runtimeType == runtimeType &&
             other is _CatalogItem &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.supplierProductId, supplierProductId) ||
+                other.supplierProductId == supplierProductId) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.supplierName, supplierName) ||
                 other.supplierName == supplierName) &&
@@ -506,6 +529,7 @@ class _CatalogItem implements CatalogItem {
   int get hashCode => Object.hash(
       runtimeType,
       id,
+      supplierProductId,
       name,
       supplierName,
       buyPrice,
@@ -519,7 +543,7 @@ class _CatalogItem implements CatalogItem {
 
   @override
   String toString() {
-    return 'CatalogItem(id: $id, name: $name, supplierName: $supplierName, buyPrice: $buyPrice, sellPrice: $sellPrice, profitPerUnit: $profitPerUnit, profitPercentage: $profitPercentage, stock: $stock, totalProfit: $totalProfit, isActive: $isActive, imageUrl: $imageUrl)';
+    return 'CatalogItem(id: $id, supplierProductId: $supplierProductId, name: $name, supplierName: $supplierName, buyPrice: $buyPrice, sellPrice: $sellPrice, profitPerUnit: $profitPerUnit, profitPercentage: $profitPercentage, stock: $stock, totalProfit: $totalProfit, isActive: $isActive, imageUrl: $imageUrl)';
   }
 }
 
@@ -533,6 +557,7 @@ abstract mixin class _$CatalogItemCopyWith<$Res>
   @useResult
   $Res call(
       {int id,
+      @JsonKey(name: 'supplier_product_id') int supplierProductId,
       String name,
       @JsonKey(name: 'supplier_name') String supplierName,
       @JsonKey(name: 'buy_price') double buyPrice,
@@ -558,6 +583,7 @@ class __$CatalogItemCopyWithImpl<$Res> implements _$CatalogItemCopyWith<$Res> {
   @pragma('vm:prefer-inline')
   $Res call({
     Object? id = null,
+    Object? supplierProductId = null,
     Object? name = null,
     Object? supplierName = null,
     Object? buyPrice = null,
@@ -573,6 +599,10 @@ class __$CatalogItemCopyWithImpl<$Res> implements _$CatalogItemCopyWith<$Res> {
       id: null == id
           ? _self.id
           : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      supplierProductId: null == supplierProductId
+          ? _self.supplierProductId
+          : supplierProductId // ignore: cast_nullable_to_non_nullable
               as int,
       name: null == name
           ? _self.name

@@ -2,6 +2,7 @@ import 'package:B2B/app/core/helpers/colors_changer_extension.dart';
 import 'package:B2B/app/core/helpers/extensions.dart';
 import 'package:B2B/app/core/helpers/spacing.dart';
 import 'package:B2B/app/core/theme/textstyles.dart';
+import 'package:B2B/app/core/widgets/app_bottom_bar_cubit.dart';
 import 'package:B2B/app/core/widgets/b2b_info_card.dart';
 import 'package:B2B/app/core/widgets/b2b_status_badge.dart';
 import 'package:B2B/app/features/home/data/models/home_ui_models.dart';
@@ -10,10 +11,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class RecentOrdersSection extends StatelessWidget {
   final List<RecentOrderPreview> orders;
+  final BottomNavCubit navCubit; // ✅ أضف هنا
 
   const RecentOrdersSection({
     required this.orders,
     super.key,
+    required this.navCubit, // ✅ required
   });
 
   @override
@@ -33,7 +36,9 @@ class RecentOrdersSection extends StatelessWidget {
                       style: TextStyles.label(context).copyWith(
                           fontSize: 17.sp, fontWeight: FontWeight.w700))),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  navCubit.changeIndex(3); // ✅ استخدم navCubit
+                },
                 child: Text(
                   'View All',
                   style: TextStyles.note(context).copyWith(

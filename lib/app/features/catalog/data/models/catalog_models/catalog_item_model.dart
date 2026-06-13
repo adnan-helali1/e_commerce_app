@@ -7,6 +7,7 @@ part 'catalog_item_model.g.dart';
 abstract class CatalogItem with _$CatalogItem {
   const factory CatalogItem({
     required int id,
+    @JsonKey(name: 'supplier_product_id') required int supplierProductId,
     required String name,
     @JsonKey(name: 'supplier_name') required String supplierName,
     @JsonKey(name: 'buy_price') required double buyPrice,

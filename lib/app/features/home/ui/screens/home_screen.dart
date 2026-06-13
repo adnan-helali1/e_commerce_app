@@ -1,4 +1,5 @@
 import 'package:B2B/app/core/helpers/spacing.dart';
+import 'package:B2B/app/core/widgets/app_bottom_bar_cubit.dart';
 import 'package:B2B/app/core/widgets/double_back_to_exit.dart';
 import 'package:B2B/app/features/home/data/lists/list_metrics.dart';
 import 'package:B2B/app/features/home/data/lists/list_recent_order.dart';
@@ -17,6 +18,8 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final navCubit = context.read<BottomNavCubit>();
+
     return SafeArea(
       child: DoubleBackToExit(
         onSecondBackPressed: () => SystemNavigator.pop(),
@@ -37,11 +40,13 @@ class HomeScreen extends StatelessWidget {
                     loading: () => Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const HomeWelcomePanel(),
+                        HomeWelcomePanel(
+                          navCubit: navCubit,
+                        ),
                         verticalSpace(16),
                         const HomeMetricsSection(metrics: []),
                         verticalSpace(16),
-                        const RecentOrdersSection(orders: []),
+                        RecentOrdersSection(orders: [], navCubit: navCubit),
                         verticalSpace(4),
                         const HomeQuickActionsSection(),
                         verticalSpace(24),
@@ -55,13 +60,19 @@ class HomeScreen extends StatelessWidget {
                         children: [
                           Row(
                             children: [
-                              const Expanded(child: HomeWelcomePanel()),
+                              Expanded(
+                                child: HomeWelcomePanel(
+                                  navCubit: navCubit,
+                                ),
+                              ),
                             ],
                           ),
                           verticalSpace(16),
                           HomeMetricsSection(metrics: metrics),
                           verticalSpace(16),
-                          RecentOrdersSection(orders: recent),
+                          RecentOrdersSection(
+                              orders: recent,
+                              navCubit: navCubit), // ✅ أضف navCubit هنا
                           verticalSpace(4),
                           const HomeQuickActionsSection(),
                           verticalSpace(24),
