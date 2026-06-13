@@ -1,12 +1,12 @@
 import 'package:B2B/app/core/helpers/extensions.dart';
 import 'package:B2B/app/core/helpers/spacing.dart';
 import 'package:B2B/app/core/theme/textstyles.dart';
-import 'package:B2B/app/features/offers/ui/widgets/offer_metric.dart';
-import 'package:B2B/app/features/orders/data/active_offer_item.dart';
+import 'package:B2B/app/features/orders/data/models/active_offer_item.dart';
 import 'package:B2B/app/features/orders/logic/create_order/create_order_cubit.dart';
 import 'package:B2B/app/features/orders/logic/create_order/create_order_state.dart';
+import 'package:B2B/app/features/orders/ui/widgets/metrics_row.dart';
+import 'package:B2B/app/features/orders/ui/widgets/quantity_textfiled.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -24,7 +24,6 @@ class ActiveOfferSelectionCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<CreateOrderCubit, CreateOrderState>(
       buildWhen: (previous, current) {
-        // ✅ أعد البناء فقط عند تغيير هذا الـ offer
         return previous.selectedOffers[offer.id] !=
                 current.selectedOffers[offer.id] ||
             previous.quantities[offer.id] != current.quantities[offer.id] ||
@@ -33,7 +32,7 @@ class ActiveOfferSelectionCard extends StatelessWidget {
       },
       builder: (context, state) {
         final isSelected = state.selectedOffers[offer.id] ?? true;
-        final quantity = state.quantities[offer.id] ?? 0;
+        final quantity = state.quantities[offer.id] ?? 0; // ✅ 0 كـ default
         final error = state.quantityErrors[offer.id];
 
         return Container(
@@ -63,73 +62,27 @@ class ActiveOfferSelectionCard extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
-                  // ✅ Quantity Input
+                  // ✅ Quantity Input - الآن في SizedBox
+                  QuantityTextField(
+                    error: error,
+                    quantity: quantity,
+                    offer: offer,
+                    allOffers: allOffers,
+                  ),
+                  horizontalSpace(8),
+                  // ✅ Max Stock Label
                   SizedBox(
-                    width: 100.w,
+                    width: 60.w,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        TextFormField(
-                          initialValue: quantity.toString(),
-                          keyboardType: TextInputType.number,
-                          textAlign: TextAlign.center,
-                          inputFormatters: [
-                            FilteringTextInputFormatter.digitsOnly,
-                            LengthLimitingTextInputFormatter(5),
-                          ],
-                          decoration: InputDecoration(
-                            hintText: 'Qty',
-                            isDense: true,
-                            contentPadding: EdgeInsets.symmetric(
-                              horizontal: 8.w,
-                              vertical: 8.h,
-                            ),
-                            errorText: error,
-                            errorStyle: TextStyle(
-                              color: context.cs.error,
-                              fontSize: 10.sp,
-                            ),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(6.r),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(6.r),
-                              borderSide: BorderSide(
-                                color: error != null
-                                    ? context.cs.error
-                                    : context.cs.primary,
-                                width: 1.5,
-                              ),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(6.r),
-                              borderSide: BorderSide(
-                                color: error != null
-                                    ? context.cs.error
-                                    : context.appColors.borderColor,
-                                width: error != null ? 1.5 : 1,
-                              ),
-                            ),
-                          ),
-                          onChanged: (value) {
-                            final qty = int.tryParse(value) ?? 0;
-                            context.read<CreateOrderCubit>().updateQuantity(
-                                  offer.id,
-                                  qty,
-                                  allOffers,
-                                );
-                          },
-                        ),
                         if (error == null)
-                          Padding(
-                            padding: EdgeInsets.only(top: 4.h),
-                            child: Text(
-                              'Max: ${offer.stock}',
-                              style: TextStyle(
-                                fontSize: 9.sp,
-                                color: context.cs.outline,
-                              ),
+                          Text(
+                            'Max: ${offer.stock}',
+                            style: TextStyle(
+                              fontSize: 9.sp,
+                              color: context.cs.outline,
                             ),
                           ),
                       ],
@@ -157,35 +110,7 @@ class ActiveOfferSelectionCard extends StatelessWidget {
               verticalSpace(16),
 
               /// ✅ Metrics Row
-              Row(
-                children: [
-                  Expanded(
-                    child: OfferMetric(
-                      label: 'Buy Price',
-                      value: offer.buyPrice.toString(),
-                    ),
-                  ),
-                  Expanded(
-                    child: OfferMetric(
-                      label: 'Sell Price',
-                      value: offer.sellPrice.toString(),
-                    ),
-                  ),
-                  Expanded(
-                    child: OfferMetric(
-                      label: 'Stock',
-                      value: offer.stock.toString(),
-                      valueColor: offer.stock < 10 ? Colors.orange : null,
-                    ),
-                  ),
-                  Expanded(
-                    child: OfferMetric(
-                      label: 'Profit',
-                      value: offer.totalProfit.toString(),
-                    ),
-                  ),
-                ],
-              ),
+              MetricsRows(offer: offer),
               verticalSpace(16),
 
               /// ✅ Total Price
@@ -207,7 +132,9 @@ class ActiveOfferSelectionCard extends StatelessWidget {
                     ),
                     const Spacer(),
                     Text(
-                      (quantity * offer.buyPrice).toStringAsFixed(2),
+                      quantity > 0
+                          ? (quantity * offer.buyPrice).toStringAsFixed(2)
+                          : '0.00', // ✅ تجنب null عند quantity = 0
                       style: TextStyles.button(context).copyWith(
                         color: context.cs.primary,
                       ),

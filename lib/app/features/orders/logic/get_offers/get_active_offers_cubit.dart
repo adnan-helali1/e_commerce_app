@@ -1,5 +1,5 @@
 import 'package:B2B/app/core/networking/api_result.dart';
-import 'package:B2B/app/features/orders/data/get_active_offers_repo.dart';
+import 'package:B2B/app/features/orders/data/repos/get_active_offers_repo.dart';
 import 'package:B2B/app/features/orders/logic/get_offers/get_active_offers_state.dart';
 import 'package:bloc/bloc.dart';
 

@@ -75,7 +75,13 @@ class AddProductDialog extends StatelessWidget {
                         navCubit.changeIndex(1);
                         Navigator.of(context).pop();
                       },
-                      child: const Text('Go to Offers'),
+                      child: Text(
+                        'Go to Offers',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 13.sp),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
                   ),
                 ],

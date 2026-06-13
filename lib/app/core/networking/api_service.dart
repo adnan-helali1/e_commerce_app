@@ -8,7 +8,7 @@ import 'package:B2B/app/features/home/data/models/home_dashboard_response.dart';
 import 'package:B2B/app/features/offers/data/models/add_offer_models/add_offer_request_body.dart';
 import 'package:B2B/app/features/offers/data/models/add_offer_models/add_offer_response.dart';
 import 'package:B2B/app/features/offers/data/models/offers_response.dart';
-import 'package:B2B/app/features/orders/data/active_offers_response.dart';
+import 'package:B2B/app/features/orders/data/models/active_offers_response.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 

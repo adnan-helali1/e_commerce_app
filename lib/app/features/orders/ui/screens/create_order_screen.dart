@@ -44,11 +44,24 @@ class _CreateOrderFromOffersScreenState
           return state.when(
             initial: () => const SizedBox(),
             loading: () => const Center(
-              child: CircularProgressIndicator(),
+              child: Center(
+                  child: Text(
+                'Loading  Active Offers...',
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              )),
             ),
-            failure: (error) => Center(
-              child: Text(error),
-            ),
+            failure: (error) {
+              context.pop();
+
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('Failed to load active offers: $error'),
+                  backgroundColor: context.cs.error,
+                ),
+              );
+
+              return const SizedBox(); // 👈 الحل
+            },
             success: (response) {
               final offers = response.data;
 
@@ -66,13 +79,12 @@ class _CreateOrderFromOffersScreenState
                           key: ValueKey(offer.id),
                           offer: offer,
                           allOffers: offers,
-                          // ✅ احذف selected و quantity - الـ Widget يأخذهم من Cubit
                         );
                       },
                     ),
                   ),
 
-                  /// ✅ Bottom Section
+                  ///  Bottom Section
                   SingleChildScrollView(
                     child: Container(
                       color: context.appColors.cardBackground,
@@ -80,7 +92,7 @@ class _CreateOrderFromOffersScreenState
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          /// ✅ Total Price
+                          ///  Total Price
                           BlocBuilder<CreateOrderCubit, CreateOrderState>(
                             buildWhen: (previous, current) {
                               return previous.totalPrice != current.totalPrice;
@@ -174,19 +186,6 @@ class _CreateOrderFromOffersScreenState
                                   );
                                   return;
                                 }
-
-                                // ✅ جيب البيانات من الـ Cubit state
-                                final quantities = cubit.state.quantities;
-                                final totalPrice = cubit.state.totalPrice;
-                                final note = cubit.state.note;
-
-                                _submitOrder(
-                                  context,
-                                  selectedIds,
-                                  quantities,
-                                  totalPrice,
-                                  note,
-                                );
                               },
                               child: const Text('Create Order'),
                             ),
@@ -202,21 +201,5 @@ class _CreateOrderFromOffersScreenState
         },
       ),
     );
-  }
-
-  Future<void> _submitOrder(
-    BuildContext context,
-    List<int> selectedIds,
-    Map<int, int> quantities,
-    double totalPrice,
-    String note,
-  ) async {
-    print('=== Order Submission ===');
-    print('Selected Offer IDs: $selectedIds');
-    print('Quantities: $quantities');
-    print('Total Price: $totalPrice');
-    print('Note: $note');
-
-    // TODO: Call API to submit order
   }
 }

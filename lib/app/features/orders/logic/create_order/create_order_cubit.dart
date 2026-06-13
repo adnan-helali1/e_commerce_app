@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:B2B/app/features/orders/data/active_offer_item.dart';
+import 'package:B2B/app/features/orders/data/models/active_offer_item.dart';
 import 'create_order_state.dart';
 
 class CreateOrderCubit extends Cubit<CreateOrderState> {

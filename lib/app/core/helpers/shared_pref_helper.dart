@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:hive/hive.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPrefHelper {
@@ -79,5 +80,6 @@ class SharedPrefHelper {
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove(_storeNameKey);
     await prefs.remove(_ownerNameKey);
+    await Hive.deleteFromDisk();
   }
 }
