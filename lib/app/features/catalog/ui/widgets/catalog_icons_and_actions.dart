@@ -69,6 +69,8 @@ class CatalogActions extends StatelessWidget {
                 context: context,
                 builder: (dialogContext) {
                   return Dialog(
+                    backgroundColor:
+                        dialogContext.cs.surfaceVariant.withOpacity(1),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(16),
                     ),
@@ -105,7 +107,11 @@ class CatalogActions extends StatelessWidget {
                                   onPressed: () {
                                     Navigator.pop(dialogContext);
                                   },
-                                  child: const Text('Cancel'),
+                                  child: Text(
+                                    'Cancel',
+                                    style:
+                                        TextStyle(color: context.cs.onSurface),
+                                  ),
                                 ),
                               ),
 
@@ -120,12 +126,13 @@ class CatalogActions extends StatelessWidget {
                                   onPressed: () {
                                     Navigator.pop(dialogContext);
 
-                                    /// ❗ مهم: لا تستخدم getIt
                                     context.read<CatalogActionCubit>().delete(
                                           catalogId: catalogId,
                                         );
                                   },
-                                  child: const Text('Delete'),
+                                  child: Text('Delete',
+                                      style:
+                                          TextStyle(color: context.cs.surface)),
                                 ),
                               ),
                             ],
