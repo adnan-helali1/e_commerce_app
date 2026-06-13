@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part '../active_offers_summary.freezed.dart';
-part '../active_offers_summary.g.dart';
+part 'active_offers_summary.freezed.dart';
+part 'active_offers_summary.g.dart';
 
 @freezed
 abstract class ActiveOffersSummary with _$ActiveOffersSummary {

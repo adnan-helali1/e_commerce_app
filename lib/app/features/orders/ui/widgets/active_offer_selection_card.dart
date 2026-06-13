@@ -1,9 +1,9 @@
 import 'package:B2B/app/core/helpers/extensions.dart';
 import 'package:B2B/app/core/helpers/spacing.dart';
 import 'package:B2B/app/core/theme/textstyles.dart';
-import 'package:B2B/app/features/orders/data/models/active_offer_item.dart';
-import 'package:B2B/app/features/orders/logic/create_order/create_order_cubit.dart';
-import 'package:B2B/app/features/orders/logic/create_order/create_order_state.dart';
+import 'package:B2B/app/features/orders/data/models/get_active_offers/active_offer_item.dart';
+import 'package:B2B/app/features/orders/logic/ui_create_order/ui_create_order_cubit.dart';
+import 'package:B2B/app/features/orders/logic/ui_create_order/ui_create_order_state.dart';
 import 'package:B2B/app/features/orders/ui/widgets/metrics_row.dart';
 import 'package:B2B/app/features/orders/ui/widgets/quantity_textfiled.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +22,7 @@ class ActiveOfferSelectionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CreateOrderCubit, CreateOrderState>(
+    return BlocBuilder<UiCreateOrderCubit, UiCreateOrderState>(
       buildWhen: (previous, current) {
         return previous.selectedOffers[offer.id] !=
                 current.selectedOffers[offer.id] ||
@@ -92,7 +92,7 @@ class ActiveOfferSelectionCard extends StatelessWidget {
                   Checkbox(
                     value: isSelected,
                     onChanged: (value) {
-                      context.read<CreateOrderCubit>().toggleOfferSelection(
+                      context.read<UiCreateOrderCubit>().toggleOfferSelection(
                             offer.id,
                             value ?? true,
                           );

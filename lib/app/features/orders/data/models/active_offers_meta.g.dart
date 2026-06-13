@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'models/active_offers_meta.dart';
+part of 'get_active_offers/active_offers_meta.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

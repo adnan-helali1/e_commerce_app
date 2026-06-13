@@ -1,8 +1,8 @@
 import 'package:B2B/app/core/helpers/extensions.dart';
 import 'package:B2B/app/core/helpers/spacing.dart';
 import 'package:B2B/app/core/theme/textstyles.dart';
-import 'package:B2B/app/features/orders/logic/create_order/create_order_cubit.dart';
-import 'package:B2B/app/features/orders/logic/create_order/create_order_state.dart';
+import 'package:B2B/app/features/orders/logic/ui_create_order/ui_create_order_cubit.dart';
+import 'package:B2B/app/features/orders/logic/ui_create_order/ui_create_order_state.dart';
 import 'package:B2B/app/features/orders/logic/get_offers/get_active_offers_cubit.dart';
 import 'package:B2B/app/features/orders/logic/get_offers/get_active_offers_state.dart';
 
@@ -107,7 +107,7 @@ class _CreateOrderFromOffersScreenState
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             ///  Total Price
-                            BlocBuilder<CreateOrderCubit, CreateOrderState>(
+                            BlocBuilder<UiCreateOrderCubit, UiCreateOrderState>(
                               buildWhen: (previous, current) {
                                 return previous.totalPrice !=
                                     current.totalPrice;
@@ -156,7 +156,7 @@ class _CreateOrderFromOffersScreenState
                               maxLines: 1,
                               onChanged: (value) {
                                 context
-                                    .read<CreateOrderCubit>()
+                                    .read<UiCreateOrderCubit>()
                                     .updateNote(value);
                               },
                               decoration: InputDecoration(
@@ -183,7 +183,7 @@ class _CreateOrderFromOffersScreenState
                                 ),
                                 onPressed: () {
                                   final cubit =
-                                      context.read<CreateOrderCubit>();
+                                      context.read<UiCreateOrderCubit>();
 
                                   // ✅ تحقق من الأخطاء من الـ Cubit
                                   if (cubit.hasValidationErrors()) {

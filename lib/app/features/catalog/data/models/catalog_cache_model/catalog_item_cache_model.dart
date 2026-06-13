@@ -57,6 +57,7 @@ class CatalogItemCacheModel {
   /// 🔥 CACHE → DOMAIN MODEL
   CatalogItem toResponse() {
     return CatalogItem(
+      supplierProductId: id,
       id: id,
       name: name,
       supplierName: supplierName,

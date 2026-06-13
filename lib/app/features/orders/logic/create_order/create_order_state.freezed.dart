@@ -14,107 +14,25 @@ T _$identity<T>(T value) => value;
 
 /// @nodoc
 mixin _$CreateOrderState {
-  Map<int, bool> get selectedOffers;
-  Map<int, int> get quantities;
-  Map<int, String?> get quantityErrors; // ✅ نمخزن الأخطاء هنا
-  double get totalPrice;
-  String get note;
-
-  /// Create a copy of CreateOrderState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @pragma('vm:prefer-inline')
-  $CreateOrderStateCopyWith<CreateOrderState> get copyWith =>
-      _$CreateOrderStateCopyWithImpl<CreateOrderState>(
-          this as CreateOrderState, _$identity);
-
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is CreateOrderState &&
-            const DeepCollectionEquality()
-                .equals(other.selectedOffers, selectedOffers) &&
-            const DeepCollectionEquality()
-                .equals(other.quantities, quantities) &&
-            const DeepCollectionEquality()
-                .equals(other.quantityErrors, quantityErrors) &&
-            (identical(other.totalPrice, totalPrice) ||
-                other.totalPrice == totalPrice) &&
-            (identical(other.note, note) || other.note == note));
+        (other.runtimeType == runtimeType && other is CreateOrderState);
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(selectedOffers),
-      const DeepCollectionEquality().hash(quantities),
-      const DeepCollectionEquality().hash(quantityErrors),
-      totalPrice,
-      note);
+  int get hashCode => runtimeType.hashCode;
 
   @override
   String toString() {
-    return 'CreateOrderState(selectedOffers: $selectedOffers, quantities: $quantities, quantityErrors: $quantityErrors, totalPrice: $totalPrice, note: $note)';
+    return 'CreateOrderState()';
   }
 }
 
 /// @nodoc
-abstract mixin class $CreateOrderStateCopyWith<$Res> {
-  factory $CreateOrderStateCopyWith(
-          CreateOrderState value, $Res Function(CreateOrderState) _then) =
-      _$CreateOrderStateCopyWithImpl;
-  @useResult
-  $Res call(
-      {Map<int, bool> selectedOffers,
-      Map<int, int> quantities,
-      Map<int, String?> quantityErrors,
-      double totalPrice,
-      String note});
-}
-
-/// @nodoc
-class _$CreateOrderStateCopyWithImpl<$Res>
-    implements $CreateOrderStateCopyWith<$Res> {
-  _$CreateOrderStateCopyWithImpl(this._self, this._then);
-
-  final CreateOrderState _self;
-  final $Res Function(CreateOrderState) _then;
-
-  /// Create a copy of CreateOrderState
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? selectedOffers = null,
-    Object? quantities = null,
-    Object? quantityErrors = null,
-    Object? totalPrice = null,
-    Object? note = null,
-  }) {
-    return _then(_self.copyWith(
-      selectedOffers: null == selectedOffers
-          ? _self.selectedOffers
-          : selectedOffers // ignore: cast_nullable_to_non_nullable
-              as Map<int, bool>,
-      quantities: null == quantities
-          ? _self.quantities
-          : quantities // ignore: cast_nullable_to_non_nullable
-              as Map<int, int>,
-      quantityErrors: null == quantityErrors
-          ? _self.quantityErrors
-          : quantityErrors // ignore: cast_nullable_to_non_nullable
-              as Map<int, String?>,
-      totalPrice: null == totalPrice
-          ? _self.totalPrice
-          : totalPrice // ignore: cast_nullable_to_non_nullable
-              as double,
-      note: null == note
-          ? _self.note
-          : note // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
-  }
+class $CreateOrderStateCopyWith<$Res> {
+  $CreateOrderStateCopyWith(
+      CreateOrderState _, $Res Function(CreateOrderState) __);
 }
 
 /// Adds pattern-matching-related methods to [CreateOrderState].
@@ -132,14 +50,23 @@ extension CreateOrderStatePatterns on CreateOrderState {
   /// ```
 
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>(
-    TResult Function(_CreateOrderState value)? $default, {
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_Loading value)? loading,
+    TResult Function(_Success value)? success,
+    TResult Function(_Failure value)? failure,
     required TResult orElse(),
   }) {
     final _that = this;
     switch (_that) {
-      case _CreateOrderState() when $default != null:
-        return $default(_that);
+      case _Initial() when initial != null:
+        return initial(_that);
+      case _Loading() when loading != null:
+        return loading(_that);
+      case _Success() when success != null:
+        return success(_that);
+      case _Failure() when failure != null:
+        return failure(_that);
       case _:
         return orElse();
     }
@@ -159,13 +86,22 @@ extension CreateOrderStatePatterns on CreateOrderState {
   /// ```
 
   @optionalTypeArgs
-  TResult map<TResult extends Object?>(
-    TResult Function(_CreateOrderState value) $default,
-  ) {
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_Loading value) loading,
+    required TResult Function(_Success value) success,
+    required TResult Function(_Failure value) failure,
+  }) {
     final _that = this;
     switch (_that) {
-      case _CreateOrderState():
-        return $default(_that);
+      case _Initial():
+        return initial(_that);
+      case _Loading():
+        return loading(_that);
+      case _Success():
+        return success(_that);
+      case _Failure():
+        return failure(_that);
       case _:
         throw StateError('Unexpected subclass');
     }
@@ -184,13 +120,22 @@ extension CreateOrderStatePatterns on CreateOrderState {
   /// ```
 
   @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>(
-    TResult? Function(_CreateOrderState value)? $default,
-  ) {
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_Loading value)? loading,
+    TResult? Function(_Success value)? success,
+    TResult? Function(_Failure value)? failure,
+  }) {
     final _that = this;
     switch (_that) {
-      case _CreateOrderState() when $default != null:
-        return $default(_that);
+      case _Initial() when initial != null:
+        return initial(_that);
+      case _Loading() when loading != null:
+        return loading(_that);
+      case _Success() when success != null:
+        return success(_that);
+      case _Failure() when failure != null:
+        return failure(_that);
       case _:
         return null;
     }
@@ -209,17 +154,23 @@ extension CreateOrderStatePatterns on CreateOrderState {
   /// ```
 
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>(
-    TResult Function(Map<int, bool> selectedOffers, Map<int, int> quantities,
-            Map<int, String?> quantityErrors, double totalPrice, String note)?
-        $default, {
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(CreateOrderResponse response)? success,
+    TResult Function(String error)? failure,
     required TResult orElse(),
   }) {
     final _that = this;
     switch (_that) {
-      case _CreateOrderState() when $default != null:
-        return $default(_that.selectedOffers, _that.quantities,
-            _that.quantityErrors, _that.totalPrice, _that.note);
+      case _Initial() when initial != null:
+        return initial();
+      case _Loading() when loading != null:
+        return loading();
+      case _Success() when success != null:
+        return success(_that.response);
+      case _Failure() when failure != null:
+        return failure(_that.error);
       case _:
         return orElse();
     }
@@ -239,16 +190,22 @@ extension CreateOrderStatePatterns on CreateOrderState {
   /// ```
 
   @optionalTypeArgs
-  TResult when<TResult extends Object?>(
-    TResult Function(Map<int, bool> selectedOffers, Map<int, int> quantities,
-            Map<int, String?> quantityErrors, double totalPrice, String note)
-        $default,
-  ) {
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() loading,
+    required TResult Function(CreateOrderResponse response) success,
+    required TResult Function(String error) failure,
+  }) {
     final _that = this;
     switch (_that) {
-      case _CreateOrderState():
-        return $default(_that.selectedOffers, _that.quantities,
-            _that.quantityErrors, _that.totalPrice, _that.note);
+      case _Initial():
+        return initial();
+      case _Loading():
+        return loading();
+      case _Success():
+        return success(_that.response);
+      case _Failure():
+        return failure(_that.error);
       case _:
         throw StateError('Unexpected subclass');
     }
@@ -267,16 +224,22 @@ extension CreateOrderStatePatterns on CreateOrderState {
   /// ```
 
   @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>(
-    TResult? Function(Map<int, bool> selectedOffers, Map<int, int> quantities,
-            Map<int, String?> quantityErrors, double totalPrice, String note)?
-        $default,
-  ) {
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? loading,
+    TResult? Function(CreateOrderResponse response)? success,
+    TResult? Function(String error)? failure,
+  }) {
     final _that = this;
     switch (_that) {
-      case _CreateOrderState() when $default != null:
-        return $default(_that.selectedOffers, _that.quantities,
-            _that.quantityErrors, _that.totalPrice, _that.note);
+      case _Initial() when initial != null:
+        return initial();
+      case _Loading() when loading != null:
+        return loading();
+      case _Success() when success != null:
+        return success(_that.response);
+      case _Failure() when failure != null:
+        return failure(_that.error);
       case _:
         return null;
     }
@@ -285,146 +248,176 @@ extension CreateOrderStatePatterns on CreateOrderState {
 
 /// @nodoc
 
-class _CreateOrderState implements CreateOrderState {
-  const _CreateOrderState(
-      {final Map<int, bool> selectedOffers = const {},
-      final Map<int, int> quantities = const {},
-      final Map<int, String?> quantityErrors = const {},
-      this.totalPrice = 0,
-      this.note = ''})
-      : _selectedOffers = selectedOffers,
-        _quantities = quantities,
-        _quantityErrors = quantityErrors;
+class _Initial implements CreateOrderState {
+  const _Initial();
 
-  final Map<int, bool> _selectedOffers;
   @override
-  @JsonKey()
-  Map<int, bool> get selectedOffers {
-    if (_selectedOffers is EqualUnmodifiableMapView) return _selectedOffers;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(_selectedOffers);
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _Initial);
   }
 
-  final Map<int, int> _quantities;
   @override
-  @JsonKey()
-  Map<int, int> get quantities {
-    if (_quantities is EqualUnmodifiableMapView) return _quantities;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(_quantities);
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  String toString() {
+    return 'CreateOrderState.initial()';
+  }
+}
+
+/// @nodoc
+
+class _Loading implements CreateOrderState {
+  const _Loading();
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _Loading);
   }
 
-  final Map<int, String?> _quantityErrors;
   @override
-  @JsonKey()
-  Map<int, String?> get quantityErrors {
-    if (_quantityErrors is EqualUnmodifiableMapView) return _quantityErrors;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(_quantityErrors);
-  }
+  int get hashCode => runtimeType.hashCode;
 
-// ✅ نمخزن الأخطاء هنا
   @override
-  @JsonKey()
-  final double totalPrice;
-  @override
-  @JsonKey()
-  final String note;
+  String toString() {
+    return 'CreateOrderState.loading()';
+  }
+}
+
+/// @nodoc
+
+class _Success implements CreateOrderState {
+  const _Success(this.response);
+
+  final CreateOrderResponse response;
 
   /// Create a copy of CreateOrderState
   /// with the given fields replaced by the non-null parameter values.
-  @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
-  _$CreateOrderStateCopyWith<_CreateOrderState> get copyWith =>
-      __$CreateOrderStateCopyWithImpl<_CreateOrderState>(this, _$identity);
+  _$SuccessCopyWith<_Success> get copyWith =>
+      __$SuccessCopyWithImpl<_Success>(this, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _CreateOrderState &&
-            const DeepCollectionEquality()
-                .equals(other._selectedOffers, _selectedOffers) &&
-            const DeepCollectionEquality()
-                .equals(other._quantities, _quantities) &&
-            const DeepCollectionEquality()
-                .equals(other._quantityErrors, _quantityErrors) &&
-            (identical(other.totalPrice, totalPrice) ||
-                other.totalPrice == totalPrice) &&
-            (identical(other.note, note) || other.note == note));
+            other is _Success &&
+            (identical(other.response, response) ||
+                other.response == response));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      const DeepCollectionEquality().hash(_selectedOffers),
-      const DeepCollectionEquality().hash(_quantities),
-      const DeepCollectionEquality().hash(_quantityErrors),
-      totalPrice,
-      note);
+  int get hashCode => Object.hash(runtimeType, response);
 
   @override
   String toString() {
-    return 'CreateOrderState(selectedOffers: $selectedOffers, quantities: $quantities, quantityErrors: $quantityErrors, totalPrice: $totalPrice, note: $note)';
+    return 'CreateOrderState.success(response: $response)';
   }
 }
 
 /// @nodoc
-abstract mixin class _$CreateOrderStateCopyWith<$Res>
+abstract mixin class _$SuccessCopyWith<$Res>
     implements $CreateOrderStateCopyWith<$Res> {
-  factory _$CreateOrderStateCopyWith(
-          _CreateOrderState value, $Res Function(_CreateOrderState) _then) =
-      __$CreateOrderStateCopyWithImpl;
-  @override
+  factory _$SuccessCopyWith(_Success value, $Res Function(_Success) _then) =
+      __$SuccessCopyWithImpl;
   @useResult
-  $Res call(
-      {Map<int, bool> selectedOffers,
-      Map<int, int> quantities,
-      Map<int, String?> quantityErrors,
-      double totalPrice,
-      String note});
+  $Res call({CreateOrderResponse response});
+
+  $CreateOrderResponseCopyWith<$Res> get response;
 }
 
 /// @nodoc
-class __$CreateOrderStateCopyWithImpl<$Res>
-    implements _$CreateOrderStateCopyWith<$Res> {
-  __$CreateOrderStateCopyWithImpl(this._self, this._then);
+class __$SuccessCopyWithImpl<$Res> implements _$SuccessCopyWith<$Res> {
+  __$SuccessCopyWithImpl(this._self, this._then);
 
-  final _CreateOrderState _self;
-  final $Res Function(_CreateOrderState) _then;
+  final _Success _self;
+  final $Res Function(_Success) _then;
+
+  /// Create a copy of CreateOrderState
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? response = null,
+  }) {
+    return _then(_Success(
+      null == response
+          ? _self.response
+          : response // ignore: cast_nullable_to_non_nullable
+              as CreateOrderResponse,
+    ));
+  }
 
   /// Create a copy of CreateOrderState
   /// with the given fields replaced by the non-null parameter values.
   @override
   @pragma('vm:prefer-inline')
+  $CreateOrderResponseCopyWith<$Res> get response {
+    return $CreateOrderResponseCopyWith<$Res>(_self.response, (value) {
+      return _then(_self.copyWith(response: value));
+    });
+  }
+}
+
+/// @nodoc
+
+class _Failure implements CreateOrderState {
+  const _Failure({required this.error});
+
+  final String error;
+
+  /// Create a copy of CreateOrderState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$FailureCopyWith<_Failure> get copyWith =>
+      __$FailureCopyWithImpl<_Failure>(this, _$identity);
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _Failure &&
+            (identical(other.error, error) || other.error == error));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, error);
+
+  @override
+  String toString() {
+    return 'CreateOrderState.failure(error: $error)';
+  }
+}
+
+/// @nodoc
+abstract mixin class _$FailureCopyWith<$Res>
+    implements $CreateOrderStateCopyWith<$Res> {
+  factory _$FailureCopyWith(_Failure value, $Res Function(_Failure) _then) =
+      __$FailureCopyWithImpl;
+  @useResult
+  $Res call({String error});
+}
+
+/// @nodoc
+class __$FailureCopyWithImpl<$Res> implements _$FailureCopyWith<$Res> {
+  __$FailureCopyWithImpl(this._self, this._then);
+
+  final _Failure _self;
+  final $Res Function(_Failure) _then;
+
+  /// Create a copy of CreateOrderState
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
   $Res call({
-    Object? selectedOffers = null,
-    Object? quantities = null,
-    Object? quantityErrors = null,
-    Object? totalPrice = null,
-    Object? note = null,
+    Object? error = null,
   }) {
-    return _then(_CreateOrderState(
-      selectedOffers: null == selectedOffers
-          ? _self._selectedOffers
-          : selectedOffers // ignore: cast_nullable_to_non_nullable
-              as Map<int, bool>,
-      quantities: null == quantities
-          ? _self._quantities
-          : quantities // ignore: cast_nullable_to_non_nullable
-              as Map<int, int>,
-      quantityErrors: null == quantityErrors
-          ? _self._quantityErrors
-          : quantityErrors // ignore: cast_nullable_to_non_nullable
-              as Map<int, String?>,
-      totalPrice: null == totalPrice
-          ? _self.totalPrice
-          : totalPrice // ignore: cast_nullable_to_non_nullable
-              as double,
-      note: null == note
-          ? _self.note
-          : note // ignore: cast_nullable_to_non_nullable
+    return _then(_Failure(
+      error: null == error
+          ? _self.error
+          : error // ignore: cast_nullable_to_non_nullable
               as String,
     ));
   }

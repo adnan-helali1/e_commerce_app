@@ -1,6 +1,6 @@
 import 'package:B2B/app/core/networking/api_error_handler.dart';
 import 'package:B2B/app/core/networking/api_result.dart';
-import 'package:B2B/app/features/orders/data/models/active_offers_response.dart';
+import 'package:B2B/app/features/orders/data/models/get_active_offers/active_offers_response.dart';
 import 'package:B2B/app/features/orders/data/data_sources/get_active_offers_remote_datasource.dart';
 
 class GetActiveOffersRepo {

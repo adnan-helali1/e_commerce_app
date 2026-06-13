@@ -1,14 +1,20 @@
+import 'package:B2B/app/features/offers/data/models/add_offer_models/add_offer_response.dart';
+import 'package:B2B/app/features/orders/data/models/create_order/create_order_response.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'create_order_state.freezed.dart';
 
 @freezed
-abstract class CreateOrderState with _$CreateOrderState {
-  const factory CreateOrderState({
-    @Default({}) Map<int, bool> selectedOffers,
-    @Default({}) Map<int, int> quantities,
-    @Default({}) Map<int, String?> quantityErrors, // ✅ نمخزن الأخطاء هنا
-    @Default(0) double totalPrice,
-    @Default('') String note,
-  }) = _CreateOrderState;
+class CreateOrderState with _$CreateOrderState {
+  const factory CreateOrderState.initial() = _Initial;
+
+  const factory CreateOrderState.loading() = _Loading;
+
+  const factory CreateOrderState.success(
+    CreateOrderResponse response,
+  ) = _Success;
+
+  const factory CreateOrderState.failure({
+    required String error,
+  }) = _Failure;
 }

@@ -1,5 +1,5 @@
 import 'package:B2B/app/core/widgets/offer_metric.dart';
-import 'package:B2B/app/features/orders/data/models/active_offer_item.dart';
+import 'package:B2B/app/features/orders/data/models/get_active_offers/active_offer_item.dart';
 import 'package:flutter/material.dart';
 
 class MetricsRows extends StatelessWidget {

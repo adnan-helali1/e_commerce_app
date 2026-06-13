@@ -1,6 +1,6 @@
 import 'package:B2B/app/core/helpers/extensions.dart';
-import 'package:B2B/app/features/orders/data/models/active_offer_item.dart';
-import 'package:B2B/app/features/orders/logic/create_order/create_order_cubit.dart';
+import 'package:B2B/app/features/orders/data/models/get_active_offers/active_offer_item.dart';
+import 'package:B2B/app/features/orders/logic/ui_create_order/ui_create_order_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -98,7 +98,7 @@ class _QuantityTextFieldState extends State<QuantityTextField> {
         ),
         onChanged: (value) {
           final qty = int.tryParse(value) ?? 0;
-          context.read<CreateOrderCubit>().updateQuantity(
+          context.read<UiCreateOrderCubit>().updateQuantity(
                 widget.offer.id,
                 qty,
                 widget.allOffers,
