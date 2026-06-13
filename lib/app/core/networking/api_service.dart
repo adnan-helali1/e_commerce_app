@@ -11,6 +11,7 @@ import 'package:B2B/app/features/offers/data/models/offers_response.dart';
 import 'package:B2B/app/features/orders/data/models/get_active_offers/active_offers_response.dart';
 import 'package:B2B/app/features/orders/data/models/create_order/create_order_request.dart';
 import 'package:B2B/app/features/orders/data/models/create_order/create_order_response.dart';
+import 'package:B2B/app/features/orders/data/models/get_orders/models/orders_response.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
@@ -73,5 +74,11 @@ abstract class ApiService {
   @POST(ApiConstants.orders)
   Future<CreateOrderResponse> createOrder(
     @Body() Map<String, dynamic> request,
+  );
+
+  @GET(ApiConstants.orders)
+  Future<OrdersResponse> getOrders(
+    @Query('status') String status,
+    @Query('per_page') int perPage,
   );
 }

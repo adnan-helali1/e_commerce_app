@@ -7,6 +7,7 @@ class CacheKeys {
 
   static const String offersBox = 'offers_box';
   static const String catalogBox = 'catalog_box';
+  static const String ordersBox = 'orders_box'; // ✅ أضف هذا
 
   static const Duration homeDashboardTtl = Duration(minutes: 5);
 }
