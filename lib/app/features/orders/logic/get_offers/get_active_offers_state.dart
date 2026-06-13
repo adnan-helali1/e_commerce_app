@@ -1,4 +1,3 @@
-import 'package:B2B/app/features/catalog/data/models/catalog_response.dart';
 import 'package:B2B/app/features/orders/data/active_offers_response.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 

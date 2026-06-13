@@ -1,9 +1,11 @@
 import 'package:B2B/app/core/helpers/extensions.dart';
 import 'package:B2B/app/core/helpers/spacing.dart';
 import 'package:B2B/app/core/theme/textstyles.dart';
-import 'package:B2B/app/features/orders/data/active_offer_item.dart';
-import 'package:B2B/app/features/orders/logic/cubit/get_active_offers_cubit.dart';
-import 'package:B2B/app/features/orders/logic/cubit/get_active_offers_state.dart';
+import 'package:B2B/app/features/orders/logic/create_order/create_order_cubit.dart';
+import 'package:B2B/app/features/orders/logic/create_order/create_order_state.dart';
+import 'package:B2B/app/features/orders/logic/get_offers/get_active_offers_cubit.dart';
+import 'package:B2B/app/features/orders/logic/get_offers/get_active_offers_state.dart';
+
 import 'package:B2B/app/features/orders/ui/widgets/active_offer_selection_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,32 +21,19 @@ class CreateOrderFromOffersScreen extends StatefulWidget {
 
 class _CreateOrderFromOffersScreenState
     extends State<CreateOrderFromOffersScreen> {
-  final TextEditingController noteController = TextEditingController();
+  late TextEditingController noteController;
 
-  final Map<int, bool> selectedOffers = {};
-  final Map<int, TextEditingController> quantityControllers = {};
   @override
   void initState() {
     super.initState();
-
+    noteController = TextEditingController();
     context.read<GetActiveOffersCubit>().getActiveOffers();
   }
 
-  double calculateTotalPrice(List<ActiveOfferItem> offers) {
-    double total = 0;
-
-    for (final offer in offers) {
-      if (!(selectedOffers[offer.id] ?? true)) continue;
-
-      final quantity = int.tryParse(
-            quantityControllers[offer.id]?.text ?? '1',
-          ) ??
-          1;
-
-      total += quantity * offer.buyPrice;
-    }
-
-    return total;
+  @override
+  void dispose() {
+    noteController.dispose();
+    super.dispose();
   }
 
   @override
@@ -63,104 +52,171 @@ class _CreateOrderFromOffersScreenState
             success: (response) {
               final offers = response.data;
 
-              for (final offer in offers) {
-                selectedOffers.putIfAbsent(
-                  offer.id,
-                  () => true,
-                );
-              }
-
-              return Padding(
-                padding: EdgeInsets.all(16.w),
-                child: Column(
-                  children: [
-                    Expanded(
-                      child: ListView.builder(
-                        itemCount: offers.length,
-                        itemBuilder: (_, index) {
-                          final offer = offers[index];
-                          quantityControllers.putIfAbsent(
-                            offer.id,
-                            () => TextEditingController(text: '1'),
-                          );
-                          return ActiveOfferSelectionCard(
-                            offer: offer,
-                            selected: selectedOffers[offer.id] ?? true,
-                            quantityController: quantityControllers[offer.id]!,
-                            onChanged: (value) {
-                              setState(() {
-                                selectedOffers[offer.id] = value ?? true;
-                              });
-                            },
-                          );
-                        },
-                      ),
-                    ),
-                    verticalSpace(16),
-                    Container(
-                      width: double.infinity,
+              return Column(
+                children: [
+                  /// ✅ ListView
+                  Expanded(
+                    child: ListView.builder(
                       padding: EdgeInsets.all(16.w),
-                      decoration: BoxDecoration(
-                        color: context.appColors.cardBackground,
-                        borderRadius: BorderRadius.circular(12.r),
-                        border: Border.all(
-                          color: context.appColors.borderColor,
-                        ),
-                      ),
-                      child: Row(
+                      itemCount: offers.length,
+                      itemBuilder: (_, index) {
+                        final offer = offers[index];
+
+                        return ActiveOfferSelectionCard(
+                          key: ValueKey(offer.id),
+                          offer: offer,
+                          allOffers: offers,
+                          // ✅ احذف selected و quantity - الـ Widget يأخذهم من Cubit
+                        );
+                      },
+                    ),
+                  ),
+
+                  /// ✅ Bottom Section
+                  SingleChildScrollView(
+                    child: Container(
+                      color: context.appColors.cardBackground,
+                      padding: EdgeInsets.all(16.w),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
                         children: [
-                          Text(
-                            'Total Order Price',
-                            style: TextStyles.button(context).copyWith(
-                              color: context.cs.primary,
+                          /// ✅ Total Price
+                          BlocBuilder<CreateOrderCubit, CreateOrderState>(
+                            buildWhen: (previous, current) {
+                              return previous.totalPrice != current.totalPrice;
+                            },
+                            builder: (context, state) {
+                              return Container(
+                                width: double.infinity,
+                                padding: EdgeInsets.all(16.w),
+                                decoration: BoxDecoration(
+                                  color: context.appColors.cardBackground,
+                                  borderRadius: BorderRadius.circular(12.r),
+                                  border: Border.all(
+                                    color: context.appColors.borderColor,
+                                  ),
+                                ),
+                                child: Row(
+                                  children: [
+                                    Text(
+                                      'Total Order Price',
+                                      style:
+                                          TextStyles.button(context).copyWith(
+                                        color: context.cs.primary,
+                                      ),
+                                    ),
+                                    const Spacer(),
+                                    Text(
+                                      '${state.totalPrice.toStringAsFixed(2)} \$',
+                                      style:
+                                          TextStyles.button(context).copyWith(
+                                        color: context.cs.primary,
+                                        fontSize: 16.sp,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                          ),
+
+                          verticalSpace(16),
+
+                          /// ✅ Note TextField
+                          TextFormField(
+                            controller: noteController,
+                            maxLines: 3,
+                            onChanged: (value) {
+                              context
+                                  .read<CreateOrderCubit>()
+                                  .updateNote(value);
+                            },
+                            decoration: InputDecoration(
+                              hintText: 'Order note',
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8.r),
+                              ),
                             ),
                           ),
-                          const Spacer(),
-                          Text(
-                            calculateTotalPrice(offers).toStringAsFixed(2),
-                            style: TextStyles.button(context).copyWith(
-                              color: context.cs.primary,
+
+                          verticalSpace(16),
+
+                          /// ✅ Submit Button
+                          SizedBox(
+                            width: double.infinity,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                final cubit = context.read<CreateOrderCubit>();
+
+                                // ✅ تحقق من الأخطاء من الـ Cubit
+                                if (cubit.hasValidationErrors()) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: const Text(
+                                        'Please fix the quantity errors before submitting',
+                                      ),
+                                      backgroundColor: context.cs.error,
+                                    ),
+                                  );
+                                  return;
+                                }
+
+                                final selectedIds = cubit.getSelectedOfferIds();
+
+                                if (selectedIds.isEmpty) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                      content: Text(
+                                        'Please select at least one offer',
+                                      ),
+                                    ),
+                                  );
+                                  return;
+                                }
+
+                                // ✅ جيب البيانات من الـ Cubit state
+                                final quantities = cubit.state.quantities;
+                                final totalPrice = cubit.state.totalPrice;
+                                final note = cubit.state.note;
+
+                                _submitOrder(
+                                  context,
+                                  selectedIds,
+                                  quantities,
+                                  totalPrice,
+                                  note,
+                                );
+                              },
+                              child: const Text('Create Order'),
                             ),
                           ),
                         ],
                       ),
                     ),
-                    verticalSpace(16),
-                    TextFormField(
-                      controller: noteController,
-                      maxLines: 3,
-                      decoration: InputDecoration(
-                        hintText: 'Order note',
-                      ),
-                    ),
-                    verticalSpace(16),
-                    SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          final selectedIds = selectedOffers.entries
-                              .where(
-                                (e) => e.value,
-                              )
-                              .map(
-                                (e) => e.key,
-                              )
-                              .toList();
-
-                          /// submit order
-                        },
-                        child: const Text(
-                          'Create Order',
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               );
             },
           );
         },
       ),
     );
+  }
+
+  Future<void> _submitOrder(
+    BuildContext context,
+    List<int> selectedIds,
+    Map<int, int> quantities,
+    double totalPrice,
+    String note,
+  ) async {
+    print('=== Order Submission ===');
+    print('Selected Offer IDs: $selectedIds');
+    print('Quantities: $quantities');
+    print('Total Price: $totalPrice');
+    print('Note: $note');
+
+    // TODO: Call API to submit order
   }
 }
