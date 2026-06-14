@@ -2,6 +2,7 @@ import 'package:B2B/app/core/helpers/spacing.dart';
 import 'package:B2B/app/core/theme/textstyles.dart';
 import 'package:B2B/app/features/orders/logic/get_orders/orders_cubit.dart';
 import 'package:B2B/app/features/orders/logic/get_orders/orders_state.dart';
+import 'package:B2B/app/features/orders/ui/widgets/orders_result_summary.dart';
 import 'package:B2B/app/features/orders/ui/widgets/purchase_order_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -29,7 +30,7 @@ class _GetOrdersBlocBuilderState extends State<GetOrdersBlocBuilder>
           orElse: () => const SizedBox.shrink(),
           success: (response) {
             final orders = response.data.data; // List<OrderModel>
-
+            final pagnedOrders = response; // PaginatedResponse<OrderModel>
             if (orders.isEmpty) {
               return Center(
                 child: Padding(
@@ -42,8 +43,10 @@ class _GetOrdersBlocBuilderState extends State<GetOrdersBlocBuilder>
               );
             }
 
-            return Column(
-              children: List.generate(
+            return Column(children: [
+              OrdersResultSummary(order: pagnedOrders),
+              ...List.generate(
+                growable: true,
                 orders.length,
                 (index) => PurchaseOrderCard(
                   order: orders[index],
@@ -56,7 +59,7 @@ class _GetOrdersBlocBuilderState extends State<GetOrdersBlocBuilder>
                   },
                 ),
               ),
-            );
+            ]);
           },
           failure: (error) => Center(
             child: Padding(

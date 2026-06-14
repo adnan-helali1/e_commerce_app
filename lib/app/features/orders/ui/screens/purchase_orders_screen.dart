@@ -90,11 +90,11 @@ class _PurchaseOrdersScreenState extends State<PurchaseOrdersScreen>
                           context.read<OrdersCubit>().refresh();
                         }
                       },
-                      icon: Icon(Icons.add, size: 22.sp),
+                      icon: Icon(Icons.add, size: 25.sp),
                       label: Text(
                         '  Create New Order',
                         style: TextStyles.button(context)
-                            .copyWith(fontSize: 14.sp),
+                            .copyWith(fontSize: 19.sp),
                       ),
                     ),
                   ),
@@ -102,7 +102,6 @@ class _PurchaseOrdersScreenState extends State<PurchaseOrdersScreen>
                 verticalSpace(12),
                 OrdersFilterBar(controller: _tabController),
                 verticalSpace(12),
-                const OrdersResultSummary(),
                 verticalSpace(12),
                 GetOrdersBlocBuilder(
                   tabController: _tabController,

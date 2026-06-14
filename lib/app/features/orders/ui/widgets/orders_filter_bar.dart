@@ -146,11 +146,11 @@ class _OrdersFilterBarState extends State<OrdersFilterBar> {
                             Text(
                               '${tab['label']}',
                               style: TextStyles.label(context).copyWith(
-                                fontSize: 12.sp,
+                                fontSize: 13.sp,
                                 color: isSelected
                                     ? context.cs.onPrimary
                                     : context.cs.onSurface,
-                                fontWeight: FontWeight.w500,
+                                fontWeight: FontWeight.w600,
                               ),
                             ),
                             horizontalSpace(4),
@@ -168,11 +168,11 @@ class _OrdersFilterBarState extends State<OrdersFilterBar> {
                               child: Text(
                                 '${tab['count']}',
                                 style: TextStyles.label(context).copyWith(
-                                  fontSize: 11.sp,
+                                  fontSize: 13.sp,
                                   color: isSelected
                                       ? context.cs.onPrimary
                                       : context.cs.onSurfaceVariant,
-                                  fontWeight: FontWeight.w600,
+                                  fontWeight: FontWeight.w700,
                                 ),
                               ),
                             ),
