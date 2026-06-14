@@ -7,8 +7,11 @@ class OrdersLocalDataSource {
 
   OrdersLocalDataSource(this._cache);
 
-  Future<OrdersCacheModel?> read({required int page}) {
-    final key = _buildKey(page: page);
+  Future<OrdersCacheModel?> read({
+    required int perPage,
+    required String status,
+  }) {
+    final key = _buildKey(perPage: perPage, status: status);
 
     return _cache.read(
       boxKey: CacheKeys.ordersBox,
@@ -17,8 +20,12 @@ class OrdersLocalDataSource {
     );
   }
 
-  Future<void> save(OrdersCacheModel model, {required int page}) {
-    final key = _buildKey(page: page);
+  Future<void> save(
+    OrdersCacheModel model, {
+    required int perPage,
+    required String status,
+  }) {
+    final key = _buildKey(perPage: perPage, status: status);
 
     return _cache.save(
       boxKey: CacheKeys.ordersBox,
@@ -27,8 +34,11 @@ class OrdersLocalDataSource {
     );
   }
 
-  Future<void> clear({required int page}) {
-    final key = _buildKey(page: page);
+  Future<void> clear({
+    required int perPage,
+    required String status,
+  }) {
+    final key = _buildKey(perPage: perPage, status: status);
 
     return _cache.clear(
       boxKey: CacheKeys.ordersBox,
@@ -36,5 +46,6 @@ class OrdersLocalDataSource {
     );
   }
 
-  String _buildKey({required int page}) => 'orders_page_$page';
+  String _buildKey({required int perPage, required String status}) =>
+      'orders_perPage_${perPage}_status_$status';
 }

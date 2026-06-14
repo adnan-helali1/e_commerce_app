@@ -29,7 +29,7 @@ class CreateOrderSection extends StatelessWidget {
                 backgroundColor: Colors.green,
               ),
             );
-            context.pop();
+            Navigator.pop(context, true);
           },
           failure: (error) {
             ScaffoldMessenger.of(context).showSnackBar(

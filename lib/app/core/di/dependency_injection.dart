@@ -32,10 +32,14 @@ import 'package:B2B/app/features/offers/logic/offers_cubit/offers_cubit.dart';
 import 'package:B2B/app/features/orders/data/data_sources/create_order_remote_data_source.dart';
 import 'package:B2B/app/features/orders/data/data_sources/get_active_offers_remote_datasource.dart';
 import 'package:B2B/app/features/orders/data/data_sources/get_orders/get_orders_local_data_source.dart';
+import 'package:B2B/app/features/orders/data/data_sources/get_orders/get_orders_remote_data_source.dart';
 import 'package:B2B/app/features/orders/data/models/get_orders/cache/orders_cache_model.dart';
 import 'package:B2B/app/features/orders/data/repos/create_order_repo.dart';
 import 'package:B2B/app/features/orders/data/repos/get_active_offers_repo.dart';
+import 'package:B2B/app/features/orders/data/repos/get_orders/get_orders_imp.dart';
+import 'package:B2B/app/features/orders/data/repos/get_orders/get_orders_repo.dart';
 import 'package:B2B/app/features/orders/logic/create_order/create_order_cubit.dart';
+import 'package:B2B/app/features/orders/logic/get_orders/orders_cubit.dart';
 import 'package:B2B/app/features/orders/logic/ui_create_order/ui_create_order_cubit.dart';
 import 'package:B2B/app/features/orders/logic/get_offers/get_active_offers_cubit.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -127,6 +131,13 @@ Future<void> setupGetIt() async {
   getIt.registerLazySingleton(
     () => CacheDataSource<OrdersCacheModel>(getIt()),
   );
+
+  //get orders
+
+  getIt.registerLazySingleton(() => GetOrdersRemoteDataSource(getIt()));
   getIt.registerLazySingleton(() => OrdersLocalDataSource(getIt()));
-  // getIt.registerLazySingleton(() => OrdersRemoteDataSource(getIt()));
+  getIt.registerLazySingleton<OrdersRepo>(
+    () => OrdersRepoImpl(getIt(), getIt()),
+  );
+  getIt.registerFactory(() => OrdersCubit(getIt()));
 }

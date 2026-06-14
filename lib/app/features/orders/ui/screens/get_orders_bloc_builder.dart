@@ -1,0 +1,84 @@
+import 'package:B2B/app/core/helpers/spacing.dart';
+import 'package:B2B/app/core/theme/textstyles.dart';
+import 'package:B2B/app/features/orders/logic/get_orders/orders_cubit.dart';
+import 'package:B2B/app/features/orders/logic/get_orders/orders_state.dart';
+import 'package:B2B/app/features/orders/ui/widgets/purchase_order_card.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+class GetOrdersBlocBuilder extends StatefulWidget {
+  final TabController tabController;
+
+  const GetOrdersBlocBuilder({super.key, required this.tabController});
+
+  @override
+  State<GetOrdersBlocBuilder> createState() => _GetOrdersBlocBuilderState();
+}
+
+class _GetOrdersBlocBuilderState extends State<GetOrdersBlocBuilder>
+    with SingleTickerProviderStateMixin {
+  final Map<int, bool> _expandedStates = {};
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<OrdersCubit, OrdersState>(
+      builder: (context, state) {
+        return state.maybeWhen(
+          orElse: () => const SizedBox.shrink(),
+          success: (response) {
+            final orders = response.data.data; // List<OrderModel>
+
+            if (orders.isEmpty) {
+              return Center(
+                child: Padding(
+                  padding: EdgeInsets.all(32.r),
+                  child: Text(
+                    'No orders found',
+                    style: TextStyles.font18blackBold(context),
+                  ),
+                ),
+              );
+            }
+
+            return Column(
+              children: List.generate(
+                orders.length,
+                (index) => PurchaseOrderCard(
+                  order: orders[index],
+                  isExpanded: _expandedStates[index] ?? false,
+                  onTap: () {
+                    setState(() {
+                      _expandedStates[index] =
+                          !(_expandedStates[index] ?? false);
+                    });
+                  },
+                ),
+              ),
+            );
+          },
+          failure: (error) => Center(
+            child: Padding(
+              padding: EdgeInsets.all(32.r),
+              child: Column(
+                children: [
+                  Text(
+                    error,
+                    style: TextStyles.font18blackBold(context),
+                    textAlign: TextAlign.center,
+                  ),
+                  verticalSpace(12),
+                  TextButton(
+                    onPressed: () => context.read<OrdersCubit>().load(),
+                    child: const Text('Try Again'),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
