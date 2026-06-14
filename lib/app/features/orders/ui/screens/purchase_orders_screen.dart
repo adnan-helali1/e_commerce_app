@@ -5,7 +5,6 @@ import 'package:B2B/app/core/theme/textstyles.dart';
 import 'package:B2B/app/features/orders/logic/get_orders/orders_cubit.dart';
 import 'package:B2B/app/features/orders/ui/screens/get_orders_bloc_builder.dart';
 import 'package:B2B/app/features/orders/ui/widgets/orders_filter_bar.dart';
-import 'package:B2B/app/features/orders/ui/widgets/orders_result_summary.dart';
 import 'package:B2B/app/features/orders/ui/widgets/orders_summary_header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

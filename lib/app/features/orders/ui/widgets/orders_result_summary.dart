@@ -17,8 +17,9 @@ class OrdersResultSummary extends StatelessWidget {
         children: [
           Expanded(
             child: Text(
-              '${order.data.total} orders found',
-              style: TextStyles.note(context).copyWith(fontSize: 12.sp),
+              '${order.data.total} orders found\n',
+              style: TextStyles.note(context)
+                  .copyWith(fontSize: 14.sp, fontWeight: FontWeight.w700),
             ),
           ),
           Text(
