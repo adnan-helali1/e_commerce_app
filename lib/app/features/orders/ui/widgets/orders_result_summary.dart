@@ -1,10 +1,13 @@
 import 'package:B2B/app/core/helpers/extensions.dart';
 import 'package:B2B/app/core/theme/textstyles.dart';
+import 'package:B2B/app/features/orders/data/models/get_orders/models/orders_response.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class OrdersResultSummary extends StatelessWidget {
-  const OrdersResultSummary({super.key});
+  final OrdersResponse order;
+
+  const OrdersResultSummary({super.key, required this.order});
 
   @override
   Widget build(BuildContext context) {
@@ -14,15 +17,16 @@ class OrdersResultSummary extends StatelessWidget {
         children: [
           Expanded(
             child: Text(
-              '3 orders found',
-              style: TextStyles.note(context).copyWith(fontSize: 12.sp),
+              '${order.data.total} orders found\n',
+              style: TextStyles.note(context)
+                  .copyWith(fontSize: 14.sp, fontWeight: FontWeight.w700),
             ),
           ),
           Text(
-            'Total: \$712.00',
+            'Total: \$7${order.summery.total.toStringAsFixed(2)}\n',
             style: TextStyles.label(context).copyWith(
               color: context.cs.primary,
-              fontSize: 12.sp,
+              fontSize: 13.sp,
             ),
           ),
         ],

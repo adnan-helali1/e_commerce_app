@@ -11,6 +11,7 @@ OrdersResponse _$OrdersResponseFromJson(Map<String, dynamic> json) =>
       data: OrdersPaginatedData.fromJson(json['data'] as Map<String, dynamic>),
       message: json['message'] as String,
       errors: json['errors'],
+      summery: SummeryModel.fromJson(json['summery'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$OrdersResponseToJson(OrdersResponse instance) =>
@@ -18,4 +19,5 @@ Map<String, dynamic> _$OrdersResponseToJson(OrdersResponse instance) =>
       'data': instance.data.toJson(),
       'message': instance.message,
       'errors': instance.errors,
+      'summery': instance.summery.toJson(),
     };

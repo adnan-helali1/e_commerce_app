@@ -7,7 +7,9 @@ import 'package:bloc/bloc.dart';
 class CreateOrderCubit extends Cubit<CreateOrderState> {
   final CreateOrderRepo _repo;
 
-  CreateOrderCubit(this._repo) : super(const CreateOrderState.initial());
+  CreateOrderCubit(
+    this._repo,
+  ) : super(const CreateOrderState.initial());
 
   Future<void> createOrder({
     required List<OrderItemRequest> items,

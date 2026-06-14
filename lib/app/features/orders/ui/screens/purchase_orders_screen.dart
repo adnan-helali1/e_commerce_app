@@ -2,12 +2,12 @@ import 'package:B2B/app/core/helpers/extensions.dart';
 import 'package:B2B/app/core/helpers/spacing.dart';
 import 'package:B2B/app/core/routing/routes.dart';
 import 'package:B2B/app/core/theme/textstyles.dart';
+import 'package:B2B/app/features/orders/logic/get_orders/orders_cubit.dart';
+import 'package:B2B/app/features/orders/ui/screens/get_orders_bloc_builder.dart';
 import 'package:B2B/app/features/orders/ui/widgets/orders_filter_bar.dart';
-import 'package:B2B/app/features/orders/ui/widgets/orders_result_summary.dart';
 import 'package:B2B/app/features/orders/ui/widgets/orders_summary_header.dart';
-import 'package:B2B/app/features/orders/ui/widgets/purchase_order_card.dart';
-import 'package:B2B/app/features/orders/ui/widgets/purchase_order_ui_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class PurchaseOrdersScreen extends StatefulWidget {
@@ -20,55 +20,16 @@ class PurchaseOrdersScreen extends StatefulWidget {
 class _PurchaseOrdersScreenState extends State<PurchaseOrdersScreen>
     with SingleTickerProviderStateMixin {
   late final TabController _tabController;
-  final List<bool> _expandedStates = [false, false, false];
-
-  static const _orders = [
-    PurchaseOrderUiModel(
-      id: '#PO-2026-001',
-      status: 'Approved',
-      supplier: 'FreshDairy Co.',
-      date: '2026-05-01',
-      itemCount: 2,
-      total: '\$251.00',
-      lines: [
-        PurchaseOrderLineUiModel(
-            title: '50x Premium Organic Milk 1L', amount: '\$125.00'),
-        PurchaseOrderLineUiModel(
-            title: '30x Free Range Eggs (12pk)', amount: '\$126.00'),
-      ],
-    ),
-    PurchaseOrderUiModel(
-      id: '#PO-2026-002',
-      status: 'Preparing',
-      supplier: 'GreenFarm Suppliers',
-      date: '2026-05-01',
-      itemCount: 2,
-      total: '\$281.00',
-      lines: [
-        PurchaseOrderLineUiModel(
-            title: '40x Greek Yogurt 500g', amount: '\$140.00'),
-        PurchaseOrderLineUiModel(
-            title: '60x Premium Organic Milk 1L', amount: '\$141.00'),
-      ],
-    ),
-    PurchaseOrderUiModel(
-      id: '#PO-2026-003',
-      status: 'Pending',
-      supplier: 'BakeMaster Ltd.',
-      date: '2026-05-02',
-      itemCount: 1,
-      total: '\$180.00',
-      lines: [
-        PurchaseOrderLineUiModel(
-            title: '100x Whole Wheat Bread', amount: '\$180.00'),
-      ],
-    ),
-  ];
-
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(length: 7, vsync: this);
+
+    _tabController.addListener(() {
+      if (_tabController.indexIsChanging) return;
+      final status = _tabIndexToStatus(_tabController.index);
+      context.read<OrdersCubit>().filterByStatus(status);
+    });
   }
 
   @override
@@ -77,60 +38,78 @@ class _PurchaseOrdersScreenState extends State<PurchaseOrdersScreen>
     super.dispose();
   }
 
+  String _tabIndexToStatus(int index) {
+    switch (index) {
+      case 1:
+        return 'pending';
+      case 2:
+        return 'approved';
+      case 3:
+        return 'preparing';
+      case 4:
+        return 'delivered';
+      case 5:
+        return 'submitted';
+      case 6:
+        return 'cancelled';
+      default:
+        return ''; // All Orders
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const OrdersSummaryHeader(),
-              verticalSpace(12),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.w),
-                child: SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton.icon(
-                    style: ElevatedButton.styleFrom(
-                      padding: EdgeInsets.symmetric(vertical: 12.h),
-                      backgroundColor: context.cs.primary,
-                      iconColor: context.cs.onPrimary,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(6.r),
+        body: RefreshIndicator(
+          onRefresh: () => context.read<OrdersCubit>().refresh(),
+          child: SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const OrdersSummaryHeader(),
+                verticalSpace(12),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16.w),
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton.icon(
+                      style: ElevatedButton.styleFrom(
+                        padding: EdgeInsets.symmetric(vertical: 12.h),
+                        backgroundColor: context.cs.primary,
+                        iconColor: context.cs.onPrimary,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(6.r),
+                        ),
                       ),
-                    ),
-                    onPressed: () {
-                      context.pushNamed(Routes.createOrderFromOffers);
-                    },
-                    icon: Icon(Icons.add, size: 22.sp),
-                    label: Text(
-                      '  Create New Order',
-                      style:
-                          TextStyles.button(context).copyWith(fontSize: 14.sp),
+                      onPressed: () async {
+                        final created = await context.pushNamed(
+                          Routes.createOrderFromOffers,
+                        );
+                        if (created == true) {
+                          context.read<OrdersCubit>().refresh();
+                        }
+                      },
+                      icon: Icon(Icons.add, size: 25.sp),
+                      label: Text(
+                        '  Create New Order',
+                        style: TextStyles.button(context)
+                            .copyWith(fontSize: 19.sp),
+                      ),
                     ),
                   ),
                 ),
-              ),
-              verticalSpace(12),
-              OrdersFilterBar(controller: _tabController),
-              verticalSpace(12),
-              const OrdersResultSummary(),
-              verticalSpace(12),
-              ...List.generate(
-                _orders.length,
-                (index) => PurchaseOrderCard(
-                  order: _orders[index],
-                  isExpanded: _expandedStates[index],
-                  onTap: () {
-                    setState(() {
-                      _expandedStates[index] = !_expandedStates[index];
-                    });
-                  },
+                verticalSpace(12),
+                OrdersFilterBar(controller: _tabController),
+                verticalSpace(12),
+                verticalSpace(12),
+                GetOrdersBlocBuilder(
+                  tabController: _tabController,
                 ),
-              ),
-              verticalSpace(24),
-            ],
+                verticalSpace(24),
+              ],
+            ),
           ),
         ),
       ),
