@@ -1,10 +1,10 @@
-import 'package:B2B/app/features/orders/data/models/create_order/create_order_response.dart';
 import 'package:B2B/app/features/orders/data/models/get_orders/models/order_category_model.dart';
 import 'package:B2B/app/features/orders/data/models/get_orders/models/order_item_model.dart';
 import 'package:B2B/app/features/orders/data/models/get_orders/models/order_model.dart';
 import 'package:B2B/app/features/orders/data/models/get_orders/models/order_pagnittion_data.dart';
 import 'package:B2B/app/features/orders/data/models/get_orders/models/order_supplier_model.dart';
 import 'package:B2B/app/features/orders/data/models/get_orders/models/orders_response.dart';
+import 'package:B2B/app/features/orders/data/models/get_orders/models/summery_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'orders_cache_model.g.dart';
@@ -44,6 +44,15 @@ class OrdersCacheModel {
   /// CACHE → API MODEL
   OrdersResponse toResponse() {
     return OrdersResponse(
+      summery: SummeryModel(
+        total: pagination?.total?.toDouble() ?? 0.0,
+        totalSell: data
+                ?.map((o) => o.totalSell != null
+                    ? double.tryParse(o.totalSell!) ?? 0.0
+                    : 0.0)
+                .fold(0.0, (a, b) => a) ??
+            0.0,
+      ),
       data: OrdersPaginatedData(
         currentPage: pagination!.currentPage!,
         data: data?.map((e) => e.toResponse()).toList() ?? [],

@@ -23,7 +23,7 @@ class _PurchaseOrdersScreenState extends State<PurchaseOrdersScreen>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 6, vsync: this);
+    _tabController = TabController(length: 7, vsync: this);
 
     _tabController.addListener(() {
       if (_tabController.indexIsChanging) return;
@@ -50,6 +50,8 @@ class _PurchaseOrdersScreenState extends State<PurchaseOrdersScreen>
         return 'delivered';
       case 5:
         return 'submitted';
+      case 6:
+        return 'cancelled';
       default:
         return ''; // All Orders
     }

@@ -23,10 +23,10 @@ class OrdersResultSummary extends StatelessWidget {
             ),
           ),
           Text(
-            'Total: \$712.00',
+            'Total: \$7${order.summery.total.toStringAsFixed(2)}\n',
             style: TextStyles.label(context).copyWith(
               color: context.cs.primary,
-              fontSize: 12.sp,
+              fontSize: 13.sp,
             ),
           ),
         ],

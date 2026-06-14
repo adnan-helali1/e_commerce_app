@@ -63,6 +63,7 @@ class _OrdersFilterBarState extends State<OrdersFilterBar> {
         int preparingCount = 0;
         int deliveredCount = 0;
         int submittedCount = 0;
+        int cancelledCount = 0;
 
         state.maybeWhen(
           success: (response) {
@@ -86,6 +87,9 @@ class _OrdersFilterBarState extends State<OrdersFilterBar> {
                 case 'submitted':
                   submittedCount++;
                   break;
+                case 'cancelled':
+                  cancelledCount++;
+                  break;
               }
             }
           },
@@ -99,6 +103,7 @@ class _OrdersFilterBarState extends State<OrdersFilterBar> {
           {'label': 'Preparing', 'count': preparingCount},
           {'label': 'Delivered', 'count': deliveredCount},
           {'label': 'Submitted', 'count': submittedCount},
+          {'label': 'Cancelled', 'count': cancelledCount},
         ];
 
         return Padding(
@@ -202,6 +207,8 @@ class _OrdersFilterBarState extends State<OrdersFilterBar> {
         return 'delivered';
       case 5:
         return 'submitted';
+      case 6:
+        return 'cancelled';
       default:
         return '';
     }
