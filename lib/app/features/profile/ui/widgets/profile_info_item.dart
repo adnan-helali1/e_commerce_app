@@ -1,3 +1,4 @@
+import 'package:B2B/app/core/helpers/spacing.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -20,23 +21,25 @@ class ProfileInfoItem extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(icon, size: 20.sp),
-          SizedBox(width: 8.w),
+          Icon(icon, size: 23.sp),
+          horizontalSpace(13),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
                   title,
                   style: TextStyle(
-                    fontSize: 12.sp,
+                    fontSize: 17.sp,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-                SizedBox(height: 2.h),
+                horizontalSpace(10),
                 Text(
                   value,
-                  style: TextStyle(fontSize: 13.sp),
+                  style:
+                      TextStyle(fontSize: 17.sp, fontWeight: FontWeight.w700),
                 ),
               ],
             ),

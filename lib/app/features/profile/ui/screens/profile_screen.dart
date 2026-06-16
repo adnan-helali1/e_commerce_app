@@ -1,7 +1,6 @@
 import 'package:B2B/app/core/helpers/extensions.dart';
-import 'package:B2B/app/features/profile/ui/widgets/2.dart';
-import 'package:B2B/app/features/profile/ui/widgets/3.dart';
-import 'package:B2B/app/features/profile/ui/widgets/5.dart';
+import 'package:B2B/app/features/profile/ui/widgets/profile_header.dart';
+import 'package:B2B/app/features/profile/ui/widgets/profile_info_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,7 +14,7 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: context.cs.surface,
+      backgroundColor: context.cs.background,
       body: SafeArea(
         child: BlocConsumer<ProfileCubit, ProfileState>(
           listener: (context, state) {
@@ -26,18 +25,20 @@ class ProfileScreen extends StatelessWidget {
 
             return state.when(
               initial: () => const SizedBox.shrink(),
-              loading: () => const ProfileShimmer(),
+              loading: () => const SizedBox.shrink(),
               success: (profile) {
                 return RefreshIndicator(
                   onRefresh: cubit.refresh,
                   child: SingleChildScrollView(
                     physics: const AlwaysScrollableScrollPhysics(),
-                    padding: EdgeInsets.all(16.w),
                     child: Column(
                       children: [
                         ProfileHeader(profile: profile),
                         SizedBox(height: 16.h),
-                        ProfileInfoCard(profile: profile),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: ProfileInfoCard(profile: profile),
+                        ),
                       ],
                     ),
                   ),
