@@ -19,7 +19,7 @@ abstract class CreateOrderResponse with _$CreateOrderResponse {
 @freezed
 abstract class CreateOrderData with _$CreateOrderData {
   const factory CreateOrderData({
-    required List<OrderModel> orders, // ✅ الآن يستخدم OrderModel من get_orders
+    required List<OrderModel> orders,
     @JsonKey(name: 'created_count') required int createdCount,
   }) = _CreateOrderData;
 
