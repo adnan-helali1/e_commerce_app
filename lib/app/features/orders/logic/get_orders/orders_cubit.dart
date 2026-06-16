@@ -219,6 +219,7 @@ class OrdersCubit extends Cubit<OrdersState> {
 
     response.when(
       success: (_) {
+        // إعادة تحميل البيانات بعد الحذف
         load(
           status: _status,
           perPage: _perPage,

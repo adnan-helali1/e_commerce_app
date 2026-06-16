@@ -1,6 +1,5 @@
 import 'package:B2B/app/core/helpers/spacing.dart';
 import 'package:B2B/app/core/theme/textstyles.dart';
-import 'package:B2B/app/features/orders/data/models/get_orders/models/orders_response.dart';
 import 'package:B2B/app/features/orders/logic/get_orders/orders_cubit.dart';
 import 'package:B2B/app/features/orders/logic/get_orders/orders_state.dart';
 import 'package:B2B/app/features/orders/ui/widgets/orders_result_summary.dart';
@@ -11,12 +10,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class GetOrdersBlocBuilder extends StatefulWidget {
   final TabController tabController;
-  final Function(OrdersResponse response)? onDataLoaded;
 
   const GetOrdersBlocBuilder({
     super.key,
     required this.tabController,
-    this.onDataLoaded,
   });
 
   @override
@@ -34,9 +31,6 @@ class _GetOrdersBlocBuilderState extends State<GetOrdersBlocBuilder>
         return state.maybeWhen(
           orElse: () => const SizedBox.shrink(),
           success: (response) {
-            WidgetsBinding.instance.addPostFrameCallback((_) {
-              widget.onDataLoaded?.call(response);
-            });
             final orders = response.data.data; // List<OrderModel>
             final pagnedOrders = response; // PaginatedResponse<OrderModel>
             if (orders.isEmpty) {
