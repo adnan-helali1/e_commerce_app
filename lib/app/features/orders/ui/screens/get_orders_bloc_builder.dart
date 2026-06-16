@@ -5,14 +5,16 @@ import 'package:B2B/app/features/orders/logic/get_orders/orders_state.dart';
 import 'package:B2B/app/features/orders/ui/widgets/orders_result_summary.dart';
 import 'package:B2B/app/features/orders/ui/widgets/purchase_order_card.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class GetOrdersBlocBuilder extends StatefulWidget {
   final TabController tabController;
 
-  const GetOrdersBlocBuilder({super.key, required this.tabController});
+  const GetOrdersBlocBuilder({
+    super.key,
+    required this.tabController,
+  });
 
   @override
   State<GetOrdersBlocBuilder> createState() => _GetOrdersBlocBuilderState();

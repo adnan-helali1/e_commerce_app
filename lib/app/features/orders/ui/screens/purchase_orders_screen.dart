@@ -68,7 +68,7 @@ class _PurchaseOrdersScreenState extends State<PurchaseOrdersScreen>
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const OrdersSummaryHeader(),
+                OrdersSummaryHeader(),
                 verticalSpace(12),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16.w),

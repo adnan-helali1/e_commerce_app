@@ -3,8 +3,11 @@ import 'package:B2B/app/core/helpers/spacing.dart';
 import 'package:B2B/app/core/theme/textstyles.dart';
 import 'package:B2B/app/core/widgets/b2b_info_card.dart';
 import 'package:B2B/app/core/widgets/b2b_status_badge.dart';
+import 'package:B2B/app/core/widgets/delete_dialog.dart';
 import 'package:B2B/app/features/orders/data/models/get_orders/models/order_model.dart';
+import 'package:B2B/app/features/orders/logic/get_orders/orders_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class PurchaseOrderCard extends StatelessWidget {
@@ -47,13 +50,29 @@ class PurchaseOrderCard extends StatelessWidget {
                   ),
                   B2BStatusBadge(label: order.status, color: statusColor),
                   horizontalSpace(8),
-                  Icon(
-                    isExpanded
-                        ? Icons.keyboard_arrow_down
-                        : Icons.chevron_right,
-                    color: context.cs.onSurfaceVariant,
-                    size: 18.sp,
-                  ),
+                  Visibility(
+                    visible: order.status.toLowerCase() != 'cancelled',
+                    child: GestureDetector(
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (dialogContext) {
+                            final cubit = context.read<OrdersCubit>();
+                            return DeleteDialog(
+                              cubit: cubit,
+                              dialogContext: dialogContext,
+                              Id: order.id,
+                              type: ' Order',
+                            );
+                          },
+                        );
+                      },
+                      child: Icon(
+                        Icons.delete_outline_rounded,
+                        size: 21.sp,
+                      ),
+                    ),
+                  )
                 ],
               ),
               verticalSpace(4),

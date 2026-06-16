@@ -24,4 +24,8 @@ abstract class OrdersRepo {
     required int perPage,
     bool forceRefresh = false,
   });
+
+  Future<ApiResult<void>> deleteOrder({
+    required int orderId,
+  });
 }

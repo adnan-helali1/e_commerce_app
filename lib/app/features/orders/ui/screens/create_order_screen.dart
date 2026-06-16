@@ -151,7 +151,6 @@ class _CreateOrderFromOffersScreenState
 
                             verticalSpace(16),
 
-                            /// ✅ Note TextField
                             TextFormField(
                               controller: noteController,
                               maxLines: 1,
@@ -170,7 +169,6 @@ class _CreateOrderFromOffersScreenState
 
                             verticalSpace(16),
 
-                            /// ✅ Submit Button
                             CreateOrderSection(offers: offers),
                           ],
                         ),

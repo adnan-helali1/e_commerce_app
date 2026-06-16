@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:B2B/app/features/orders/data/repos/get_orders/get_orders_repo.dart';
 import 'package:B2B/app/features/orders/logic/get_orders/orders_state.dart';
 import 'package:bloc/bloc.dart';
@@ -207,5 +206,32 @@ class OrdersCubit extends Cubit<OrdersState> {
   Future<void> close() {
     _periodicTimer?.cancel();
     return super.close();
+  }
+
+  Future<void> delete({
+    required int orderId,
+  }) async {
+    emit(const OrdersState.loading());
+
+    final response = await _ordersRepo.deleteOrder(
+      orderId: orderId,
+    );
+
+    response.when(
+      success: (_) {
+        // إعادة تحميل البيانات بعد الحذف
+        load(
+          status: _status,
+          perPage: _perPage,
+        );
+      },
+      failure: (error) {
+        emit(
+          OrdersState.failure(
+            error: error.apiErrorModel.message ?? 'Something went wrong',
+          ),
+        );
+      },
+    );
   }
 }
