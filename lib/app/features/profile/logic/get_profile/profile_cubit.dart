@@ -49,11 +49,19 @@ class ProfileCubit extends Cubit<ProfileState> {
       failure: (error) {
         if (isClosed) return;
 
-        emit(
-          ProfileState.failure(
-            error: error.apiErrorModel.message ?? 'Something went wrong',
-          ),
-        );
+        // 🔥 fallback للكاش عند الفشل
+        _profileRepo.getCachedProfile().then((cachedOnFailure) {
+          if (isClosed) return;
+
+          if (cachedOnFailure != null) {
+            emit(ProfileState.success(cachedOnFailure));
+            return;
+          }
+
+          emit(ProfileState.failure(
+            error: error.apiErrorModel.message ?? '',
+          ));
+        });
       },
     );
 
