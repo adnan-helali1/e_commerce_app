@@ -30,14 +30,6 @@ class ProfileCubit extends Cubit<ProfileState> {
     if (cached != null) {
       emit(ProfileState.success(cached));
 
-      final cachedAt = await _profileRepo.getCachedProfileAt();
-
-      if (_profileRepo.shouldRefreshProfile(cachedAt)) {
-        unawaited(_refreshSilently());
-      }
-
-      startAutoRefresh();
-
       _isLoading = false;
       return;
     }
@@ -64,8 +56,6 @@ class ProfileCubit extends Cubit<ProfileState> {
         );
       },
     );
-
-    startAutoRefresh();
 
     _isLoading = false;
   }
@@ -117,52 +107,6 @@ class ProfileCubit extends Cubit<ProfileState> {
     );
 
     _isRefreshing = false;
-  }
-
-  Future<void> _refreshSilently() async {
-    if (_isRefreshing) return;
-
-    _isRefreshing = true;
-
-    final response = await _profileRepo.getProfile(
-      forceRefresh: true,
-    );
-
-    response.when(
-      success: (data) {
-        if (isClosed) {
-          _isRefreshing = false;
-          return;
-        }
-
-        final isSameData = state.maybeWhen(
-          success: (oldData) => oldData == data,
-          orElse: () => false,
-        );
-
-        if (!isSameData) {
-          emit(ProfileState.success(data));
-        }
-      },
-      failure: (_) {},
-    );
-
-    _isRefreshing = false;
-  }
-
-  Future<void> clearCache() async {
-    await _profileRepo.clearProfile();
-
-    await load();
-  }
-
-  void startAutoRefresh() {
-    _periodicTimer?.cancel();
-
-    _periodicTimer = Timer.periodic(
-      const Duration(minutes: 5),
-      (_) => _refreshSilently(),
-    );
   }
 
   @override

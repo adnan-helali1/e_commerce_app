@@ -1,4 +1,3 @@
-import 'package:B2B/app/core/cache/cache_keyes.dart';
 import 'package:B2B/app/core/networking/api_error_handler.dart';
 import 'package:B2B/app/core/networking/api_result.dart';
 import 'package:B2B/app/features/profile/data/data_sources/profile_local_data_source.dart';
@@ -23,25 +22,6 @@ class ProfileRepoImpl implements ProfileRepo {
     final cached = await _local.read();
 
     return cached?.toResponse();
-  }
-
-  @override
-  Future<DateTime?> getCachedProfileAt() async {
-    final cached = await _local.read();
-
-    return cached?.cachedAt;
-  }
-
-  @override
-  Future<void> clearProfile() async {
-    await _local.clear();
-  }
-
-  @override
-  bool shouldRefreshProfile(DateTime? cachedAt) {
-    if (cachedAt == null) return true;
-
-    return DateTime.now().difference(cachedAt) >= CacheKeys.homeDashboardTtl;
   }
 
   @override
