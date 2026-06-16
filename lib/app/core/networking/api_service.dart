@@ -66,6 +66,7 @@ abstract class ApiService {
   Future<void> deleteCatalogItem(
     @Path('catalogId') int catalogId,
   );
+
   //orders Endpoints
   @GET(ApiConstants.catalog + '?is_active=1&per_page=15')
   Future<ActiveOffersResponse> getActiveOffers();
@@ -79,5 +80,10 @@ abstract class ApiService {
   Future<OrdersResponse> getOrders(
     @Query('status') String status,
     @Query('per_page') int perPage,
+  );
+
+  @PUT('${ApiConstants.orders}/{orderId}/cancel')
+  Future<void> cancelOrder(
+    @Path('orderId') int orderId,
   );
 }

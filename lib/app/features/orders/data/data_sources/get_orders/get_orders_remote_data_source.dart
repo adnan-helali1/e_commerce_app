@@ -12,4 +12,10 @@ class GetOrdersRemoteDataSource {
   }) {
     return _apiService.getOrders(status, perPage);
   }
+
+  Future<void> deleteOrder({
+    required int orderId,
+  }) {
+    return _apiService.cancelOrder(orderId);
+  }
 }

@@ -118,4 +118,21 @@ class OrdersRepoImpl implements OrdersRepo {
       _activeRequests.remove(requestKey);
     }
   }
+
+  @override
+  Future<ApiResult<void>> deleteOrder({
+    required int orderId,
+  }) async {
+    try {
+      await _remote.deleteOrder(
+        orderId: orderId,
+      );
+
+      return const ApiResult.success(null);
+    } catch (error) {
+      return ApiResult.failure(
+        ErrorHandler.handle(error),
+      );
+    }
+  }
 }

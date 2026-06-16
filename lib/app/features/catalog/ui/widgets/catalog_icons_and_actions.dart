@@ -1,7 +1,7 @@
 import 'package:B2B/app/core/helpers/extensions.dart';
+import 'package:B2B/app/core/widgets/delete_dialog.dart';
 import 'package:B2B/app/features/catalog/logic/catalog_action_cubit/catalog_action_cubit.dart';
 import 'package:B2B/app/features/catalog/ui/screens/putch_offer_sheet.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -65,81 +65,16 @@ class CatalogActions extends StatelessWidget {
         //delete
         _IconAction(
             onPressed: () {
+              final cubit = context.read<CatalogActionCubit>();
+
               showDialog(
                 context: context,
                 builder: (dialogContext) {
-                  return Dialog(
-                    backgroundColor:
-                        dialogContext.cs.surfaceVariant.withOpacity(1),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.all(20.w),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Icon(
-                            Icons.warning_amber_rounded,
-                            color: dialogContext.cs.error,
-                            size: 50.sp,
-                          ),
-                          SizedBox(height: 12.h),
-                          Text(
-                            'Delete Item',
-                            style: TextStyle(
-                              fontSize: 18.sp,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          SizedBox(height: 8.h),
-                          Text(
-                            'Are you sure you want to delete this item?',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 14.sp),
-                          ),
-                          SizedBox(height: 20.h),
-                          Row(
-                            children: [
-                              /// Cancel
-                              Expanded(
-                                child: OutlinedButton(
-                                  onPressed: () {
-                                    Navigator.pop(dialogContext);
-                                  },
-                                  child: Text(
-                                    'Cancel',
-                                    style:
-                                        TextStyle(color: context.cs.onSurface),
-                                  ),
-                                ),
-                              ),
-
-                              SizedBox(width: 10.w),
-
-                              /// Delete
-                              Expanded(
-                                child: ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: dialogContext.cs.error,
-                                  ),
-                                  onPressed: () {
-                                    Navigator.pop(dialogContext);
-
-                                    context.read<CatalogActionCubit>().delete(
-                                          catalogId: catalogId,
-                                        );
-                                  },
-                                  child: Text('Delete',
-                                      style:
-                                          TextStyle(color: context.cs.surface)),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
+                  return DeleteDialog(
+                    dialogContext: dialogContext,
+                    Id: catalogId,
+                    cubit: cubit,
+                    type: ' Item',
                   );
                 },
               );
