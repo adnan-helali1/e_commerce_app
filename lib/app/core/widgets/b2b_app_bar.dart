@@ -58,7 +58,7 @@ class B2bAppBar extends StatelessWidget implements PreferredSizeWidget {
       actions: [
         IconButton(
           icon: Icon(Icons.person_outline, color: cs.primary),
-          onPressed: () => context.pushNamed(Routes.forgotpasswordscreen),
+          onPressed: () => context.pushNamed(Routes.profileScreen),
         ),
         IconButton(
           icon: Icon(

@@ -12,4 +12,5 @@ class Routes {
   static const String orderDetailsScreen = '/orderDetailsScreen';
   static const String offersScreen = '/offersScreen';
   static const String createOrderFromOffers = '/createOrderFromOffers';
+  static const String profileScreen = '/profileScreen';
 }
