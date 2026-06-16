@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:B2B/app/features/profile/logic/cubit/profile_state.dart';
+import 'package:B2B/app/features/profile/logic/get_profile/profile_state.dart';
 import 'package:bloc/bloc.dart';
 import 'package:B2B/app/core/networking/api_result.dart';
 import 'package:B2B/app/features/profile/data/repos/profile_repo.dart';

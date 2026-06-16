@@ -42,6 +42,12 @@ import 'package:B2B/app/features/orders/logic/create_order/create_order_cubit.da
 import 'package:B2B/app/features/orders/logic/get_orders/orders_cubit.dart';
 import 'package:B2B/app/features/orders/logic/ui_create_order/ui_create_order_cubit.dart';
 import 'package:B2B/app/features/orders/logic/get_offers/get_active_offers_cubit.dart';
+import 'package:B2B/app/features/profile/data/data_sources/profile_local_data_source.dart';
+import 'package:B2B/app/features/profile/data/data_sources/profile_remote_data_source.dart';
+import 'package:B2B/app/features/profile/data/models/profile_cache_model.dart';
+import 'package:B2B/app/features/profile/data/repos/profile_repo.dart';
+import 'package:B2B/app/features/profile/data/repos/profile_repo_imp.dart';
+import 'package:B2B/app/features/profile/logic/get_profile/profile_cubit.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import 'package:get_it/get_it.dart';
@@ -140,4 +146,16 @@ Future<void> setupGetIt() async {
     () => OrdersRepoImpl(getIt(), getIt()),
   );
   getIt.registerFactory(() => OrdersCubit(getIt()));
+
+  //profile
+
+  getIt.registerLazySingleton(() => ProfileRemoteDataSource(getIt()));
+  getIt.registerLazySingleton(
+    () => CacheDataSource<ProfileCacheModel>(getIt()),
+  );
+  getIt.registerLazySingleton(() => ProfileLocalDataSource(getIt()));
+  getIt.registerLazySingleton<ProfileRepo>(
+    () => ProfileRepoImpl(getIt(), getIt()),
+  );
+  getIt.registerFactory(() => ProfileCubit(getIt()));
 }

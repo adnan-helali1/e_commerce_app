@@ -24,7 +24,7 @@ class ECommerceApp extends StatelessWidget {
               return MaterialApp(
                 title: 'B2B App',
                 debugShowCheckedModeBanner: false,
-                initialRoute: Routes.profileScreen,
+                initialRoute: Routes.loginscreen,
                 //    isLoggedInUser ? Routes.homescreen : Routes.loginscreen,
                 onGenerateRoute: Routes.appRouter,
                 theme: lightTheme,

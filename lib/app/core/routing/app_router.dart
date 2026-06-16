@@ -15,6 +15,7 @@ import 'package:B2B/app/features/orders/logic/ui_create_order/ui_create_order_cu
 import 'package:B2B/app/features/orders/logic/get_offers/get_active_offers_cubit.dart';
 import 'package:B2B/app/features/orders/ui/screens/create_order_screen.dart';
 import 'package:B2B/app/features/orders/ui/screens/purchase_orders_screen.dart';
+import 'package:B2B/app/features/profile/logic/get_profile/profile_cubit.dart';
 import 'package:B2B/app/features/profile/ui/screens/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -86,7 +87,10 @@ class AppRouter {
         );
       case Routes.profileScreen:
         return MaterialPageRoute(
-          builder: (_) => const ProfileScreen(),
+          builder: (_) => BlocProvider(
+            create: (_) => getIt<ProfileCubit>(),
+            child: const ProfileScreen(),
+          ),
         );
 
       default:
