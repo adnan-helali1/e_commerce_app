@@ -50,24 +50,27 @@ class PurchaseOrderCard extends StatelessWidget {
                   ),
                   B2BStatusBadge(label: order.status, color: statusColor),
                   horizontalSpace(8),
-                  GestureDetector(
-                    onTap: () {
-                      showDialog(
-                        context: context,
-                        builder: (dialogContext) {
-                          final cubit = context.read<OrdersCubit>();
-                          return DeleteDialog(
-                            cubit: cubit,
-                            dialogContext: dialogContext,
-                            Id: order.id,
-                            type: ' Order',
-                          );
-                        },
-                      );
-                    },
-                    child: Icon(
-                      Icons.delete_outline_rounded,
-                      size: 21.sp,
+                  Visibility(
+                    visible: order.status.toLowerCase() != 'cancelled',
+                    child: GestureDetector(
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (dialogContext) {
+                            final cubit = context.read<OrdersCubit>();
+                            return DeleteDialog(
+                              cubit: cubit,
+                              dialogContext: dialogContext,
+                              Id: order.id,
+                              type: ' Order',
+                            );
+                          },
+                        );
+                      },
+                      child: Icon(
+                        Icons.delete_outline_rounded,
+                        size: 21.sp,
+                      ),
                     ),
                   )
                 ],
