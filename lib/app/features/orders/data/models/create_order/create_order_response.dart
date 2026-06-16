@@ -1,4 +1,3 @@
-import 'package:B2B/app/features/orders/data/models/get_orders/models/order_item_model.dart';
 import 'package:B2B/app/features/orders/data/models/get_orders/models/order_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
@@ -20,7 +19,7 @@ abstract class CreateOrderResponse with _$CreateOrderResponse {
 @freezed
 abstract class CreateOrderData with _$CreateOrderData {
   const factory CreateOrderData({
-    required List<OrderModel> orders,   // ✅ الآن يستخدم OrderModel من get_orders
+    required List<OrderModel> orders, // ✅ الآن يستخدم OrderModel من get_orders
     @JsonKey(name: 'created_count') required int createdCount,
   }) = _CreateOrderData;
 

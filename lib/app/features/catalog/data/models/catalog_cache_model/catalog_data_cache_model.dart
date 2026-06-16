@@ -33,7 +33,7 @@ class CatalogDataCacheModel {
     CatalogData model,
   ) {
     return CatalogDataCacheModel(
-      data: (model.data ?? [])
+      data: (model.data)
           .map((e) => CatalogItemCacheModel.fromResponse(e))
           .toList(),
       summary: CatalogSummaryCacheModel(
