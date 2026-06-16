@@ -2,6 +2,7 @@ import 'package:B2B/app/core/helpers/extensions.dart';
 import 'package:B2B/app/core/helpers/spacing.dart';
 import 'package:B2B/app/core/routing/routes.dart';
 import 'package:B2B/app/core/theme/textstyles.dart';
+import 'package:B2B/app/features/orders/data/models/get_orders/models/orders_response.dart';
 import 'package:B2B/app/features/orders/logic/get_orders/orders_cubit.dart';
 import 'package:B2B/app/features/orders/ui/screens/get_orders_bloc_builder.dart';
 import 'package:B2B/app/features/orders/ui/widgets/orders_filter_bar.dart';
@@ -19,6 +20,8 @@ class PurchaseOrdersScreen extends StatefulWidget {
 
 class _PurchaseOrdersScreenState extends State<PurchaseOrdersScreen>
     with SingleTickerProviderStateMixin {
+  late OrdersResponse _summaryResponse; // أضف هاد
+
   late final TabController _tabController;
   @override
   void initState() {
@@ -68,7 +71,7 @@ class _PurchaseOrdersScreenState extends State<PurchaseOrdersScreen>
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const OrdersSummaryHeader(),
+                OrdersSummaryHeader(response: _summaryResponse),
                 verticalSpace(12),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16.w),
@@ -106,6 +109,9 @@ class _PurchaseOrdersScreenState extends State<PurchaseOrdersScreen>
                 verticalSpace(12),
                 GetOrdersBlocBuilder(
                   tabController: _tabController,
+                  onDataLoaded: (response) {
+                    _summaryResponse = response;
+                  },
                 ),
                 verticalSpace(24),
               ],

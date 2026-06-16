@@ -9,7 +9,6 @@ import 'package:B2B/app/features/offers/data/models/add_offer_models/add_offer_r
 import 'package:B2B/app/features/offers/data/models/add_offer_models/add_offer_response.dart';
 import 'package:B2B/app/features/offers/data/models/offers_response.dart';
 import 'package:B2B/app/features/orders/data/models/get_active_offers/active_offers_response.dart';
-import 'package:B2B/app/features/orders/data/models/create_order/create_order_request.dart';
 import 'package:B2B/app/features/orders/data/models/create_order/create_order_response.dart';
 import 'package:B2B/app/features/orders/data/models/get_orders/models/orders_response.dart';
 import 'package:dio/dio.dart';
