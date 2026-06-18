@@ -1,5 +1,6 @@
 import 'package:B2B/app/core/di/dependency_injection.dart';
 import 'package:B2B/app/core/helpers/extensions.dart';
+import 'package:B2B/app/features/profile/logic/get_profile/profile_cubit.dart';
 import 'package:B2B/app/features/profile/logic/update_profile/update_profile_cubit.dart';
 import 'package:B2B/app/features/profile/logic/update_profile/update_profile_state.dart';
 import 'package:B2B/app/features/profile/ui/widgets/update_profile_log.dart';
@@ -29,7 +30,6 @@ class UpdateProfileSheet extends StatelessWidget {
           state.whenOrNull(
             success: (_) {
               Navigator.pop(context, true);
-
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   backgroundColor: context.appColors.success,

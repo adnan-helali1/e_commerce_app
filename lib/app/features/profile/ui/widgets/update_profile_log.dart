@@ -1,3 +1,4 @@
+import 'package:B2B/app/core/helpers/extensions.dart';
 import 'package:B2B/app/core/helpers/spacing.dart';
 import 'package:B2B/app/features/profile/data/models/update_profile_request.dart';
 import 'package:B2B/app/features/profile/logic/update_profile/update_profile_cubit.dart';
@@ -74,47 +75,51 @@ class _UpdateProfileLogState extends State<UpdateProfileLog> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        TextFormField(
-          controller: _nameController,
-          decoration: const InputDecoration(
-            labelText: 'Store Name',
+    return Container(
+      color: context.cs.background,
+      child: Column(
+        children: [
+          TextFormField(
+            controller: _nameController,
+            decoration: const InputDecoration(
+              labelText: 'Store Name',
+            ),
           ),
-        ),
-        verticalSpace(16),
-        TextFormField(
-          controller: _ownerController,
-          decoration: const InputDecoration(
-            labelText: 'Owner Name',
+          verticalSpace(16),
+          TextFormField(
+            controller: _ownerController,
+            decoration: const InputDecoration(
+              labelText: 'Owner Name',
+            ),
           ),
-        ),
-        verticalSpace(16),
-        TextFormField(
-          controller: _phoneController,
-          decoration: const InputDecoration(
-            labelText: 'Phone',
+          verticalSpace(16),
+          TextFormField(
+            keyboardType: TextInputType.phone,
+            controller: _phoneController,
+            decoration: const InputDecoration(
+              labelText: 'Phone',
+            ),
           ),
-        ),
-        verticalSpace(16),
-        TextFormField(
-          controller: _addressController,
-          decoration: const InputDecoration(
-            labelText: 'Address',
+          verticalSpace(16),
+          TextFormField(
+            controller: _addressController,
+            decoration: const InputDecoration(
+              labelText: 'Address',
+            ),
           ),
-        ),
-        verticalSpace(24),
-        SizedBox(
-          width: double.infinity,
-          height: 52.h,
-          child: FilledButton(
-            onPressed: widget.loading ? null : _submit,
-            child: widget.loading
-                ? const CircularProgressIndicator()
-                : const Text('Update Profile'),
+          verticalSpace(24),
+          SizedBox(
+            width: double.infinity,
+            height: 52.h,
+            child: FilledButton(
+              onPressed: widget.loading ? null : _submit,
+              child: widget.loading
+                  ? const CircularProgressIndicator()
+                  : const Text('Update Profile'),
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

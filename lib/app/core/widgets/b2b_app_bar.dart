@@ -55,6 +55,29 @@ class B2bAppBar extends StatelessWidget implements PreferredSizeWidget {
           ),
         ],
       ),
+
+      /*
+
+    onPressed: () async {
+                          final created = await context.pushNamed(
+                            Routes.createOrderFromOffers,
+                          );
+                          if (created == true) {
+                            context.read<OrdersCubit>().refresh();
+                          }
+                        },
+
+
+
+
+
+
+
+
+
+
+
+      */
       actions: [
         IconButton(
           icon: Icon(Icons.person_outline, color: cs.primary),
