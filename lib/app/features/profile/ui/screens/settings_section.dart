@@ -1,8 +1,12 @@
 import 'package:B2B/app/core/helpers/extensions.dart';
 import 'package:B2B/app/core/routing/routes.dart';
 import 'package:B2B/app/core/theme/theme_mode_cubit.dart';
+import 'package:B2B/app/features/profile/data/models/profile_cache_model.dart';
+import 'package:B2B/app/features/profile/logic/update_profile/update_profile_cubit.dart';
+import 'package:B2B/app/features/profile/logic/update_profile/update_profile_state.dart';
 import 'package:B2B/app/features/profile/ui/screens/help_support_screen.dart';
 import 'package:B2B/app/features/profile/ui/widgets/settings_row.dart';
+import 'package:B2B/app/features/profile/ui/widgets/update_profile_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,13 +23,30 @@ class SettingsScreen extends StatelessWidget {
           _sectionTitle("Settings & Preferences"),
           SizedBox(height: 12.h),
           _card([
-            SettingsTile(
-              icon: Icons.person_outline,
-              title: "Edit Profile",
-              subtitle: "Update store information",
-              backgroundIconColor: context.cs.primary.withOpacity(0.1),
-              iconColor: context.cs.primary,
-              onTap: () {},
+            BlocBuilder<UpdateProfileCubit, UpdateProfileState>(
+              builder: (context, state) {
+                return state.maybeWhen(
+                    orElse: () => SizedBox.shrink(),
+                    success: (profile) => SettingsTile(
+                          icon: Icons.person_outline,
+                          title: "Edit Profile",
+                          subtitle: "Update store information",
+                          backgroundIconColor:
+                              context.cs.primary.withOpacity(0.1),
+                          iconColor: context.cs.primary,
+                          onTap: () {
+                            showModalBottomSheet(
+                              context: context,
+                              builder: (_) => UpdateProfileSheet(
+                                name: profile.data.name,
+                                ownerName: profile.data.ownerName,
+                                phone: profile.data.phone,
+                                address: profile.data.address,
+                              ),
+                            );
+                          },
+                        ));
+              },
             ),
             SettingsTile(
               icon: Icons.notifications_none,

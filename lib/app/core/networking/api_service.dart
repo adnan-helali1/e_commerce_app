@@ -12,6 +12,7 @@ import 'package:B2B/app/features/orders/data/models/get_active_offers/active_off
 import 'package:B2B/app/features/orders/data/models/create_order/create_order_response.dart';
 import 'package:B2B/app/features/orders/data/models/get_orders/models/orders_response.dart';
 import 'package:B2B/app/features/profile/data/models/get_profile_response.dart';
+import 'package:B2B/app/features/profile/data/models/update_profile_request.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
@@ -101,4 +102,9 @@ abstract class ApiService {
 
   @GET(ApiConstants.profile)
   Future<GetProfileResponse> getProfile();
+
+  @PUT(ApiConstants.profile)
+  Future<GetProfileResponse> updateProfile(
+    @Body() Map<String, dynamic> request,
+  );
 }
