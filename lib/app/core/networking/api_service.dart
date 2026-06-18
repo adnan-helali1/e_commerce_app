@@ -11,6 +11,7 @@ import 'package:B2B/app/features/offers/data/models/offers_response.dart';
 import 'package:B2B/app/features/orders/data/models/get_active_offers/active_offers_response.dart';
 import 'package:B2B/app/features/orders/data/models/create_order/create_order_response.dart';
 import 'package:B2B/app/features/orders/data/models/get_orders/models/orders_response.dart';
+import 'package:B2B/app/features/profile/data/models/get_profile_response.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
@@ -28,10 +29,13 @@ abstract class ApiService {
 
   @POST(ApiConstants.logout)
   Future<void> logout();
+  // |||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
   // Home Endpoints
   @GET(ApiConstants.homeDashboard)
   Future<HomeDashboardResponse> getHomeDashboard();
+
+  // |||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
   // offers Endpoints
   @GET(ApiConstants.offers)
@@ -46,6 +50,9 @@ abstract class ApiService {
     @Path('supplierProductId') int supplierProductId,
     @Body() AddOfferRequestBody body,
   );
+
+  // |||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+
   // Catalog Endpoints
   @GET(ApiConstants.catalog)
   Future<CatalogResponse> getCatalog(
@@ -66,6 +73,7 @@ abstract class ApiService {
   Future<void> deleteCatalogItem(
     @Path('catalogId') int catalogId,
   );
+  // |||||||||||||||||||||||||||||||||||||||||||||||||||||||||
 
   //orders Endpoints
   @GET(ApiConstants.catalog + '?is_active=1&per_page=15')
@@ -86,4 +94,11 @@ abstract class ApiService {
   Future<void> cancelOrder(
     @Path('orderId') int orderId,
   );
+
+  // |||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+
+  //profile Endpoints
+
+  @GET(ApiConstants.profile)
+  Future<GetProfileResponse> getProfile();
 }

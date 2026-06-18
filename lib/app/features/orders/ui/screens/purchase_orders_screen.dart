@@ -60,55 +60,66 @@ class _PurchaseOrdersScreenState extends State<PurchaseOrdersScreen>
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-        body: RefreshIndicator(
-          onRefresh: () => context.read<OrdersCubit>().refresh(),
-          child: SingleChildScrollView(
-            physics: const AlwaysScrollableScrollPhysics(),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                OrdersSummaryHeader(),
-                verticalSpace(12),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.w),
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton.icon(
-                      style: ElevatedButton.styleFrom(
-                        padding: EdgeInsets.symmetric(vertical: 12.h),
-                        backgroundColor: context.cs.primary,
-                        iconColor: context.cs.onPrimary,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(6.r),
+      child: PopScope(
+        canPop: false,
+        onPopInvokedWithResult: (didPop, result) async {
+          if (didPop) return;
+
+          context.pushNamedAndRemoveUntil(
+            Routes.homescreen,
+            predicate: (_) => false,
+          );
+        },
+        child: Scaffold(
+          body: RefreshIndicator(
+            onRefresh: () => context.read<OrdersCubit>().refresh(),
+            child: SingleChildScrollView(
+              physics: const AlwaysScrollableScrollPhysics(),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  OrdersSummaryHeader(),
+                  verticalSpace(12),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.w),
+                    child: SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton.icon(
+                        style: ElevatedButton.styleFrom(
+                          padding: EdgeInsets.symmetric(vertical: 12.h),
+                          backgroundColor: context.cs.primary,
+                          iconColor: context.cs.onPrimary,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(6.r),
+                          ),
                         ),
-                      ),
-                      onPressed: () async {
-                        final created = await context.pushNamed(
-                          Routes.createOrderFromOffers,
-                        );
-                        if (created == true) {
-                          context.read<OrdersCubit>().refresh();
-                        }
-                      },
-                      icon: Icon(Icons.add, size: 25.sp),
-                      label: Text(
-                        '  Create New Order',
-                        style: TextStyles.button(context)
-                            .copyWith(fontSize: 19.sp),
+                        onPressed: () async {
+                          final created = await context.pushNamed(
+                            Routes.createOrderFromOffers,
+                          );
+                          if (created == true) {
+                            context.read<OrdersCubit>().refresh();
+                          }
+                        },
+                        icon: Icon(Icons.add, size: 25.sp),
+                        label: Text(
+                          '  Create New Order',
+                          style: TextStyles.button(context)
+                              .copyWith(fontSize: 19.sp),
+                        ),
                       ),
                     ),
                   ),
-                ),
-                verticalSpace(12),
-                OrdersFilterBar(controller: _tabController),
-                verticalSpace(12),
-                verticalSpace(12),
-                GetOrdersBlocBuilder(
-                  tabController: _tabController,
-                ),
-                verticalSpace(24),
-              ],
+                  verticalSpace(12),
+                  OrdersFilterBar(controller: _tabController),
+                  verticalSpace(12),
+                  verticalSpace(12),
+                  GetOrdersBlocBuilder(
+                    tabController: _tabController,
+                  ),
+                  verticalSpace(24),
+                ],
+              ),
             ),
           ),
         ),

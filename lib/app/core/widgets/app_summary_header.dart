@@ -120,7 +120,6 @@ class SummaryHeader extends StatelessWidget {
   }
 }
 
-/// ✅ Model للـ stats
 class SummaryStat {
   final IconData icon;
   final String value;

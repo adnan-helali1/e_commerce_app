@@ -377,7 +377,7 @@ class __$CreateOrderResponseCopyWithImpl<$Res>
 
 /// @nodoc
 mixin _$CreateOrderData {
-  List<OrderModel> get orders; // ✅ الآن يستخدم OrderModel من get_orders
+  List<OrderModel> get orders;
   @JsonKey(name: 'created_count')
   int get createdCount;
 
@@ -634,7 +634,6 @@ class _CreateOrderData implements CreateOrderData {
     return EqualUnmodifiableListView(_orders);
   }
 
-// ✅ الآن يستخدم OrderModel من get_orders
   @override
   @JsonKey(name: 'created_count')
   final int createdCount;
