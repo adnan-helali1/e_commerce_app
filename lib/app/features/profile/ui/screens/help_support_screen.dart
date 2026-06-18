@@ -26,6 +26,7 @@ class _HelpSupportSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = context.cs;
+    final appColors = context.appColors;
 
     return Container(
       padding: const EdgeInsets.all(20),
@@ -56,6 +57,8 @@ class _HelpSupportSheet extends StatelessWidget {
             ),
             const SizedBox(height: 20),
             _item(
+              iconColor: colors.primary,
+              backgroundIconColor: colors.primary.withOpacity(.1),
               context,
               icon: Icons.email,
               title: "Email",
@@ -63,13 +66,17 @@ class _HelpSupportSheet extends StatelessWidget {
               onTap: () => _launch("mailto:helaliadnan877@gmail.com"),
             ),
             _item(
+              iconColor: appColors.success,
+              backgroundIconColor: appColors.success.withOpacity(.1),
               context,
-              icon: Icons.chat,
+              icon: Icons.phone_forwarded_sharp,
               title: "WhatsApp",
               subtitle: "+963985198014",
               onTap: () => _launch("https://wa.me/963985198014"),
             ),
             _item(
+              iconColor: appColors.failure,
+              backgroundIconColor: colors.surface.withOpacity(.1),
               context,
               icon: Icons.camera_alt,
               title: "Instagram",
@@ -77,6 +84,8 @@ class _HelpSupportSheet extends StatelessWidget {
               onTap: () => _launch("https://instagram.com/Adnan__helali"),
             ),
             _item(
+              iconColor: colors.primary,
+              backgroundIconColor: colors.primary.withOpacity(.1),
               context,
               icon: Icons.facebook,
               title: "Facebook",
@@ -84,6 +93,8 @@ class _HelpSupportSheet extends StatelessWidget {
               onTap: () => _launch("https://facebook.com/adnan.helali"),
             ),
             _item(
+              iconColor: colors.secondary,
+              backgroundIconColor: colors.secondary.withOpacity(.1),
               context,
               icon: Icons.send,
               title: "Telegram",
@@ -103,6 +114,8 @@ class _HelpSupportSheet extends StatelessWidget {
     required String title,
     required String subtitle,
     required VoidCallback onTap,
+    required Color? backgroundIconColor,
+    required Color? iconColor,
   }) {
     final colors = context.cs;
 
@@ -121,10 +134,10 @@ class _HelpSupportSheet extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(10),
               decoration: BoxDecoration(
-                color: colors.primary.withOpacity(.1),
+                color: backgroundIconColor ?? colors.primary.withOpacity(.1),
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: Icon(icon, color: colors.primary),
+              child: Icon(icon, color: iconColor ?? colors.primary),
             ),
             const SizedBox(width: 12),
             Expanded(
