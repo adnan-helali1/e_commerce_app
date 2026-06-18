@@ -47,6 +47,10 @@ dependencies:
 
 # for internet connection checking
   connectivity_plus: ^6.0.0
+
+
+  #for url launching
+  url_launcher: ^6.3.0
 # ---------------- DEV DEPENDENCIES ----------------
 dev_dependencies:
   flutter_test:

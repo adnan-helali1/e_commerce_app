@@ -27,24 +27,27 @@ class ProfileInfoCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              Icon(
-                Icons.store_outlined,
-                color: context.cs.primary,
-                size: 28.sp,
-              ),
-              horizontalSpace(8),
-              Text(
-                'Store Information',
-                style: TextStyle(
-                  fontSize: 19.sp,
-                  fontWeight: FontWeight.w800,
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                Icon(
+                  Icons.store_outlined,
+                  color: context.cs.primary,
+                  size: 28.sp,
                 ),
-              ),
-            ],
+                horizontalSpace(12),
+                Text(
+                  'Store Information',
+                  style: TextStyle(
+                    fontSize: 19.sp,
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
+              ],
+            ),
           ),
-          SizedBox(height: 12.h),
+          verticalSpace(17),
           ProfileInfoItem(
             icon: Icons.email_outlined,
             title: 'Email',

@@ -1,4 +1,5 @@
 import 'package:B2B/app/core/helpers/extensions.dart';
+import 'package:B2B/app/core/helpers/spacing.dart';
 import 'package:B2B/app/features/profile/data/models/get_profile_response.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,7 +16,7 @@ class ProfileHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 150.h,
+      height: 190.h,
       padding: EdgeInsets.all(16.r),
       decoration: BoxDecoration(
         gradient: LinearGradient(
@@ -47,6 +48,7 @@ class ProfileHeader extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                verticalSpace(18),
                 Text(
                   profile.data.name,
                   maxLines: 1,

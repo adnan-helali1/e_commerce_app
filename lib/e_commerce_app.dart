@@ -26,6 +26,7 @@ class ECommerceApp extends StatelessWidget {
                 debugShowCheckedModeBanner: false,
                 initialRoute:
                     isLoggedInUser ? Routes.homescreen : Routes.loginscreen,
+                //    isLoggedInUser ? Routes.homescreen : Routes.loginscreen,
                 onGenerateRoute: Routes.appRouter,
                 theme: lightTheme,
                 darkTheme: darkTheme,

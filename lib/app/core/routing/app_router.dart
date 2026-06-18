@@ -16,6 +16,8 @@ import 'package:B2B/app/features/orders/logic/get_offers/get_active_offers_cubit
 import 'package:B2B/app/features/orders/ui/screens/create_order_screen.dart';
 import 'package:B2B/app/features/orders/ui/screens/purchase_orders_screen.dart';
 import 'package:B2B/app/features/profile/logic/get_profile/profile_cubit.dart';
+import 'package:B2B/app/features/profile/ui/screens/help_support_screen.dart';
+import 'package:B2B/app/features/profile/ui/screens/privacy_policy_screen.dart';
 import 'package:B2B/app/features/profile/ui/screens/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -91,6 +93,11 @@ class AppRouter {
             create: (_) => getIt<ProfileCubit>(),
             child: const ProfileScreen(),
           ),
+        );
+
+      case Routes.privacyPolicyScreen:
+        return MaterialPageRoute(
+          builder: (_) => const PrivacyPolicyScreen(),
         );
 
       default:

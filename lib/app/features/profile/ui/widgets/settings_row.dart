@@ -1,57 +1,111 @@
-import 'package:B2B/app/core/helpers/spacing.dart';
+import 'package:B2B/app/core/helpers/extensions.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class SettingsItem extends StatelessWidget {
+enum SettingType { navigation, toggle, action }
+
+class SettingItem {
+  final String id; // 🔥 مهم
   final String title;
   final String? subtitle;
-  final IconData? leadingIcon;
-  final VoidCallback? onTap;
-  final Widget? trailing;
-  final bool showArrow;
-  final Color? iconColor;
-  final Color? backgroundColor;
+  final IconData? icon;
+  final SettingType type;
 
-  const SettingsItem({
-    super.key,
+  final bool? value; // toggle only
+
+  final VoidCallback? onTap;
+
+  const SettingItem({
+    required this.id,
     required this.title,
     this.subtitle,
-    this.leadingIcon,
+    this.icon,
+    required this.type,
+    this.value,
     this.onTap,
-    this.trailing,
-    this.showArrow = true,
-    this.iconColor,
-    this.backgroundColor,
   });
+}
+
+class SettingsCubit extends Cubit<Map<String, bool>> {
+  SettingsCubit() : super({});
+
+  void init(List<SettingItem> items) {
+    final map = <String, bool>{};
+    for (var item in items) {
+      if (item.type == SettingType.toggle) {
+        map[item.id] = item.value ?? false;
+      }
+    }
+    emit(map);
+  }
+
+  void toggle(String id) {
+    final newState = Map<String, bool>.from(state);
+    newState[id] = !(state[id] ?? false);
+    emit(newState);
+  }
+}
+
+class SettingsTile extends StatelessWidget {
+  final IconData icon;
+  final String title;
+  final String? subtitle;
+  final VoidCallback? onTap;
+  final int? badge;
+  final Color backgroundIconColor;
+  final Color iconColor;
+  final bool isSwitch;
+  final bool switchValue;
+  final ValueChanged<bool>? onChanged;
+
+  const SettingsTile({
+    super.key,
+    required this.backgroundIconColor,
+    required this.iconColor,
+    required this.icon,
+    required this.title,
+    this.subtitle,
+    this.onTap,
+    this.badge,
+  })  : isSwitch = false,
+        switchValue = false,
+        onChanged = null;
+
+  const SettingsTile.switchTile({
+    super.key,
+    required this.icon,
+    required this.title,
+    required this.backgroundIconColor,
+    required this.iconColor,
+    this.subtitle,
+    required this.switchValue,
+    required this.onChanged,
+  })  : isSwitch = true,
+        badge = null,
+        onTap = null;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(12),
+      onTap: isSwitch ? null : onTap,
       child: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 16,
-          vertical: 14,
-        ),
+        padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 12.h),
         child: Row(
           children: [
-            if (leadingIcon != null) ...[
-              Container(
-                padding: const EdgeInsets.all(6),
-                decoration: BoxDecoration(
-                  color: (backgroundColor),
-                  shape: BoxShape.rectangle,
-                ),
-                child: Icon(
-                  leadingIcon,
-                  size: 29.sp,
-                  color: iconColor,
-                ),
+            /// ICON BOX
+            Container(
+              width: 40.w,
+              height: 40.h,
+              decoration: BoxDecoration(
+                color: backgroundIconColor,
+                borderRadius: BorderRadius.circular(10.r),
               ),
-              const SizedBox(width: 12),
-            ],
-            horizontalSpace(8),
+              child: Icon(icon, size: 22.sp, color: iconColor),
+            ),
+
+            SizedBox(width: 12.w),
 
             /// TEXT
             Expanded(
@@ -60,30 +114,63 @@ class SettingsItem extends StatelessWidget {
                 children: [
                   Text(
                     title,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
+                    style: TextStyle(
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.w800,
                     ),
                   ),
-                  if (subtitle != null) ...[
-                    const SizedBox(height: 4),
+                  if (subtitle != null)
                     Text(
                       subtitle!,
                       style: TextStyle(
-                        fontSize: 13,
-                        color: Colors.grey[600],
+                        fontSize: 15.sp,
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
-                  ],
                 ],
               ),
             ),
 
+            /// BADGE
+            if (badge != null) ...[
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 2.h),
+                decoration: BoxDecoration(
+                  color: const Color.fromARGB(255, 4, 0, 226),
+                  borderRadius: BorderRadius.circular(12.r),
+                ),
+                child: Text(
+                  badge.toString(),
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 11.sp,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              SizedBox(width: 8.w),
+            ],
+
             /// TRAILING
-            if (trailing != null)
-              trailing!
-            else if (showArrow)
-              const Icon(Icons.arrow_forward_ios, size: 16),
+            if (isSwitch)
+              SizedBox(
+                width: 66.w, // 🔥 العرض اللي بدك ياه
+                child: FittedBox(
+                  fit: BoxFit.fill,
+                  child: CupertinoSwitch(
+                    value: switchValue,
+                    onChanged: onChanged,
+                    activeColor: context.cs.primary,
+                    trackColor: Color(0xFFE0E0E0),
+                  ),
+                ),
+              )
+            else
+              Icon(
+                Icons.arrow_forward_ios_rounded,
+                size: 14.sp,
+                color: Colors.grey.shade400,
+              ),
           ],
         ),
       ),
