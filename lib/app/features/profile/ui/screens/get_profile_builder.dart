@@ -1,4 +1,5 @@
 import 'package:B2B/app/core/helpers/extensions.dart';
+import 'package:B2B/app/core/widgets/app_shimer.dart';
 import 'package:B2B/app/features/profile/logic/get_profile/profile_cubit.dart';
 import 'package:B2B/app/features/profile/logic/get_profile/profile_state.dart';
 import 'package:B2B/app/features/profile/ui/widgets/profile_header.dart';
@@ -17,8 +18,8 @@ class GetProfileBuilder extends StatelessWidget {
         final cubit = context.read<ProfileCubit>();
 
         return state.when(
-          initial: () => const SizedBox.shrink(),
-          loading: () => const SizedBox.shrink(),
+          initial: () => const AppShimmer(),
+          loading: () => const AppShimmer(),
           success: (profile) {
             return RefreshIndicator(
               onRefresh: cubit.refresh,

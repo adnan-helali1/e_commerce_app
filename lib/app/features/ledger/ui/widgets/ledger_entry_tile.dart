@@ -35,20 +35,23 @@ class LedgerEntryTile extends StatelessWidget {
         children: [
           // Icon badge
           Container(
-            width: 38.r,
-            height: 38.r,
+            width: 45.r,
+            height: 45.r,
             decoration: BoxDecoration(
               color: _isCredit
-                  ? context.cs.primaryContainer.withValues(alpha: 0.35)
-                  : context.cs.errorContainer.withValues(alpha: 0.35),
+                  ? context.appColors.success.withValues(alpha: 0.17)
+                  : context.appColors.failure.withValues(alpha: 0.35),
               borderRadius: BorderRadius.circular(8.r),
             ),
             child: Icon(
               _isCredit
                   ? Icons.arrow_outward_rounded
                   : Icons.arrow_downward_rounded,
-              size: 18.sp,
-              color: _isCredit ? context.cs.primary : context.cs.error,
+              size: 22.sp,
+              fontWeight: FontWeight.w600,
+              color: _isCredit
+                  ? context.appColors.success
+                  : context.appColors.failure,
             ),
           ),
           horizontalSpace(12),
@@ -61,8 +64,8 @@ class LedgerEntryTile extends StatelessWidget {
                 Text(
                   _label,
                   style: TextStyles.button(context).copyWith(
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w600,
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.w700,
                     color: context.cs.onSurface,
                   ),
                 ),
@@ -70,26 +73,27 @@ class LedgerEntryTile extends StatelessWidget {
                 Text(
                   'Ref. ${entry.sourceType.toUpperCase()}-${entry.sourceId.toString().padLeft(3, '0')}',
                   style: TextStyles.note(context).copyWith(
-                    fontSize: 11.sp,
-                    color: context.cs.onSurface.withValues(alpha: 0.5),
+                    fontSize: 12.sp,
+                    color: context.cs.onSurface.withValues(alpha: 0.8),
                   ),
                 ),
-                verticalSpace(4),
+                verticalSpace(6),
                 Row(
                   children: [
                     Icon(
                       Icons.calendar_today_outlined,
-                      size: 11.sp,
-                      color: context.cs.onSurface.withValues(alpha: 0.45),
+                      size: 13.sp,
+                      color: context.cs.onSurface.withValues(alpha: 0.88),
                     ),
-                    horizontalSpace(4),
-                    //   Text(
-                    //  //   .format('yyyy-MM-dd').format(entry.occurredAt),
-                    //     style: TextStyles.note(context).copyWith(
-                    //       fontSize: 11.sp,
-                    //       color: context.cs.onSurface.withValues(alpha: 0.45),
-                    //     ),
-                    //   ),
+                    horizontalSpace(6),
+                    Text(
+                      entry.occurredAt.toLocal().toString().substring(0, 16),
+                      style: TextStyles.note(context).copyWith(
+                        fontSize: 11.sp,
+                        fontWeight: FontWeight.w700,
+                        color: context.cs.onSurface.withValues(alpha: 0.45),
+                      ),
+                    ),
                   ],
                 ),
               ],
@@ -103,19 +107,21 @@ class LedgerEntryTile extends StatelessWidget {
               Text(
                 '${_isCredit ? '+' : '-'}\$${entry.amount}',
                 style: TextStyles.screenTitle(context).copyWith(
-                  fontSize: 15.sp,
+                  fontSize: 16.sp,
                   fontWeight: FontWeight.w700,
-                  color: _isCredit ? context.cs.primary : context.cs.error,
+                  color: _isCredit
+                      ? context.appColors.success
+                      : context.appColors.failure,
                 ),
               ),
               if (entry.notes != null) ...[
-                verticalSpace(4),
+                verticalSpace(6),
                 Text(
                   entry.notes!,
                   style: TextStyles.note(context).copyWith(
-                    fontSize: 10.sp,
-                    color: context.cs.onSurface.withValues(alpha: 0.45),
-                  ),
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.w600,
+                      color: context.cs.onSurface),
                 ),
               ],
             ],

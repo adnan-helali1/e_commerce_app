@@ -1,6 +1,7 @@
 import 'package:B2B/app/core/helpers/extensions.dart';
 import 'package:B2B/app/core/helpers/spacing.dart';
 import 'package:B2B/app/core/theme/textstyles.dart';
+import 'package:B2B/app/core/widgets/app_shimer.dart';
 import 'package:B2B/app/features/ledger/data/models/ledger_response.dart';
 import 'package:B2B/app/features/ledger/logic/cubit/ledger_cubit.dart';
 import 'package:B2B/app/features/ledger/logic/cubit/ledger_state.dart';
@@ -20,8 +21,8 @@ class LedgerScreen extends StatelessWidget {
     return BlocBuilder<LedgerCubit, LedgerState>(
       builder: (context, state) {
         return state.when(
-          initial: () => const _LedgerShimmer(),
-          loading: () => const _LedgerShimmer(),
+          initial: () => const AppShimmer(),
+          loading: () => const AppShimmer(),
           failure: (error) => _LedgerError(
             error: error,
             onRetry: () => context.read<LedgerCubit>().load(),
@@ -99,45 +100,6 @@ class _LedgerContent extends StatelessWidget {
 // ---------------------------------------------------------------------------
 // Loading shimmer
 // ---------------------------------------------------------------------------
-
-class _LedgerShimmer extends StatelessWidget {
-  const _LedgerShimmer();
-
-  @override
-  Widget build(BuildContext context) {
-    return CustomScrollView(
-      slivers: [
-        SliverToBoxAdapter(child: _ShimmerBox(height: 190.h)),
-        SliverToBoxAdapter(child: verticalSpace(12)),
-        SliverList.separated(
-          itemCount: 5,
-          separatorBuilder: (_, __) => verticalSpace(8),
-          itemBuilder: (_, __) => Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.w),
-            child: _ShimmerBox(height: 76.h),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class _ShimmerBox extends StatelessWidget {
-  final double height;
-
-  const _ShimmerBox({required this.height});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: height,
-      decoration: BoxDecoration(
-        color: context.cs.surfaceVariant.withValues(alpha: 0.5),
-        borderRadius: BorderRadius.circular(10.r),
-      ),
-    );
-  }
-}
 
 // ---------------------------------------------------------------------------
 // Error state

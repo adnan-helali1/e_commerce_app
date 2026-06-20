@@ -26,7 +26,6 @@ class OrdersSummaryHeader extends StatelessWidget {
               if (order.status.toLowerCase() == 'pending') {
                 pendingCount++;
               }
-              // اجمع السعر من كل order حسب الـ field المتوفر
               totalValue += summaryOrders.total;
             }
           },

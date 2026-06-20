@@ -65,10 +65,16 @@ class LedgerFilterBar extends StatelessWidget {
                 ),
               );
             },
-            icon: Icon(Icons.download_outlined, size: 16.sp),
+            icon: Icon(Icons.download_outlined,
+                size: 20.sp,
+                fontWeight: FontWeight.w600,
+                color: context.cs.primary),
             label: Text(
               'Export',
-              style: TextStyles.button(context).copyWith(fontSize: 13.sp),
+              style: TextStyles.button(context).copyWith(
+                  fontSize: 15.sp,
+                  fontWeight: FontWeight.w800,
+                  color: context.cs.onSurface),
             ),
             style: OutlinedButton.styleFrom(
               foregroundColor: context.cs.primary,

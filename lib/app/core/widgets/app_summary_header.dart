@@ -8,8 +8,14 @@ class SummaryHeader extends StatelessWidget {
   final String title;
   final String? subtitle;
   final List<SummaryStat> stats;
+
   final double? height;
-  final bool isWelcome; // للـ welcome panel
+  final bool isWelcome;
+
+  /// ✅ NEW
+  final Widget? leading; // Profile style
+  final Widget? customTop; // Ledger style (balance UI)
+
   final VoidCallback? onActionButton1;
   final VoidCallback? onActionButton2;
   final String? actionButton1Label;
@@ -24,6 +30,8 @@ class SummaryHeader extends StatelessWidget {
     required this.stats,
     this.height,
     this.isWelcome = false,
+    this.leading,
+    this.customTop,
     this.onActionButton1,
     this.onActionButton2,
     this.actionButton1Label,
@@ -57,31 +65,47 @@ class SummaryHeader extends StatelessWidget {
         mainAxisAlignment:
             height != null ? MainAxisAlignment.center : MainAxisAlignment.start,
         children: [
-          Text(
-            title,
-            style: TextStyles.screenTitle(context).copyWith(
-              color: context.cs.onPrimary,
-              fontSize: isWelcome ? 24.sp : 20.sp,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
-          if (subtitle != null) ...[
-            verticalSpace(4),
+          /// ✅ 1. Custom Top (أعلى أولوية)
+          if (customTop != null) ...[
+            customTop!,
+            verticalSpace(16),
+          ]
+
+          /// ✅ 2. Leading (Profile)
+          else if (leading != null) ...[
+            leading!,
+            verticalSpace(16),
+          ]
+
+          /// ✅ 3. Default Title (قديم)
+          else ...[
             Text(
-              subtitle!,
-              style: TextStyles.note(context).copyWith(
-                color: context.cs.onPrimary.withValues(alpha: 0.92),
-                fontSize: 13.sp,
+              title,
+              style: TextStyles.screenTitle(context).copyWith(
+                color: context.cs.onPrimary,
+                fontSize: isWelcome ? 24.sp : 20.sp,
+                fontWeight: FontWeight.w700,
               ),
             ),
+            if (subtitle != null) ...[
+              verticalSpace(4),
+              Text(
+                subtitle!,
+                style: TextStyles.note(context).copyWith(
+                  color: context.cs.onPrimary.withValues(alpha: 0.92),
+                  fontSize: 13.sp,
+                ),
+              ),
+            ],
+            verticalSpace(height != null ? 22 : 14),
           ],
-          verticalSpace(height != null ? 22 : 14),
+
+          /// ✅ Stats OR Actions
           if (!isWelcome)
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 for (int i = 0; i < stats.length; i++) ...[
-                  if (i > 0) horizontalSpace(20),
+                  if (i > 0) horizontalSpace(12),
                   Expanded(
                     child: _StatTile(
                       icon: stats[i].icon,
@@ -94,7 +118,6 @@ class SummaryHeader extends StatelessWidget {
               ],
             )
           else
-            // ✅ للـ welcome panel - action buttons
             Row(
               children: [
                 Expanded(
