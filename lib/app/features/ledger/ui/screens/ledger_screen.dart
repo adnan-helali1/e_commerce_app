@@ -1,6 +1,5 @@
 import 'package:B2B/app/core/helpers/extensions.dart';
 import 'package:B2B/app/core/helpers/spacing.dart';
-import 'package:B2B/app/core/networking/api_result.dart';
 import 'package:B2B/app/core/theme/textstyles.dart';
 import 'package:B2B/app/features/ledger/data/models/ledger_response.dart';
 import 'package:B2B/app/features/ledger/logic/cubit/ledger_cubit.dart';
@@ -27,7 +26,11 @@ class LedgerScreen extends StatelessWidget {
             error: error,
             onRetry: () => context.read<LedgerCubit>().load(),
           ),
-          success: (response) => _LedgerContent(response: response),
+          success: (response, filter) => _LedgerContent(
+            // 👈 filter from state
+            response: response,
+            filter: filter,
+          ),
         );
       },
     );
@@ -35,50 +38,47 @@ class LedgerScreen extends StatelessWidget {
 }
 
 // ---------------------------------------------------------------------------
-// Success state — all UI here is dumb (no logic)
+// Success state — fully dumb, receives everything as params
 // ---------------------------------------------------------------------------
 
 class _LedgerContent extends StatelessWidget {
   final LedgerResponse response;
+  final LedgerFilter filter;
 
-  const _LedgerContent({required this.response});
+  const _LedgerContent({
+    required this.response,
+    required this.filter,
+  });
 
   @override
   Widget build(BuildContext context) {
-    // Filter state lives in cubit via a separate lightweight BlocBuilder
-    return BlocBuilder<LedgerCubit, LedgerState>(
-      buildWhen: (prev, curr) => curr is Success,
-      builder: (context, _) {
-        final cubit = context.read<LedgerCubit>();
-        final filter = cubit.activeFilter;
-        final entries = _filteredEntries(response.data.entries.data, filter);
+    final cubit = context.read<LedgerCubit>();
+    final entries = _filteredEntries(response.data.entries.data, filter);
 
-        return RefreshIndicator(
-          onRefresh: cubit.refresh,
-          color: context.cs.primary,
-          child: CustomScrollView(
-            physics: const AlwaysScrollableScrollPhysics(),
-            slivers: [
-              // ── Header (gradient summary)
-              SliverToBoxAdapter(
-                child: LedgerSummaryHeader(summary: response.data.summary),
-              ),
-
-              // ── Filter bar
-              SliverToBoxAdapter(
-                child: LedgerFilterBar(
-                  selected: filter,
-                  onChanged: cubit.setFilter,
-                  onExport: () {}, // wire export later
-                ),
-              ),
-
-              // ── Transaction list
-              LedgerTransactionList(entries: entries),
-            ],
+    return RefreshIndicator(
+      onRefresh: cubit.refresh,
+      color: context.cs.primary,
+      child: CustomScrollView(
+        physics: const AlwaysScrollableScrollPhysics(),
+        slivers: [
+          // ── Gradient summary header
+          SliverToBoxAdapter(
+            child: LedgerSummaryHeader(summary: response.data.summary),
           ),
-        );
-      },
+
+          // ── Filter bar
+          SliverToBoxAdapter(
+            child: LedgerFilterBar(
+              selected: filter,
+              onChanged: cubit.setFilter,
+              onExport: () {},
+            ),
+          ),
+
+          // ── Transaction list
+          LedgerTransactionList(entries: entries),
+        ],
+      ),
     );
   }
 
@@ -107,9 +107,7 @@ class _LedgerShimmer extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomScrollView(
       slivers: [
-        SliverToBoxAdapter(
-          child: _ShimmerBox(height: 190.h),
-        ),
+        SliverToBoxAdapter(child: _ShimmerBox(height: 190.h)),
         SliverToBoxAdapter(child: verticalSpace(12)),
         SliverList.separated(
           itemCount: 5,

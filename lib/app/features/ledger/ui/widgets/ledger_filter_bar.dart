@@ -1,7 +1,9 @@
 import 'package:B2B/app/core/helpers/extensions.dart';
 import 'package:B2B/app/core/helpers/spacing.dart';
 import 'package:B2B/app/core/theme/textstyles.dart';
+import 'package:B2B/app/features/ledger/logic/cubit/ledger_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 enum LedgerFilter { all, income, expenses }
@@ -43,7 +45,9 @@ class LedgerFilterBar extends StatelessWidget {
           ),
           const Spacer(),
           OutlinedButton.icon(
-            onPressed: onExport,
+            onPressed: () {
+              context.read<LedgerCubit>().exportPdf();
+            },
             icon: Icon(Icons.download_outlined, size: 16.sp),
             label: Text(
               'Export',

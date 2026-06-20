@@ -2,6 +2,7 @@ import 'package:B2B/app/core/cache/cache_data_source.dart';
 import 'package:B2B/app/core/networking/api_service.dart';
 import 'package:B2B/app/core/cache/hive_service.dart';
 import 'package:B2B/app/core/networking/dio_factory.dart';
+import 'package:B2B/app/core/pdf_services/pdf_export_service.dart';
 import 'package:B2B/app/features/auth/data/repos/login_repo.dart';
 import 'package:B2B/app/features/auth/data/repos/register_repo.dart';
 import 'package:B2B/app/features/auth/logic/login/login_cubit.dart';
@@ -181,5 +182,14 @@ Future<void> setupGetIt() async {
   getIt.registerLazySingleton<LedgerRepo>(
     () => LedgerRepoImpl(getIt(), getIt()),
   );
-  getIt.registerFactory(() => LedgerCubit(getIt()));
+  getIt.registerLazySingleton<PdfExportService>(
+    () => PdfExportService(),
+  );
+
+  getIt.registerFactory(
+    () => LedgerCubit(
+      getIt<LedgerRepo>(),
+      getIt<PdfExportService>(),
+    ),
+  );
 }

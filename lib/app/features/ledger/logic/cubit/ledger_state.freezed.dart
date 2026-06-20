@@ -156,7 +156,7 @@ extension LedgerStatePatterns on LedgerState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(LedgerResponse response)? success,
+    TResult Function(LedgerResponse response, LedgerFilter filter)? success,
     TResult Function(String error)? failure,
     required TResult orElse(),
   }) {
@@ -167,7 +167,7 @@ extension LedgerStatePatterns on LedgerState {
       case _Loading() when loading != null:
         return loading();
       case _Success() when success != null:
-        return success(_that.response);
+        return success(_that.response, _that.filter);
       case _Failure() when failure != null:
         return failure(_that.error);
       case _:
@@ -192,7 +192,8 @@ extension LedgerStatePatterns on LedgerState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(LedgerResponse response) success,
+    required TResult Function(LedgerResponse response, LedgerFilter filter)
+        success,
     required TResult Function(String error) failure,
   }) {
     final _that = this;
@@ -202,7 +203,7 @@ extension LedgerStatePatterns on LedgerState {
       case _Loading():
         return loading();
       case _Success():
-        return success(_that.response);
+        return success(_that.response, _that.filter);
       case _Failure():
         return failure(_that.error);
       case _:
@@ -226,7 +227,7 @@ extension LedgerStatePatterns on LedgerState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(LedgerResponse response)? success,
+    TResult? Function(LedgerResponse response, LedgerFilter filter)? success,
     TResult? Function(String error)? failure,
   }) {
     final _that = this;
@@ -236,7 +237,7 @@ extension LedgerStatePatterns on LedgerState {
       case _Loading() when loading != null:
         return loading();
       case _Success() when success != null:
-        return success(_that.response);
+        return success(_that.response, _that.filter);
       case _Failure() when failure != null:
         return failure(_that.error);
       case _:
@@ -288,9 +289,11 @@ class _Loading implements LedgerState {
 /// @nodoc
 
 class _Success implements LedgerState {
-  const _Success(this.response);
+  const _Success(this.response, {this.filter = LedgerFilter.all});
 
   final LedgerResponse response;
+  @JsonKey()
+  final LedgerFilter filter;
 
   /// Create a copy of LedgerState
   /// with the given fields replaced by the non-null parameter values.
@@ -305,15 +308,16 @@ class _Success implements LedgerState {
         (other.runtimeType == runtimeType &&
             other is _Success &&
             (identical(other.response, response) ||
-                other.response == response));
+                other.response == response) &&
+            (identical(other.filter, filter) || other.filter == filter));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, response);
+  int get hashCode => Object.hash(runtimeType, response, filter);
 
   @override
   String toString() {
-    return 'LedgerState.success(response: $response)';
+    return 'LedgerState.success(response: $response, filter: $filter)';
   }
 }
 
@@ -323,7 +327,7 @@ abstract mixin class _$SuccessCopyWith<$Res>
   factory _$SuccessCopyWith(_Success value, $Res Function(_Success) _then) =
       __$SuccessCopyWithImpl;
   @useResult
-  $Res call({LedgerResponse response});
+  $Res call({LedgerResponse response, LedgerFilter filter});
 
   $LedgerResponseCopyWith<$Res> get response;
 }
@@ -340,12 +344,17 @@ class __$SuccessCopyWithImpl<$Res> implements _$SuccessCopyWith<$Res> {
   @pragma('vm:prefer-inline')
   $Res call({
     Object? response = null,
+    Object? filter = null,
   }) {
     return _then(_Success(
       null == response
           ? _self.response
           : response // ignore: cast_nullable_to_non_nullable
               as LedgerResponse,
+      filter: null == filter
+          ? _self.filter
+          : filter // ignore: cast_nullable_to_non_nullable
+              as LedgerFilter,
     ));
   }
 

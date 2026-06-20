@@ -51,6 +51,14 @@ dependencies:
 
   #for url launching
   url_launcher: ^6.3.0
+
+  # for exporting data to to pdf
+  pdf: ^3.11.0
+  printing: ^5.14.0
+  intl: ^0.20.2
+  
+
+
 # ---------------- DEV DEPENDENCIES ----------------
 dev_dependencies:
   flutter_test:
