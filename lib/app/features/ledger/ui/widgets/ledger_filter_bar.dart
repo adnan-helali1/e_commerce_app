@@ -2,6 +2,7 @@ import 'package:B2B/app/core/helpers/extensions.dart';
 import 'package:B2B/app/core/helpers/spacing.dart';
 import 'package:B2B/app/core/theme/textstyles.dart';
 import 'package:B2B/app/features/ledger/logic/cubit/ledger_cubit.dart';
+import 'package:B2B/app/features/ledger/ui/screens/ledger_export_bottm_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -45,8 +46,24 @@ class LedgerFilterBar extends StatelessWidget {
           ),
           const Spacer(),
           OutlinedButton.icon(
-            onPressed: () {
-              context.read<LedgerCubit>().exportPdf();
+            onPressed: () async {
+              if (onExport != null) {
+                onExport!();
+              }
+              final cubit = context.read<LedgerCubit>();
+
+              final pdfBytes = await cubit.exportPdf();
+
+              if (pdfBytes == null || !context.mounted) {
+                return;
+              }
+
+              showModalBottomSheet(
+                context: context,
+                builder: (_) => LedgerExportBottomSheet(
+                  pdfBytes: pdfBytes,
+                ),
+              );
             },
             icon: Icon(Icons.download_outlined, size: 16.sp),
             label: Text(

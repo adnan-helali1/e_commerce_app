@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:typed_data';
 
 import 'package:B2B/app/core/helpers/shared_pref_helper.dart';
 import 'package:B2B/app/core/pdf_services/pdf_export_service.dart';
@@ -223,17 +224,17 @@ class LedgerCubit extends Cubit<LedgerState> {
   // ---------------------------------------------------------------------------
 
   // pdf export
-  Future<void> exportPdf() async {
+  Future<Uint8List?> exportPdf() async {
     final response = state.maybeWhen(
       success: (response, _) => response,
       orElse: () => null,
     );
 
-    if (response == null) return;
+    if (response == null) return null;
 
-    final storeName = await SharedPrefHelper.getOwnerName();
+    final storeName = await SharedPrefHelper.getStoreName();
 
-    final pdfBytes = await _pdfExportService.generateLedgerReport(
+    return _pdfExportService.generateLedgerReport(
       storeName: storeName ?? 'Store',
       totalCredits: response.data.summary.totalCredits,
       totalDebits: response.data.summary.totalDebits,
@@ -242,20 +243,13 @@ class LedgerCubit extends Cubit<LedgerState> {
         return LedgerEntryPdfModel(
           date: DateFormat(
             'dd/MM/yyyy HH:mm',
-          ).format(
-            e.occurredAt,
-          ),
+          ).format(e.occurredAt),
           orderId: e.sourceId,
           type: e.type == EntryType.credit ? 'Refund' : 'Purchase',
           amount: e.amount,
           notes: e.notes ?? '-',
         );
       }).toList(),
-    );
-
-    await Printing.sharePdf(
-      bytes: pdfBytes,
-      filename: 'ledger_report_${DateTime.now().millisecondsSinceEpoch}.pdf',
     );
   }
 
