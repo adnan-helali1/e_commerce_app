@@ -9,7 +9,9 @@ class CacheKeys {
   static const String catalogBox = 'catalog_box';
   static const String ordersBox = 'orders_box';
   static const String profileBox = 'profile_box';
+  static const String ledgerBox = 'ledger_box';
   static const Duration homeDashboardTtl = Duration(minutes: 5);
+  static const Duration ledgerTtl = Duration(minutes: 5);
 }
 
 // catalog

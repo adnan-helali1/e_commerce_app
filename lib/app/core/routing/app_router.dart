@@ -8,6 +8,7 @@ import 'package:B2B/app/features/auth/ui/screens/loginscreen.dart';
 import 'package:B2B/app/features/auth/ui/screens/forgotpasswordscreen.dart';
 import 'package:B2B/app/features/catalog/logic/catalog_cubit/catalog_cubit.dart';
 import 'package:B2B/app/features/catalog/ui/screens/my_catalog_screen.dart';
+import 'package:B2B/app/features/ledger/ui/screens/ledger_screen.dart';
 import 'package:B2B/app/features/main_layout.dart';
 import 'package:B2B/app/features/offers/ui/screens/offers_screen.dart';
 import 'package:B2B/app/features/orders/logic/create_order/create_order_cubit.dart';
@@ -85,6 +86,10 @@ class AppRouter {
             ],
             child: const CreateOrderFromOffersScreen(),
           ),
+        );
+      case Routes.ledgerScreen:
+        return MaterialPageRoute(
+          builder: (_) => LedgerScreen(),
         );
       case Routes.profileScreen:
         return MaterialPageRoute(
