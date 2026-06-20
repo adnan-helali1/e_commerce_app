@@ -1,13 +1,10 @@
-import 'package:B2B/app/core/di/dependency_injection.dart';
 import 'package:B2B/app/core/helpers/extensions.dart';
 import 'package:B2B/app/core/helpers/spacing.dart';
 
 import 'package:B2B/app/core/routing/routes.dart';
 import 'package:B2B/app/core/theme/textstyles.dart';
 import 'package:B2B/app/core/theme/theme_mode_cubit.dart';
-import 'package:B2B/app/features/auth/data/repos/login_repo.dart';
 
-import 'package:B2B/app/features/auth/logic/logout_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -55,9 +52,32 @@ class B2bAppBar extends StatelessWidget implements PreferredSizeWidget {
           ),
         ],
       ),
+
+      /*
+
+    onPressed: () async {
+                          final created = await context.pushNamed(
+                            Routes.createOrderFromOffers,
+                          );
+                          if (created == true) {
+                            context.read<OrdersCubit>().refresh();
+                          }
+                        },
+
+
+
+
+
+
+
+
+
+
+
+      */
       actions: [
         IconButton(
-          icon: Icon(Icons.person_outline, color: cs.primary),
+          icon: Icon(Icons.settings, color: cs.primary),
           onPressed: () => context.pushNamed(Routes.profileScreen),
         ),
         IconButton(
@@ -69,15 +89,6 @@ class B2bAppBar extends StatelessWidget implements PreferredSizeWidget {
           ),
           onPressed: () {
             context.read<ThemeModeCubit>().toggle();
-          },
-        ),
-        IconButton(
-          icon: Icon(Icons.logout, color: cs.error),
-          onPressed: () async {
-            await logout(
-              context,
-              getIt<LoginRepo>(),
-            );
           },
         ),
         horizontalSpace(8.w),

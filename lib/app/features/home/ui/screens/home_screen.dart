@@ -71,8 +71,7 @@ class HomeScreen extends StatelessWidget {
                           HomeMetricsSection(metrics: metrics),
                           verticalSpace(16),
                           RecentOrdersSection(
-                              orders: recent,
-                              navCubit: navCubit), // ✅ أضف navCubit هنا
+                              orders: recent, navCubit: navCubit),
                           verticalSpace(4),
                           const HomeQuickActionsSection(),
                           verticalSpace(24),

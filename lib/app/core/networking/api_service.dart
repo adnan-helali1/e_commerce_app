@@ -101,4 +101,9 @@ abstract class ApiService {
 
   @GET(ApiConstants.profile)
   Future<GetProfileResponse> getProfile();
+
+  @PUT(ApiConstants.profile)
+  Future<GetProfileResponse> updateProfile(
+    @Body() Map<String, dynamic> request,
+  );
 }

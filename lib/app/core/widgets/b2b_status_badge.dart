@@ -54,6 +54,7 @@ Color b2bStatusColor(BuildContext context, String status) {
     case 'Available':
     case 'Active':
     case 'available':
+    case 'submitted':
       return context.appColors.success;
     case 'Preparing':
       return context.appColors.info;
@@ -62,6 +63,8 @@ Color b2bStatusColor(BuildContext context, String status) {
     case 'Unavailable':
     case 'Inactive':
       return context.cs.onSurfaceVariant;
+    case 'cancelled':
+      return context.appColors.failure;
     default:
       return context.cs.onSurfaceVariant;
   }

@@ -11,12 +11,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class RecentOrdersSection extends StatelessWidget {
   final List<RecentOrderPreview> orders;
-  final BottomNavCubit navCubit; // ✅ أضف هنا
+  final BottomNavCubit navCubit;
 
   const RecentOrdersSection({
     required this.orders,
     super.key,
-    required this.navCubit, // ✅ required
+    required this.navCubit,
   });
 
   @override
@@ -37,7 +37,7 @@ class RecentOrdersSection extends StatelessWidget {
                           fontSize: 17.sp, fontWeight: FontWeight.w700))),
               TextButton(
                 onPressed: () {
-                  navCubit.changeIndex(3); // ✅ استخدم navCubit
+                  navCubit.changeIndex(3);
                 },
                 child: Text(
                   'View All',

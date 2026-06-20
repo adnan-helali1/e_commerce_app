@@ -1,0 +1,19 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'update_profile_request.freezed.dart';
+part 'update_profile_request.g.dart';
+
+@freezed
+abstract class UpdateProfileRequest with _$UpdateProfileRequest {
+  const factory UpdateProfileRequest({
+    String? name,
+    @JsonKey(name: 'owner_name') String? ownerName,
+    String? phone,
+    String? address,
+  }) = _UpdateProfileRequest;
+
+  factory UpdateProfileRequest.fromJson(
+    Map<String, dynamic> json,
+  ) =>
+      _$UpdateProfileRequestFromJson(json);
+}

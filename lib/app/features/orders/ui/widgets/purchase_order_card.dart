@@ -48,7 +48,8 @@ class PurchaseOrderCard extends StatelessWidget {
                           fontSize: 16.sp, fontWeight: FontWeight.w700),
                     ),
                   ),
-                  B2BStatusBadge(label: order.status, color: statusColor),
+                  B2BStatusBadge(
+                      label: order.status.toUpperCase(), color: statusColor),
                   horizontalSpace(8),
                   Visibility(
                     visible: order.status.toLowerCase() != 'cancelled',
