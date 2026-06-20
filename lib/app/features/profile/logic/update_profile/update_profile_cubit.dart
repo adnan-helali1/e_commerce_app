@@ -1,9 +1,6 @@
-import 'package:B2B/app/core/di/dependency_injection.dart';
 import 'package:B2B/app/core/networking/api_result.dart';
-
 import 'package:B2B/app/features/profile/data/models/update_profile_request.dart';
 import 'package:B2B/app/features/profile/data/repos/update_profile_repo.dart';
-import 'package:B2B/app/features/profile/logic/get_profile/profile_cubit.dart';
 import 'package:B2B/app/features/profile/logic/update_profile/update_profile_state.dart';
 import 'package:bloc/bloc.dart';
 
