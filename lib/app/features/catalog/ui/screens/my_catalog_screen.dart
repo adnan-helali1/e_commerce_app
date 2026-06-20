@@ -1,6 +1,7 @@
 import 'package:B2B/app/core/di/dependency_injection.dart';
 import 'package:B2B/app/core/helpers/extensions.dart';
 import 'package:B2B/app/core/helpers/spacing.dart';
+import 'package:B2B/app/core/widgets/app_shimer.dart';
 import 'package:B2B/app/features/catalog/logic/catalog_action_cubit/catalog_action_cubit.dart';
 import 'package:B2B/app/features/catalog/logic/catalog_cubit/catalog_cubit.dart';
 import 'package:B2B/app/features/catalog/logic/catalog_ui_cubit/catalog_ui_cubit.dart';
@@ -50,12 +51,12 @@ class _MyCatalogBody extends StatelessWidget {
         },
         builder: (context, state) {
           if (state.isLoading) {
-            return const SizedBox.shrink();
+            return const AppShimmer();
           }
 
           final response = state.response;
           if (response == null) {
-            return const SizedBox.shrink();
+            return const AppShimmer();
           }
 
           return Scaffold(

@@ -2,6 +2,7 @@ import 'package:B2B/app/core/cache/cache_data_source.dart';
 import 'package:B2B/app/core/networking/api_service.dart';
 import 'package:B2B/app/core/cache/hive_service.dart';
 import 'package:B2B/app/core/networking/dio_factory.dart';
+import 'package:B2B/app/core/pdf_services/pdf_export_service.dart';
 import 'package:B2B/app/features/auth/data/repos/login_repo.dart';
 import 'package:B2B/app/features/auth/data/repos/register_repo.dart';
 import 'package:B2B/app/features/auth/logic/login/login_cubit.dart';
@@ -19,6 +20,12 @@ import 'package:B2B/app/features/home/data/models/home_dashboard_cache_model.dar
 import 'package:B2B/app/features/home/data/repos/home_repo.dart';
 import 'package:B2B/app/features/home/data/repos/home_repo_impl.dart';
 import 'package:B2B/app/features/home/logic/home_cubit.dart';
+import 'package:B2B/app/features/ledger/data/data_sources/ledger_local_data_source.dart';
+import 'package:B2B/app/features/ledger/data/data_sources/ledger_remote_data_source.dart';
+import 'package:B2B/app/features/ledger/data/models/ledger_cache_model.dart';
+import 'package:B2B/app/features/ledger/data/repos/ledger_repo.dart';
+import 'package:B2B/app/features/ledger/data/repos/ledger_repo_imp.dart';
+import 'package:B2B/app/features/ledger/logic/cubit/ledger_cubit.dart';
 import 'package:B2B/app/features/offers/data/data_sources/add_offer_remote_data_source.dart';
 import 'package:B2B/app/features/offers/data/data_sources/local_data_source.dart';
 import 'package:B2B/app/features/offers/data/models/offers_cache_model.dart';
@@ -165,4 +172,24 @@ Future<void> setupGetIt() async {
   getIt.registerFactory(() => UpdateProfileCubit(getIt()));
 
   getIt.registerFactory(() => ProfileCubit(getIt()));
+
+  //ledger
+  getIt.registerLazySingleton(() => LedgerRemoteDataSource(getIt()));
+  getIt.registerLazySingleton<CacheDataSource<LedgerCacheModel>>(
+    () => CacheDataSource<LedgerCacheModel>(getIt()),
+  );
+  getIt.registerLazySingleton(() => LedgerLocalDataSource(getIt()));
+  getIt.registerLazySingleton<LedgerRepo>(
+    () => LedgerRepoImpl(getIt(), getIt()),
+  );
+  getIt.registerLazySingleton<PdfExportService>(
+    () => PdfExportService(),
+  );
+
+  getIt.registerFactory(
+    () => LedgerCubit(
+      getIt<LedgerRepo>(),
+      getIt<PdfExportService>(),
+    ),
+  );
 }

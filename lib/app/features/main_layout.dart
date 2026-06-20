@@ -6,6 +6,8 @@ import 'package:B2B/app/features/catalog/logic/catalog_cubit/catalog_cubit.dart'
 import 'package:B2B/app/features/catalog/ui/screens/my_catalog_screen.dart';
 import 'package:B2B/app/features/home/logic/home_cubit.dart';
 import 'package:B2B/app/features/home/ui/screens/home_screen.dart';
+import 'package:B2B/app/features/ledger/logic/cubit/ledger_cubit.dart';
+import 'package:B2B/app/features/ledger/ui/screens/ledger_screen.dart';
 import 'package:B2B/app/features/offers/logic/offers_cubit/offers_cubit.dart';
 import 'package:B2B/app/features/offers/ui/screens/offers_screen.dart';
 import 'package:B2B/app/features/orders/logic/get_orders/orders_cubit.dart';
@@ -58,6 +60,10 @@ class _MainLayoutState extends State<MainLayout> {
       BlocProvider(
         create: (context) => getIt<OrdersCubit>(),
         child: PurchaseOrdersScreen(),
+      ),
+      BlocProvider(
+        create: (context) => getIt<LedgerCubit>()..load(),
+        child: const LedgerScreen(),
       )
     ];
 
@@ -79,6 +85,7 @@ class _MainLayoutState extends State<MainLayout> {
           AppBottomNavItem(label: 'Offers', icon: Icons.inventory_2_outlined),
           AppBottomNavItem(label: 'Catalog', icon: Icons.map_outlined),
           AppBottomNavItem(label: 'Orders', icon: Icons.shopping_bag_outlined),
+          AppBottomNavItem(label: 'Ledger', icon: Icons.description_outlined),
         ],
       ),
     );

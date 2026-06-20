@@ -5,6 +5,7 @@ import 'package:B2B/app/features/auth/data/models/register_request_body.dart';
 import 'package:B2B/app/features/auth/data/models/register_response.dart';
 import 'package:B2B/app/features/catalog/data/models/catalog_response.dart';
 import 'package:B2B/app/features/home/data/models/home_dashboard_response.dart';
+import 'package:B2B/app/features/ledger/data/models/ledger_response.dart';
 import 'package:B2B/app/features/offers/data/models/add_offer_models/add_offer_request_body.dart';
 import 'package:B2B/app/features/offers/data/models/add_offer_models/add_offer_response.dart';
 import 'package:B2B/app/features/offers/data/models/offers_response.dart';
@@ -106,4 +107,7 @@ abstract class ApiService {
   Future<GetProfileResponse> updateProfile(
     @Body() Map<String, dynamic> request,
   );
+  // ledger Endpoints
+  @GET(ApiConstants.ledger)
+  Future<LedgerResponse> getLedger();
 }

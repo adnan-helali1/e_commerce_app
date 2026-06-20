@@ -1,5 +1,6 @@
 import 'package:B2B/app/core/helpers/spacing.dart';
 import 'package:B2B/app/core/widgets/app_bottom_bar_cubit.dart';
+import 'package:B2B/app/core/widgets/app_shimer.dart';
 import 'package:B2B/app/core/widgets/double_back_to_exit.dart';
 import 'package:B2B/app/features/home/data/lists/list_metrics.dart';
 import 'package:B2B/app/features/home/data/lists/list_recent_order.dart';
@@ -35,7 +36,7 @@ class HomeScreen extends StatelessWidget {
                 builder: (context, state) {
                   return state.when(
                     initial: () {
-                      return const SizedBox.shrink();
+                      return const AppShimmer();
                     },
                     loading: () => Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -43,6 +44,7 @@ class HomeScreen extends StatelessWidget {
                         HomeWelcomePanel(
                           navCubit: navCubit,
                         ),
+                        const AppShimmer(),
                         verticalSpace(16),
                         const HomeMetricsSection(metrics: []),
                         verticalSpace(16),

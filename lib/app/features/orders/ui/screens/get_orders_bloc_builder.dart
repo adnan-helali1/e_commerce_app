@@ -1,5 +1,6 @@
 import 'package:B2B/app/core/helpers/spacing.dart';
 import 'package:B2B/app/core/theme/textstyles.dart';
+import 'package:B2B/app/core/widgets/app_shimer.dart';
 import 'package:B2B/app/features/orders/logic/get_orders/orders_cubit.dart';
 import 'package:B2B/app/features/orders/logic/get_orders/orders_state.dart';
 import 'package:B2B/app/features/orders/ui/widgets/orders_result_summary.dart';
@@ -29,7 +30,7 @@ class _GetOrdersBlocBuilderState extends State<GetOrdersBlocBuilder>
     return BlocBuilder<OrdersCubit, OrdersState>(
       builder: (context, state) {
         return state.maybeWhen(
-          orElse: () => const SizedBox.shrink(),
+          orElse: () => const AppShimmer(),
           success: (response) {
             final orders = response.data.data; // List<OrderModel>
             final pagnedOrders = response; // PaginatedResponse<OrderModel>
