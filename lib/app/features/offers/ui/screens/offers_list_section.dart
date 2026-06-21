@@ -1,3 +1,4 @@
+import 'package:B2B/app/core/widgets/app_shimer.dart';
 import 'package:B2B/app/features/offers/data/models/offers_model_response/offer_data_model.dart';
 import 'package:B2B/app/features/offers/logic/offers_cubit/offers_cubit.dart';
 import 'package:B2B/app/features/offers/logic/offers_cubit/offers_state.dart';
@@ -11,26 +12,29 @@ class OffersListSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocSelector<OffersCubit, OffersState, List<OfferData>>(
-      selector: (state) {
-        return state.maybeWhen(
-          success: (response) => response.data,
-          orElse: () => const [],
-        );
-      },
-      builder: (context, offers) {
-        if (offers.isEmpty) {
-          return const OffersEmptySection();
-        }
+    return BlocBuilder<OffersCubit, OffersState>(
+      builder: (context, state) {
+        return state.when(
+          loading: () => const AppShimmer(),
+          success: (response) {
+            final offers = response.data;
 
-        return Column(
-          children: List.generate(
-            offers.length,
-            (index) => OfferCard(
-              key: ValueKey(offers[index].id),
-              offer: offers[index],
-            ),
-          ),
+            if (offers.isEmpty) {
+              return const OffersEmptySection();
+            }
+
+            return Column(
+              children: List.generate(
+                offers.length,
+                (index) => OfferCard(
+                  key: ValueKey(offers[index].id),
+                  offer: offers[index],
+                ),
+              ),
+            );
+          },
+          failure: (error) => Center(child: Text(error)),
+          initial: () => const SizedBox.shrink(),
         );
       },
     );

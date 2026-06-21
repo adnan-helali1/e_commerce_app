@@ -8,20 +8,24 @@ class AppShimmer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
-      physics: const NeverScrollableScrollPhysics(),
-      slivers: [
-        SliverToBoxAdapter(child: _ShimmerBox(height: 190.h)),
-        SliverToBoxAdapter(child: verticalSpace(12)),
-        SliverList.separated(
-          itemCount: 5,
-          separatorBuilder: (_, __) => verticalSpace(8),
-          itemBuilder: (_, __) => Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.w),
-            child: _ShimmerBox(height: 76.h),
+    return SizedBox(
+      height: 1220.h,
+      width: double.infinity,
+      child: CustomScrollView(
+        physics: const NeverScrollableScrollPhysics(),
+        slivers: [
+          SliverToBoxAdapter(child: _ShimmerBox(height: 190.h)),
+          SliverToBoxAdapter(child: verticalSpace(12)),
+          SliverList.separated(
+            itemCount: 5,
+            separatorBuilder: (_, __) => verticalSpace(8),
+            itemBuilder: (_, __) => Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16.w),
+              child: _ShimmerBox(height: 76.h),
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
