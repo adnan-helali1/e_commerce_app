@@ -13,6 +13,7 @@ class CatalogSummaryHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SummaryHeader(
+      height: 200,
       title: 'My Store Catalog',
       stats: [
         SummaryStat(

@@ -32,7 +32,7 @@ class CatalogSearchField extends StatelessWidget {
             child: Row(
               children: [
                 Icon(Icons.search,
-                    color: context.cs.onSurfaceVariant, size: 22.sp),
+                    color: context.cs.onSurfaceVariant, size: 26.sp),
                 horizontalSpace(10),
                 Expanded(
                   child: TextFormField(
@@ -41,7 +41,7 @@ class CatalogSearchField extends StatelessWidget {
                     onChanged: context.read<CatalogUiCubit>().search,
                     controller: context.read<CatalogUiCubit>().searchController,
                     style: TextStyles.fieldText(context)
-                        .copyWith(fontSize: 16.sp, fontWeight: FontWeight.w600),
+                        .copyWith(fontSize: 1.sp, fontWeight: FontWeight.w400),
                     decoration: InputDecoration(
                       hintText: hintText,
                       border: InputBorder.none,

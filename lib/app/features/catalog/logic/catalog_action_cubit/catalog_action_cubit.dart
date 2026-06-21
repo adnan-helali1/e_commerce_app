@@ -25,7 +25,7 @@ class CatalogActionCubit extends Cubit<CatalogActionState> {
 
     response.when(
       success: (_) {
-        getIt<CatalogCubit>().clearCache();
+        getIt<CatalogCubit>().refresh();
 
         emit(
           const CatalogActionState.success(),
@@ -56,8 +56,6 @@ class CatalogActionCubit extends Cubit<CatalogActionState> {
 
     response.when(
       success: (_) {
-        getIt<CatalogCubit>().clearCache();
-
         emit(
           const CatalogActionState.success(),
         );
@@ -83,8 +81,6 @@ class CatalogActionCubit extends Cubit<CatalogActionState> {
 
     response.when(
       success: (_) {
-        getIt<CatalogCubit>().clearCache();
-
         emit(
           const CatalogActionState.success(),
         );

@@ -74,7 +74,7 @@ class _PurchaseOrdersScreenState extends State<PurchaseOrdersScreen>
           body: RefreshIndicator(
             onRefresh: () => context.read<OrdersCubit>().refresh(),
             child: SingleChildScrollView(
-              physics: const AlwaysScrollableScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

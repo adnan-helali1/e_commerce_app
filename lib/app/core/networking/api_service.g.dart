@@ -230,22 +230,15 @@ class _ApiService implements ApiService {
   @override
   Future<void> patchCatalogItem(
     int catalogId,
-    String sellPrice,
-    bool isActive,
+    Map<String, dynamic> request,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    final _data = FormData();
-    _data.fields.add(MapEntry('sell_price', sellPrice));
-    _data.fields.add(MapEntry('is_active', isActive.toString()));
+    final _data = <String, dynamic>{};
+    _data.addAll(request);
     final _options = _setStreamType<void>(
-      Options(
-        method: 'PATCH',
-        headers: _headers,
-        extra: _extra,
-        contentType: 'multipart/form-data',
-      )
+      Options(method: 'PATCH', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
             'catalog/${catalogId}',

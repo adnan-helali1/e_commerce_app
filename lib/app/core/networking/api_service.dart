@@ -63,11 +63,9 @@ abstract class ApiService {
     @Query('search') String search,
   );
   @PATCH('${ApiConstants.catalog}/{catalogId}')
-  @MultiPart()
   Future<void> patchCatalogItem(
     @Path('catalogId') int catalogId,
-    @Part(name: 'sell_price') String sellPrice,
-    @Part(name: 'is_active') bool isActive,
+    @Body() Map<String, dynamic> request,
   );
 
   @DELETE('${ApiConstants.catalog}/{catalogId}')

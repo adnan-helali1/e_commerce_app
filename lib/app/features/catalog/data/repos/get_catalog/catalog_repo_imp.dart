@@ -4,6 +4,7 @@ import 'package:B2B/app/core/networking/api_result.dart';
 import 'package:B2B/app/features/catalog/data/data_sources/get_catalog/catalog_local_data_source.dart';
 import 'package:B2B/app/features/catalog/data/data_sources/get_catalog/catalog_remote_data_source.dart';
 import 'package:B2B/app/features/catalog/data/models/catalog_cache_model/catalog_cache_model.dart';
+import 'package:B2B/app/features/catalog/data/models/catalog_models/patch_catalog_request.dart';
 import 'package:B2B/app/features/catalog/data/models/catalog_response.dart';
 import 'package:B2B/app/features/catalog/data/repos/get_catalog/catalog_repo.dart';
 
@@ -210,8 +211,10 @@ class CatalogRepoImpl implements CatalogRepo {
     try {
       await _remote.patchCatalogItem(
         catalogId: catalogId,
-        sellPrice: sellPrice,
-        isActive: isActive,
+        request: PatchCatalogRequest(
+          sellPrice: sellPrice.toString(),
+          isActive: isActive,
+        ),
       );
 
       return const ApiResult.success(null);

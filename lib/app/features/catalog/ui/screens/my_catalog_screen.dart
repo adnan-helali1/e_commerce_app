@@ -66,7 +66,7 @@ class _MyCatalogBody extends StatelessWidget {
                 physics: const AlwaysScrollableScrollPhysics(),
                 children: [
                   CatalogSummaryHeader(summary: response.summary),
-                  verticalSpace(12),
+                  verticalSpace(15),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16.w),
                     child: const CatalogSearchField(
@@ -80,11 +80,12 @@ class _MyCatalogBody extends StatelessWidget {
                       children: [
                         Expanded(
                           child: CatalogActiveFilter(
-                            value: state.activeOnly,
-                            onChanged: (_) => context
-                                .read<CatalogUiCubit>()
-                                .toggleActiveOnly(),
-                          ),
+                              value: state.activeOnly,
+                              onChanged: (_) {
+                                context
+                                    .read<CatalogUiCubit>()
+                                    .toggleActiveOnly();
+                              }),
                         ),
                         horizontalSpace(8),
                         CatalogAddProd(),
@@ -94,7 +95,10 @@ class _MyCatalogBody extends StatelessWidget {
                   verticalSpace(15),
                   CatalogSummaryCenter(summary: response.summary),
                   verticalSpace(10),
-                  const CatalogListSection(),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 3.0),
+                    child: const CatalogListSection(),
+                  ),
                   verticalSpace(24),
                 ],
               ),
