@@ -46,13 +46,19 @@ class _GetOrdersBlocBuilderState extends State<GetOrdersBlocBuilder>
               );
             }
 
-            return Column(children: [
-              OrdersResultSummary(order: pagnedOrders),
-              ...List.generate(
-                growable: true,
-                orders.length,
-                (index) => PurchaseOrderCard(
-                  order: orders[index],
+            return ListView.builder(
+              shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
+              itemCount: orders.length + 1,
+              itemBuilder: (context, index) {
+                if (index == 0) {
+                  return OrdersResultSummary(order: pagnedOrders);
+                }
+
+                final order = orders[index - 1];
+
+                return PurchaseOrderCard(
+                  order: order,
                   isExpanded: _expandedStates[index] ?? false,
                   onTap: () {
                     setState(() {
@@ -60,9 +66,9 @@ class _GetOrdersBlocBuilderState extends State<GetOrdersBlocBuilder>
                           !(_expandedStates[index] ?? false);
                     });
                   },
-                ),
-              ),
-            ]);
+                );
+              },
+            );
           },
           failure: (error) => Center(
             child: Padding(

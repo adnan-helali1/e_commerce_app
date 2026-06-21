@@ -12,6 +12,7 @@ import 'package:B2B/app/features/offers/logic/offers_cubit/offers_cubit.dart';
 import 'package:B2B/app/features/offers/ui/screens/offers_screen.dart';
 import 'package:B2B/app/features/orders/logic/get_orders/orders_cubit.dart';
 import 'package:B2B/app/features/orders/ui/screens/purchase_orders_screen.dart';
+import 'package:B2B/app/features/stock/ui/screens/stock_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:B2B/app/core/helpers/shared_pref_helper.dart';
@@ -64,7 +65,8 @@ class _MainLayoutState extends State<MainLayout> {
       BlocProvider(
         create: (context) => getIt<LedgerCubit>()..load(),
         child: const LedgerScreen(),
-      )
+      ),
+      InventoryOverviewScreen()
     ];
 
     return Scaffold(
@@ -86,6 +88,7 @@ class _MainLayoutState extends State<MainLayout> {
           AppBottomNavItem(label: 'Catalog', icon: Icons.map_outlined),
           AppBottomNavItem(label: 'Orders', icon: Icons.shopping_bag_outlined),
           AppBottomNavItem(label: 'Ledger', icon: Icons.description_outlined),
+          AppBottomNavItem(label: 'Stock', icon: Icons.store_outlined),
         ],
       ),
     );

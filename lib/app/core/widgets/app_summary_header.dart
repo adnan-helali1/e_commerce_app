@@ -50,14 +50,7 @@ class SummaryHeader extends StatelessWidget {
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [
-            context.cs.primary,
-            context.cs.primaryContainer,
-            context.cs.primaryContainer,
-            context.cs.primaryFixed,
-            context.cs.primary,
-            context.cs.onSecondary,
-          ],
+          colors: [Color(0xFF2C45CC), Color(0xFF5E38D0)],
         ),
       ),
       child: Column(

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'app_colors.dart';
 
 final lightTheme = ThemeData(
-  fontFamily: 'cairo',
+  fontFamily: 'Roboto',
   useMaterial3: true,
   brightness: Brightness.light,
   colorScheme: const ColorScheme.light(

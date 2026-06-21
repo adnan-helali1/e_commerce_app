@@ -38,7 +38,7 @@ class CatalogActiveFilter extends StatelessWidget {
                 'Active Only',
                 overflow: TextOverflow.ellipsis,
                 style: TextStyles.label(context)
-                    .copyWith(fontSize: 14.sp, fontWeight: FontWeight.w700),
+                    .copyWith(fontSize: 14.sp, fontWeight: FontWeight.w500),
               ),
             ),
           ],

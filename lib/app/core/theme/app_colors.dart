@@ -4,15 +4,15 @@ class AppColors {
   // ------------------------------------------------------------
   // BRAND COLORS (from blue accents in UI)
   // ------------------------------------------------------------
-  static const Color primary = Color(0xFF1E3A8A); // Deep business blue
+  static const Color primary = Color(0xFF3A56D4);
 
-  static const Color primaryDark = Color(0xFF1E3A8A); // Darker variant
+  static const Color primaryDark = Color(0xFF2C45CC); // Darker variant
   static const Color secondary = Color(0xFF3B82F6); // Bright blue accent
-  static const Color secondaryDark = Color(0xFF2563EB);
+  static const Color secondaryDark = Color(0xFF5E38D0);
   // ------------------------------------------------------------
   // SEMANTIC COLORS (from success, warning, error indicators)
   // ------------------------------------------------------------
-  static const Color success = Color(0xFF16A34A); // Green
+  static const Color success = Color(0xFF43C464); // Green
 
   static const Color successContainer = Color(0xFF14532D);
   static const Color warning = Color(0xFFF59E0B); // Orange
@@ -23,7 +23,7 @@ class AppColors {
   static const Color errorContainer = Color(0xFF7F1D1D);
   static const Color info = Color(0xFF0EA5E9); // Cyan info
 
-  static const Color infoContainer = Color(0xFF0C4A6E);
+  static const Color infoContainer = Color(0xFFF3F4F6);
   // ------------------------------------------------------------
   // NEUTRALS (based on grey tones in UI)
   // ------------------------------------------------------------
@@ -39,7 +39,7 @@ class AppColors {
   static const Color neutral70 = Color(0xFFD1D5DB);
   static const Color neutral80 = Color(0xFFEEEEEE);
   static const Color neutral90 = Color(0xFFF3F4F6);
-  static const Color neutral95 = Color(0xFFF9FAFB);
+  static const Color neutral95 = Color(0xFFEEF1F8);
   static const Color neutral99 = Color(0xFFFCFEFF);
   // ------------------------------------------------------------
   // SURFACES (from card backgrounds & app backgrounds)
@@ -61,7 +61,7 @@ class AppColors {
   // ------------------------------------------------------------
   // SPECIAL CARDS COLORS (from specific UI elements)
   // ------------------------------------------------------------
-  static const Color blueCard = Color(0xffE3EFFE);
+  static const Color blueCard = Color(0xFF233BB0);
   static const Color blueCardDark = Color(0xff1E2D4C);
   static const Color redCard = Color(0xffFEEBEB);
   static const Color redCardDark = Color(0xff362531);

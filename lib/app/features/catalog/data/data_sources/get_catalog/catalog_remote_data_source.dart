@@ -1,4 +1,5 @@
 import 'package:B2B/app/core/networking/api_service.dart';
+import 'package:B2B/app/features/catalog/data/models/catalog_models/patch_catalog_request.dart';
 import 'package:B2B/app/features/catalog/data/models/catalog_response.dart';
 
 class CatalogRemoteDataSource {
@@ -22,13 +23,11 @@ class CatalogRemoteDataSource {
 
   Future<void> patchCatalogItem({
     required int catalogId,
-    required double sellPrice,
-    required bool isActive,
+    required PatchCatalogRequest request,
   }) {
     return _apiService.patchCatalogItem(
       catalogId,
-      sellPrice.toString(),
-      isActive,
+      request.toJson(),
     );
   }
 

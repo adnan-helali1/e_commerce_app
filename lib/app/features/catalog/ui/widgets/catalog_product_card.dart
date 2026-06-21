@@ -143,7 +143,7 @@ class _ProductThumb extends StatelessWidget {
       width: 56.r,
       height: 56.r,
       decoration: BoxDecoration(
-        color: context.cs.surfaceContainer.withValues(alpha: 0.6),
+        color: context.cs.surfaceContainer.withValues(alpha: 0.2),
         borderRadius: BorderRadius.circular(6.r),
       ),
       clipBehavior: Clip.antiAlias,
