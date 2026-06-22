@@ -1,4 +1,5 @@
 import 'package:B2B/app/core/helpers/extensions.dart';
+import 'package:B2B/app/core/helpers/spacing.dart';
 import 'package:B2B/app/features/stock/ui/screens/full_stock_screen.dart';
 import 'package:B2B/app/features/stock/ui/widgets/filter_tab_row.dart';
 import 'package:B2B/app/features/stock/ui/widgets/stat_item_card.dart';
@@ -45,61 +46,58 @@ class _InventoryOverviewScreenState extends State<InventoryOverviewScreen> {
     ),
   ];
 
-  void _handleReduce(InventoryItem item) {
-    // TODO: wire to logic layer
-  }
+  void _handleReduce(InventoryItem item) {}
 
-  void _handleAddStock(InventoryItem item) {
-    // TODO: wire to logic layer
-  }
+  void _handleAddStock(InventoryItem item) {}
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: context.cs.background,
-      body: Column(
-        children: [
-          // ── Gradient Header ─────────────────────────────────────────────
-          InventoryHeader(
-            totalItems: 4,
-            lowStock: 0,
-            outOfStock: 0,
-            selectedStatIndex: 1, // 0=Total, 1=Low, 2=OutOfStock
-          ),
-
-          // ── Scrollable Body ─────────────────────────────────────────────
-          Expanded(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.fromLTRB(16, 16, 16, 32),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Search
-                  const InventorySearchBar(),
-                  const SizedBox(height: 14),
-
-                  // Filter tabs
-                  FilterTabRow(
-                    tabs: _filters,
-                    selectedIndex: _selectedFilter,
-                    onTabSelected: (i) => setState(() => _selectedFilter = i),
-                  ),
-                  const SizedBox(height: 16),
-
-                  // Item cards
-                  for (final item in _items) ...[
-                    InventoryItemCard(
-                      item: item,
-                      onReduce: () => _handleReduce(item),
-                      onAddStock: () => _handleAddStock(item),
-                    ),
-                    const SizedBox(height: 12),
-                  ],
-                ],
+      body: Expanded(
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              InventoryHeader(
+                totalItems: 4,
+                lowStock: 0,
+                outOfStock: 0,
+                selectedStatIndex: 1, // 0=Total, 1=Low, 2=OutOfStock
               ),
-            ),
+              // Search
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16, 16, 16, 2),
+                child: const InventorySearchBar(),
+              ),
+              verticalSpace(14),
+
+              // Filter tabs
+              Padding(
+                padding: const EdgeInsets.fromLTRB(18, 0, 18, 2),
+                child: FilterTabRow(
+                  tabs: _filters,
+                  selectedIndex: _selectedFilter,
+                  onTabSelected: (i) => setState(() => _selectedFilter = i),
+                ),
+              ),
+              verticalSpace(16),
+
+              // Item cards
+              for (final item in _items) ...[
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(18, 2, 18, 2),
+                  child: InventoryItemCard(
+                    item: item,
+                    onReduce: () => _handleReduce(item),
+                    onAddStock: () => _handleAddStock(item),
+                  ),
+                ),
+                verticalSpace(32),
+              ],
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

@@ -58,20 +58,19 @@ class FilterTab extends StatelessWidget {
         duration: const Duration(milliseconds: 200),
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 9),
         decoration: BoxDecoration(
-          color: isSelected
-              ? const Color(0xFF1A2B8C)
-              : context.cs.onPrimaryContainer,
+          color:
+              isSelected ? context.cs.primary : context.cs.onPrimaryContainer,
           borderRadius: BorderRadius.circular(8),
           border: Border.all(
-            color: isSelected
-                ? const Color(0xFF1A2B8C)
-                : context.cs.onPrimaryContainer,
+            color:
+                isSelected ? context.cs.primary : context.cs.onPrimaryContainer,
           ),
         ),
         child: Text(
           label,
           style: TextStyles.label(context).copyWith(
-            color: isSelected ? Colors.white : context.cs.onSurfaceVariant,
+            color:
+                isSelected ? context.cs.onPrimary : context.cs.onSurfaceVariant,
             fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
           ),
         ),

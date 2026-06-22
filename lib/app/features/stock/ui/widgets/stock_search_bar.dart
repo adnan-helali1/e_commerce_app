@@ -31,7 +31,7 @@ class InventorySearchBar extends StatelessWidget {
         onChanged: onChanged,
         style: TextStyle(fontSize: 14.sp, color: AppColors.blueCardDark),
         decoration: InputDecoration(
-          hintText: 'Search inventory...',
+          hintText: 'Search Products...',
           hintStyle: TextStyle(color: AppColors.blueCardDark, fontSize: 15.sp),
           prefixIcon: Icon(Icons.search_rounded,
               color: AppColors.blueCardDark, size: 26.sp),

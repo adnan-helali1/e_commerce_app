@@ -43,10 +43,3 @@ class InventoryHeader extends StatelessWidget {
     );
   }
 }
-
-class _StatData {
-  final IconData icon;
-  final String value;
-  final String label;
-  const _StatData(this.icon, this.value, this.label);
-}

@@ -1,9 +1,11 @@
 import 'package:B2B/app/core/helpers/extensions.dart';
+import 'package:B2B/app/core/helpers/spacing.dart';
 import 'package:B2B/app/core/theme/textstyles.dart';
 import 'package:B2B/app/features/stock/ui/screens/full_stock_screen.dart';
 import 'package:B2B/app/features/stock/ui/screens/stock_screen.dart';
 import 'package:B2B/app/features/stock/ui/widgets/stock_action_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class InventoryItemCard extends StatelessWidget {
   final InventoryItem item;
@@ -30,7 +32,7 @@ class InventoryItemCard extends StatelessWidget {
         border: Border.all(color: context.appColors.borderColor),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: context.appColors.borderColor.withOpacity(0.1),
             blurRadius: 10,
             offset: const Offset(0, 2),
           ),
@@ -48,17 +50,16 @@ class InventoryItemCard extends StatelessWidget {
                 width: 46,
                 height: 46,
                 decoration: BoxDecoration(
-                  color: context.cs.primaryContainer,
+                  color: context.cs.primary.withOpacity(0.9),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Icon(
                   Icons.inventory_2_outlined,
-                  color: context.cs.surface,
-                  size: 22,
+                  color: context.cs.surface.withOpacity(0.8),
+                  size: 27,
                 ),
               ),
-              const SizedBox(width: 12),
-
+              horizontalSpace(12),
               // Name + supplier
               Expanded(
                 child: Column(
@@ -66,26 +67,27 @@ class InventoryItemCard extends StatelessWidget {
                   children: [
                     Text(
                       item.name,
-                      style: TextStyles.label(context),
+                      style: TextStyles.label(context).copyWith(
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w600,
+                      ),
                       overflow: TextOverflow.ellipsis,
                     ),
-                    const SizedBox(height: 3),
+                    verticalSpace(3),
                     Text(item.supplier,
                         style: TextStyles.label(context).copyWith(
                           color: context.cs.onSurfaceVariant,
-                          fontSize: 12,
+                          fontSize: 12.sp,
                         )),
                   ],
                 ),
               ),
-              const SizedBox(width: 8),
+              horizontalSpace(8),
 
               // Status badge
-              StockStatusBadge(status: item.status),
+              //  StockStatusBadge(status: item.status),
             ],
           ),
-
-          const SizedBox(height: 16),
 
           // ── Stock level label + count ──────────────────────────────────
           Row(
@@ -93,14 +95,13 @@ class InventoryItemCard extends StatelessWidget {
             children: [
               Text('Stock Level', style: TextStyles.button(context)),
               Text(
-                '${item.currentStock} / ${item.maxStock} units',
+                '${item.currentStock} / ${item.maxStock} units ',
                 style: TextStyles.note(context).copyWith(
                   color: context.cs.onSurfaceVariant,
                 ),
               ),
             ],
           ),
-          const SizedBox(height: 8),
 
           // Progress bar
           ClipRRect(
@@ -112,8 +113,6 @@ class InventoryItemCard extends StatelessWidget {
               valueColor: AlwaysStoppedAnimation<Color>(context.cs.onPrimary),
             ),
           ),
-
-          const SizedBox(height: 14),
 
           // ── Min Stock + Last Updated ───────────────────────────────────
           Row(
@@ -133,32 +132,18 @@ class InventoryItemCard extends StatelessWidget {
             ],
           ),
 
-          const SizedBox(height: 14),
+          verticalSpace(10),
           const Divider(
             height: 1,
             thickness: 1,
           ),
-          const SizedBox(height: 14),
+          verticalSpace(18),
 
           // ── Action buttons ─────────────────────────────────────────────
-          Row(
-            children: [
-              Expanded(
-                child: InventoryActionButton(
-                  label: '− Reduce',
-                  onTap: onReduce,
-                  isOutlined: true,
-                ),
-              ),
-              const SizedBox(width: 10),
-              Expanded(
-                child: InventoryActionButton(
-                  label: '+ Add Stock',
-                  onTap: onAddStock,
-                  isOutlined: false,
-                ),
-              ),
-            ],
+          InventoryActionButton(
+            label: '+ Add Stock',
+            onTap: onAddStock,
+            isOutlined: false,
           ),
         ],
       ),
@@ -180,9 +165,9 @@ class _InfoColumn extends StatelessWidget {
         Text(label,
             style: TextStyles.label(context).copyWith(
               color: context.cs.onSurfaceVariant,
-              fontSize: 12,
+              fontSize: 12.sp,
             )),
-        const SizedBox(height: 3),
+        verticalSpace(3),
         Text(value, style: TextStyles.note(context)),
       ],
     );

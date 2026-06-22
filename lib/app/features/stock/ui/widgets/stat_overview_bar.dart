@@ -1,7 +1,7 @@
 import 'package:B2B/app/core/helpers/extensions.dart';
 import 'package:B2B/app/core/theme/textstyles.dart';
-import 'package:B2B/app/features/stock/ui/screens/full_stock_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class StatOverviewCard extends StatelessWidget {
   final IconData icon;
@@ -33,7 +33,7 @@ class StatOverviewCard extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, color: Colors.white, size: 22),
+          Icon(icon, color: Colors.white, size: 22.h),
           const SizedBox(height: 6),
           Text(value, style: TextStyles.button(context)),
           const SizedBox(height: 3),
