@@ -1,5 +1,4 @@
-import 'package:B2B/app/core/theme/textstyles.dart';
-import 'package:B2B/app/features/stock/ui/widgets/stat_overview_bar.dart';
+import 'package:B2B/app/core/widgets/app_summary_header.dart';
 import 'package:flutter/material.dart';
 
 class InventoryHeader extends StatelessWidget {
@@ -18,61 +17,29 @@ class InventoryHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final stats = [
-      _StatData(
-          Icons.inventory_2_outlined, totalItems.toString(), 'Total Items'),
-      _StatData(Icons.warning_amber_outlined, lowStock.toString(), 'Low Stock'),
-      _StatData(
-          Icons.show_chart_rounded, outOfStock.toString(), 'Out of Stock'),
-    ];
-
-    return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [Color(0xFF2C45CC), Color(0xFF5E38D0)],
+    return SummaryHeader(
+      height: 200,
+      title: 'Inventory Overview',
+      titleIcon: Icons.inventory_2_outlined,
+      useSafeArea: true,
+      selectedStatIndex: selectedStatIndex,
+      stats: [
+        SummaryStat(
+          icon: Icons.inventory_2_outlined,
+          value: totalItems.toString(),
+          label: 'Total Items',
         ),
-      ),
-      child: SafeArea(
-        bottom: false,
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(20, 14, 20, 26),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Title
-              Row(
-                children: [
-                  const Icon(Icons.inventory_2_outlined,
-                      color: Colors.white, size: 20),
-                  const SizedBox(width: 8),
-                  Text('Inventory Overview',
-                      style: TextStyles.screenTitle(context)),
-                ],
-              ),
-              const SizedBox(height: 20),
-
-              // Stat cards
-              Row(
-                children: [
-                  for (int i = 0; i < stats.length; i++) ...[
-                    Expanded(
-                      child: StatOverviewCard(
-                        icon: stats[i].icon,
-                        value: stats[i].value,
-                        label: stats[i].label,
-                        isSelected: i == selectedStatIndex,
-                      ),
-                    ),
-                    if (i < stats.length - 1) const SizedBox(width: 10),
-                  ],
-                ],
-              ),
-            ],
-          ),
+        SummaryStat(
+          icon: Icons.warning_amber_outlined,
+          value: lowStock.toString(),
+          label: 'Low Stock',
         ),
-      ),
+        SummaryStat(
+          icon: Icons.show_chart_rounded,
+          value: outOfStock.toString(),
+          label: 'Out of Stock',
+        ),
+      ],
     );
   }
 }
