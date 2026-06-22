@@ -9,6 +9,8 @@ class AppColorScheme extends ThemeExtension<AppColorScheme> {
   final Color info;
   final Color cardBackground;
   final Color borderColor;
+  final Color gradientStart;
+  final Color gradientEnd;
 
   const AppColorScheme({
     required this.success,
@@ -17,6 +19,8 @@ class AppColorScheme extends ThemeExtension<AppColorScheme> {
     required this.info,
     required this.cardBackground,
     required this.borderColor,
+    required this.gradientStart,
+    required this.gradientEnd,
   });
 
   @override
@@ -27,8 +31,12 @@ class AppColorScheme extends ThemeExtension<AppColorScheme> {
     Color? info,
     Color? cardBackground,
     Color? borderColor,
+    Color? gradientStart,
+    Color? gradientEnd,
   }) {
     return AppColorScheme(
+      gradientStart: gradientStart ?? this.gradientStart,
+      gradientEnd: gradientEnd ?? this.gradientEnd,
       failure: failure ?? this.failure,
       success: success ?? this.success,
       warning: warning ?? this.warning,
@@ -42,6 +50,8 @@ class AppColorScheme extends ThemeExtension<AppColorScheme> {
   AppColorScheme lerp(ThemeExtension<AppColorScheme>? other, double t) {
     if (other is! AppColorScheme) return this;
     return AppColorScheme(
+      gradientStart: Color.lerp(gradientStart, other.gradientStart, t)!,
+      gradientEnd: Color.lerp(gradientEnd, other.gradientEnd, t)!,
       failure: Color.lerp(failure, other.failure, t)!,
       success: Color.lerp(success, other.success, t)!,
       warning: Color.lerp(warning, other.warning, t)!,

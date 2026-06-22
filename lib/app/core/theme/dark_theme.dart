@@ -16,10 +16,15 @@ final darkTheme = ThemeData(
     surfaceContainerHigh: AppColors.greenCardDark,
     surfaceContainerLow: AppColors.redCardDark,
     surfaceContainerHighest: AppColors.purpleCardDark,
+    onSurface: Colors.white,
+    onSurfaceVariant: Color(0xFF9CA3AF),
+    outline: Color(0xFF4B5563),
   ),
   scaffoldBackgroundColor: AppColors.darkBackground,
   extensions: const [
     AppColorScheme(
+      gradientStart: Color.fromARGB(255, 56, 84, 151), // أغمق
+      gradientEnd: Color.fromARGB(255, 31, 43, 71),
       success: AppColors.success,
       warning: AppColors.warning,
       info: AppColors.info,

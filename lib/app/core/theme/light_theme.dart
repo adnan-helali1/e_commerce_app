@@ -16,10 +16,15 @@ final lightTheme = ThemeData(
     surfaceContainerHigh: AppColors.greenCard,
     surfaceContainerLow: AppColors.redCard,
     surfaceContainerHighest: AppColors.purpleCard,
+    onSurface: Color(0xFF111827),
+    onSurfaceVariant: Color(0xFF6B7280),
+    outline: Color(0xFFE5E7EB),
   ),
   scaffoldBackgroundColor: AppColors.lightBackground,
   extensions: const [
     AppColorScheme(
+      gradientStart: const Color(0xFF2C45CC),
+      gradientEnd: const Color(0xFF5E38D0),
       success: AppColors.success,
       warning: AppColors.warning,
       info: AppColors.info,
