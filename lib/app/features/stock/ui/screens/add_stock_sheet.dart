@@ -1,29 +1,14 @@
 import 'package:B2B/app/core/widgets/update_profile_log.dart';
+import 'package:B2B/app/features/stock/data/models/add_stock/add_stock_request.dart';
+import 'package:B2B/app/features/stock/logic/add_stock/add_stock_cubit.dart';
+import 'package:B2B/app/features/stock/logic/add_stock/add_stock_state.dart';
 import 'package:flutter/material.dart';
-
-class AddStockRequest {
-  final int storeProductId;
-  final int quantity;
-  final double unitPrice;
-  final String sellerName;
-
-  AddStockRequest({
-    required this.storeProductId,
-    required this.quantity,
-    required this.unitPrice,
-    required this.sellerName,
-  });
-
-  Map<String, dynamic> toJson() => {
-        'store_product_id': storeProductId,
-        'quantity': quantity,
-        'unit_price': unitPrice,
-        'seller_name': sellerName,
-      };
-}
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AddStockSheet extends StatefulWidget {
-  const AddStockSheet({super.key});
+  final int storeProductId;
+
+  const AddStockSheet({super.key, required this.storeProductId});
 
   @override
   State<AddStockSheet> createState() => _AddStockSheetState();
@@ -42,85 +27,84 @@ class _AddStockSheetState extends State<AddStockSheet> {
     _priceController.dispose();
     _sellerController.dispose();
     super.dispose();
-  }
-
-  void _submit(BuildContext context) {
-    final request = AddStockRequest(
-      storeProductId: int.tryParse(_productIdController.text) ?? 0,
-      quantity: int.tryParse(_quantityController.text) ?? 0,
-      unitPrice: double.tryParse(_priceController.text) ?? 0,
-      sellerName: _sellerController.text.trim(),
-    );
-
-    //  context.read<StockCubit>().addStock(request);
+    if (_quantityController.text.isEmpty ||
+        _priceController.text.isEmpty ||
+        _sellerController.text.isEmpty) {
+      return;
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    // return BlocProvider(
-    //   create: (_) => getIt<StockCubit>(),
-    //   child: BlocConsumer<StockCubit, StockState>(
-    //     listener: (context, state) {
-    //       state.whenOrNull(
-    //         success: (_) {
-    //           Navigator.pop(context, true);
+    return BlocConsumer<AddStockCubit, AddStockState>(
+      listener: (context, state) {
+        state.whenOrNull(
+          success: (_) {
+            Navigator.of(context).pop(true);
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                backgroundColor: Colors.green,
+                content: Text('Stock added successfully'),
+              ),
+            );
+          },
+          failure: (error) {
+            Navigator.of(context).pop(true);
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                backgroundColor: Colors.red,
+                content: Text(error),
+              ),
+            );
+          },
+        );
+      },
+      builder: (context, state) {
+        final loading = state.maybeWhen(
+          loading: () => true,
+          orElse: () => false,
+        );
 
-    //           ScaffoldMessenger.of(context).showSnackBar(
-    //             SnackBar(
-    //               backgroundColor: context.appColors.success,
-    //               content: const Text("Stock added successfully"),
-    //             ),
-    //           );
-    //         },
-    //         failure: (error) {
-    //           ScaffoldMessenger.of(context).showSnackBar(
-    //             SnackBar(
-    //               backgroundColor: context.appColors.failure,
-    //               content: Text(error),
-    //             ),
-    //           );
-    //         },
-    //       );
-    //     },
-    //     builder: (context, state) {
-    //       final loading = state.maybeWhen(
-    //         loading: () => true,
-    //         orElse: () => false,
-    //       );
-
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        GenericUpdateForm(
-          title: "Add Stock",
-          loading: false,
-          fields: [
-            FormFieldConfig(
-              label: "Store Product ID",
-              controller: _productIdController,
-              keyboardType: TextInputType.number,
-            ),
-            FormFieldConfig(
-              label: "Quantity",
-              controller: _quantityController,
-              keyboardType: TextInputType.number,
-            ),
-            FormFieldConfig(
-              label: "Unit Price",
-              controller: _priceController,
-              keyboardType: TextInputType.number,
-            ),
-            FormFieldConfig(
-              label: "Seller Name",
-              controller: _sellerController,
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            GenericUpdateForm(
+              title: "Add Stock",
+              loading: loading,
+              fields: [
+                FormFieldConfig(
+                  label: "Quantity",
+                  controller: _quantityController,
+                  keyboardType: TextInputType.number,
+                ),
+                FormFieldConfig(
+                  label: "Unit Price",
+                  controller: _priceController,
+                  keyboardType: TextInputType.number,
+                ),
+                FormFieldConfig(
+                  label: "Seller Name",
+                  controller: _sellerController,
+                ),
+              ],
+              onSubmit: () {
+                _submit(context);
+              },
             ),
           ],
-          onSubmit: () => _submit(context),
-        ),
-      ],
+        );
+      },
     );
   }
-  //   ),
-  // );
+
+  void _submit(BuildContext context) {
+    final request = AddStockRequest(
+      storeProductId: widget.storeProductId, // 👈 من الضغط
+      quantity: int.parse(_quantityController.text),
+      unitPrice: double.parse(_priceController.text),
+      sellerName: _sellerController.text,
+    );
+
+    context.read<AddStockCubit>().addStock(request);
+  }
 }
-// }

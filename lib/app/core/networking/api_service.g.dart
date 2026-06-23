@@ -483,12 +483,12 @@ class _ApiService implements ApiService {
   }
 
   @override
-  Future<AddStockResponse> addStock(AddStockRequest request) async {
+  Future<AddStockResponse> addStock(Map<String, dynamic> request) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(request.toJson());
+    _data.addAll(request);
     final _options = _setStreamType<AddStockResponse>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(

@@ -63,7 +63,7 @@ import 'package:B2B/app/features/stock/data/data_sources/get_stock_remote_data_s
 import 'package:B2B/app/features/stock/data/models/get_stock/get_stock_cache_model.dart';
 import 'package:B2B/app/features/stock/data/repos/get_stock/get_stock_repo.dart';
 import 'package:B2B/app/features/stock/data/repos/get_stock/get_stock_repo_imp.dart';
-import 'package:B2B/app/features/stock/logic/cubit/get_stock_cubit.dart';
+import 'package:B2B/app/features/stock/logic/get_stock/get_stock_cubit.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import 'package:get_it/get_it.dart';

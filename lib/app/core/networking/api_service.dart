@@ -118,6 +118,6 @@ abstract class ApiService {
 
   @POST('${ApiConstants.stock}/${ApiConstants.addStock}')
   Future<AddStockResponse> addStock(
-    @Body() AddStockRequest request,
+    @Body() Map<String, dynamic> request,
   );
 }

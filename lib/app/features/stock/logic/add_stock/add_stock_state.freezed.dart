@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'get_stock_state.dart';
+part of 'add_stock_state.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -13,11 +13,11 @@ part of 'get_stock_state.dart';
 T _$identity<T>(T value) => value;
 
 /// @nodoc
-mixin _$GetStockState {
+mixin _$AddStockState {
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is GetStockState);
+        (other.runtimeType == runtimeType && other is AddStockState);
   }
 
   @override
@@ -25,17 +25,17 @@ mixin _$GetStockState {
 
   @override
   String toString() {
-    return 'GetStockState()';
+    return 'AddStockState()';
   }
 }
 
 /// @nodoc
-class $GetStockStateCopyWith<$Res> {
-  $GetStockStateCopyWith(GetStockState _, $Res Function(GetStockState) __);
+class $AddStockStateCopyWith<$Res> {
+  $AddStockStateCopyWith(AddStockState _, $Res Function(AddStockState) __);
 }
 
-/// Adds pattern-matching-related methods to [GetStockState].
-extension GetStockStatePatterns on GetStockState {
+/// Adds pattern-matching-related methods to [AddStockState].
+extension AddStockStatePatterns on AddStockState {
   /// A variant of `map` that fallback to returning `orElse`.
   ///
   /// It is equivalent to doing:
@@ -156,7 +156,7 @@ extension GetStockStatePatterns on GetStockState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(GetStockResponse response)? success,
+    TResult Function(AddStockResponse response)? success,
     TResult Function(String error)? failure,
     required TResult orElse(),
   }) {
@@ -192,7 +192,7 @@ extension GetStockStatePatterns on GetStockState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(GetStockResponse response) success,
+    required TResult Function(AddStockResponse response) success,
     required TResult Function(String error) failure,
   }) {
     final _that = this;
@@ -226,7 +226,7 @@ extension GetStockStatePatterns on GetStockState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(GetStockResponse response)? success,
+    TResult? Function(AddStockResponse response)? success,
     TResult? Function(String error)? failure,
   }) {
     final _that = this;
@@ -247,7 +247,7 @@ extension GetStockStatePatterns on GetStockState {
 
 /// @nodoc
 
-class _Initial implements GetStockState {
+class _Initial implements AddStockState {
   const _Initial();
 
   @override
@@ -261,13 +261,13 @@ class _Initial implements GetStockState {
 
   @override
   String toString() {
-    return 'GetStockState.initial()';
+    return 'AddStockState.initial()';
   }
 }
 
 /// @nodoc
 
-class _Loading implements GetStockState {
+class _Loading implements AddStockState {
   const _Loading();
 
   @override
@@ -281,18 +281,18 @@ class _Loading implements GetStockState {
 
   @override
   String toString() {
-    return 'GetStockState.loading()';
+    return 'AddStockState.loading()';
   }
 }
 
 /// @nodoc
 
-class _Success implements GetStockState {
+class _Success implements AddStockState {
   const _Success(this.response);
 
-  final GetStockResponse response;
+  final AddStockResponse response;
 
-  /// Create a copy of GetStockState
+  /// Create a copy of AddStockState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
@@ -304,26 +304,28 @@ class _Success implements GetStockState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _Success &&
-            const DeepCollectionEquality().equals(other.response, response));
+            (identical(other.response, response) ||
+                other.response == response));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(response));
+  int get hashCode => Object.hash(runtimeType, response);
 
   @override
   String toString() {
-    return 'GetStockState.success(response: $response)';
+    return 'AddStockState.success(response: $response)';
   }
 }
 
 /// @nodoc
 abstract mixin class _$SuccessCopyWith<$Res>
-    implements $GetStockStateCopyWith<$Res> {
+    implements $AddStockStateCopyWith<$Res> {
   factory _$SuccessCopyWith(_Success value, $Res Function(_Success) _then) =
       __$SuccessCopyWithImpl;
   @useResult
-  $Res call({GetStockResponse response});
+  $Res call({AddStockResponse response});
+
+  $AddStockResponseCopyWith<$Res> get response;
 }
 
 /// @nodoc
@@ -333,29 +335,39 @@ class __$SuccessCopyWithImpl<$Res> implements _$SuccessCopyWith<$Res> {
   final _Success _self;
   final $Res Function(_Success) _then;
 
-  /// Create a copy of GetStockState
+  /// Create a copy of AddStockState
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   $Res call({
-    Object? response = freezed,
+    Object? response = null,
   }) {
     return _then(_Success(
-      freezed == response
+      null == response
           ? _self.response
           : response // ignore: cast_nullable_to_non_nullable
-              as GetStockResponse,
+              as AddStockResponse,
     ));
+  }
+
+  /// Create a copy of AddStockState
+  /// with the given fields replaced by the non-null parameter values.
+  @override
+  @pragma('vm:prefer-inline')
+  $AddStockResponseCopyWith<$Res> get response {
+    return $AddStockResponseCopyWith<$Res>(_self.response, (value) {
+      return _then(_self.copyWith(response: value));
+    });
   }
 }
 
 /// @nodoc
 
-class _Failure implements GetStockState {
+class _Failure implements AddStockState {
   const _Failure({required this.error});
 
   final String error;
 
-  /// Create a copy of GetStockState
+  /// Create a copy of AddStockState
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   @pragma('vm:prefer-inline')
@@ -375,13 +387,13 @@ class _Failure implements GetStockState {
 
   @override
   String toString() {
-    return 'GetStockState.failure(error: $error)';
+    return 'AddStockState.failure(error: $error)';
   }
 }
 
 /// @nodoc
 abstract mixin class _$FailureCopyWith<$Res>
-    implements $GetStockStateCopyWith<$Res> {
+    implements $AddStockStateCopyWith<$Res> {
   factory _$FailureCopyWith(_Failure value, $Res Function(_Failure) _then) =
       __$FailureCopyWithImpl;
   @useResult
@@ -395,7 +407,7 @@ class __$FailureCopyWithImpl<$Res> implements _$FailureCopyWith<$Res> {
   final _Failure _self;
   final $Res Function(_Failure) _then;
 
-  /// Create a copy of GetStockState
+  /// Create a copy of AddStockState
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   $Res call({

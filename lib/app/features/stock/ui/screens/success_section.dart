@@ -114,7 +114,10 @@ class StockSuccessSection extends StatelessWidget {
                       showModalBottomSheet(
                         context: context,
                         isScrollControlled: true,
-                        builder: (_) => const AddStockSheet(),
+                        builder: (_) => AddStockSheet(
+                          storeProductId:
+                              detailedItems.data[index].storeProductId,
+                        ),
                       );
                     },
                   );

@@ -12,7 +12,7 @@ import 'package:B2B/app/features/offers/logic/offers_cubit/offers_cubit.dart';
 import 'package:B2B/app/features/offers/ui/screens/offers_screen.dart';
 import 'package:B2B/app/features/orders/logic/get_orders/orders_cubit.dart';
 import 'package:B2B/app/features/orders/ui/screens/purchase_orders_screen.dart';
-import 'package:B2B/app/features/stock/logic/cubit/get_stock_cubit.dart';
+import 'package:B2B/app/features/stock/logic/get_stock/get_stock_cubit.dart';
 import 'package:B2B/app/features/stock/ui/screens/stock_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
