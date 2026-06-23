@@ -15,7 +15,6 @@ import 'package:B2B/app/features/orders/data/models/get_orders/models/orders_res
 import 'package:B2B/app/features/profile/data/models/get_profile_response.dart';
 import 'package:B2B/app/features/stock/data/models/add_stock/add_stock_response.dart';
 import 'package:B2B/app/features/stock/data/models/get_stock/get_stock_response.dart';
-import 'package:B2B/app/features/stock/ui/screens/add_stock_sheet.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
