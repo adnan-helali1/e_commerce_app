@@ -10,6 +10,7 @@ class ApiConstants {
   static const String profile = 'profile';
   static const String ledger = 'ledger';
   static const String stock = 'inventory';
+  static const String addStock = 'manual-add';
 }
 
 class ApiErrors {

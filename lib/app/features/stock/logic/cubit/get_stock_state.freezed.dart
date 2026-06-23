@@ -304,12 +304,12 @@ class _Success implements GetStockState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _Success &&
-            (identical(other.response, response) ||
-                other.response == response));
+            const DeepCollectionEquality().equals(other.response, response));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, response);
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(response));
 
   @override
   String toString() {
@@ -324,8 +324,6 @@ abstract mixin class _$SuccessCopyWith<$Res>
       __$SuccessCopyWithImpl;
   @useResult
   $Res call({GetStockResponse response});
-
-  $GetStockResponseCopyWith<$Res> get response;
 }
 
 /// @nodoc
@@ -339,24 +337,14 @@ class __$SuccessCopyWithImpl<$Res> implements _$SuccessCopyWith<$Res> {
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   $Res call({
-    Object? response = null,
+    Object? response = freezed,
   }) {
     return _then(_Success(
-      null == response
+      freezed == response
           ? _self.response
           : response // ignore: cast_nullable_to_non_nullable
               as GetStockResponse,
     ));
-  }
-
-  /// Create a copy of GetStockState
-  /// with the given fields replaced by the non-null parameter values.
-  @override
-  @pragma('vm:prefer-inline')
-  $GetStockResponseCopyWith<$Res> get response {
-    return $GetStockResponseCopyWith<$Res>(_self.response, (value) {
-      return _then(_self.copyWith(response: value));
-    });
   }
 }
 

@@ -1,6 +1,6 @@
 import 'package:B2B/app/core/helpers/extensions.dart';
 import 'package:B2B/app/core/widgets/app_shimer.dart';
-import 'package:B2B/app/features/stock/data/models/get_stock_models/get_stock_response.dart';
+import 'package:B2B/app/features/stock/data/models/get_stock/get_stock_response.dart';
 import 'package:B2B/app/features/stock/logic/cubit/get_stock_cubit.dart';
 import 'package:B2B/app/features/stock/logic/cubit/get_stock_state.dart';
 import 'package:B2B/app/features/stock/data/models/stock_ui_models.dart';

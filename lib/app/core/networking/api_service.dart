@@ -13,7 +13,9 @@ import 'package:B2B/app/features/orders/data/models/get_active_offers/active_off
 import 'package:B2B/app/features/orders/data/models/create_order/create_order_response.dart';
 import 'package:B2B/app/features/orders/data/models/get_orders/models/orders_response.dart';
 import 'package:B2B/app/features/profile/data/models/get_profile_response.dart';
-import 'package:B2B/app/features/stock/data/models/get_stock_models/get_stock_response.dart';
+import 'package:B2B/app/features/stock/data/models/add_stock/add_stock_response.dart';
+import 'package:B2B/app/features/stock/data/models/get_stock/get_stock_response.dart';
+import 'package:B2B/app/features/stock/ui/screens/add_stock_sheet.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
@@ -113,4 +115,9 @@ abstract class ApiService {
   // stock Endpoints
   @GET(ApiConstants.stock)
   Future<GetStockResponse> getStock();
+
+  @POST('${ApiConstants.stock}/${ApiConstants.addStock}')
+  Future<AddStockResponse> addStock(
+    @Body() AddStockRequest request,
+  );
 }

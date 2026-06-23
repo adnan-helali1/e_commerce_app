@@ -1,4 +1,4 @@
-import 'package:B2B/app/features/stock/data/models/get_stock_models/get_stock_response.dart';
+import 'package:B2B/app/features/stock/data/models/get_stock/get_stock_response.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'get_stock_cache_model.g.dart';

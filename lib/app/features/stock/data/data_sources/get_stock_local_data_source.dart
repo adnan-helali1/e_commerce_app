@@ -1,6 +1,6 @@
 import 'package:B2B/app/core/cache/cache_data_source.dart';
 import 'package:B2B/app/core/cache/cache_keyes.dart';
-import 'package:B2B/app/features/stock/data/models/get_stock_models/get_stock_cache_model.dart';
+import 'package:B2B/app/features/stock/data/models/get_stock/get_stock_cache_model.dart';
 
 class GetStockLocalDataSource {
   final CacheDataSource<GetStockCacheModel> _cache;

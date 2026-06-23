@@ -1,5 +1,5 @@
 import 'package:B2B/app/core/helpers/extensions.dart';
-import 'package:B2B/app/features/stock/data/models/get_stock_models/get_stock_response.dart';
+import 'package:B2B/app/features/stock/data/models/get_stock/get_stock_response.dart';
 import 'package:flutter/material.dart';
 
 class StockDetailsDialog extends StatelessWidget {

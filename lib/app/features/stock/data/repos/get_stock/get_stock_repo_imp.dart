@@ -3,8 +3,8 @@ import 'package:B2B/app/core/networking/api_error_handler.dart';
 import 'package:B2B/app/core/networking/api_result.dart';
 import 'package:B2B/app/features/stock/data/data_sources/get_stock_local_data_source.dart';
 import 'package:B2B/app/features/stock/data/data_sources/get_stock_remote_data_source.dart';
-import 'package:B2B/app/features/stock/data/models/get_stock_models/get_stock_cache_model.dart';
-import 'package:B2B/app/features/stock/data/models/get_stock_models/get_stock_response.dart';
+import 'package:B2B/app/features/stock/data/models/get_stock/get_stock_cache_model.dart';
+import 'package:B2B/app/features/stock/data/models/get_stock/get_stock_response.dart';
 import 'package:B2B/app/features/stock/data/repos/get_stock/get_stock_repo.dart';
 
 class GetStockRepoImpl implements GetStockRepo {
