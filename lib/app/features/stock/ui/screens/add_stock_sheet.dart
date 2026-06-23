@@ -1,5 +1,6 @@
 import 'package:B2B/app/core/di/dependency_injection.dart';
-import 'package:B2B/app/core/widgets/update_profile_log.dart';
+import 'package:B2B/app/core/helpers/extensions.dart';
+import 'package:B2B/app/core/widgets/form_filed_config.dart';
 import 'package:B2B/app/features/stock/data/models/add_stock/add_stock_request.dart';
 import 'package:B2B/app/features/stock/logic/add_stock/add_stock_cubit.dart';
 import 'package:B2B/app/features/stock/logic/add_stock/add_stock_state.dart';
@@ -68,33 +69,40 @@ class _AddStockSheetState extends State<AddStockSheet> {
             orElse: () => false,
           );
 
-          return Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              GenericUpdateForm(
-                title: "Add Stock",
-                loading: loading,
-                fields: [
-                  FormFieldConfig(
-                    label: "Quantity",
-                    controller: _quantityController,
-                    keyboardType: TextInputType.number,
-                  ),
-                  FormFieldConfig(
-                    label: "Unit Price",
-                    controller: _priceController,
-                    keyboardType: TextInputType.number,
-                  ),
-                  FormFieldConfig(
-                    label: "Seller Name",
-                    controller: _sellerController,
+          return Container(
+            color: context.cs.background,
+            child: Padding(
+              padding: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).viewInsets.bottom),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  GenericUpdateForm(
+                    title: "Add Stock",
+                    loading: loading,
+                    fields: [
+                      FormFieldConfig(
+                        label: "Quantity",
+                        controller: _quantityController,
+                        keyboardType: TextInputType.number,
+                      ),
+                      FormFieldConfig(
+                        label: "Unit Price",
+                        controller: _priceController,
+                        keyboardType: TextInputType.number,
+                      ),
+                      FormFieldConfig(
+                        label: "Seller Name",
+                        controller: _sellerController,
+                      ),
+                    ],
+                    onSubmit: () {
+                      _submit(context);
+                    },
                   ),
                 ],
-                onSubmit: () {
-                  _submit(context);
-                },
               ),
-            ],
+            ),
           );
         },
       ),
