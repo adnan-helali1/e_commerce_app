@@ -58,6 +58,12 @@ import 'package:B2B/app/features/profile/data/repos/profile_repo_imp.dart';
 import 'package:B2B/app/features/profile/data/repos/update_profile_repo.dart';
 import 'package:B2B/app/features/profile/logic/get_profile/profile_cubit.dart';
 import 'package:B2B/app/features/profile/logic/update_profile/update_profile_cubit.dart';
+import 'package:B2B/app/features/stock/data/data_sources/get_stock_local_data_source.dart';
+import 'package:B2B/app/features/stock/data/data_sources/get_stock_remote_data_source.dart';
+import 'package:B2B/app/features/stock/data/models/get_stock_models/get_stock_cache_model.dart';
+import 'package:B2B/app/features/stock/data/repos/get_stock/get_stock_repo.dart';
+import 'package:B2B/app/features/stock/data/repos/get_stock/get_stock_repo_imp.dart';
+import 'package:B2B/app/features/stock/logic/cubit/get_stock_cubit.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import 'package:get_it/get_it.dart';
@@ -190,6 +196,32 @@ Future<void> setupGetIt() async {
     () => LedgerCubit(
       getIt<LedgerRepo>(),
       getIt<PdfExportService>(),
+    ),
+  );
+
+  // stock
+  getIt.registerLazySingleton<GetStockLocalDataSource>(
+    () => GetStockLocalDataSource(
+      getIt<CacheDataSource<GetStockCacheModel>>(),
+    ),
+  );
+
+  getIt.registerLazySingleton<GetStockRemoteDataSource>(
+    () => GetStockRemoteDataSource(
+      getIt(), // ApiService / Dio
+    ),
+  );
+
+  getIt.registerLazySingleton<GetStockRepo>(
+    () => GetStockRepoImpl(
+      getIt<GetStockLocalDataSource>(),
+      getIt<GetStockRemoteDataSource>(),
+    ),
+  );
+
+  getIt.registerFactory<GetStockCubit>(
+    () => GetStockCubit(
+      getIt<GetStockRepo>(),
     ),
   );
 }
