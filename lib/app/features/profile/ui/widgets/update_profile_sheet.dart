@@ -1,12 +1,13 @@
 import 'package:B2B/app/core/di/dependency_injection.dart';
 import 'package:B2B/app/core/helpers/extensions.dart';
+import 'package:B2B/app/features/profile/data/models/update_profile_request.dart';
 import 'package:B2B/app/features/profile/logic/update_profile/update_profile_cubit.dart';
 import 'package:B2B/app/features/profile/logic/update_profile/update_profile_state.dart';
-import 'package:B2B/app/features/profile/ui/widgets/update_profile_log.dart';
+import 'package:B2B/app/core/widgets/update_profile_log.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class UpdateProfileSheet extends StatelessWidget {
+class UpdateProfileSheet extends StatefulWidget {
   const UpdateProfileSheet({
     super.key,
     required this.name,
@@ -21,6 +22,46 @@ class UpdateProfileSheet extends StatelessWidget {
   final String? address;
 
   @override
+  State<UpdateProfileSheet> createState() => _UpdateProfileSheetState();
+}
+
+class _UpdateProfileSheetState extends State<UpdateProfileSheet> {
+  late final TextEditingController _nameController;
+  late final TextEditingController _ownerController;
+  late final TextEditingController _phoneController;
+  late final TextEditingController _addressController;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _nameController = TextEditingController(text: widget.name);
+    _ownerController = TextEditingController(text: widget.ownerName);
+    _phoneController = TextEditingController(text: widget.phone ?? '');
+    _addressController = TextEditingController(text: widget.address ?? '');
+  }
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _ownerController.dispose();
+    _phoneController.dispose();
+    _addressController.dispose();
+    super.dispose();
+  }
+
+  void _submit(BuildContext context) {
+    context.read<UpdateProfileCubit>().updateProfile(
+          items: UpdateProfileRequest(
+            name: _nameController.text.trim(),
+            ownerName: _ownerController.text.trim(),
+            phone: _phoneController.text.trim(),
+            address: _addressController.text.trim(),
+          ),
+        );
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => getIt<UpdateProfileCubit>(),
@@ -32,9 +73,7 @@ class UpdateProfileSheet extends StatelessWidget {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   backgroundColor: context.appColors.success,
-                  content: const Text(
-                    'Profile updated successfully',
-                  ),
+                  content: const Text('Profile updated successfully'),
                 ),
               );
             },
@@ -54,12 +93,29 @@ class UpdateProfileSheet extends StatelessWidget {
             orElse: () => false,
           );
 
-          return UpdateProfileLog(
-            name: name,
-            ownerName: ownerName,
-            phone: phone,
-            address: address,
+          return GenericUpdateForm(
+            title: "Update Profile",
             loading: loading,
+            fields: [
+              FormFieldConfig(
+                label: "Store Name",
+                controller: _nameController,
+              ),
+              FormFieldConfig(
+                label: "Owner Name",
+                controller: _ownerController,
+              ),
+              FormFieldConfig(
+                label: "Phone",
+                controller: _phoneController,
+                keyboardType: TextInputType.phone,
+              ),
+              FormFieldConfig(
+                label: "Address",
+                controller: _addressController,
+              ),
+            ],
+            onSubmit: () => _submit(context),
           );
         },
       ),

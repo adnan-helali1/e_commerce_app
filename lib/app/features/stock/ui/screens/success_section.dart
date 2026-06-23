@@ -2,6 +2,8 @@ import 'package:B2B/app/core/helpers/extensions.dart';
 import 'package:B2B/app/core/helpers/spacing.dart';
 import 'package:B2B/app/features/stock/data/models/get_stock_models/get_stock_response.dart';
 import 'package:B2B/app/features/stock/data/models/stock_ui_models.dart';
+import 'package:B2B/app/features/stock/ui/screens/add_stock_sheet.dart';
+import 'package:B2B/app/features/stock/ui/widgets/detailes_dialog.dart';
 import 'package:B2B/app/features/stock/ui/widgets/filter_tab_row.dart';
 import 'package:B2B/app/features/stock/ui/widgets/stat_item_card.dart';
 import 'package:B2B/app/features/stock/ui/widgets/stock_header.dart';
@@ -33,6 +35,7 @@ class StockSuccessSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final detailedItems = response;
     final allItems = response.data.map(toInventoryItem).toList();
     final filteredItems = applyFilters(allItems);
     final filterTabs = buildFilterTabs(allItems);
@@ -101,9 +104,19 @@ class StockSuccessSection extends StatelessWidget {
                   final item = filteredItems[index];
                   return InventoryItemCard(
                     key: ValueKey(item.name),
+                    details: () {
+                      showStockDetailsDialog(
+                          context, detailedItems.data[index]);
+                    },
                     item: item,
                     onReduce: () {},
-                    onAddStock: () {},
+                    onAddStock: () {
+                      showModalBottomSheet(
+                        context: context,
+                        isScrollControlled: true,
+                        builder: (_) => const AddStockSheet(),
+                      );
+                    },
                   );
                 },
               ),

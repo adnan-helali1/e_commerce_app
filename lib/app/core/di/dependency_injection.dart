@@ -171,7 +171,7 @@ Future<void> setupGetIt() async {
   );
   getIt.registerLazySingleton(() => ProfileLocalDataSource(getIt()));
   getIt.registerLazySingleton<ProfileRepo>(
-      () => ProfileRepoImpl(getIt(), getIt(), getIt()));
+      () => ProfileRepoImpl(getIt(), getIt()));
   getIt.registerLazySingleton(() => UpdateProfileRemoteDataSource(getIt()));
   getIt.registerLazySingleton(() => UpdateProfileRepo(getIt()));
 
