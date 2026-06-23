@@ -61,7 +61,7 @@ class _OrdersFilterBarState extends State<OrdersFilterBar> {
         int pendingCount = 0;
         int approvedCount = 0;
         int preparingCount = 0;
-        int deliveredCount = 0;
+        int receivedCount = 0;
         int submittedCount = 0;
         int cancelledCount = 0;
 
@@ -81,8 +81,8 @@ class _OrdersFilterBarState extends State<OrdersFilterBar> {
                 case 'preparing':
                   preparingCount++;
                   break;
-                case 'delivered':
-                  deliveredCount++;
+                case 'received':
+                  receivedCount++;
                   break;
                 case 'submitted':
                   submittedCount++;
@@ -101,7 +101,7 @@ class _OrdersFilterBarState extends State<OrdersFilterBar> {
           {'label': 'Pending', 'count': pendingCount},
           {'label': 'Approved', 'count': approvedCount},
           {'label': 'Preparing', 'count': preparingCount},
-          {'label': 'Delivered', 'count': deliveredCount},
+          {'label': 'Received', 'count': receivedCount},
           {'label': 'Submitted', 'count': submittedCount},
           {'label': 'Cancelled', 'count': cancelledCount},
         ];
@@ -204,7 +204,7 @@ class _OrdersFilterBarState extends State<OrdersFilterBar> {
       case 3:
         return 'preparing';
       case 4:
-        return 'delivered';
+        return 'received';
       case 5:
         return 'submitted';
       case 6:

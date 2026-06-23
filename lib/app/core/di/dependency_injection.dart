@@ -200,6 +200,14 @@ Future<void> setupGetIt() async {
   );
 
   // stock
+  // ✅ 1. سجله أول شي
+  getIt.registerLazySingleton<CacheDataSource<GetStockCacheModel>>(
+    () => CacheDataSource<GetStockCacheModel>(
+      getIt(),
+    ),
+  );
+
+// 2. بعدين هذا
   getIt.registerLazySingleton<GetStockLocalDataSource>(
     () => GetStockLocalDataSource(
       getIt<CacheDataSource<GetStockCacheModel>>(),
@@ -208,7 +216,7 @@ Future<void> setupGetIt() async {
 
   getIt.registerLazySingleton<GetStockRemoteDataSource>(
     () => GetStockRemoteDataSource(
-      getIt(), // ApiService / Dio
+      getIt(),
     ),
   );
 

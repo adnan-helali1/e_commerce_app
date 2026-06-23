@@ -1,7 +1,8 @@
 import 'package:B2B/app/core/helpers/extensions.dart';
 import 'package:B2B/app/core/helpers/spacing.dart';
 import 'package:B2B/app/core/theme/textstyles.dart';
-import 'package:B2B/app/features/stock/ui/screens/full_stock_screen.dart';
+import 'package:B2B/app/core/widgets/b2b_status_badge.dart';
+import 'package:B2B/app/features/stock/data/models/stock_ui_models.dart';
 import 'package:B2B/app/features/stock/ui/widgets/stock_action_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -84,7 +85,11 @@ class InventoryItemCard extends StatelessWidget {
               horizontalSpace(8),
 
               // Status badge
-              //  StockStatusBadge(status: item.status),
+              B2BStatusBadge(
+                label: item.status.toString().split('.').last,
+                color: b2bStatusColor(
+                    context, item.status.toString().split('.').last),
+              ),
             ],
           ),
 

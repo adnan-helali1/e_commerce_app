@@ -47,7 +47,7 @@ class _PurchaseOrdersScreenState extends State<PurchaseOrdersScreen>
       case 3:
         return 'preparing';
       case 4:
-        return 'delivered';
+        return 'received';
       case 5:
         return 'submitted';
       case 6:

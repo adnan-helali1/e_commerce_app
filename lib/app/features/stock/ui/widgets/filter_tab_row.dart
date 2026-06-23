@@ -16,14 +16,18 @@ class FilterTabRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(children: [
-      FilterTab(
-        label: tabs[0],
-        isSelected: selectedIndex == 0,
-        onTap: () => onTabSelected(0),
-      ),
-      const SizedBox(width: 8),
-    ]);
+    return Row(
+      children: [
+        for (int i = 0; i < tabs.length; i++) ...[
+          FilterTab(
+            label: tabs[i],
+            isSelected: i == selectedIndex,
+            onTap: () => onTabSelected(i),
+          ),
+          if (i < tabs.length - 1) const SizedBox(width: 8),
+        ],
+      ],
+    );
   }
 }
 
