@@ -1,6 +1,7 @@
 import 'package:B2B/app/core/helpers/extensions.dart';
 import 'package:B2B/app/core/theme/textstyles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class FilterTabRow extends StatelessWidget {
   final List<String> tabs;
@@ -54,8 +55,9 @@ class FilterTab extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: AnimatedContainer(
+        width: 128.w,
         duration: const Duration(milliseconds: 200),
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 9),
+        padding: EdgeInsets.symmetric(horizontal: 0.r, vertical: 9.r),
         decoration: BoxDecoration(
           color:
               isSelected ? context.cs.primary : context.cs.onPrimaryContainer,

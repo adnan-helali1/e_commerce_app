@@ -1,3 +1,4 @@
+import 'package:B2B/app/core/di/dependency_injection.dart';
 import 'package:B2B/app/core/widgets/update_profile_log.dart';
 import 'package:B2B/app/features/stock/data/models/add_stock/add_stock_request.dart';
 import 'package:B2B/app/features/stock/logic/add_stock/add_stock_cubit.dart';
@@ -36,64 +37,67 @@ class _AddStockSheetState extends State<AddStockSheet> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AddStockCubit, AddStockState>(
-      listener: (context, state) {
-        state.whenOrNull(
-          success: (_) {
-            Navigator.of(context).pop(true);
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                backgroundColor: Colors.green,
-                content: Text('Stock added successfully'),
-              ),
-            );
-          },
-          failure: (error) {
-            Navigator.of(context).pop(true);
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                backgroundColor: Colors.red,
-                content: Text(error),
-              ),
-            );
-          },
-        );
-      },
-      builder: (context, state) {
-        final loading = state.maybeWhen(
-          loading: () => true,
-          orElse: () => false,
-        );
+    return BlocProvider(
+      create: (context) => getIt<AddStockCubit>(),
+      child: BlocConsumer<AddStockCubit, AddStockState>(
+        listener: (context, state) {
+          state.whenOrNull(
+            success: (_) {
+              Navigator.of(context).pop(true);
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  backgroundColor: Colors.green,
+                  content: Text('Stock added successfully'),
+                ),
+              );
+            },
+            failure: (error) {
+              Navigator.of(context).pop(true);
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  backgroundColor: Colors.red,
+                  content: Text(error),
+                ),
+              );
+            },
+          );
+        },
+        builder: (context, state) {
+          final loading = state.maybeWhen(
+            loading: () => true,
+            orElse: () => false,
+          );
 
-        return Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            GenericUpdateForm(
-              title: "Add Stock",
-              loading: loading,
-              fields: [
-                FormFieldConfig(
-                  label: "Quantity",
-                  controller: _quantityController,
-                  keyboardType: TextInputType.number,
-                ),
-                FormFieldConfig(
-                  label: "Unit Price",
-                  controller: _priceController,
-                  keyboardType: TextInputType.number,
-                ),
-                FormFieldConfig(
-                  label: "Seller Name",
-                  controller: _sellerController,
-                ),
-              ],
-              onSubmit: () {
-                _submit(context);
-              },
-            ),
-          ],
-        );
-      },
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              GenericUpdateForm(
+                title: "Add Stock",
+                loading: loading,
+                fields: [
+                  FormFieldConfig(
+                    label: "Quantity",
+                    controller: _quantityController,
+                    keyboardType: TextInputType.number,
+                  ),
+                  FormFieldConfig(
+                    label: "Unit Price",
+                    controller: _priceController,
+                    keyboardType: TextInputType.number,
+                  ),
+                  FormFieldConfig(
+                    label: "Seller Name",
+                    controller: _sellerController,
+                  ),
+                ],
+                onSubmit: () {
+                  _submit(context);
+                },
+              ),
+            ],
+          );
+        },
+      ),
     );
   }
 
