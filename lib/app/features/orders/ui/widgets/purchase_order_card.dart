@@ -1,7 +1,6 @@
 import 'package:B2B/app/core/helpers/extensions.dart';
 import 'package:B2B/app/core/helpers/spacing.dart';
 import 'package:B2B/app/core/theme/textstyles.dart';
-import 'package:B2B/app/core/widgets/b2b_info_card.dart';
 import 'package:B2B/app/core/widgets/b2b_status_badge.dart';
 import 'package:B2B/app/core/widgets/delete_dialog.dart';
 import 'package:B2B/app/features/orders/data/models/get_orders/models/order_model.dart';
