@@ -13,6 +13,7 @@ class CacheKeys {
   static const String stockBox = 'stock_box';
   static const Duration homeDashboardTtl = Duration(minutes: 5);
   static const Duration ledgerTtl = Duration(minutes: 5);
+  static const Duration stockTtl = Duration(minutes: 5);
 }
 
 // catalog
