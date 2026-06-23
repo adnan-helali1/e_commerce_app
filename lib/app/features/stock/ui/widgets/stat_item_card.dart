@@ -11,12 +11,14 @@ class InventoryItemCard extends StatelessWidget {
   final InventoryItem item;
   final VoidCallback onReduce;
   final VoidCallback onAddStock;
+  final VoidCallback details;
 
   const InventoryItemCard({
     super.key,
     required this.item,
     required this.onReduce,
     required this.onAddStock,
+    required this.details,
   });
 
   @override
@@ -72,6 +74,13 @@ class InventoryItemCard extends StatelessWidget {
                         fontWeight: FontWeight.w600,
                       ),
                       overflow: TextOverflow.ellipsis,
+                    ),
+                    Text(
+                      'ID -- ${item.id}',
+                      style: TextStyles.label(context).copyWith(
+                        color: context.cs.onSurfaceVariant,
+                        fontSize: 12.sp,
+                      ),
                     ),
                     verticalSpace(3),
                     Text(item.supplier,
@@ -154,7 +163,7 @@ class InventoryItemCard extends StatelessWidget {
             children: [
               InventoryActionButton(
                 label: 'Details',
-                onTap: onAddStock,
+                onTap: details,
                 isOutlined: true,
               ),
               InventoryActionButton(

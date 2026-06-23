@@ -49,6 +49,9 @@ class _InventoryOverviewScreenState extends State<InventoryOverviewScreen> {
     }
 
     return InventoryItem(
+      id: item.storeProductId,
+      storeProduct: item.storeProductId,
+      supplierProduct: item.storeProduct.supplierProductId,
       name: product.name,
       supplier: supplier.name,
       currentStock: item.quantity,
@@ -103,24 +106,25 @@ class _InventoryOverviewScreenState extends State<InventoryOverviewScreen> {
       backgroundColor: context.cs.background,
       body: BlocBuilder<GetStockCubit, GetStockState>(
         builder: (context, state) => state.when(
-          initial: () => const AppShimmer(),
-          loading: () => const AppShimmer(),
-          failure: (error) => StockErrorSection(
-            error: error,
-            onRetry: () => context.read<GetStockCubit>().load(),
-          ),
-          success: (response) => StockSuccessSection(
-            response: response,
-            selectedFilter: _selectedFilter,
-            searchQuery: _searchQuery,
-            toInventoryItem: _toInventoryItem,
-            applyFilters: _applyFilters,
-            buildFilterTabs: _buildFilterTabs,
-            onFilterChanged: (i) => setState(() => _selectedFilter = i),
-            onSearchChanged: (q) => setState(() => _searchQuery = q),
-            onRefresh: () => context.read<GetStockCubit>().refresh(),
-          ),
-        ),
+            initial: () => const AppShimmer(),
+            loading: () => const AppShimmer(),
+            failure: (error) => StockErrorSection(
+                  error: error,
+                  onRetry: () => context.read<GetStockCubit>().load(),
+                ),
+            success: (response) {
+              return StockSuccessSection(
+                response: response,
+                selectedFilter: _selectedFilter,
+                searchQuery: _searchQuery,
+                toInventoryItem: _toInventoryItem,
+                applyFilters: _applyFilters,
+                buildFilterTabs: _buildFilterTabs,
+                onFilterChanged: (i) => setState(() => _selectedFilter = i),
+                onSearchChanged: (q) => setState(() => _searchQuery = q),
+                onRefresh: () => context.read<GetStockCubit>().refresh(),
+              );
+            }),
       ),
     );
   }

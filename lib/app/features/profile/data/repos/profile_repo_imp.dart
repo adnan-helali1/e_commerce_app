@@ -2,7 +2,6 @@ import 'package:B2B/app/core/networking/api_error_handler.dart';
 import 'package:B2B/app/core/networking/api_result.dart';
 import 'package:B2B/app/features/profile/data/data_sources/profile_local_data_source.dart';
 import 'package:B2B/app/features/profile/data/data_sources/profile_remote_data_source.dart';
-import 'package:B2B/app/features/profile/data/data_sources/update_profile_remote_data_source.dart';
 import 'package:B2B/app/features/profile/data/models/get_profile_response.dart';
 import 'package:B2B/app/features/profile/data/models/profile_cache_model.dart';
 import 'package:B2B/app/features/profile/data/repos/profile_repo.dart';
@@ -10,14 +9,12 @@ import 'package:B2B/app/features/profile/data/repos/profile_repo.dart';
 class ProfileRepoImpl implements ProfileRepo {
   final ProfileLocalDataSource _local;
   final ProfileRemoteDataSource _remote;
-  final UpdateProfileRemoteDataSource _updateRemote;
 
   bool _isLoading = false;
 
   ProfileRepoImpl(
     this._local,
     this._remote,
-    this._updateRemote,
   );
 
   @override
