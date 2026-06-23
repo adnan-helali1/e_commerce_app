@@ -60,6 +60,7 @@ class _MyCatalogBody extends StatelessWidget {
           }
 
           return Scaffold(
+            backgroundColor: context.cs.background,
             body: RefreshIndicator(
               onRefresh: () => context.read<CatalogCubit>().refresh(),
               child: ListView(

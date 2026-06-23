@@ -107,7 +107,7 @@ class _OrdersFilterBarState extends State<OrdersFilterBar> {
         ];
 
         return Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.w),
+          padding: EdgeInsets.symmetric(horizontal: 1.w),
           child: SingleChildScrollView(
             controller: _scrollController,
             scrollDirection: Axis.horizontal,
@@ -141,7 +141,7 @@ class _OrdersFilterBarState extends State<OrdersFilterBar> {
                           border: Border.all(
                             color: isSelected
                                 ? context.cs.primary
-                                : context.appColors.borderColor,
+                                : context.cs.primary.withValues(alpha: 0.2),
                             width: 1.5,
                           ),
                           borderRadius: BorderRadius.circular(8.r),
@@ -167,7 +167,8 @@ class _OrdersFilterBarState extends State<OrdersFilterBar> {
                               decoration: BoxDecoration(
                                 color: isSelected
                                     ? context.cs.onPrimary.withOpacity(0.2)
-                                    : context.appColors.borderColor,
+                                    : context.appColors.borderColor
+                                        .withOpacity(0.3),
                                 borderRadius: BorderRadius.circular(4.r),
                               ),
                               child: Text(

@@ -1,3 +1,4 @@
+import 'package:B2B/app/core/helpers/extensions.dart';
 import 'package:B2B/app/core/helpers/spacing.dart';
 import 'package:B2B/app/core/widgets/app_bottom_bar_cubit.dart';
 import 'package:B2B/app/core/widgets/app_shimer.dart';
@@ -28,6 +29,7 @@ class HomeScreen extends StatelessWidget {
           context.read<HomeCubit>().refresh();
         },
         child: Scaffold(
+          backgroundColor: context.cs.background,
           body: RefreshIndicator(
             onRefresh: () async => context.read<HomeCubit>().refresh(),
             child: SingleChildScrollView(

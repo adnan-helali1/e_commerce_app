@@ -26,6 +26,7 @@ class OffersScreen extends StatelessWidget {
         );
       },
       child: Scaffold(
+        backgroundColor: context.cs.background,
         body: RefreshIndicator(
           onRefresh: context.read<OffersCubit>().refresh,
           child: ListView(

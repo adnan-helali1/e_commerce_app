@@ -18,6 +18,7 @@ class FilterTabRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         for (int i = 0; i < tabs.length; i++) ...[
           FilterTab(
@@ -55,21 +56,22 @@ class FilterTab extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: AnimatedContainer(
-        width: 128.w,
         duration: const Duration(milliseconds: 200),
-        padding: EdgeInsets.symmetric(horizontal: 0.r, vertical: 9.r),
+        padding: EdgeInsets.fromLTRB(20.w, 8.h, 16.w, 8.h),
         decoration: BoxDecoration(
           color:
               isSelected ? context.cs.primary : context.cs.onPrimaryContainer,
           borderRadius: BorderRadius.circular(8),
           border: Border.all(
-            color:
-                isSelected ? context.cs.primary : context.cs.onPrimaryContainer,
+            color: isSelected
+                ? context.cs.primary
+                : context.cs.primaryContainer.withValues(alpha: 0.1),
           ),
         ),
         child: Text(
           label,
           style: TextStyles.label(context).copyWith(
+            fontSize: 12.sp,
             color:
                 isSelected ? context.cs.onPrimary : context.cs.onSurfaceVariant,
             fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,

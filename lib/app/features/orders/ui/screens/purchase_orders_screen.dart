@@ -71,6 +71,7 @@ class _PurchaseOrdersScreenState extends State<PurchaseOrdersScreen>
           );
         },
         child: Scaffold(
+          backgroundColor: context.cs.background,
           body: RefreshIndicator(
             onRefresh: () => context.read<OrdersCubit>().refresh(),
             child: SingleChildScrollView(
@@ -87,7 +88,7 @@ class _PurchaseOrdersScreenState extends State<PurchaseOrdersScreen>
                       child: ElevatedButton.icon(
                         style: ElevatedButton.styleFrom(
                           padding: EdgeInsets.symmetric(vertical: 12.h),
-                          backgroundColor: context.cs.primary,
+                          backgroundColor: context.cs.primary.withBlue(700),
                           iconColor: context.cs.onPrimary,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(6.r),

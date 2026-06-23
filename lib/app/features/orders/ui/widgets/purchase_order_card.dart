@@ -26,133 +26,148 @@ class PurchaseOrderCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final statusColor = b2bStatusColor(context, order.status);
 
-    return B2BInfoCard(
-      margin: EdgeInsets.symmetric(horizontal: 16.w).copyWith(bottom: 12.h),
-      padding: EdgeInsets.zero,
-      child: InkWell(
-        onTap: onTap,
-        borderRadius: BorderRadius.circular(8.r),
-        child: Padding(
-          padding: EdgeInsets.all(12.r),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Header: Order ID + Status Badge
-              Row(
-                children: [
-                  Expanded(
-                    child: Text(
-                      'Order #PO-${order.createdAt.split('T')[0].replaceAll('-', '')}-${order.id.toString().padLeft(3, '0')}',
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyles.label(context).copyWith(
-                          fontSize: 16.sp, fontWeight: FontWeight.w700),
-                    ),
-                  ),
-                  B2BStatusBadge(
-                      label: order.status.toUpperCase(), color: statusColor),
-                  horizontalSpace(8),
-                  Visibility(
-                    visible: order.status.toLowerCase() != 'cancelled',
-                    child: GestureDetector(
-                      onTap: () {
-                        showDialog(
-                          context: context,
-                          builder: (dialogContext) {
-                            final cubit = context.read<OrdersCubit>();
-                            return DeleteDialog(
-                              cubit: cubit,
-                              dialogContext: dialogContext,
-                              Id: order.id,
-                              type: ' Order',
-                            );
-                          },
-                        );
-                      },
-                      child: Icon(
-                        Icons.delete_outline_rounded,
-                        size: 21.sp,
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12),
+      child: Container(
+        decoration: BoxDecoration(
+          color: context.cs.surface,
+          borderRadius: BorderRadius.circular(8.r),
+          boxShadow: [
+            BoxShadow(
+              color: context.cs.onSurface.withOpacity(0.4),
+              blurRadius: 4.r,
+              offset: Offset(0, 2.h),
+            ),
+          ],
+        ),
+        margin: EdgeInsets.symmetric(horizontal: 16.w).copyWith(bottom: 12.h),
+        padding: EdgeInsets.zero,
+        child: InkWell(
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(8.r),
+          child: Padding(
+            padding: EdgeInsets.all(12.r),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Header: Order ID + Status Badge
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        'Order #PO-${order.createdAt.split('T')[0].replaceAll('-', '')}-${order.id.toString().padLeft(3, '0')}',
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyles.label(context).copyWith(
+                            fontSize: 16.sp, fontWeight: FontWeight.w700),
                       ),
                     ),
-                  )
-                ],
-              ),
-              verticalSpace(4),
-              // Supplier Name
-              Text(
-                order.supplier.name,
-                style: TextStyles.note(context)
-                    .copyWith(fontSize: 14.sp, fontWeight: FontWeight.w600),
-              ),
-              verticalSpace(12),
-              // Items List
-              ...order.items.map(
-                (item) => Padding(
-                  padding: EdgeInsets.only(bottom: 3.h),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Text(
-                          item.supplierProduct.product.name,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyles.note(context).copyWith(
-                              fontSize: 14.sp, fontWeight: FontWeight.w500),
+                    B2BStatusBadge(
+                        label: order.status.toUpperCase(), color: statusColor),
+                    horizontalSpace(8),
+                    Visibility(
+                      visible: order.status.toLowerCase() != 'cancelled',
+                      child: GestureDetector(
+                        onTap: () {
+                          showDialog(
+                            context: context,
+                            builder: (dialogContext) {
+                              final cubit = context.read<OrdersCubit>();
+                              return DeleteDialog(
+                                cubit: cubit,
+                                dialogContext: dialogContext,
+                                Id: order.id,
+                                type: ' Order',
+                              );
+                            },
+                          );
+                        },
+                        child: Icon(
+                          Icons.delete_outline_rounded,
+                          size: 21.sp,
                         ),
                       ),
-                      horizontalSpace(8),
-                      Text(
-                        '${item.quantity}x',
-                        style: TextStyles.note(context).copyWith(
-                            fontSize: 14.sp, fontWeight: FontWeight.bold),
-                      ),
-                      horizontalSpace(8),
-                      Text(
-                        '\$${item.unitSellPrice}',
-                        style: TextStyles.label(context).copyWith(
-                            fontSize: 14.sp, fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
+                    )
+                  ],
                 ),
-              ),
-              Divider(height: 14.h, color: context.appColors.borderColor),
-              // Footer: Date, Items Count, Total
-              Row(
-                children: [
-                  Icon(
-                    Icons.calendar_today_outlined,
-                    size: 16.sp,
-                    color: context.cs.onSurfaceVariant,
-                  ),
-                  horizontalSpace(4),
-                  Text(
-                    order.createdAt.split('T')[0],
-                    style: TextStyles.note(context)
-                        .copyWith(fontSize: 12.sp, fontWeight: FontWeight.w700),
-                  ),
-                  horizontalSpace(12),
-                  Icon(
-                    Icons.inventory_2_outlined,
-                    size: 16.sp,
-                    color: context.cs.onSurfaceVariant,
-                  ),
-                  horizontalSpace(4),
-                  Text(
-                    '${order.items.length} items',
-                    style: TextStyles.note(context)
-                        .copyWith(fontSize: 12.sp, fontWeight: FontWeight.w700),
-                  ),
-                  const Spacer(),
-                  Text(
-                    '\$${order.totalSell}',
-                    style: TextStyles.label(context).copyWith(
-                      color: context.cs.primary,
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.bold,
+                verticalSpace(4),
+                // Supplier Name
+                Text(
+                  order.supplier.name,
+                  style: TextStyles.note(context)
+                      .copyWith(fontSize: 14.sp, fontWeight: FontWeight.w600),
+                ),
+                verticalSpace(12),
+                // Items List
+                ...order.items.map(
+                  (item) => Padding(
+                    padding: EdgeInsets.only(bottom: 3.h),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            item.supplierProduct.product.name,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyles.note(context).copyWith(
+                                fontSize: 14.sp, fontWeight: FontWeight.w500),
+                          ),
+                        ),
+                        horizontalSpace(8),
+                        Text(
+                          '${item.quantity}x',
+                          style: TextStyles.note(context).copyWith(
+                              fontSize: 14.sp, fontWeight: FontWeight.bold),
+                        ),
+                        horizontalSpace(8),
+                        Text(
+                          '\$${item.unitSellPrice}',
+                          style: TextStyles.label(context).copyWith(
+                              fontSize: 14.sp, fontWeight: FontWeight.bold),
+                        ),
+                      ],
                     ),
                   ),
-                ],
-              ),
-            ],
+                ),
+                Divider(height: 14.h, color: context.appColors.borderColor),
+                // Footer: Date, Items Count, Total
+                Row(
+                  children: [
+                    Icon(
+                      Icons.calendar_today_outlined,
+                      size: 16.sp,
+                      color: context.cs.onSurfaceVariant,
+                    ),
+                    horizontalSpace(4),
+                    Text(
+                      order.createdAt.split('T')[0],
+                      style: TextStyles.note(context).copyWith(
+                          fontSize: 12.sp, fontWeight: FontWeight.w700),
+                    ),
+                    horizontalSpace(12),
+                    Icon(
+                      Icons.inventory_2_outlined,
+                      size: 16.sp,
+                      color: context.cs.onSurfaceVariant,
+                    ),
+                    horizontalSpace(4),
+                    Text(
+                      '${order.items.length} items',
+                      style: TextStyles.note(context).copyWith(
+                          fontSize: 12.sp, fontWeight: FontWeight.w700),
+                    ),
+                    const Spacer(),
+                    Text(
+                      '\$${order.totalSell}',
+                      style: TextStyles.label(context).copyWith(
+                        color: context.cs.primary,
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+                verticalSpace(4),
+              ],
+            ),
           ),
         ),
       ),

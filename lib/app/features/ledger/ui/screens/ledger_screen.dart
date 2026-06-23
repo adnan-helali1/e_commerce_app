@@ -18,29 +18,28 @@ class LedgerScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<LedgerCubit, LedgerState>(
-      builder: (context, state) {
-        return state.when(
-          initial: () => const AppShimmer(),
-          loading: () => const AppShimmer(),
-          failure: (error) => _LedgerError(
-            error: error,
-            onRetry: () => context.read<LedgerCubit>().load(),
-          ),
-          success: (response, filter) => _LedgerContent(
-            // 👈 filter from state
-            response: response,
-            filter: filter,
-          ),
-        );
-      },
+    return Scaffold(
+      backgroundColor: context.cs.background,
+      body: BlocBuilder<LedgerCubit, LedgerState>(
+        builder: (context, state) {
+          return state.when(
+            initial: () => const AppShimmer(),
+            loading: () => const AppShimmer(),
+            failure: (error) => _LedgerError(
+              error: error,
+              onRetry: () => context.read<LedgerCubit>().load(),
+            ),
+            success: (response, filter) => _LedgerContent(
+              // 👈 filter from state
+              response: response,
+              filter: filter,
+            ),
+          );
+        },
+      ),
     );
   }
 }
-
-// ---------------------------------------------------------------------------
-// Success state — fully dumb, receives everything as params
-// ---------------------------------------------------------------------------
 
 class _LedgerContent extends StatelessWidget {
   final LedgerResponse response;

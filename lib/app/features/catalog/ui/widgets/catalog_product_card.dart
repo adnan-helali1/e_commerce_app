@@ -25,7 +25,20 @@ class CatalogProductCard extends StatelessWidget {
 
     return Opacity(
       opacity: item.isActive ? 1 : 0.62,
-      child: B2BInfoCard(
+      child: Container(
+        decoration: BoxDecoration(
+          color: context.cs.surface,
+          border:
+              Border.all(color: context.cs.onSurface.withValues(alpha: 0.1)),
+          borderRadius: BorderRadius.circular(8.r),
+          boxShadow: [
+            BoxShadow(
+              color: context.cs.shadow.withValues(alpha: 0.2),
+              blurRadius: 6,
+              offset: const Offset(0, 2),
+            ),
+          ],
+        ),
         margin: EdgeInsets.symmetric(horizontal: 16.w).copyWith(bottom: 12.h),
         padding: EdgeInsets.all(12.r),
         child: Padding(

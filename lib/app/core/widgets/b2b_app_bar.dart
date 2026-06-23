@@ -27,7 +27,7 @@ class B2bAppBar extends StatelessWidget implements PreferredSizeWidget {
     final cs = Theme.of(context).colorScheme;
 
     return AppBar(
-      backgroundColor: cs.surface,
+      backgroundColor: cs.background,
       elevation: 1,
       automaticallyImplyLeading: false,
       titleSpacing: 16,
