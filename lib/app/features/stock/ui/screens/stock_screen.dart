@@ -37,11 +37,12 @@ class _InventoryOverviewScreenState extends State<InventoryOverviewScreen> {
         (item.quantity + supplierQty).clamp(1, double.maxFinite).toInt();
 
     final StockStatus status;
-    if (item.quantity == 0) {
+
+    if (item.quantity <= 0) {
       status = StockStatus.outOfStock;
     } else if (item.quantity <= item.minStock) {
       status = StockStatus.lowStock;
-    } else if (item.quantity <= item.minStock * 2) {
+    } else if (item.quantity <= item.minStock * 3) {
       status = StockStatus.inStock;
     } else {
       status = StockStatus.wellStocked;

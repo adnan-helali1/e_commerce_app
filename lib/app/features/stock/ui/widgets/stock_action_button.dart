@@ -21,16 +21,20 @@ class InventoryActionButton extends StatelessWidget {
       onTap: onTap,
       child: Container(
         height: 44.h,
+        width: 140.w,
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          color: context.cs.primary,
+          color: isOutlined
+              ? context.cs.surfaceContainer.withOpacity(0.04)
+              : context.cs.primary,
           borderRadius: BorderRadius.circular(10),
           border: Border.all(color: context.cs.primary, width: 1.5),
         ),
         child: Text(
           label,
-          style:
-              TextStyles.label(context).copyWith(color: context.cs.onPrimary),
+          style: isOutlined
+              ? TextStyles.label(context).copyWith(color: context.cs.primary)
+              : TextStyles.label(context).copyWith(color: context.cs.onPrimary),
         ),
       ),
     );

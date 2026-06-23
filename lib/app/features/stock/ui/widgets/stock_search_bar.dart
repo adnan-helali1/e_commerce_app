@@ -29,10 +29,11 @@ class InventorySearchBar extends StatelessWidget {
       child: TextField(
         controller: controller,
         onChanged: onChanged,
-        style: TextStyle(fontSize: 14.sp, color: AppColors.blueCardDark),
+        style: TextStyle(fontSize: 14.sp, color: context.cs.onSurface),
         decoration: InputDecoration(
           hintText: 'Search Products...',
-          hintStyle: TextStyle(color: AppColors.blueCardDark, fontSize: 15.sp),
+          hintStyle:
+              TextStyle(color: context.cs.onSurfaceVariant, fontSize: 15.sp),
           prefixIcon: Icon(Icons.search_rounded,
               color: AppColors.blueCardDark, size: 26.sp),
           border: InputBorder.none,

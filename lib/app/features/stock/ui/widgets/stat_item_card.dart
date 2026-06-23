@@ -86,7 +86,10 @@ class InventoryItemCard extends StatelessWidget {
 
               // Status badge
               B2BStatusBadge(
-                label: item.status.toString().split('.').last,
+                label: item.status.toString().split('.').last.replaceAllMapped(
+                      RegExp(r'([A-Z])'),
+                      (match) => ' ${match.group(1)}',
+                    ),
                 color: b2bStatusColor(
                     context, item.status.toString().split('.').last),
               ),
@@ -109,12 +112,13 @@ class InventoryItemCard extends StatelessWidget {
 
           // Progress bar
           ClipRRect(
-            borderRadius: BorderRadius.circular(6),
+            borderRadius: BorderRadius.circular(6.r),
             child: LinearProgressIndicator(
               value: stockPercent,
-              minHeight: 8,
-              backgroundColor: context.appColors.success,
-              valueColor: AlwaysStoppedAnimation<Color>(context.cs.onPrimary),
+              minHeight: 8.h,
+              backgroundColor: context.cs.surfaceContainerHighest,
+              valueColor: AlwaysStoppedAnimation(b2bStatusColor(
+                  context, item.status.toString().split('.').last)),
             ),
           ),
           verticalSpace(12),
@@ -145,10 +149,20 @@ class InventoryItemCard extends StatelessWidget {
           verticalSpace(18),
 
           // ── Action buttons ─────────────────────────────────────────────
-          InventoryActionButton(
-            label: '+ Add Stock',
-            onTap: onAddStock,
-            isOutlined: false,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              InventoryActionButton(
+                label: 'Details',
+                onTap: onAddStock,
+                isOutlined: true,
+              ),
+              InventoryActionButton(
+                label: '+ Add Stock',
+                onTap: onAddStock,
+                isOutlined: false,
+              ),
+            ],
           ),
         ],
       ),

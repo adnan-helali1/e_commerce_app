@@ -19,7 +19,7 @@ class SettingsScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => getIt<UpdateProfileCubit>(),
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+        padding: EdgeInsets.symmetric(horizontal: 17.w, vertical: 16.h),
         child: Column(
           children: [
             _sectionTitle("Settings & Preferences"),
@@ -137,7 +137,7 @@ Widget _card(List<Widget> children, BuildContext context) {
     decoration: BoxDecoration(
       color: context.cs.surface,
       borderRadius: BorderRadius.circular(14.r),
-      border: Border.all(color: Colors.grey.shade200),
+      border: Border.all(color: context.cs.onSurface.withOpacity(0.08)),
     ),
     child: Column(
       children: List.generate(children.length, (index) {
@@ -145,7 +145,7 @@ Widget _card(List<Widget> children, BuildContext context) {
           children: [
             children[index],
             if (index != children.length - 1)
-              Divider(height: 0, color: Colors.grey.shade200),
+              Divider(height: 0, color: context.cs.onSurface.withOpacity(0.2)),
           ],
         );
       }),
