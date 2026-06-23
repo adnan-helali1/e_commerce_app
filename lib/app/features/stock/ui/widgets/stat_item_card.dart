@@ -73,6 +73,13 @@ class InventoryItemCard extends StatelessWidget {
                       ),
                       overflow: TextOverflow.ellipsis,
                     ),
+                    Text(
+                      'ID -- ${item.id}',
+                      style: TextStyles.label(context).copyWith(
+                        color: context.cs.onSurfaceVariant,
+                        fontSize: 12.sp,
+                      ),
+                    ),
                     verticalSpace(3),
                     Text(item.supplier,
                         style: TextStyles.label(context).copyWith(

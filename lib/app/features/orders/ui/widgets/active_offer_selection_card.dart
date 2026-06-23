@@ -57,12 +57,12 @@ class ActiveOfferSelectionCard extends StatelessWidget {
                   Expanded(
                     child: Text(
                       offer.name,
-                      style: TextStyles.button(context),
+                      style: TextStyles.label(context),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
-                  // ✅ Quantity Input - الآن في SizedBox
+
                   QuantityTextField(
                     error: error,
                     quantity: quantity,
@@ -81,8 +81,9 @@ class ActiveOfferSelectionCard extends StatelessWidget {
                           Text(
                             'Max: ${offer.stock}',
                             style: TextStyle(
-                              fontSize: 9.sp,
-                              color: context.cs.outline,
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w500,
+                              color: context.cs.onSurface.withOpacity(0.6),
                             ),
                           ),
                       ],
@@ -100,7 +101,12 @@ class ActiveOfferSelectionCard extends StatelessWidget {
                   ),
                 ],
               ),
-              verticalSpace(8),
+              Text(
+                'ID -- ${offer.supplierProductId}',
+                style: TextStyles.label(context).copyWith(
+                  color: context.cs.primary,
+                ),
+              ),
 
               /// ✅ Supplier Name
               Text(

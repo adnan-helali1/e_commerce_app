@@ -49,6 +49,7 @@ class _InventoryOverviewScreenState extends State<InventoryOverviewScreen> {
     }
 
     return InventoryItem(
+      id: item.storeProductId,
       name: product.name,
       supplier: supplier.name,
       currentStock: item.quantity,

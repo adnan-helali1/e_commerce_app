@@ -8,6 +8,7 @@ class InventoryItem {
   final int minStock;
   final String lastUpdated;
   final StockStatus status;
+  final int id;
 
   const InventoryItem({
     required this.name,
@@ -17,5 +18,6 @@ class InventoryItem {
     required this.minStock,
     required this.lastUpdated,
     required this.status,
+    required this.id,
   });
 }
