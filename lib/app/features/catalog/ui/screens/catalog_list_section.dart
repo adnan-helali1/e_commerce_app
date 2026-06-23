@@ -18,7 +18,7 @@ class CatalogListSection extends StatelessWidget {
       listener: (context, state) {
         state.whenOrNull(
           success: () {
-            context.read<CatalogCubit>().refresh(); // 👈 الصح
+            context.read<CatalogCubit>().refresh();
           },
         );
       },

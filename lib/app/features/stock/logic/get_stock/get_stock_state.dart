@@ -1,7 +1,7 @@
-import 'package:B2B/app/features/stock/data/models/get_stock_models/get_stock_response.dart';
+import 'package:B2B/app/features/stock/data/models/get_stock/get_stock_response.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'get_stock_state.freezed.dart';
+part 'cubit/get_stock_state.freezed.dart';
 
 @freezed
 class GetStockState with _$GetStockState {

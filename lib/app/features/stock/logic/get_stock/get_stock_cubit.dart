@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:B2B/app/features/stock/data/repos/get_stock/get_stock_repo.dart';
-import 'package:B2B/app/features/stock/logic/cubit/get_stock_state.dart';
+import 'package:B2B/app/features/stock/logic/get_stock/get_stock_state.dart';
 import 'package:bloc/bloc.dart';
 import 'package:B2B/app/core/networking/api_result.dart';
 

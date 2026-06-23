@@ -31,11 +31,18 @@ class OfferCard extends StatelessWidget {
         14.h,
       ),
       decoration: BoxDecoration(
-        color: context.appColors.cardBackground,
+        color: context.cs.surface,
         borderRadius: BorderRadius.circular(8.r),
         border: Border.all(
-          color: context.appColors.borderColor,
+          color: context.cs.onSurface.withValues(alpha: 0.1),
         ),
+        boxShadow: [
+          BoxShadow(
+            color: context.cs.shadow.withValues(alpha: 0.1),
+            blurRadius: 6,
+            offset: const Offset(0, 2),
+          ),
+        ],
       ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,

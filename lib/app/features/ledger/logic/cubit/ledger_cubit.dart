@@ -10,7 +10,6 @@ import 'package:bloc/bloc.dart';
 import 'package:B2B/app/core/networking/api_result.dart';
 import 'package:B2B/app/features/ledger/data/repos/ledger_repo.dart';
 import 'package:intl/intl.dart';
-import 'package:printing/printing.dart';
 
 class LedgerCubit extends Cubit<LedgerState> {
   final LedgerRepo _ledgerRepo;

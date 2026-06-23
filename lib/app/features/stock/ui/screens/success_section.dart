@@ -1,6 +1,7 @@
 import 'package:B2B/app/core/helpers/extensions.dart';
 import 'package:B2B/app/core/helpers/spacing.dart';
-import 'package:B2B/app/features/stock/data/models/get_stock_models/get_stock_response.dart';
+import 'package:B2B/app/core/routing/routes.dart';
+import 'package:B2B/app/features/stock/data/models/get_stock/get_stock_response.dart';
 import 'package:B2B/app/features/stock/data/models/stock_ui_models.dart';
 import 'package:B2B/app/features/stock/ui/screens/add_stock_sheet.dart';
 import 'package:B2B/app/features/stock/ui/widgets/detailes_dialog.dart';
@@ -45,83 +46,97 @@ class StockSuccessSection extends StatelessWidget {
     final outCount =
         allItems.where((e) => e.status == StockStatus.outOfStock).length;
 
-    return RefreshIndicator(
-      onRefresh: onRefresh,
-      child: CustomScrollView(
-        physics: const AlwaysScrollableScrollPhysics(),
-        slivers: [
-          // ── Section 1: Header ─────────────────────────────────────────
-          SliverToBoxAdapter(
-            child: InventoryHeader(
-              totalItems: allItems.length,
-              lowStock: lowCount,
-              outOfStock: outCount,
-              selectedStatIndex: 0,
-            ),
-          ),
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) async {
+        if (didPop) return;
 
-          // ── Section 2: Search ─────────────────────────────────────────
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(16, 16, 16, 2),
-              child: InventorySearchBar(
-                onChanged: onSearchChanged,
+        context.pushNamedAndRemoveUntil(
+          Routes.homescreen,
+          predicate: (_) => false,
+        );
+      },
+      child: RefreshIndicator(
+        onRefresh: onRefresh,
+        child: CustomScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          slivers: [
+            // ── Section 1: Header ─────────────────────────────────────────
+            SliverToBoxAdapter(
+              child: InventoryHeader(
+                totalItems: allItems.length,
+                lowStock: lowCount,
+                outOfStock: outCount,
+                selectedStatIndex: 0,
               ),
             ),
-          ),
 
-          SliverToBoxAdapter(child: verticalSpace(14)),
-
-          // ── Section 3: Filter Tabs ────────────────────────────────────
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(18, 0, 18, 2),
-              child: FilterTabRow(
-                tabs: filterTabs,
-                selectedIndex: selectedFilter,
-                onTabSelected: onFilterChanged,
+            // ── Section 2: Search ─────────────────────────────────────────
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(16, 16, 16, 2),
+                child: InventorySearchBar(
+                  onChanged: onSearchChanged,
+                ),
               ),
             ),
-          ),
 
-          SliverToBoxAdapter(child: verticalSpace(16)),
+            SliverToBoxAdapter(child: verticalSpace(14)),
 
-          // ── Section 4: Empty State ────────────────────────────────────
-          if (filteredItems.isEmpty)
-            const SliverFillRemaining(
-              hasScrollBody: false,
-              child: _StockEmptySection(),
-            )
-
-          // ── Section 5: Items List ─────────────────────────────────────
-          else
-            SliverPadding(
-              padding: const EdgeInsets.fromLTRB(18, 0, 18, 40),
-              sliver: SliverList.separated(
-                itemCount: filteredItems.length,
-                separatorBuilder: (_, __) => verticalSpace(12),
-                itemBuilder: (context, index) {
-                  final item = filteredItems[index];
-                  return InventoryItemCard(
-                    key: ValueKey(item.name),
-                    details: () {
-                      showStockDetailsDialog(
-                          context, detailedItems.data[index]);
-                    },
-                    item: item,
-                    onReduce: () {},
-                    onAddStock: () {
-                      showModalBottomSheet(
-                        context: context,
-                        isScrollControlled: true,
-                        builder: (_) => const AddStockSheet(),
-                      );
-                    },
-                  );
-                },
+            // ── Section 3: Filter Tabs ────────────────────────────────────
+            SliverToBoxAdapter(
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(18, 0, 18, 2),
+                child: FilterTabRow(
+                  tabs: filterTabs,
+                  selectedIndex: selectedFilter,
+                  onTabSelected: onFilterChanged,
+                ),
               ),
             ),
-        ],
+
+            SliverToBoxAdapter(child: verticalSpace(16)),
+
+            // ── Section 4: Empty State ────────────────────────────────────
+            if (filteredItems.isEmpty)
+              const SliverFillRemaining(
+                hasScrollBody: false,
+                child: _StockEmptySection(),
+              )
+
+            // ── Section 5: Items List ─────────────────────────────────────
+            else
+              SliverPadding(
+                padding: const EdgeInsets.fromLTRB(18, 0, 18, 40),
+                sliver: SliverList.separated(
+                  itemCount: filteredItems.length,
+                  separatorBuilder: (_, __) => verticalSpace(12),
+                  itemBuilder: (context, index) {
+                    final item = filteredItems[index];
+                    return InventoryItemCard(
+                      key: ValueKey(item.name),
+                      details: () {
+                        showStockDetailsDialog(
+                            context, detailedItems.data[index]);
+                      },
+                      item: item,
+                      onReduce: () {},
+                      onAddStock: () {
+                        showModalBottomSheet(
+                          context: context,
+                          isScrollControlled: true,
+                          builder: (_) => AddStockSheet(
+                            storeProductId:
+                                detailedItems.data[index].storeProductId,
+                          ),
+                        );
+                      },
+                    );
+                  },
+                ),
+              ),
+          ],
+        ),
       ),
     );
   }

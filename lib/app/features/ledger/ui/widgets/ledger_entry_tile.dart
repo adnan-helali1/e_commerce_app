@@ -21,11 +21,11 @@ class LedgerEntryTile extends StatelessWidget {
         color: context.cs.surface,
         borderRadius: BorderRadius.circular(10.r),
         border: Border.all(
-          color: context.cs.outline.withValues(alpha: 0.15),
+          color: context.cs.outline.withValues(alpha: 0.8),
         ),
         boxShadow: [
           BoxShadow(
-            color: context.cs.shadow.withValues(alpha: 0.04),
+            color: context.cs.shadow.withValues(alpha: 0.1),
             blurRadius: 6,
             offset: const Offset(0, 2),
           ),

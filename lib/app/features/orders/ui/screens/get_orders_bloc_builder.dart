@@ -37,7 +37,8 @@ class _GetOrdersBlocBuilderState extends State<GetOrdersBlocBuilder>
             if (orders.isEmpty) {
               return Center(
                 child: Padding(
-                  padding: EdgeInsets.all(32.r),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 32.r, vertical: 16.r),
                   child: Text(
                     'No orders found',
                     style: TextStyles.font18blackBold(context),
@@ -46,28 +47,31 @@ class _GetOrdersBlocBuilderState extends State<GetOrdersBlocBuilder>
               );
             }
 
-            return ListView.builder(
-              shrinkWrap: true,
-              physics: NeverScrollableScrollPhysics(),
-              itemCount: orders.length + 1,
-              itemBuilder: (context, index) {
-                if (index == 0) {
-                  return OrdersResultSummary(order: pagnedOrders);
-                }
+            return Padding(
+              padding: const EdgeInsets.only(bottom: 16.0),
+              child: ListView.builder(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: orders.length + 1,
+                itemBuilder: (context, index) {
+                  if (index == 0) {
+                    return OrdersResultSummary(order: pagnedOrders);
+                  }
 
-                final order = orders[index - 1];
+                  final order = orders[index - 1];
 
-                return PurchaseOrderCard(
-                  order: order,
-                  isExpanded: _expandedStates[index] ?? false,
-                  onTap: () {
-                    setState(() {
-                      _expandedStates[index] =
-                          !(_expandedStates[index] ?? false);
-                    });
-                  },
-                );
-              },
+                  return PurchaseOrderCard(
+                    order: order,
+                    isExpanded: _expandedStates[index] ?? false,
+                    onTap: () {
+                      setState(() {
+                        _expandedStates[index] =
+                            !(_expandedStates[index] ?? false);
+                      });
+                    },
+                  );
+                },
+              ),
             );
           },
           failure: (error) => Center(

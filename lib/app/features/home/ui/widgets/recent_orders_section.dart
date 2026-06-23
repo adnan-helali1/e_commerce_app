@@ -75,7 +75,21 @@ class _RecentOrderCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final statusColor = homeRecentOrderStatusColor(context, order.status);
 
-    return B2BInfoCard(
+    return Container(
+      decoration: BoxDecoration(
+        color: context.cs.surface,
+        borderRadius: BorderRadius.circular(10.r),
+        border: Border.all(
+          color: context.cs.outline.withValues(alpha: 0.8),
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: context.cs.shadow.withValues(alpha: 0.1),
+            blurRadius: 6,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
       margin: margin,
       padding: EdgeInsets.all(12.r),
       child: Column(
@@ -118,7 +132,8 @@ class _RecentOrderCard extends StatelessWidget {
               ),
             ),
           ),
-          Divider(height: 16.h, color: context.appColors.borderColor),
+          Divider(
+              height: 16.h, color: context.cs.outline.withValues(alpha: 0.8)),
           Row(
             children: [
               Icon(Icons.calendar_today_outlined,

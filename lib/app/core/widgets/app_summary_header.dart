@@ -4,12 +4,6 @@ import 'package:B2B/app/core/theme/textstyles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'package:B2B/app/core/helpers/extensions.dart';
-import 'package:B2B/app/core/helpers/spacing.dart';
-import 'package:B2B/app/core/theme/textstyles.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 class SummaryHeader extends StatelessWidget {
   final String title;
   final String? subtitle;
@@ -25,7 +19,6 @@ class SummaryHeader extends StatelessWidget {
   final IconData? actionButton1Icon;
   final IconData? actionButton2Icon;
 
-  /// ✅ NEW — Inventory style
   final IconData? titleIcon; // أيقونة بجانب العنوان
   final int? selectedStatIndex; // الكرت المُحدد
   final bool useSafeArea; // Gradient يمتد تحت status bar
@@ -60,20 +53,13 @@ class SummaryHeader extends StatelessWidget {
         mainAxisAlignment:
             height != null ? MainAxisAlignment.center : MainAxisAlignment.start,
         children: [
-          // ✅ 1. customTop
           if (customTop != null) ...[
             customTop!,
             verticalSpace(16),
-          ]
-
-          // ✅ 2. leading
-          else if (leading != null) ...[
+          ] else if (leading != null) ...[
             leading!,
             verticalSpace(16),
-          ]
-
-          // ✅ 3. Default title (مع دعم titleIcon)
-          else ...[
+          ] else ...[
             if (titleIcon != null)
               Row(
                 children: [
@@ -110,8 +96,6 @@ class SummaryHeader extends StatelessWidget {
             ],
             verticalSpace(height != null ? 22 : 14),
           ],
-
-          // ✅ Stats OR Actions
           if (!isWelcome)
             Row(
               children: [
@@ -123,7 +107,7 @@ class SummaryHeader extends StatelessWidget {
                       value: stats[i].value,
                       label: stats[i].label,
                       valueFontSize: stats[i].valueFontSize,
-                      isSelected: selectedStatIndex == i, // ✅ NEW
+                      isSelected: selectedStatIndex == i,
                     ),
                   ),
                 ],
@@ -166,7 +150,6 @@ class SummaryHeader extends StatelessWidget {
           ],
         ),
       ),
-      // ✅ SafeArea من الداخل = gradient يمتد خلف status bar
       child: useSafeArea ? SafeArea(bottom: false, child: inner) : inner,
     );
   }

@@ -24,7 +24,7 @@ class LedgerFilterBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+      padding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 12.h),
       child: Row(
         children: [
           _FilterChip(
@@ -117,6 +117,13 @@ class _FilterChip extends StatelessWidget {
           border: isSelected
               ? null
               : Border.all(color: context.cs.outline.withValues(alpha: 0.5)),
+          boxShadow: [
+            BoxShadow(
+              color: context.cs.shadow.withValues(alpha: 0.1),
+              blurRadius: 6,
+              blurStyle: BlurStyle.outer,
+            ),
+          ],
         ),
         child: Text(
           label,

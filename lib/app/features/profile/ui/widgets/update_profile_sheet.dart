@@ -3,7 +3,7 @@ import 'package:B2B/app/core/helpers/extensions.dart';
 import 'package:B2B/app/features/profile/data/models/update_profile_request.dart';
 import 'package:B2B/app/features/profile/logic/update_profile/update_profile_cubit.dart';
 import 'package:B2B/app/features/profile/logic/update_profile/update_profile_state.dart';
-import 'package:B2B/app/core/widgets/update_profile_log.dart';
+import 'package:B2B/app/core/widgets/form_filed_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
