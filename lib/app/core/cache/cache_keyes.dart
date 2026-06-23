@@ -10,6 +10,7 @@ class CacheKeys {
   static const String ordersBox = 'orders_box';
   static const String profileBox = 'profile_box';
   static const String ledgerBox = 'ledger_box';
+  static const String stockBox = 'stock_box';
   static const Duration homeDashboardTtl = Duration(minutes: 5);
   static const Duration ledgerTtl = Duration(minutes: 5);
 }
@@ -33,3 +34,6 @@ String buildOffersCacheKey({
 }) {
   return 'offers_${page}_${category}_${status}_$search';
 }
+
+// ledger
+String buildGetStockCacheKey() => 'get_stock';

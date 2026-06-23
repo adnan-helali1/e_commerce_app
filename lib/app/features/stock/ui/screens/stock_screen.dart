@@ -54,49 +54,47 @@ class _InventoryOverviewScreenState extends State<InventoryOverviewScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: context.cs.background,
-      body: Expanded(
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              InventoryHeader(
-                totalItems: 4,
-                lowStock: 0,
-                outOfStock: 0,
-                selectedStatIndex: 1, // 0=Total, 1=Low, 2=OutOfStock
-              ),
-              // Search
-              Padding(
-                padding: const EdgeInsets.fromLTRB(16, 16, 16, 2),
-                child: const InventorySearchBar(),
-              ),
-              verticalSpace(14),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            InventoryHeader(
+              totalItems: 4,
+              lowStock: 0,
+              outOfStock: 0,
+              selectedStatIndex: 1, // 0=Total, 1=Low, 2=OutOfStock
+            ),
+            // Search
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 16, 16, 2),
+              child: const InventorySearchBar(),
+            ),
+            verticalSpace(14),
 
-              // Filter tabs
+            // Filter tabs
+            Padding(
+              padding: const EdgeInsets.fromLTRB(18, 0, 18, 2),
+              child: FilterTabRow(
+                tabs: _filters,
+                selectedIndex: _selectedFilter,
+                onTabSelected: (i) => setState(() => _selectedFilter = i),
+              ),
+            ),
+            verticalSpace(16),
+
+            // Item cards
+            for (final item in _items) ...[
               Padding(
-                padding: const EdgeInsets.fromLTRB(18, 0, 18, 2),
-                child: FilterTabRow(
-                  tabs: _filters,
-                  selectedIndex: _selectedFilter,
-                  onTabSelected: (i) => setState(() => _selectedFilter = i),
+                padding: const EdgeInsets.fromLTRB(18, 2, 18, 2),
+                child: InventoryItemCard(
+                  item: item,
+                  onReduce: () => _handleReduce(item),
+                  onAddStock: () => _handleAddStock(item),
                 ),
               ),
-              verticalSpace(16),
-
-              // Item cards
-              for (final item in _items) ...[
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(18, 2, 18, 2),
-                  child: InventoryItemCard(
-                    item: item,
-                    onReduce: () => _handleReduce(item),
-                    onAddStock: () => _handleAddStock(item),
-                  ),
-                ),
-                verticalSpace(32),
-              ],
+              verticalSpace(32),
             ],
-          ),
+          ],
         ),
       ),
     );

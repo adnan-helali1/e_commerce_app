@@ -2,7 +2,6 @@ import 'package:B2B/app/core/helpers/extensions.dart';
 import 'package:B2B/app/core/helpers/spacing.dart';
 import 'package:B2B/app/core/theme/textstyles.dart';
 import 'package:B2B/app/features/stock/ui/screens/full_stock_screen.dart';
-import 'package:B2B/app/features/stock/ui/screens/stock_screen.dart';
 import 'package:B2B/app/features/stock/ui/widgets/stock_action_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -93,7 +92,7 @@ class InventoryItemCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Stock Level', style: TextStyles.button(context)),
+              Text('Stock Level', style: TextStyles.label(context)),
               Text(
                 '${item.currentStock} / ${item.maxStock} units ',
                 style: TextStyles.note(context).copyWith(
@@ -109,10 +108,11 @@ class InventoryItemCard extends StatelessWidget {
             child: LinearProgressIndicator(
               value: stockPercent,
               minHeight: 8,
-              backgroundColor: context.appColors.cardBackground,
+              backgroundColor: context.appColors.success,
               valueColor: AlwaysStoppedAnimation<Color>(context.cs.onPrimary),
             ),
           ),
+          verticalSpace(12),
 
           // ── Min Stock + Last Updated ───────────────────────────────────
           Row(
