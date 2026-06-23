@@ -35,12 +35,12 @@ class AppColors {
   static const Color neutral30 = Color(0xFF3A3E45);
   static const Color neutral40 = Color(0xFF29303D);
   static const Color neutral50 = Color(0xFF6B7280);
-  static const Color neutral60 = Color(0xFF9CA3AF);
-  static const Color neutral70 = Color(0xFFD1D5DB);
-  static const Color neutral80 = Color(0xFFEEEEEE);
+  static const Color neutral60 = Color(0xFF6B7280);
+  static const Color neutral70 = Color(0xFF9CA3AF);
+  static const Color neutral80 = Color(0xFFE5E7EB);
   static const Color neutral90 = Color(0xFFF3F4F6);
   static const Color neutral95 = Color(0xFFEEF1F8);
-  static const Color neutral99 = Color(0xFFFCFEFF);
+  static const Color neutral99 = Colors.white;
   // ------------------------------------------------------------
   // SURFACES (from card backgrounds & app backgrounds)
   // ------------------------------------------------------------

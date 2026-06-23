@@ -4,24 +4,31 @@ import 'package:B2B/app/core/theme/textstyles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import 'package:B2B/app/core/helpers/extensions.dart';
+import 'package:B2B/app/core/helpers/spacing.dart';
+import 'package:B2B/app/core/theme/textstyles.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 class SummaryHeader extends StatelessWidget {
   final String title;
   final String? subtitle;
   final List<SummaryStat> stats;
-
   final double? height;
   final bool isWelcome;
-
-  /// ✅ NEW
-  final Widget? leading; // Profile style
-  final Widget? customTop; // Ledger style (balance UI)
-
+  final Widget? leading;
+  final Widget? customTop;
   final VoidCallback? onActionButton1;
   final VoidCallback? onActionButton2;
   final String? actionButton1Label;
   final String? actionButton2Label;
   final IconData? actionButton1Icon;
   final IconData? actionButton2Icon;
+
+  /// ✅ NEW — Inventory style
+  final IconData? titleIcon; // أيقونة بجانب العنوان
+  final int? selectedStatIndex; // الكرت المُحدد
+  final bool useSafeArea; // Gradient يمتد تحت status bar
 
   const SummaryHeader({
     super.key,
@@ -38,48 +45,59 @@ class SummaryHeader extends StatelessWidget {
     this.actionButton2Label,
     this.actionButton1Icon,
     this.actionButton2Icon,
+    // NEW
+    this.titleIcon,
+    this.selectedStatIndex,
+    this.useSafeArea = false,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: height,
+    final inner = Padding(
       padding: EdgeInsets.all(16.r),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [Color(0xFF2C45CC), Color(0xFF5E38D0)],
-        ),
-      ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment:
             height != null ? MainAxisAlignment.center : MainAxisAlignment.start,
         children: [
-          /// ✅ 1. Custom Top (أعلى أولوية)
+          // ✅ 1. customTop
           if (customTop != null) ...[
             customTop!,
             verticalSpace(16),
           ]
 
-          /// ✅ 2. Leading (Profile)
+          // ✅ 2. leading
           else if (leading != null) ...[
             leading!,
             verticalSpace(16),
           ]
 
-          /// ✅ 3. Default Title (قديم)
+          // ✅ 3. Default title (مع دعم titleIcon)
           else ...[
-            Text(
-              title,
-              style: TextStyles.screenTitle(context).copyWith(
-                color: context.cs.onPrimary,
-                fontSize: isWelcome ? 24.sp : 20.sp,
-                fontWeight: FontWeight.w700,
+            if (titleIcon != null)
+              Row(
+                children: [
+                  Icon(titleIcon, color: context.cs.onPrimary, size: 20.sp),
+                  horizontalSpace(8),
+                  Text(
+                    title,
+                    style: TextStyles.screenTitle(context).copyWith(
+                      color: context.cs.onPrimary,
+                      fontSize: isWelcome ? 24.sp : 20.sp,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ],
+              )
+            else
+              Text(
+                title,
+                style: TextStyles.screenTitle(context).copyWith(
+                  color: context.cs.onPrimary,
+                  fontSize: isWelcome ? 24.sp : 20.sp,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
-            ),
             if (subtitle != null) ...[
               verticalSpace(4),
               Text(
@@ -93,7 +111,7 @@ class SummaryHeader extends StatelessWidget {
             verticalSpace(height != null ? 22 : 14),
           ],
 
-          /// ✅ Stats OR Actions
+          // ✅ Stats OR Actions
           if (!isWelcome)
             Row(
               children: [
@@ -105,9 +123,10 @@ class SummaryHeader extends StatelessWidget {
                       value: stats[i].value,
                       label: stats[i].label,
                       valueFontSize: stats[i].valueFontSize,
+                      isSelected: selectedStatIndex == i, // ✅ NEW
                     ),
                   ),
-                ]
+                ],
               ],
             )
           else
@@ -133,6 +152,23 @@ class SummaryHeader extends StatelessWidget {
         ],
       ),
     );
+
+    return Container(
+      width: double.infinity,
+      height: height,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            context.appColors.gradientStart,
+            context.appColors.gradientEnd,
+          ],
+        ),
+      ),
+      // ✅ SafeArea من الداخل = gradient يمتد خلف status bar
+      child: useSafeArea ? SafeArea(bottom: false, child: inner) : inner,
+    );
   }
 }
 
@@ -156,12 +192,14 @@ class _StatTile extends StatelessWidget {
   final String value;
   final String label;
   final double? valueFontSize;
+  final bool isSelected; // ✅ NEW
 
   const _StatTile({
     required this.icon,
     required this.value,
     required this.label,
     this.valueFontSize,
+    this.isSelected = false, // ✅ NEW
   });
 
   @override
@@ -169,8 +207,16 @@ class _StatTile extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(12.r),
       decoration: BoxDecoration(
-        color: context.cs.onPrimary.withValues(alpha: 0.12),
+        color: isSelected
+            ? context.cs.onPrimary.withValues(alpha: 0.25) // أفتح شوي
+            : context.cs.onPrimary.withValues(alpha: 0.12),
         borderRadius: BorderRadius.circular(6.r),
+        border: isSelected
+            ? Border.all(
+                color: context.cs.onPrimary.withValues(alpha: 0.5),
+                width: 1.2,
+              )
+            : null,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

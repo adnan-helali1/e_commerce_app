@@ -13,6 +13,7 @@ import 'package:B2B/app/features/orders/data/models/get_active_offers/active_off
 import 'package:B2B/app/features/orders/data/models/create_order/create_order_response.dart';
 import 'package:B2B/app/features/orders/data/models/get_orders/models/orders_response.dart';
 import 'package:B2B/app/features/profile/data/models/get_profile_response.dart';
+import 'package:B2B/app/features/stock/data/models/get_stock_models/get_stock_response.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
@@ -108,4 +109,8 @@ abstract class ApiService {
   // ledger Endpoints
   @GET(ApiConstants.ledger)
   Future<LedgerResponse> getLedger();
+
+  // stock Endpoints
+  @GET(ApiConstants.stock)
+  Future<GetStockResponse> getStock();
 }

@@ -9,6 +9,7 @@ class ApiConstants {
   static const String orders = 'orders';
   static const String profile = 'profile';
   static const String ledger = 'ledger';
+  static const String stock = 'inventory';
 }
 
 class ApiErrors {

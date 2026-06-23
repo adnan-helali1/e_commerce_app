@@ -154,7 +154,7 @@ class SettingsTile extends StatelessWidget {
             /// TRAILING
             if (isSwitch)
               SizedBox(
-                width: 66.w, // 🔥 العرض اللي بدك ياه
+                width: 66.w,
                 child: FittedBox(
                   fit: BoxFit.fill,
                   child: CupertinoSwitch(

@@ -19,27 +19,27 @@ class B2BStatusBadge extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 3.h),
       decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.12),
-        borderRadius: BorderRadius.circular(999.r),
+        color: color.withValues(alpha: 0.08),
+        borderRadius: BorderRadius.circular(2.r),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
           Container(
-            width: 5.r,
-            height: 5.r,
+            width: 7.r,
+            height: 7.r,
             decoration: BoxDecoration(
               color: color,
-              shape: BoxShape.circle,
+              shape: BoxShape.rectangle,
             ),
           ),
-          horizontalSpace(4),
+          horizontalSpace(7),
           Text(
             label,
             style: TextStyles.note(context).copyWith(
               color: color,
-              fontSize: 10.sp,
-              fontWeight: FontWeight.w700,
+              fontSize: 12.sp,
+              fontWeight: FontWeight.w800,
             ),
           ),
         ],
@@ -55,15 +55,20 @@ Color b2bStatusColor(BuildContext context, String status) {
     case 'Active':
     case 'available':
     case 'submitted':
+    case 'received':
+    case 'wellStocked':
       return context.appColors.success;
     case 'Preparing':
+    case 'inStock':
       return context.appColors.info;
     case 'Pending':
+    case 'lowStock':
       return context.appColors.warning;
     case 'Unavailable':
     case 'Inactive':
       return context.cs.onSurfaceVariant;
     case 'cancelled':
+    case 'outOfStock':
       return context.appColors.failure;
     default:
       return context.cs.onSurfaceVariant;

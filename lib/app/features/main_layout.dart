@@ -12,6 +12,7 @@ import 'package:B2B/app/features/offers/logic/offers_cubit/offers_cubit.dart';
 import 'package:B2B/app/features/offers/ui/screens/offers_screen.dart';
 import 'package:B2B/app/features/orders/logic/get_orders/orders_cubit.dart';
 import 'package:B2B/app/features/orders/ui/screens/purchase_orders_screen.dart';
+import 'package:B2B/app/features/stock/logic/cubit/get_stock_cubit.dart';
 import 'package:B2B/app/features/stock/ui/screens/stock_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -66,7 +67,10 @@ class _MainLayoutState extends State<MainLayout> {
         create: (context) => getIt<LedgerCubit>()..load(),
         child: const LedgerScreen(),
       ),
-      InventoryOverviewScreen()
+      BlocProvider(
+        create: (context) => getIt<GetStockCubit>(),
+        child: InventoryOverviewScreen(),
+      )
     ];
 
     return Scaffold(
