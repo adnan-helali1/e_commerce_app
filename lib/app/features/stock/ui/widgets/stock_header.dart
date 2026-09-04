@@ -1,3 +1,4 @@
+import 'package:B2B/app/core/helpers/extensions.dart';
 import 'package:B2B/app/core/widgets/app_summary_header.dart';
 import 'package:flutter/material.dart';
 
@@ -17,9 +18,10 @@ class InventoryHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return SummaryHeader(
       height: 200,
-      title: 'Inventory Overview',
+      title: l10n.inventoryOverview,
       titleIcon: Icons.inventory_2_outlined,
       useSafeArea: true,
       selectedStatIndex: selectedStatIndex,
@@ -27,17 +29,17 @@ class InventoryHeader extends StatelessWidget {
         SummaryStat(
           icon: Icons.inventory_2_outlined,
           value: totalItems.toString(),
-          label: 'Total Items',
+          label: l10n.totalItems,
         ),
         SummaryStat(
           icon: Icons.warning_amber_outlined,
           value: lowStock.toString(),
-          label: 'Low Stock',
+          label: l10n.lowStock,
         ),
         SummaryStat(
           icon: Icons.show_chart_rounded,
           value: outOfStock.toString(),
-          label: 'Out of Stock',
+          label: l10n.outOfStock,
         ),
       ],
     );

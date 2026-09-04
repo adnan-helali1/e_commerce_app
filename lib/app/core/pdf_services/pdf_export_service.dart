@@ -1,16 +1,45 @@
 import 'dart:typed_data';
 
-import 'package:intl/intl.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
+class PdfLedgerLabels {
+  final String reportTitle;
+  final String storeNameLine;
+  final String generatedAtLine;
+  final String summary;
+  final String totalCreditsLine;
+  final String totalDebitsLine;
+  final String balanceLine;
+  final String colDate;
+  final String colOrder;
+  final String colType;
+  final String colAmount;
+  final String colNotes;
+
+  const PdfLedgerLabels({
+    required this.reportTitle,
+    required this.storeNameLine,
+    required this.generatedAtLine,
+    required this.summary,
+    required this.totalCreditsLine,
+    required this.totalDebitsLine,
+    required this.balanceLine,
+    required this.colDate,
+    required this.colOrder,
+    required this.colType,
+    required this.colAmount,
+    required this.colNotes,
+  });
+}
+
 class PdfExportService {
   Future<Uint8List> generateLedgerReport({
-    required String storeName,
     required double totalCredits,
     required double totalDebits,
     required double balance,
     required List<LedgerEntryPdfModel> entries,
+    required PdfLedgerLabels labels,
   }) async {
     final pdf = pw.Document();
 
@@ -22,17 +51,11 @@ class PdfExportService {
         ),
         build: (context) {
           return [
-            _buildHeader(
-              storeName: storeName,
-            ),
+            _buildHeader(labels),
             pw.SizedBox(height: 20),
-            _buildSummary(
-              totalCredits: totalCredits,
-              totalDebits: totalDebits,
-              balance: balance,
-            ),
+            _buildSummary(labels),
             pw.SizedBox(height: 20),
-            _buildTransactionsTable(entries),
+            _buildTransactionsTable(entries, labels),
           ];
         },
       ),
@@ -41,33 +64,25 @@ class PdfExportService {
     return pdf.save();
   }
 
-  pw.Widget _buildHeader({
-    required String storeName,
-  }) {
+  pw.Widget _buildHeader(PdfLedgerLabels labels) {
     return pw.Column(
       crossAxisAlignment: pw.CrossAxisAlignment.start,
       children: [
         pw.Text(
-          'STORE LEDGER REPORT',
+          labels.reportTitle,
           style: pw.TextStyle(
             fontSize: 22,
             fontWeight: pw.FontWeight.bold,
           ),
         ),
         pw.SizedBox(height: 8),
-        pw.Text('Store Name: $storeName'),
-        pw.Text(
-          'Generated At: ${DateFormat('dd/MM/yyyy HH:mm').format(DateTime.now())}',
-        ),
+        pw.Text(labels.storeNameLine),
+        pw.Text(labels.generatedAtLine),
       ],
     );
   }
 
-  pw.Widget _buildSummary({
-    required double totalCredits,
-    required double totalDebits,
-    required double balance,
-  }) {
+  pw.Widget _buildSummary(PdfLedgerLabels labels) {
     return pw.Container(
       padding: const pw.EdgeInsets.all(12),
       decoration: pw.BoxDecoration(
@@ -77,16 +92,16 @@ class PdfExportService {
         crossAxisAlignment: pw.CrossAxisAlignment.start,
         children: [
           pw.Text(
-            'SUMMARY',
+            labels.summary,
             style: pw.TextStyle(
               fontWeight: pw.FontWeight.bold,
               fontSize: 16,
             ),
           ),
           pw.SizedBox(height: 8),
-          pw.Text('Total Credits : \$${totalCredits.toStringAsFixed(2)}'),
-          pw.Text('Total Debits : \$${totalDebits.toStringAsFixed(2)}'),
-          pw.Text('Balance : \$${balance.toStringAsFixed(2)}'),
+          pw.Text(labels.totalCreditsLine),
+          pw.Text(labels.totalDebitsLine),
+          pw.Text(labels.balanceLine),
         ],
       ),
     );
@@ -94,17 +109,18 @@ class PdfExportService {
 
   pw.Widget _buildTransactionsTable(
     List<LedgerEntryPdfModel> entries,
+    PdfLedgerLabels labels,
   ) {
     return pw.TableHelper.fromTextArray(
       headerStyle: pw.TextStyle(
         fontWeight: pw.FontWeight.bold,
       ),
-      headers: const [
-        'Date',
-        'Order',
-        'Type',
-        'Amount',
-        'Notes',
+      headers: [
+        labels.colDate,
+        labels.colOrder,
+        labels.colType,
+        labels.colAmount,
+        labels.colNotes,
       ],
       data: entries.map((e) {
         return [

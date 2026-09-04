@@ -328,33 +328,6 @@ Wrap in BaseBlocListener
 
 ---
 
-## Color Access Pattern (Rule 16)
-
-```
-Material Colors        Custom Semantic Colors
-  (ColorScheme)            (AppColorScheme)
-       │                        │
-       └─ context.cs ────┬──────┘
-                         ▼
-                    Widget build()
-                    
-Example:
-  Text('Success',
-    style: TextStyle(
-      color: context.appColors.success,  // Green
-      fontSize: 16.sp,                   // Rule 4 (responsive)
-    ),
-  )
-  
-  Container(
-    decoration: BoxDecoration(
-      color: context.cs.surface,           // Material
-      border: Border.all(
-        color: context.appColors.borderColor, // Custom
-      ),
-    ),
-  )
-```
 
 ---
 
@@ -587,25 +560,11 @@ RULE:
 
 Extensions must be PURE (no side effects)
 
-12. 🧱 BASE SCREEN PATTERN
-
-Use:
-
-BaseScreen<B, S>
-HANDLES:
-loading
-error
-empty
-success
-RULE:
-
-All screens MUST use BaseScreen unless justified
 
 13. 🎨 THEME & COLORS
 NEVER:
 Hardcode colors
 USE:
-context.cs
 context.appColors
 COLORS:
 semantic (success, error, warning)
@@ -845,22 +804,6 @@ That is the baseline to follow for all new work unless a specific feature needs 
 - Keep extension methods short and focused on one operation.
 - Do not mix UI logic with utility extensions; keep them purely functional.
 
-## 15. BaseScreen Generic Widget Pattern (New - Extracted from Implementation)
-
-- Use `BaseScreen<B extends StateStreamable<S>, S>` to reduce boilerplate in every screen.
-- The widget should handle the following concerns:
-  - `BlocBuilder` connection to state
-  - Empty state detection and display
-  - Error state detection and display
-  - Loading state detection (via `loadingWhen` callback)
-  - Success callbacks (`onSuccess`, `onError`)
-  - Custom messages for success/error (`successMessage`, `errorMessage`)
-  - Padding and safe area wrapping
-  - Background decoration support
-- Always wrap content in `BaseBlocListener` to trigger side effects (snackbars, navigation).
-- Pass `emptyWidget` and `errorWidget` to customize empty and error UI per screen.
-- The builder function receives the current state and is responsible for rendering success content.
-- Empty/error detection predicates are optional; if not provided, fall back to safe defaults.
 
 ## 16. Theme & Color Extension Rules (New - Extracted from Implementation)
 

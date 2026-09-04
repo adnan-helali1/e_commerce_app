@@ -109,7 +109,7 @@ class InventoryItemCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Stock Level', style: TextStyles.label(context)),
+              Text(context.l10n.stockLevel, style: TextStyles.label(context)),
               Text(
                 '${item.currentStock} / ${item.maxStock} units ',
                 style: TextStyles.note(context).copyWith(
@@ -137,13 +137,13 @@ class InventoryItemCard extends StatelessWidget {
             children: [
               Expanded(
                 child: _InfoColumn(
-                  label: 'Min Stock',
+                  label: context.l10n.minStock,
                   value: '${item.minStock} units',
                 ),
               ),
               Expanded(
                 child: _InfoColumn(
-                  label: 'Last Updated',
+                  label: context.l10n.lastUpdated,
                   value: item.lastUpdated,
                 ),
               ),
@@ -162,7 +162,7 @@ class InventoryItemCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               InventoryActionButton(
-                label: 'Details',
+                label: context.l10n.details,
                 onTap: details,
                 isOutlined: true,
               ),

@@ -94,14 +94,14 @@ class CatalogProductCard extends StatelessWidget {
                           children: [
                             Expanded(
                               child: _Metric(
-                                label: 'Buy Price',
+                                label: context.l10n.buyPrice,
                                 value: '\$${item.buyPrice.toStringAsFixed(2)}',
                               ),
                             ),
                             SizedBox(width: 18.w),
                             Expanded(
                               child: _Metric(
-                                label: 'Sell Price',
+                                label: context.l10n.sellPrice,
                                 value: '\$${item.sellPrice.toStringAsFixed(2)}',
                               ),
                             ),
@@ -112,14 +112,14 @@ class CatalogProductCard extends StatelessWidget {
                           children: [
                             Expanded(
                               child: _Metric(
-                                label: 'Stock',
+                                label: context.l10n.stock,
                                 value: '${item.stock} units',
                               ),
                             ),
                             SizedBox(width: 18.w),
                             Expanded(
                               child: _Metric(
-                                label: 'Profit/Unit',
+                                label: context.l10n.profitPerUnit,
                                 value:
                                     '\$${item.profitPerUnit.toStringAsFixed(2)}',
                                 isPositive: item.isActive,

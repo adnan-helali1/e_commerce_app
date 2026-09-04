@@ -1,3 +1,4 @@
+import 'package:B2B/app/core/helpers/extensions.dart';
 import 'package:B2B/app/core/widgets/app_summary_header.dart';
 import 'package:B2B/app/features/orders/logic/get_orders/orders_cubit.dart';
 import 'package:B2B/app/features/orders/logic/get_orders/orders_state.dart';
@@ -33,19 +34,19 @@ class OrdersSummaryHeader extends StatelessWidget {
         );
 
         return SummaryHeader(
-          title: 'Purchase Orders',
+          title: context.l10n.purchaseOrders,
           height: 190.h,
           stats: [
             SummaryStat(
               icon: Icons.schedule_rounded,
               value: pendingCount.toString(),
-              label: 'Pending Approval',
+              label: context.l10n.pendingApproval,
               valueFontSize: 24,
             ),
             SummaryStat(
               icon: Icons.inventory_2_outlined,
               value: '\$${totalValue.toStringAsFixed(2)}',
-              label: 'Total Value',
+              label: context.l10n.totalValue,
               valueFontSize: 24,
             ),
           ],

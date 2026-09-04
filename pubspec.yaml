@@ -12,6 +12,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
 
   # Networking
   dio: ^5.9.2
@@ -76,6 +78,7 @@ dev_dependencies:
 
 # ---------------- FLUTTER CONFIG ----------------
 flutter:
+  generate: true
   uses-material-design: true
 
   assets:

@@ -7,11 +7,12 @@ class PrivacyPolicyScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cs = context.cs;
+    final l10n = context.l10n;
 
     return Scaffold(
       backgroundColor: cs.background,
       appBar: AppBar(
-        title: const Text("Privacy Policy"),
+        title: Text(l10n.privacyPolicy),
         backgroundColor: Colors.transparent,
         elevation: 0,
         foregroundColor: cs.onSurface,
@@ -19,45 +20,42 @@ class PrivacyPolicyScreen extends StatelessWidget {
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
-          _title(context, "Privacy Policy"),
-          _text(
+          _title(context, l10n.privacyPolicy),
+          _text(context, l10n.privacyPolicyIntro),
+          _section(
             context,
-            "This Privacy Policy explains how our B2B eCommerce application collects, uses, and protects your information.",
+            l10n.privacySectionCollectTitle,
+            l10n.privacySectionCollectBody,
           ),
           _section(
             context,
-            "1. Information We Collect",
-            "We may collect business information such as company name, contact details, email address, and transaction data. We also collect technical data like device type and usage analytics.",
+            l10n.privacySectionUseTitle,
+            l10n.privacySectionUseBody,
           ),
           _section(
             context,
-            "2. How We Use Information",
-            "We use your data to provide services, process transactions, improve the platform, and communicate updates or support.",
+            l10n.privacySectionSharingTitle,
+            l10n.privacySectionSharingBody,
           ),
           _section(
             context,
-            "3. Data Sharing",
-            "We do not sell your data. We may share information with trusted partners only to operate the platform or comply with legal obligations.",
+            l10n.privacySectionSecurityTitle,
+            l10n.privacySectionSecurityBody,
           ),
           _section(
             context,
-            "4. Security",
-            "We implement strong security measures to protect your data, including encryption and secure servers.",
+            l10n.privacySectionRightsTitle,
+            l10n.privacySectionRightsBody,
           ),
           _section(
             context,
-            "5. Your Rights",
-            "You can request access, correction, or deletion of your data at any time by contacting us.",
-          ),
-          _section(
-            context,
-            "6. Contact Us",
-            "If you have any questions, contact us at:\n\nEmail: helaliadnan877@gmail.com",
+            l10n.privacySectionContactTitle,
+            l10n.privacySectionContactBody,
           ),
           const SizedBox(height: 30),
           Center(
             child: Text(
-              "Last updated: 2025",
+              l10n.privacyLastUpdated,
               style: TextStyle(color: cs.onSurface.withOpacity(.5)),
             ),
           ),

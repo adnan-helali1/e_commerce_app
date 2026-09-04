@@ -51,7 +51,7 @@ class OfferSearchRow extends StatelessWidget {
                         border: InputBorder.none,
                         isDense: true,
                         contentPadding: EdgeInsets.zero,
-                        hintText: 'Search products or suppliers...',
+                        hintText: context.l10n.searchProductsOrSuppliersHint,
                         hintStyle: TextStyles.note(context).copyWith(
                           fontSize: 17.sp,
                           height: 1.1,

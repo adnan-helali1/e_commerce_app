@@ -13,6 +13,7 @@ class LedgerSummaryHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return SummaryHeader(
       height: 240.h,
       title: '',
@@ -20,19 +21,19 @@ class LedgerSummaryHeader extends StatelessWidget {
         SummaryStat(
           icon: Icons.trending_up_rounded,
           value: '\$${summary.totalCredits.toStringAsFixed(2)}',
-          label: 'Total Income',
+          label: l10n.totalIncome,
         ),
         SummaryStat(
           icon: Icons.trending_down_rounded,
           value: '\$${summary.totalDebits.toStringAsFixed(2)}',
-          label: 'Total Expenses',
+          label: l10n.totalExpenses,
         ),
       ],
       customTop: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Current Balance',
+            l10n.currentBalance,
             style: TextStyles.note(context).copyWith(
               color: context.cs.onPrimary.withValues(alpha: 0.85),
             ),

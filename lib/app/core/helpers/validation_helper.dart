@@ -1,101 +1,109 @@
+import 'package:B2B/l10n/app_localizations.dart';
+
 class ValidationHelper {
-  /// Validates email format using a regex pattern
-  static String? validateEmail(String? email) {
+  static String? validateEmail(String? email, AppLocalizations l10n) {
     if (email == null || email.isEmpty) {
-      return 'Email is required';
+      return l10n.emailRequired;
     }
     final emailRegex = RegExp(
       r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
     );
     if (!emailRegex.hasMatch(email)) {
-      return 'Please enter a valid email address';
+      return l10n.emailInvalid;
     }
     return null;
   }
 
-  /// Validates password (min 8 characters, at least 1 uppercase, 1 lowercase, 1 number)
-  static String? validatePassword(String? password) {
+  static String? validatePassword(String? password, AppLocalizations l10n) {
     if (password == null || password.isEmpty) {
-      return 'Password is required';
+      return l10n.passwordRequired;
     }
     if (password.length < 8) {
-      return 'Password must be at least 8 characters';
+      return l10n.passwordMinLength;
     }
     if (!RegExp(r'[A-Z]').hasMatch(password)) {
-      return 'Password must contain at least 1 uppercase letter';
+      return l10n.passwordNeedsUppercase;
     }
     if (!RegExp(r'[a-z]').hasMatch(password)) {
-      return 'Password must contain at least 1 lowercase letter';
+      return l10n.passwordNeedsLowercase;
     }
     if (!RegExp(r'[0-9]').hasMatch(password)) {
-      return 'Password must contain at least 1 number';
+      return l10n.passwordNeedsNumber;
     }
     return null;
   }
 
-  /// Validates phone number (basic format check)
-  static String? validatePhone(String? phone) {
+  static String? validatePhone(String? phone, AppLocalizations l10n) {
     if (phone == null || phone.isEmpty) {
-      return 'Phone number is required';
+      return l10n.phoneRequired;
     }
     final phoneRegex = RegExp(r'^(\+?\d{1,3}[-.\s]?)?\d{9,15}$');
     if (!phoneRegex.hasMatch(phone.replaceAll(RegExp(r'\s'), ''))) {
-      return 'Please enter a valid phone number';
+      return l10n.phoneInvalid;
     }
     return null;
   }
 
-  /// Validates name fields (minimum 2 characters)
-  static String? validateName(String? name, {String fieldName = 'Name'}) {
+  static String? validateName(
+    String? name,
+    AppLocalizations l10n, {
+    String? fieldName,
+  }) {
+    final resolved = fieldName ?? l10n.fieldNameDefault;
     if (name == null || name.isEmpty) {
-      return '$fieldName is required';
+      return l10n.fieldRequired(resolved);
     }
     if (name.length < 2) {
-      return '$fieldName must be at least 2 characters';
+      return l10n.fieldMinLengthTwo(resolved);
     }
     if (!RegExp(r'^[a-zA-Z\s\-]').hasMatch(name)) {
-      return '$fieldName can only contain letters, spaces, and hyphens';
+      return l10n.fieldLettersOnly(resolved);
     }
     return null;
   }
 
-  /// Validates store name
-  static String? validateStoreName(String? storeName) {
+  static String? validateStoreName(String? storeName, AppLocalizations l10n) {
     if (storeName == null || storeName.isEmpty) {
-      return 'Store name is required';
+      return l10n.storeNameRequired;
     }
     if (storeName.length < 2) {
-      return 'Store name must be at least 2 characters';
+      return l10n.storeNameMinLength;
     }
     if (storeName.length > 100) {
-      return 'Store name must not exceed 100 characters';
+      return l10n.storeNameMaxLength;
     }
     return null;
   }
 
-  /// Validates address (optional, but if provided min 5 characters)
-  static String? validateAddress(String? address) {
+  static String? validateAddress(String? address, AppLocalizations l10n) {
     if (address == null || address.isEmpty) {
-      return null; // Address is optional
+      return null;
     }
     if (address.length < 5) {
-      return 'Address must be at least 5 characters';
+      return l10n.addressMinLength;
     }
     return null;
   }
 
-  /// Generic required field validator
-  static String? validateRequired(String? value, {String fieldName = 'Field'}) {
+  static String? validateRequired(
+    String? value,
+    AppLocalizations l10n, {
+    String? fieldName,
+  }) {
+    final resolved = fieldName ?? l10n.fieldDefault;
     if (value == null || value.isEmpty) {
-      return '$fieldName is required';
+      return l10n.fieldRequired(resolved);
     }
     return null;
   }
 
-  /// Validates password confirmation
-  static String? validatePasswordMatch(String? password, String? confirmation) {
+  static String? validatePasswordMatch(
+    String? password,
+    String? confirmation,
+    AppLocalizations l10n,
+  ) {
     if (password != confirmation) {
-      return 'Passwords do not match';
+      return l10n.passwordsDoNotMatch;
     }
     return null;
   }

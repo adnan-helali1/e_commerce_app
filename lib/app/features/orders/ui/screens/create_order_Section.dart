@@ -69,7 +69,7 @@ class CreateOrderSection extends StatelessWidget {
                         color: context.cs.onPrimary,
                       ),
                     )
-                  : const Text('Create Order'),
+                  : Text(context.l10n.createOrder),
             ),
           );
         },
@@ -83,8 +83,8 @@ class CreateOrderSection extends StatelessWidget {
     if (uiCubit.hasValidationErrors()) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: const Text(
-            'Please fix the quantity errors before submitting',
+          content: Text(
+            context.l10n.fixQuantityErrors,
           ),
           backgroundColor: context.cs.error,
         ),
@@ -113,8 +113,8 @@ class CreateOrderSection extends StatelessWidget {
 
     if (items.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Please select at least one item'),
+        SnackBar(
+          content: Text(context.l10n.selectAtLeastOneItem),
         ),
       );
       return;

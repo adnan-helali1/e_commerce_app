@@ -1,0 +1,438 @@
+{
+  "@@locale": "en",
+  "appTitle": "B2B App",
+  "storeFallbackTitle": "Store",
+  "navHome": "Home",
+  "navOffers": "Offers",
+  "navCatalog": "Catalog",
+  "navOrders": "Orders",
+  "navLedger": "Ledger",
+  "navStock": "Stock",
+  "pageNotFound": "Page not found",
+  "save": "Save",
+  "cancel": "Cancel",
+  "delete": "Delete",
+  "close": "Close",
+  "update": "Update",
+  "submit": "Submit",
+  "add": "Add",
+  "yes": "Yes",
+  "no": "No",
+  "tryAgain": "Try Again",
+  "tryAgainLater": "Try Again Later",
+  "viewAll": "View All",
+  "details": "Details",
+  "export": "Export",
+  "preview": "Preview",
+  "status": "Status",
+  "active": "Active",
+  "inactive": "Inactive",
+  "pending": "Pending",
+  "approved": "Approved",
+  "preparing": "Preparing",
+  "received": "Received",
+  "submitted": "Submitted",
+  "cancelled": "Cancelled",
+  "all": "All",
+  "buyPrice": "Buy Price",
+  "sellPrice": "Sell Price",
+  "stock": "Stock",
+  "profit": "Profit",
+  "profitPerUnit": "Profit/Unit",
+  "quantity": "Quantity",
+  "unitPrice": "Unit Price",
+  "sellerName": "Seller Name",
+  "phone": "Phone",
+  "email": "Email",
+  "address": "Address",
+  "name": "Name",
+  "password": "Password",
+  "category": "Category",
+  "product": "Product",
+  "supplier": "Supplier",
+  "description": "Description",
+  "created": "Created",
+  "updated": "Updated",
+  "credit": "Credit",
+  "debit": "Debit",
+  "income": "Income",
+  "expenses": "Expenses",
+  "whatsapp": "WhatsApp",
+  "instagram": "Instagram",
+  "facebook": "Facebook",
+  "telegram": "Telegram",
+  "language": "Language",
+  "selectLanguage": "Select Language",
+  "deleteTypedTitle": "Delete {type}",
+  "@deleteTypedTitle": {
+    "placeholders": {
+      "type": {"type": "String"}
+    }
+  },
+  "deleteTypedConfirmMessage": "Are you sure you want to delete this {type}?",
+  "@deleteTypedConfirmMessage": {
+    "placeholders": {
+      "type": {"type": "String"}
+    }
+  },
+  "doubleBackToExit": "Click one more time to close the app",
+  "browseOffers": "Browse Offers",
+  "quickSale": "Quick Sale",
+  "updateCatalogItem": "Update Catalog Item",
+  "addOfferToCatalog": "Add Offer To Catalog",
+  "priceHintZero": "0.00",
+  "emailRequired": "Email is required",
+  "emailInvalid": "Please enter a valid email address",
+  "passwordRequired": "Password is required",
+  "passwordMinLength": "Password must be at least 8 characters",
+  "passwordNeedsUppercase": "Password must contain at least 1 uppercase letter",
+  "passwordNeedsLowercase": "Password must contain at least 1 lowercase letter",
+  "passwordNeedsNumber": "Password must contain at least 1 number",
+  "phoneRequired": "Phone number is required",
+  "phoneInvalid": "Please enter a valid phone number",
+  "fieldRequired": "{fieldName} is required",
+  "@fieldRequired": {
+    "placeholders": {
+      "fieldName": {"type": "String"}
+    }
+  },
+  "fieldMinLengthTwo": "{fieldName} must be at least 2 characters",
+  "@fieldMinLengthTwo": {
+    "placeholders": {
+      "fieldName": {"type": "String"}
+    }
+  },
+  "fieldLettersOnly": "{fieldName} can only contain letters, spaces, and hyphens",
+  "@fieldLettersOnly": {
+    "placeholders": {
+      "fieldName": {"type": "String"}
+    }
+  },
+  "fieldNameDefault": "Name",
+  "ownerNameField": "Owner name",
+  "fieldDefault": "Field",
+  "storeNameRequired": "Store name is required",
+  "storeNameMinLength": "Store name must be at least 2 characters",
+  "storeNameMaxLength": "Store name must not exceed 100 characters",
+  "addressMinLength": "Address must be at least 5 characters",
+  "passwordsDoNotMatch": "Passwords do not match",
+  "welcomeBack": "Welcome Back",
+  "welcomeBackExclaim": "Welcome Back!",
+  "signInSubtitle": "Sign in to your supermarket account",
+  "emailAddressRequiredLabel": "Email Address *",
+  "emailHint": "store@example.com",
+  "passwordRequiredLabel": "Password *",
+  "enterPasswordHint": "Enter your password",
+  "rememberMe": "Remember me",
+  "forgotPassword": "Forgot password?",
+  "signIn": "Sign In",
+  "dontHaveAccount": "Don't have an account?",
+  "createAccountLink": "Create account",
+  "loginSuccess": "Logged in successful!",
+  "createAccount": "Create Account",
+  "registerSubtitle": "Register your store account",
+  "storeNameRequiredLabel": "Store Name *",
+  "storeNameHint": "My Store",
+  "ownerNameRequiredLabel": "Owner Name *",
+  "ownerNameHint": "Owner",
+  "phoneRequiredLabel": "Phone *",
+  "phoneHint": "0999999999",
+  "emailRequiredLabel": "Email *",
+  "registerEmailHint": "store1@example.com",
+  "passwordHintExample": "password123",
+  "confirmPasswordRequiredLabel": "Confirm Password *",
+  "confirmPasswordHint": "Confirm your password",
+  "alreadyHaveAccount": "Already have an account?",
+  "registrationSuccess": "Registration successful!",
+  "demoAccount": "Demo Account",
+  "pleaseEnterPassword": "Please enter a password",
+  "passwordSentToAdmin": "Password \"{password}\" has been sent to the administrator for verification",
+  "@passwordSentToAdmin": {
+    "placeholders": {
+      "password": {"type": "String"}
+    }
+  },
+  "contactEmailSnack": "Email: helaliadnan877@gmail.com",
+  "contactWhatsappSnack": "WhatsApp: +963 985 198 014",
+  "recoverPassword": "Recover Password",
+  "recoverPasswordSubtitle": "Choose how you want to recover your account",
+  "submitAPassword": "Submit a Password",
+  "submitPasswordHelpText": "If you can't remember your password, give me the last password you remember or a password you think it's like it and send it",
+  "rememberedPasswordHint": "Enter the password you remember",
+  "sendPassword": "Send Password",
+  "contactAdministrator": "Contact Administrator",
+  "contactAdminHelpText": "Contact us on email or WhatsApp for manual password recovery assistance",
+  "supportEmail": "helaliadnan877@gmail.com",
+  "supportWhatsappWithLabel": "+963 985 198 014 (WhatsApp)",
+  "supportWhatsapp": "+963985198014",
+  "backToSignIn": "← Back to Sign In",
+  "homeOverviewSubtitle": "Here's your business overview for today",
+  "quickActions": "Quick Actions",
+  "manageCatalog": "Manage Catalog",
+  "viewLedger": "View Ledger",
+  "keyMetrics": "Key Metrics",
+  "recentOrders": "Recent Orders",
+  "orderWithId": "Order {id}",
+  "@orderWithId": {
+    "placeholders": {
+      "id": {"type": "String"}
+    }
+  },
+  "errorWithMessage": "Error: {error}",
+  "@errorWithMessage": {
+    "placeholders": {
+      "error": {"type": "String"}
+    }
+  },
+  "revenueToday": "Revenue Today",
+  "totalOrders": "Total Orders",
+  "salesToday": "Sales Today",
+  "profitMargin": "Profit Margin",
+  "lowStock": "Low Stock",
+  "itemsNeedRestocking": "Items need restocking",
+  "ordersToProcess": "Orders to process",
+  "metricDecrease": "decrease",
+  "metricIncrease": "increase",
+  "metricChangeNote": "{percent}% {label}",
+  "@metricChangeNote": {
+    "placeholders": {
+      "percent": {"type": "String"},
+      "label": {"type": "String"}
+    }
+  },
+  "logout": "Logout",
+  "profileUpdatedSuccess": "Profile updated successfully",
+  "updateProfile": "Update Profile",
+  "storeName": "Store Name",
+  "ownerName": "Owner Name",
+  "settingsAndPreferences": "Settings & Preferences",
+  "editProfile": "Edit Profile",
+  "updateStoreInformation": "Update store information",
+  "notifications": "Notifications",
+  "manageAlertsAndUpdates": "Manage alerts and updates",
+  "appearance": "Appearance",
+  "lightModeEnabled": "Light mode enabled",
+  "darkModeEnabled": "Dark mode enabled",
+  "preferences": "Preferences",
+  "preferencesSubtitle": "Language, currency, etc.",
+  "supportAndLegal": "Support & Legal",
+  "helpAndSupport": "Help & Support",
+  "privacyPolicy": "Privacy Policy",
+  "darkMode": "Dark Mode",
+  "storeInformation": "Store Information",
+  "storeIdLabel": "ID: SM--{id}",
+  "@storeIdLabel": {
+    "placeholders": {
+      "id": {"type": "String"}
+    }
+  },
+  "privacyPolicyIntro": "This Privacy Policy explains how our B2B eCommerce application collects, uses, and protects your information.",
+  "privacySectionCollectTitle": "1. Information We Collect",
+  "privacySectionCollectBody": "We may collect business information such as company name, contact details, email address, and transaction data. We also collect technical data like device type and usage analytics.",
+  "privacySectionUseTitle": "2. How We Use Information",
+  "privacySectionUseBody": "We use your data to provide services, process transactions, improve the platform, and communicate updates or support.",
+  "privacySectionSharingTitle": "3. Data Sharing",
+  "privacySectionSharingBody": "We do not sell your data. We may share information with trusted partners only to operate the platform or comply with legal obligations.",
+  "privacySectionSecurityTitle": "4. Security",
+  "privacySectionSecurityBody": "We implement strong security measures to protect your data, including encryption and secure servers.",
+  "privacySectionRightsTitle": "5. Your Rights",
+  "privacySectionRightsBody": "You can request access, correction, or deletion of your data at any time by contacting us.",
+  "privacySectionContactTitle": "6. Contact Us",
+  "privacySectionContactBody": "If you have any questions, contact us at:\n\nEmail: helaliadnan877@gmail.com",
+  "privacyLastUpdated": "Last updated: 2025",
+  "purchaseOrders": "Purchase Orders",
+  "pendingApproval": "Pending Approval",
+  "totalValue": "Total Value",
+  "allOrders": "All Orders",
+  "ordersFoundCount": "{count} orders found",
+  "@ordersFoundCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "totalAmountLabel": "Total: ${amount}",
+  "@totalAmountLabel": {
+    "placeholders": {
+      "amount": {"type": "String"}
+    }
+  },
+  "noOrdersFound": "No orders found",
+  "orderPoPrefix": "Order #PO-{id}",
+  "@orderPoPrefix": {
+    "placeholders": {
+      "id": {"type": "String"}
+    }
+  },
+  "orderDeleteType": "Order",
+  "itemsCount": "{count} items",
+  "@itemsCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "loadingActiveOffers": "Loading Active Offers...",
+  "failedLoadActiveOffers": "Failed to load active offers: {error}",
+  "@failedLoadActiveOffers": {
+    "placeholders": {
+      "error": {"type": "String"}
+    }
+  },
+  "selectOffersToCreateOrder": "Select Offers to Create Order",
+  "totalOrderPrice": "Total Order Price",
+  "orderNoteHint": "Order note",
+  "createOrder": "Create Order",
+  "ordersCreatedSuccess": "{count} order(s) created successfully!",
+  "@ordersCreatedSuccess": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "fixQuantityErrors": "Please fix the quantity errors before submitting",
+  "selectAtLeastOneItem": "Please select at least one item",
+  "maxStockLabel": "Max: {stock}",
+  "@maxStockLabel": {
+    "placeholders": {
+      "stock": {"type": "String"}
+    }
+  },
+  "idPrefix": "ID -- {id}",
+  "@idPrefix": {
+    "placeholders": {
+      "id": {"type": "String"}
+    }
+  },
+  "totalPrice": "Total Price",
+  "qtyHint": "Qty",
+  "myStoreCatalog": "My Store Catalog",
+  "activeProducts": "Active Products",
+  "potentialProfit": "Potential Profit",
+  "searchCatalogHint": "Search catalog...",
+  "activeOnly": "Active Only",
+  "addProduct": "Add Product",
+  "addProducts": "Add Products",
+  "addProductsGoToOffers": "To add products, go to Suppliers Offers section.",
+  "goToOffers": "Go to Offers",
+  "noProductsInCatalog": "No products in catalog",
+  "addProductToGetStarted": "Add a product to get started",
+  "estProfitLabel": "Est. Profit: ${amount}",
+  "@estProfitLabel": {
+    "placeholders": {
+      "amount": {"type": "String"}
+    }
+  },
+  "itemDeleteType": "Item",
+  "offerUpdatedSuccess": "Offer updated successfully",
+  "catalogItemUpdatedSuccess": "Catalog item updated successfully",
+  "supplierOffers": "Supplier Offers",
+  "totalOffers": "Total offers",
+  "allOffersReceived": "All offers received",
+  "availableOffers": "Available offers",
+  "readyToReview": "Ready to review",
+  "searchProductsOrSuppliersHint": "Search products or suppliers...",
+  "filterByCategory": "Filter by Category",
+  "categoryAll": "All",
+  "categoryBeverages": "Beverages",
+  "categorySnacks": "Snacks",
+  "categoryFruits": "Fruits",
+  "categoryVegetables": "Vegetables",
+  "categoryDairy": "Dairy",
+  "categoryEggs": "Eggs",
+  "buyPriceMultiline": "Buy\nPrice",
+  "noResultsFound": "No results found",
+  "offerAddedSuccess": "Offer added successfully",
+  "inventoryOverview": "Inventory Overview",
+  "totalItems": "Total Items",
+  "outOfStock": "Out of Stock",
+  "searchProductsHint": "Search Products...",
+  "allItemsWithCount": "All Items ({count})",
+  "@allItemsWithCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "lowStockWithCount": "Low Stock ({count})",
+  "@lowStockWithCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "outOfStockWithCount": "Out of Stock ({count})",
+  "@outOfStockWithCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "noItemsFound": "No items found",
+  "tryAdjustSearchOrFilter": "Try adjusting your search or filter.",
+  "stockAddedSuccess": "Stock added successfully",
+  "addStock": "Add Stock",
+  "stockLevel": "Stock Level",
+  "minStock": "Min Stock",
+  "lastUpdated": "Last Updated",
+  "stockDetails": "Stock Details",
+  "stockInfo": "Stock Info",
+  "storeProduct": "Store Product",
+  "supplierProduct": "Supplier Product",
+  "stockQty": "Stock Qty",
+  "totalIncome": "Total Income",
+  "totalExpenses": "Total Expenses",
+  "currentBalance": "Current Balance",
+  "transactionHistory": "Transaction History",
+  "noTransactionsYet": "No transactions yet",
+  "ledgerRefLabel": "Ref. {type}-{id}",
+  "@ledgerRefLabel": {
+    "placeholders": {
+      "type": {"type": "String"},
+      "id": {"type": "String"}
+    }
+  },
+  "somethingWentWrong": "Something went wrong",
+  "pdfSavedSuccess": "PDF saved successfully",
+  "savePdf": "Save PDF",
+  "sharePdf": "Share PDF",
+  "pdfStoreLedgerReport": "STORE LEDGER REPORT",
+  "pdfStoreName": "Store Name: {storeName}",
+  "@pdfStoreName": {
+    "placeholders": {
+      "storeName": {"type": "String"}
+    }
+  },
+  "pdfGeneratedAt": "Generated At: {dateTime}",
+  "@pdfGeneratedAt": {
+    "placeholders": {
+      "dateTime": {"type": "String"}
+    }
+  },
+  "pdfSummary": "SUMMARY",
+  "pdfTotalCredits": "Total Credits : ${amount}",
+  "@pdfTotalCredits": {
+    "placeholders": {
+      "amount": {"type": "String"}
+    }
+  },
+  "pdfTotalDebits": "Total Debits : ${amount}",
+  "@pdfTotalDebits": {
+    "placeholders": {
+      "amount": {"type": "String"}
+    }
+  },
+  "pdfBalance": "Balance : ${amount}",
+  "@pdfBalance": {
+    "placeholders": {
+      "amount": {"type": "String"}
+    }
+  },
+  "pdfColDate": "Date",
+  "pdfColOrder": "Order",
+  "pdfColType": "Type",
+  "pdfColAmount": "Amount",
+  "pdfColNotes": "Notes",
+  "langEnglish": "English",
+  "langGerman": "Deutsch",
+  "langSpanish": "Español",
+  "langFrench": "Français",
+  "langDutch": "Nederlands",
+  "langPortuguese": "Português",
+  "langRussian": "Русский",
+  "langTurkish": "Türkçe"
+}

@@ -33,7 +33,7 @@ class PutchOfferSheet extends StatelessWidget {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   backgroundColor: context.appColors.success,
-                  content: const Text('Offer updated successfully'),
+                  content: Text(context.l10n.offerUpdatedSuccess),
                 ),
               );
             },

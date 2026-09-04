@@ -45,11 +45,11 @@ class _CreateOrderFromOffersScreenState
           builder: (context, state) {
             return state.when(
               initial: () => const SizedBox(),
-              loading: () => const Center(
+              loading: () => Center(
                 child: Center(
                     child: Text(
-                  'Loading  Active Offers...',
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  context.l10n.loadingActiveOffers,
+                  style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                 )),
               ),
               failure: (error) {
@@ -57,7 +57,7 @@ class _CreateOrderFromOffersScreenState
 
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
-                    content: Text('Failed to load active offers: $error'),
+                    content: Text(context.l10n.failedLoadActiveOffers(error)),
                     backgroundColor: context.cs.error,
                   ),
                 );
@@ -75,7 +75,7 @@ class _CreateOrderFromOffersScreenState
                       child: Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          'Select Offers to Create Order',
+                          context.l10n.selectOffersToCreateOrder,
                           style: TextStyles.note(context).copyWith(
                               fontSize: 18.sp,
                               fontWeight: FontWeight.w700,
@@ -127,7 +127,7 @@ class _CreateOrderFromOffersScreenState
                                   child: Row(
                                     children: [
                                       Text(
-                                        'Total Order Price',
+                                        context.l10n.totalOrderPrice,
                                         style:
                                             TextStyles.button(context).copyWith(
                                           color: context.cs.primary,
@@ -160,7 +160,7 @@ class _CreateOrderFromOffersScreenState
                                     .updateNote(value);
                               },
                               decoration: InputDecoration(
-                                hintText: 'Order note',
+                                hintText: context.l10n.orderNoteHint,
                                 border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(8.r),
                                 ),

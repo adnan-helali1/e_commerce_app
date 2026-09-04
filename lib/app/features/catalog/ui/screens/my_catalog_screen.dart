@@ -70,8 +70,8 @@ class _MyCatalogBody extends StatelessWidget {
                   verticalSpace(15),
                   Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16.w),
-                    child: const CatalogSearchField(
-                      hintText: 'Search catalog...',
+                    child: CatalogSearchField(
+                      hintText: context.l10n.searchCatalogHint,
                     ),
                   ),
                   verticalSpace(10),

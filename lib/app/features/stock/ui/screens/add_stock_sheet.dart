@@ -46,9 +46,9 @@ class _AddStockSheetState extends State<AddStockSheet> {
             success: (_) {
               Navigator.of(context).pop(true);
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
+                SnackBar(
                   backgroundColor: Colors.green,
-                  content: Text('Stock added successfully'),
+                  content: Text(context.l10n.stockAddedSuccess),
                 ),
               );
             },
@@ -78,21 +78,21 @@ class _AddStockSheetState extends State<AddStockSheet> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   GenericUpdateForm(
-                    title: "Add Stock",
+                    title: context.l10n.addStock,
                     loading: loading,
                     fields: [
                       FormFieldConfig(
-                        label: "Quantity",
+                        label: context.l10n.quantity,
                         controller: _quantityController,
                         keyboardType: TextInputType.number,
                       ),
                       FormFieldConfig(
-                        label: "Unit Price",
+                        label: context.l10n.unitPrice,
                         controller: _priceController,
                         keyboardType: TextInputType.number,
                       ),
                       FormFieldConfig(
-                        label: "Seller Name",
+                        label: context.l10n.sellerName,
                         controller: _sellerController,
                       ),
                     ],

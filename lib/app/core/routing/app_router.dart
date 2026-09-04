@@ -1,4 +1,5 @@
 import 'package:B2B/app/core/di/dependency_injection.dart';
+import 'package:B2B/app/core/helpers/extensions.dart';
 import 'package:B2B/app/core/routing/routes.dart';
 import 'package:B2B/app/core/widgets/app_bottom_bar_cubit.dart';
 import 'package:B2B/app/features/auth/logic/login/login_cubit.dart';
@@ -106,8 +107,8 @@ class AppRouter {
 
       default:
         return MaterialPageRoute(
-          builder: (_) => const Scaffold(
-            body: Center(child: Text("Page not found")),
+          builder: (context) => Scaffold(
+            body: Center(child: Text(context.l10n.pageNotFound)),
           ),
         );
     }

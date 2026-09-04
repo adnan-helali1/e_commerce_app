@@ -1,3 +1,4 @@
+import 'package:B2B/app/core/helpers/extensions.dart';
 import 'package:B2B/app/core/widgets/app_bottom_bar_cubit.dart';
 import 'package:B2B/app/core/widgets/b2b_app_bar.dart';
 import 'package:B2B/app/core/widgets/app_bottom_bar.dart';
@@ -75,7 +76,7 @@ class _MainLayoutState extends State<MainLayout> {
 
     return Scaffold(
       appBar: B2bAppBar(
-        title: _storeName ?? 'Store',
+        title: _storeName ?? context.l10n.storeFallbackTitle,
         subtitle: _ownerName ?? '',
       ),
       extendBody: true,
@@ -86,13 +87,18 @@ class _MainLayoutState extends State<MainLayout> {
         children: screens,
       ),
       bottomNavigationBar: AppBottomNavBar(
-        items: const [
-          AppBottomNavItem(label: 'Home', icon: Icons.home_rounded),
-          AppBottomNavItem(label: 'Offers', icon: Icons.inventory_2_outlined),
-          AppBottomNavItem(label: 'Catalog', icon: Icons.map_outlined),
-          AppBottomNavItem(label: 'Orders', icon: Icons.shopping_bag_outlined),
-          AppBottomNavItem(label: 'Ledger', icon: Icons.description_outlined),
-          AppBottomNavItem(label: 'Stock', icon: Icons.store_outlined),
+        items: [
+          AppBottomNavItem(label: context.l10n.navHome, icon: Icons.home_rounded),
+          AppBottomNavItem(
+              label: context.l10n.navOffers, icon: Icons.inventory_2_outlined),
+          AppBottomNavItem(
+              label: context.l10n.navCatalog, icon: Icons.map_outlined),
+          AppBottomNavItem(
+              label: context.l10n.navOrders, icon: Icons.shopping_bag_outlined),
+          AppBottomNavItem(
+              label: context.l10n.navLedger, icon: Icons.description_outlined),
+          AppBottomNavItem(
+              label: context.l10n.navStock, icon: Icons.store_outlined),
         ],
       ),
     );

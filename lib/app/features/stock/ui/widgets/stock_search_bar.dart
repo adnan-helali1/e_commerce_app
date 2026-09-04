@@ -31,7 +31,7 @@ class InventorySearchBar extends StatelessWidget {
         onChanged: onChanged,
         style: TextStyle(fontSize: 14.sp, color: context.cs.onSurface),
         decoration: InputDecoration(
-          hintText: 'Search Products...',
+          hintText: context.l10n.searchProductsHint,
           hintStyle:
               TextStyle(color: context.cs.onSurfaceVariant, fontSize: 15.sp),
           prefixIcon: Icon(Icons.search_rounded,

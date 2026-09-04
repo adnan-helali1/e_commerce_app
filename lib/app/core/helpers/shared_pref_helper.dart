@@ -10,6 +10,7 @@ class SharedPrefHelper {
   static const FlutterSecureStorage _secureStorage = FlutterSecureStorage();
   static const String _storeNameKey = 'storeName';
   static const String _ownerNameKey = 'ownerName';
+  static const String _appLocaleKey = 'app_locale';
 
   /// Save user token securely
   static Future<void> setUserToken(String token) async {
@@ -71,6 +72,18 @@ class SharedPrefHelper {
     debugPrint('SharedPrefHelper: Owner name removed');
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove(_ownerNameKey);
+  }
+
+  /// Save app locale language code (e.g. en, de, fr)
+  static Future<void> setAppLocale(String languageCode) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(_appLocaleKey, languageCode);
+  }
+
+  /// Get saved app locale language code
+  static Future<String?> getAppLocale() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString(_appLocaleKey);
   }
 
   /// Clear all secure data

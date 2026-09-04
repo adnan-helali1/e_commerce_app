@@ -1,3 +1,4 @@
+import 'package:B2B/app/core/helpers/extensions.dart';
 import 'package:B2B/app/core/helpers/spacing.dart';
 import 'package:B2B/app/core/theme/textstyles.dart';
 import 'package:B2B/app/core/widgets/app_shimer.dart';
@@ -87,7 +88,7 @@ class _GetOrdersBlocBuilderState extends State<GetOrdersBlocBuilder>
                   verticalSpace(12),
                   TextButton(
                     onPressed: () => context.read<OrdersCubit>().load(),
-                    child: const Text('Try Again'),
+                    child: Text(context.l10n.tryAgain),
                   ),
                 ],
               ),

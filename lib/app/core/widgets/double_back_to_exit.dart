@@ -1,4 +1,5 @@
 import 'package:B2B/app/core/helpers/app_overlay_message.dart';
+import 'package:B2B/app/core/helpers/extensions.dart';
 import 'package:flutter/material.dart';
 
 class DoubleBackToExit extends StatefulWidget {
@@ -7,13 +8,13 @@ class DoubleBackToExit extends StatefulWidget {
     required this.child,
     this.onFirstBackPressed,
     required this.onSecondBackPressed,
-    this.messageTwo = 'Click one more time to close the app',
+    this.messageTwo,
   });
 
   final Widget child;
   final VoidCallback? onFirstBackPressed;
   final VoidCallback? onSecondBackPressed;
-  final String messageTwo;
+  final String? messageTwo;
 
   @override
   State<DoubleBackToExit> createState() => _DoubleBackToExitState();
@@ -33,7 +34,7 @@ class _DoubleBackToExitState extends State<DoubleBackToExit> {
 
       AppOverlayMessage.show(
         context,
-        message: widget.messageTwo,
+        message: widget.messageTwo ?? context.l10n.doubleBackToExit,
       );
 
       return;

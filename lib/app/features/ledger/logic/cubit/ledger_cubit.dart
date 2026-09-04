@@ -6,6 +6,7 @@ import 'package:B2B/app/core/pdf_services/pdf_export_service.dart';
 import 'package:B2B/app/features/ledger/data/models/ledger_response.dart';
 import 'package:B2B/app/features/ledger/logic/cubit/ledger_state.dart';
 import 'package:B2B/app/features/ledger/ui/widgets/ledger_filter_bar.dart';
+import 'package:B2B/l10n/app_localizations.dart';
 import 'package:bloc/bloc.dart';
 import 'package:B2B/app/core/networking/api_result.dart';
 import 'package:B2B/app/features/ledger/data/repos/ledger_repo.dart';
@@ -223,7 +224,7 @@ class LedgerCubit extends Cubit<LedgerState> {
   // ---------------------------------------------------------------------------
 
   // pdf export
-  Future<Uint8List?> exportPdf() async {
+  Future<Uint8List?> exportPdf(AppLocalizations l10n) async {
     final response = state.maybeWhen(
       success: (response, _) => response,
       orElse: () => null,
@@ -231,13 +232,34 @@ class LedgerCubit extends Cubit<LedgerState> {
 
     if (response == null) return null;
 
-    final storeName = await SharedPrefHelper.getStoreName();
+    final storeName =
+        await SharedPrefHelper.getStoreName() ?? l10n.storeFallbackTitle;
+    final generatedAt =
+        DateFormat('dd/MM/yyyy HH:mm').format(DateTime.now());
+    final summary = response.data.summary;
+
+    final labels = PdfLedgerLabels(
+      reportTitle: l10n.pdfStoreLedgerReport,
+      storeNameLine: l10n.pdfStoreName(storeName),
+      generatedAtLine: l10n.pdfGeneratedAt(generatedAt),
+      summary: l10n.pdfSummary,
+      totalCreditsLine:
+          l10n.pdfTotalCredits(summary.totalCredits.toStringAsFixed(2)),
+      totalDebitsLine:
+          l10n.pdfTotalDebits(summary.totalDebits.toStringAsFixed(2)),
+      balanceLine: l10n.pdfBalance(summary.balance.toStringAsFixed(2)),
+      colDate: l10n.pdfColDate,
+      colOrder: l10n.pdfColOrder,
+      colType: l10n.pdfColType,
+      colAmount: l10n.pdfColAmount,
+      colNotes: l10n.pdfColNotes,
+    );
 
     return _pdfExportService.generateLedgerReport(
-      storeName: storeName ?? 'Store',
-      totalCredits: response.data.summary.totalCredits,
-      totalDebits: response.data.summary.totalDebits,
-      balance: response.data.summary.balance,
+      totalCredits: summary.totalCredits,
+      totalDebits: summary.totalDebits,
+      balance: summary.balance,
+      labels: labels,
       entries: response.data.entries.data.map((e) {
         return LedgerEntryPdfModel(
           date: DateFormat(

@@ -64,7 +64,7 @@ class _QuantityTextFieldState extends State<QuantityTextField> {
           LengthLimitingTextInputFormatter(5),
         ],
         decoration: InputDecoration(
-          hintText: 'Qty',
+          hintText: context.l10n.qtyHint,
           isDense: true,
           contentPadding: EdgeInsets.symmetric(
             horizontal: 8.w,

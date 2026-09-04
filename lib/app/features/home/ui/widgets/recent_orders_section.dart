@@ -31,7 +31,7 @@ class RecentOrdersSection extends StatelessWidget {
                   color: context.cs.primary, size: 18.sp),
               horizontalSpace(6),
               Expanded(
-                  child: Text('Recent Orders',
+                  child: Text(context.l10n.recentOrders,
                       style: TextStyles.label(context).copyWith(
                           fontSize: 17.sp, fontWeight: FontWeight.w700))),
               TextButton(
@@ -39,7 +39,7 @@ class RecentOrdersSection extends StatelessWidget {
                   navCubit.changeIndex(3);
                 },
                 child: Text(
-                  'View All',
+                  context.l10n.viewAll,
                   style: TextStyles.note(context).copyWith(
                       color: context.cs.primary,
                       fontSize: 15.sp,

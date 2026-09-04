@@ -38,7 +38,6 @@ class _RegisterContainerState extends State<RegisterContainer> {
     confirmPasswordController = TextEditingController();
     addressController = TextEditingController();
 
-    // Listen for changes and validate in real-time
     storeNameController.addListener(_validateForm);
     ownerNameController.addListener(_validateForm);
     phoneController.addListener(_validateForm);
@@ -61,7 +60,9 @@ class _RegisterContainerState extends State<RegisterContainer> {
   }
 
   void _validateForm() {
+    if (!mounted) return;
     context.read<RegisterCubit>().validateForm(
+          l10n: context.l10n,
           storeName: storeNameController.text,
           ownerName: ownerNameController.text,
           email: emailController.text,
@@ -86,6 +87,8 @@ class _RegisterContainerState extends State<RegisterContainer> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
+
     return Container(
       padding: EdgeInsets.all(20.w),
       decoration: BoxDecoration(
@@ -106,80 +109,84 @@ class _RegisterContainerState extends State<RegisterContainer> {
         children: [
           AuthHeader(
             context: context,
-            title: 'Create Account',
-            subtitle: 'Register your store account',
+            title: l10n.createAccount,
+            subtitle: l10n.registerSubtitle,
           ),
           verticalSpace(24),
           Field(
             context: context,
-            label: 'Store Name *',
-            hintText: 'My Store',
+            label: l10n.storeNameRequiredLabel,
+            hintText: l10n.storeNameHint,
             icon: Icons.storefront_outlined,
             controller: storeNameController,
-            validator: ValidationHelper.validateStoreName,
+            validator: (v) => ValidationHelper.validateStoreName(v, l10n),
           ),
           verticalSpace(16),
           Field(
             context: context,
-            label: 'Owner Name *',
-            hintText: 'Owner',
+            label: l10n.ownerNameRequiredLabel,
+            hintText: l10n.ownerNameHint,
             icon: Icons.person_outline,
             controller: ownerNameController,
-            validator: (value) =>
-                ValidationHelper.validateName(value, fieldName: 'Owner name'),
+            validator: (value) => ValidationHelper.validateName(
+              value,
+              l10n,
+              fieldName: l10n.ownerNameField,
+            ),
           ),
           verticalSpace(16),
           Field(
             context: context,
-            label: 'Phone *',
-            hintText: '0999999999',
+            label: l10n.phoneRequiredLabel,
+            hintText: l10n.phoneHint,
             icon: Icons.phone_outlined,
             keyboardType: TextInputType.phone,
             controller: phoneController,
-            validator: ValidationHelper.validatePhone,
+            validator: (v) => ValidationHelper.validatePhone(v, l10n),
           ),
           verticalSpace(16),
           Field(
             context: context,
-            label: 'Email *',
-            hintText: 'store1@example.com',
+            label: l10n.emailRequiredLabel,
+            hintText: l10n.registerEmailHint,
             icon: Icons.mail_outline,
             keyboardType: TextInputType.emailAddress,
             controller: emailController,
-            validator: ValidationHelper.validateEmail,
+            validator: (v) => ValidationHelper.validateEmail(v, l10n),
           ),
           verticalSpace(16),
           Field(
             context: context,
-            label: 'Password *',
-            hintText: 'password123',
+            label: l10n.passwordRequiredLabel,
+            hintText: l10n.passwordHintExample,
             icon: Icons.lock_outline,
             obscureText: true,
             controller: passwordController,
-            validator: ValidationHelper.validatePassword,
+            validator: (v) => ValidationHelper.validatePassword(v, l10n),
           ),
           verticalSpace(16),
           Field(
             context: context,
-            label: 'Confirm Password *',
-            hintText: 'Confirm your password',
+            label: l10n.confirmPasswordRequiredLabel,
+            hintText: l10n.confirmPasswordHint,
             icon: Icons.lock_outline,
             obscureText: true,
             controller: confirmPasswordController,
             validator: (value) => ValidationHelper.validatePasswordMatch(
               passwordController.text,
               value,
+              l10n,
             ),
           ),
           verticalSpace(16),
           Field(
             context: context,
-            label: 'Address',
-            hintText: 'Address',
+            label: l10n.address,
+            hintText: l10n.address,
             icon: Icons.location_on_outlined,
             maxLines: 3,
             controller: addressController,
-            validator: ValidationHelper.validateAddress,
+            validator: (v) => ValidationHelper.validateAddress(v, l10n),
           ),
           verticalSpace(20),
           BlocBuilder<RegisterCubit, RegisterState>(
@@ -195,7 +202,7 @@ class _RegisterContainerState extends State<RegisterContainer> {
                   onPressed:
                       isFormValid ? () => _handleRegister(context) : null,
                   child: Text(
-                    'Create Account',
+                    l10n.createAccount,
                     style: TextStyles.button(context),
                   ),
                 ),
@@ -204,7 +211,7 @@ class _RegisterContainerState extends State<RegisterContainer> {
           ),
           verticalSpace(20),
           Text(
-            'Already have an account?',
+            l10n.alreadyHaveAccount,
             textAlign: TextAlign.center,
             style: TextStyles.note(context),
           ),
@@ -214,7 +221,7 @@ class _RegisterContainerState extends State<RegisterContainer> {
               context.pushReplacementNamed(Routes.loginscreen);
             },
             child: Text(
-              'Sign In',
+              l10n.signIn,
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: context.cs.primary,

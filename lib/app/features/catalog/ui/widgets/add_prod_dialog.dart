@@ -32,7 +32,7 @@ class AddProductDialog extends StatelessWidget {
               ),
               verticalSpace(12),
               Text(
-                'Add Products',
+                context.l10n.addProducts,
                 style: TextStyles.note(context).copyWith(
                   fontSize: 18.sp,
                   fontWeight: FontWeight.w800,
@@ -40,7 +40,7 @@ class AddProductDialog extends StatelessWidget {
               ),
               verticalSpace(10),
               Text(
-                'To add products, go to Suppliers Offers section.',
+                context.l10n.addProductsGoToOffers,
                 textAlign: TextAlign.center,
                 style: TextStyles.label(context),
               ),
@@ -58,7 +58,7 @@ class AddProductDialog extends StatelessWidget {
                       onPressed: () {
                         context.pop();
                       },
-                      child: const Text('Cancel'),
+                      child: Text(context.l10n.cancel),
                     ),
                   ),
 
@@ -76,7 +76,7 @@ class AddProductDialog extends StatelessWidget {
                         Navigator.of(context).pop();
                       },
                       child: Text(
-                        'Go to Offers',
+                        context.l10n.goToOffers,
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 13.sp),
                         maxLines: 1,

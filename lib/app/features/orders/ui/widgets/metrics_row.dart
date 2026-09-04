@@ -1,3 +1,4 @@
+import 'package:B2B/app/core/helpers/extensions.dart';
 import 'package:B2B/app/core/widgets/offer_metric.dart';
 import 'package:B2B/app/features/orders/data/models/get_active_offers/active_offer_item.dart';
 import 'package:flutter/material.dart';
@@ -12,26 +13,26 @@ class MetricsRows extends StatelessWidget {
       children: [
         Expanded(
           child: OfferMetric(
-            label: 'Buy Price',
+            label: context.l10n.buyPrice,
             value: offer.buyPrice.toString(),
           ),
         ),
         Expanded(
           child: OfferMetric(
-            label: 'Sell Price',
+            label: context.l10n.sellPrice,
             value: offer.sellPrice.toString(),
           ),
         ),
         Expanded(
           child: OfferMetric(
-            label: 'Stock',
+            label: context.l10n.stock,
             value: offer.stock.toString(),
             valueColor: offer.stock < 10 ? Colors.orange : null,
           ),
         ),
         Expanded(
           child: OfferMetric(
-            label: 'Profit',
+            label: context.l10n.profit,
             value: offer.totalProfit.toString(),
           ),
         ),

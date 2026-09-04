@@ -57,7 +57,7 @@ class HomeScreen extends StatelessWidget {
                       ],
                     ),
                     success: (response) {
-                      final metrics = mapMetrics(response);
+                      final metrics = mapMetrics(response, context.l10n);
                       final recent = mapRecentOrders(response);
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -85,7 +85,9 @@ class HomeScreen extends StatelessWidget {
                     failure: (error) => Column(
                       children: [
                         const SizedBox(height: 20),
-                        Center(child: Text('Error: $error')),
+                        Center(
+                            child: Text(
+                                context.l10n.errorWithMessage(error))),
                       ],
                     ),
                   );

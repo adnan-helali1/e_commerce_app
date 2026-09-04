@@ -119,7 +119,7 @@ class SummaryHeader extends StatelessWidget {
                 Expanded(
                   child: _ActionButton(
                     icon: actionButton1Icon ?? Icons.local_offer_outlined,
-                    label: actionButton1Label ?? 'Browse Offers',
+                    label: actionButton1Label ?? context.l10n.browseOffers,
                     onTap: onActionButton1 ?? () {},
                   ),
                 ),
@@ -127,7 +127,7 @@ class SummaryHeader extends StatelessWidget {
                 Expanded(
                   child: _ActionButton(
                     icon: actionButton2Icon ?? Icons.trending_up_rounded,
-                    label: actionButton2Label ?? 'Quick Sale',
+                    label: actionButton2Label ?? context.l10n.quickSale,
                     onTap: onActionButton2 ?? () {},
                   ),
                 ),

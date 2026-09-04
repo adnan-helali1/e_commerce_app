@@ -40,15 +40,13 @@ class _LoginContainerState extends State<LoginContainer> {
   }
 
   void _validateForm() {
-    final isEmailValid = ValidationHelper.validateEmail(
-          emailController.text,
-        ) ==
-        null;
-
-    final isPasswordValid = ValidationHelper.validatePassword(
-          passwordController.text,
-        ) ==
-        null;
+    if (!mounted) return;
+    final l10n = context.l10n;
+    final isEmailValid =
+        ValidationHelper.validateEmail(emailController.text, l10n) == null;
+    final isPasswordValid =
+        ValidationHelper.validatePassword(passwordController.text, l10n) ==
+            null;
 
     final valid = isEmailValid && isPasswordValid;
 
@@ -73,6 +71,7 @@ class _LoginContainerState extends State<LoginContainer> {
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<LoginCubit>();
+    final l10n = context.l10n;
 
     return Container(
       padding: EdgeInsets.all(20.w),
@@ -100,8 +99,8 @@ class _LoginContainerState extends State<LoginContainer> {
           children: [
             AuthHeader(
               context: context,
-              title: 'Welcome Back',
-              subtitle: 'Sign in to your supermarket account',
+              title: l10n.welcomeBack,
+              subtitle: l10n.signInSubtitle,
             ),
 
             verticalSpace(24),
@@ -109,12 +108,12 @@ class _LoginContainerState extends State<LoginContainer> {
             /// EMAIL
             Field(
               context: context,
-              label: 'Email Address *',
-              hintText: 'store@example.com',
+              label: l10n.emailAddressRequiredLabel,
+              hintText: l10n.emailHint,
               icon: Icons.mail_outline,
               keyboardType: TextInputType.emailAddress,
               controller: emailController,
-              validator: ValidationHelper.validateEmail,
+              validator: (v) => ValidationHelper.validateEmail(v, l10n),
             ),
 
             verticalSpace(16),
@@ -122,12 +121,12 @@ class _LoginContainerState extends State<LoginContainer> {
             /// PASSWORD
             Field(
               context: context,
-              label: 'Password *',
-              hintText: 'Enter your password',
+              label: l10n.passwordRequiredLabel,
+              hintText: l10n.enterPasswordHint,
               icon: Icons.lock_outline,
               obscureText: true,
               controller: passwordController,
-              validator: ValidationHelper.validatePassword,
+              validator: (v) => ValidationHelper.validatePassword(v, l10n),
             ),
 
             verticalSpace(12),
@@ -145,7 +144,7 @@ class _LoginContainerState extends State<LoginContainer> {
                 ),
                 Expanded(
                   child: Text(
-                    'Remember me',
+                    l10n.rememberMe,
                     style: TextStyles.fieldText(
                       context,
                     ),
@@ -158,7 +157,7 @@ class _LoginContainerState extends State<LoginContainer> {
                     );
                   },
                   child: Text(
-                    'Forgot password?',
+                    l10n.forgotPassword,
                     style: TextStyle(
                       color: context.cs.primary,
                       fontWeight: FontWeight.w600,
@@ -187,7 +186,7 @@ class _LoginContainerState extends State<LoginContainer> {
                           }
                         : null,
                     child: Text(
-                      'Sign In',
+                      l10n.signIn,
                       style: TextStyles.button(
                         context,
                       ),
@@ -201,7 +200,7 @@ class _LoginContainerState extends State<LoginContainer> {
 
             /// CREATE ACCOUNT
             Text(
-              "Don't have an account?",
+              l10n.dontHaveAccount,
               textAlign: TextAlign.center,
               style: TextStyles.note(context),
             ),
@@ -215,7 +214,7 @@ class _LoginContainerState extends State<LoginContainer> {
                 );
               },
               child: Text(
-                'Create account',
+                l10n.createAccountLink,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: context.cs.primary,

@@ -31,8 +31,8 @@ class EditCatalogSheet extends StatelessWidget {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   backgroundColor: context.appColors.success,
-                  content: const Text(
-                    'Catalog item updated successfully',
+                  content: Text(
+                    context.l10n.catalogItemUpdatedSuccess,
                   ),
                 ),
               );

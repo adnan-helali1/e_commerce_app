@@ -67,7 +67,7 @@ class GenericUpdateForm extends StatelessWidget {
                 onPressed: loading ? null : onSubmit,
                 child: loading
                     ? const CircularProgressIndicator()
-                    : const Text("Save"),
+                    : Text(context.l10n.save),
               ),
             ),
           ],

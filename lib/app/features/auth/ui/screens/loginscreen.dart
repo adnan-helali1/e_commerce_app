@@ -46,8 +46,8 @@ class LoginScreen extends StatelessWidget {
                       state.whenOrNull(
                         success: (response) {
                           ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('Logged in successful!'),
+                            SnackBar(
+                              content: Text(context.l10n.loginSuccess),
                               backgroundColor: Colors.green,
                               duration: Duration(seconds: 2),
                             ),

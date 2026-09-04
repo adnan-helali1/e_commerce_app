@@ -35,7 +35,7 @@ class DeleteDialog extends StatelessWidget {
             ),
             SizedBox(height: 12.h),
             Text(
-              'Delete $type',
+              context.l10n.deleteTypedTitle(type),
               style: TextStyle(
                 fontSize: 18.sp,
                 fontWeight: FontWeight.bold,
@@ -43,7 +43,7 @@ class DeleteDialog extends StatelessWidget {
             ),
             SizedBox(height: 8.h),
             Text(
-              'Are you sure you want to delete this $type?',
+              context.l10n.deleteTypedConfirmMessage(type),
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 14.sp),
             ),
@@ -57,7 +57,7 @@ class DeleteDialog extends StatelessWidget {
                       Navigator.pop(dialogContext);
                     },
                     child: Text(
-                      'Cancel',
+                      context.l10n.cancel,
                       style: TextStyle(color: context.cs.onSurface),
                     ),
                   ),
@@ -77,7 +77,7 @@ class DeleteDialog extends StatelessWidget {
                         SnackBar(
                           backgroundColor: dialogContext.appColors.success,
                           content: Text(
-                            '$type deleted successfully',
+                            context.l10n.deleteTypedTitle(type),
                             style: TextStyle(color: dialogContext.cs.surface),
                           ),
                         ),
@@ -88,7 +88,7 @@ class DeleteDialog extends StatelessWidget {
                         (cubit as OrdersCubit).delete(orderId: Id);
                       }
                     },
-                    child: Text('Delete',
+                    child: Text(context.l10n.delete,
                         style: TextStyle(color: context.cs.surface)),
                   ),
                 ),

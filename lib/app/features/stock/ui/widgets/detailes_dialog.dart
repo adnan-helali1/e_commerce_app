@@ -93,7 +93,7 @@ class StockDetailsDialog extends StatelessWidget {
               width: double.infinity,
               child: FilledButton(
                 onPressed: () => Navigator.pop(context),
-                child: const Text("Close"),
+                child: Text(context.l10n.close),
               ),
             ),
           ],

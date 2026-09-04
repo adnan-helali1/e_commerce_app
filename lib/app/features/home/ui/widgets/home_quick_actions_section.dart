@@ -10,6 +10,7 @@ class HomeQuickActionsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 16.w),
       child: B2BInfoCard(
@@ -22,7 +23,7 @@ class HomeQuickActionsSection extends StatelessWidget {
                 Icon(Icons.menu_book_outlined,
                     color: context.cs.primary, size: 18.sp),
                 horizontalSpace(6),
-                Text('Quick Actions', style: TextStyles.label(context)),
+                Text(l10n.quickActions, style: TextStyles.label(context)),
               ],
             ),
             verticalSpace(12),
@@ -31,7 +32,7 @@ class HomeQuickActionsSection extends StatelessWidget {
                 Expanded(
                   child: _QuickActionButton(
                     icon: Icons.menu_book_outlined,
-                    label: 'Manage Catalog',
+                    label: l10n.manageCatalog,
                     onTap: () {},
                   ),
                 ),
@@ -39,7 +40,7 @@ class HomeQuickActionsSection extends StatelessWidget {
                 Expanded(
                   child: _QuickActionButton(
                     icon: Icons.account_balance_wallet_outlined,
-                    label: 'View Ledger',
+                    label: l10n.viewLedger,
                     onTap: () {},
                   ),
                 ),

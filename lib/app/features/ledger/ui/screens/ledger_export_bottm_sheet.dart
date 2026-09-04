@@ -29,8 +29,8 @@ class LedgerExportBottomSheet extends StatelessWidget {
 
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('PDF saved successfully'),
+          SnackBar(
+            content: Text(context.l10n.pdfSavedSuccess),
           ),
         );
       }
@@ -66,6 +66,7 @@ class LedgerExportBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return SafeArea(
       child: Material(
         color: context.cs.surface,
@@ -78,7 +79,7 @@ class LedgerExportBottomSheet extends StatelessWidget {
             children: [
               ListTile(
                 leading: const Icon(Icons.visibility_outlined),
-                title: const Text('Preview'),
+                title: Text(l10n.preview),
                 onTap: () async {
                   Navigator.pop(context);
                   await _previewPdf();
@@ -86,7 +87,7 @@ class LedgerExportBottomSheet extends StatelessWidget {
               ),
               ListTile(
                 leading: const Icon(Icons.download_outlined),
-                title: const Text('Save PDF'),
+                title: Text(l10n.savePdf),
                 onTap: () async {
                   Navigator.pop(context);
                   await _savePdf(context);
@@ -94,7 +95,7 @@ class LedgerExportBottomSheet extends StatelessWidget {
               ),
               ListTile(
                 leading: const Icon(Icons.share_outlined),
-                title: const Text('Share PDF'),
+                title: Text(l10n.sharePdf),
                 onTap: () async {
                   Navigator.pop(context);
                   await _sharePdf();

@@ -19,7 +19,7 @@ class LogoutButton extends StatelessWidget {
           size: 22,
           fontWeight: FontWeight.bold,
         ),
-        label: Text('  Logout',
+        label: Text('  ${context.l10n.logout}',
             style: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.bold,

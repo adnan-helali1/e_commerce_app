@@ -1,4 +1,5 @@
 import 'package:B2B/app/core/theme/app_color_scheme_extention.dart';
+import 'package:B2B/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 extension Navigation on BuildContext {
@@ -32,6 +33,7 @@ extension ListExtension<T> on List<T>? {
 extension ThemeGetter on BuildContext {
   ColorScheme get cs => Theme.of(this).colorScheme;
   AppColorScheme get appColors => Theme.of(this).extension<AppColorScheme>()!;
+  AppLocalizations get l10n => AppLocalizations.of(this);
 }
 
 extension StringExtension on String? {

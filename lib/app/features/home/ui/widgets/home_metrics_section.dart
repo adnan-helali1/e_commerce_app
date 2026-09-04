@@ -26,7 +26,7 @@ class HomeMetricsSection extends StatelessWidget {
               Icon(Icons.trending_up_rounded,
                   color: context.cs.primary, size: 18.sp),
               horizontalSpace(6),
-              Text('Key Metrics',
+              Text(context.l10n.keyMetrics,
                   style: TextStyles.label(context)
                       .copyWith(fontSize: 17.sp, fontWeight: FontWeight.w700)),
             ],
@@ -107,9 +107,9 @@ class _MetricCard extends StatelessWidget {
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               style: TextStyles.note(context).copyWith(
-                color: metric.note!.contains('increase')
+                color: metric.note!.contains(context.l10n.metricIncrease)
                     ? context.appColors.success
-                    : metric.note!.contains('decrease')
+                    : metric.note!.contains(context.l10n.metricDecrease)
                         ? context.cs.error
                         : context.cs.onSurfaceVariant,
                 fontSize: 12.sp,

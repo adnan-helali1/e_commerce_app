@@ -38,8 +38,8 @@ class RegisterScreen extends StatelessWidget {
                     state.whenOrNull(
                       success: (response) {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Registration successful!'),
+                          SnackBar(
+                            content: Text(context.l10n.registrationSuccess),
                             backgroundColor: Colors.green,
                             duration: Duration(seconds: 2),
                           ),

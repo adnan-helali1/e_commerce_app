@@ -16,24 +16,25 @@ class OfferSummaryRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Row(
       children: [
         Expanded(
           child: _SummaryTile(
-            label: 'Total offers',
+            label: l10n.totalOffers,
             value: '$totalOffers',
             icon: Icons.local_offer_outlined,
-            chipLabel: 'All offers received',
+            chipLabel: l10n.allOffersReceived,
             iconColor: context.cs.primary,
           ),
         ),
         horizontalSpace(10),
         Expanded(
           child: _SummaryTile(
-            label: 'Available offers',
+            label: l10n.availableOffers,
             value: '$availableOffers',
             icon: Icons.check_circle_outline,
-            chipLabel: 'Ready to review',
+            chipLabel: l10n.readyToReview,
             iconColor: Colors.green,
           ),
         ),

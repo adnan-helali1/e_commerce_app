@@ -73,7 +73,7 @@ class _UpdateProfileSheetState extends State<UpdateProfileSheet> {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   backgroundColor: context.appColors.success,
-                  content: const Text('Profile updated successfully'),
+                  content: Text(context.l10n.profileUpdatedSuccess),
                 ),
               );
             },
@@ -94,24 +94,24 @@ class _UpdateProfileSheetState extends State<UpdateProfileSheet> {
           );
 
           return GenericUpdateForm(
-            title: "Update Profile",
+            title: context.l10n.updateProfile,
             loading: loading,
             fields: [
               FormFieldConfig(
-                label: "Store Name",
+                label: context.l10n.storeName,
                 controller: _nameController,
               ),
               FormFieldConfig(
-                label: "Owner Name",
+                label: context.l10n.ownerName,
                 controller: _ownerController,
               ),
               FormFieldConfig(
-                label: "Phone",
+                label: context.l10n.phone,
                 controller: _phoneController,
                 keyboardType: TextInputType.phone,
               ),
               FormFieldConfig(
-                label: "Address",
+                label: context.l10n.address,
                 controller: _addressController,
               ),
             ],

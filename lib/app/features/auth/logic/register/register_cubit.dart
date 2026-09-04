@@ -3,6 +3,7 @@ import 'package:B2B/app/core/networking/api_result.dart';
 import 'package:B2B/app/features/auth/data/models/register_request_body.dart';
 import 'package:B2B/app/features/auth/data/repos/register_repo.dart';
 import 'package:B2B/app/features/auth/logic/register/register_state.dart';
+import 'package:B2B/l10n/app_localizations.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 
@@ -13,6 +14,7 @@ class RegisterCubit extends Cubit<RegisterState> {
   final formKey = GlobalKey<FormState>();
 
   void validateForm({
+    required AppLocalizations l10n,
     required String storeName,
     required String ownerName,
     required String email,
@@ -21,19 +23,22 @@ class RegisterCubit extends Cubit<RegisterState> {
     required String passwordConfirmation,
     required String address,
   }) {
-    final storeNameError = ValidationHelper.validateStoreName(storeName);
+    final storeNameError =
+        ValidationHelper.validateStoreName(storeName, l10n);
     final ownerNameError = ValidationHelper.validateName(
       ownerName,
-      fieldName: 'Owner name',
+      l10n,
+      fieldName: l10n.ownerNameField,
     );
-    final phoneError = ValidationHelper.validatePhone(phone);
-    final emailError = ValidationHelper.validateEmail(email);
-    final passwordError = ValidationHelper.validatePassword(password);
+    final phoneError = ValidationHelper.validatePhone(phone, l10n);
+    final emailError = ValidationHelper.validateEmail(email, l10n);
+    final passwordError = ValidationHelper.validatePassword(password, l10n);
     final confirmPasswordError = ValidationHelper.validatePasswordMatch(
       password,
       passwordConfirmation,
+      l10n,
     );
-    final addressError = ValidationHelper.validateAddress(address);
+    final addressError = ValidationHelper.validateAddress(address, l10n);
 
     final isValid = storeNameError == null &&
         ownerNameError == null &&

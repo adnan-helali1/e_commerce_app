@@ -23,24 +23,25 @@ class LedgerFilterBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 12.h),
       child: Row(
         children: [
           _FilterChip(
-            label: 'All',
+            label: l10n.all,
             isSelected: selected == LedgerFilter.all,
             onTap: () => onChanged(LedgerFilter.all),
           ),
           horizontalSpace(8),
           _FilterChip(
-            label: 'Income',
+            label: l10n.income,
             isSelected: selected == LedgerFilter.income,
             onTap: () => onChanged(LedgerFilter.income),
           ),
           horizontalSpace(8),
           _FilterChip(
-            label: 'Expenses',
+            label: l10n.expenses,
             isSelected: selected == LedgerFilter.expenses,
             onTap: () => onChanged(LedgerFilter.expenses),
           ),
@@ -52,7 +53,7 @@ class LedgerFilterBar extends StatelessWidget {
               }
               final cubit = context.read<LedgerCubit>();
 
-              final pdfBytes = await cubit.exportPdf();
+              final pdfBytes = await cubit.exportPdf(l10n);
 
               if (pdfBytes == null || !context.mounted) {
                 return;
@@ -70,7 +71,7 @@ class LedgerFilterBar extends StatelessWidget {
                 fontWeight: FontWeight.w600,
                 color: context.cs.primary),
             label: Text(
-              'Export',
+              l10n.export,
               style: TextStyles.button(context).copyWith(
                   fontSize: 15.sp,
                   fontWeight: FontWeight.w800,
