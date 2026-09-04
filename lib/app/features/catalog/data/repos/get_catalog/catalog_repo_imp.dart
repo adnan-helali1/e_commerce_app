@@ -217,6 +217,8 @@ class CatalogRepoImpl implements CatalogRepo {
         ),
       );
 
+      await _local.clearAll();
+
       return const ApiResult.success(null);
     } catch (error) {
       return ApiResult.failure(
@@ -233,6 +235,8 @@ class CatalogRepoImpl implements CatalogRepo {
       await _remote.deleteCatalogItem(
         catalogId: catalogId,
       );
+
+      await _local.clearAll();
 
       return const ApiResult.success(null);
     } catch (error) {

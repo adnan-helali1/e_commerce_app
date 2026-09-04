@@ -323,6 +323,7 @@
   "itemDeleteType": "Item",
   "offerUpdatedSuccess": "Offer updated successfully",
   "catalogItemUpdatedSuccess": "Catalog item updated successfully",
+  "catalogItemDeletedSuccess": "Catalog item deleted successfully",
   "supplierOffers": "Supplier Offers",
   "totalOffers": "Total offers",
   "allOffersReceived": "All offers received",

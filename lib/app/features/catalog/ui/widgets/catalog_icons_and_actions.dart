@@ -44,22 +44,23 @@ class CatalogActions extends StatelessWidget {
           icon: Icons.edit_outlined,
           color: context.appColors.info,
           onPressed: () {
-            {
-              showModalBottomSheet(
-                backgroundColor: context.cs.surface,
-                context: context,
-                isScrollControlled: true,
-                useSafeArea: true,
-                showDragHandle: true,
-                //update catslog cubit
-                builder: (_) => PutchOfferSheet(
+            final actionCubit = context.read<CatalogActionCubit>();
+            showModalBottomSheet(
+              backgroundColor: context.cs.surface,
+              context: context,
+              isScrollControlled: true,
+              useSafeArea: true,
+              showDragHandle: true,
+              builder: (_) => BlocProvider.value(
+                value: actionCubit,
+                child: PutchOfferSheet(
                   supplierProductId: catalogId,
                   isEdit: true,
                   initialSellPrice: sellPrice,
                   initialIsActive: isActive,
                 ),
-              );
-            }
+              ),
+            );
           },
         ),
         //delete

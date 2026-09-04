@@ -157,10 +157,6 @@ Future<void> setupGetIt() async {
   getIt.registerFactory(
     () => CatalogCubit(getIt()),
   );
-  getIt.registerFactory(
-    () => CatalogActionCubit(getIt()),
-  );
-
   // orders
 
   getIt.registerLazySingleton(() => GetActiveOffersRemoteDatasource(getIt()));

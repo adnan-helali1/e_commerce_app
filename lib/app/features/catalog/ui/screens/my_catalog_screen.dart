@@ -24,8 +24,31 @@ class MyCatalogScreen extends StatelessWidget {
     return BlocProvider(
       create: (ctx) => CatalogUiCubit(ctx.read<CatalogCubit>()),
       child: BlocProvider(
-        create: (context) => getIt<CatalogActionCubit>(),
-        child: const _MyCatalogBody(),
+        create: (context) => CatalogActionCubit(
+          getIt(),
+          context.read<CatalogCubit>(),
+        ),
+        child: BlocListener<CatalogActionCubit, CatalogActionState>(
+          listener: (context, state) {
+            final actionCubit = context.read<CatalogActionCubit>();
+            if (actionCubit.activeMutation != CatalogMutation.delete) return;
+            state.whenOrNull(
+              success: () => ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  backgroundColor: context.appColors.success,
+                  content: Text(context.l10n.catalogItemDeletedSuccess),
+                ),
+              ),
+              failure: (error) => ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  backgroundColor: context.appColors.failure,
+                  content: Text(error),
+                ),
+              ),
+            );
+          },
+          child: const _MyCatalogBody(),
+        ),
       ),
     );
   }

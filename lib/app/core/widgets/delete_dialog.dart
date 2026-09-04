@@ -73,15 +73,6 @@ class DeleteDialog extends StatelessWidget {
                     ),
                     onPressed: () {
                       Navigator.pop(dialogContext, true);
-                      ScaffoldMessenger.of(dialogContext).showSnackBar(
-                        SnackBar(
-                          backgroundColor: dialogContext.appColors.success,
-                          content: Text(
-                            context.l10n.deleteTypedTitle(type),
-                            style: TextStyle(color: dialogContext.cs.surface),
-                          ),
-                        ),
-                      );
                       if (cubit is CatalogActionCubit) {
                         (cubit as CatalogActionCubit).delete(catalogId: Id);
                       } else if (cubit is OrdersCubit) {

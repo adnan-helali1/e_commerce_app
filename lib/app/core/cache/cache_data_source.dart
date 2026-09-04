@@ -36,6 +36,11 @@ class CacheDataSource<T> {
     await box.delete(dataKey);
   }
 
+  Future<void> clearBox({required String boxKey}) async {
+    final box = await _hiveService.openBox(boxKey);
+    await box.clear();
+  }
+
   // 🔥 reusable deep cast
   Map<String, dynamic> _deepCastMap(Map src) {
     final result = <String, dynamic>{};

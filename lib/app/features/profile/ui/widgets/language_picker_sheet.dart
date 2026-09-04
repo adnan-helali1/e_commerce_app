@@ -31,15 +31,15 @@ class LanguagePickerSheet extends StatelessWidget {
     final l10n = context.l10n;
     final current = context.watch<LocaleCubit>().state.languageCode;
 
-    final languages = <(String code, String label)>[
-      ('en', l10n.langEnglish),
-      ('de', l10n.langGerman),
-      ('es', l10n.langSpanish),
-      ('fr', l10n.langFrench),
-      ('nl', l10n.langDutch),
-      ('pt', l10n.langPortuguese),
-      ('ru', l10n.langRussian),
-      ('tr', l10n.langTurkish),
+    final languages = <(String code, String flag, String label)>[
+      ('en', '🇬🇧', l10n.langEnglish),
+      ('de', '🇩🇪', l10n.langGerman),
+      ('es', '🇪🇸', l10n.langSpanish),
+      ('fr', '🇫🇷', l10n.langFrench),
+      ('nl', '🇳🇱', l10n.langDutch),
+      ('pt', '🇵🇹', l10n.langPortuguese),
+      ('ru', '🇷🇺', l10n.langRussian),
+      ('tr', '🇹🇷', l10n.langTurkish),
     ];
 
     return ColoredBox(
@@ -77,7 +77,7 @@ class LanguagePickerSheet extends StatelessWidget {
               separatorBuilder: (_, __) => SizedBox(height: 4.h),
               itemBuilder: (context, index) {
                 final entry = languages[index];
-                final (code, label) = entry;
+                final (code, flag, label) = entry;
                 final selected = current == code;
                 return AnimatedContainer(
                   duration: const Duration(milliseconds: 180),
@@ -94,23 +94,20 @@ class LanguagePickerSheet extends StatelessWidget {
                         borderRadius: BorderRadius.circular(14.r),
                       ),
                       leading: Container(
-                        width: 38.r,
+                        width: 42.r,
                         height: 38.r,
                         alignment: Alignment.center,
                         decoration: BoxDecoration(
                           color: selected
                               ? context.cs.onPrimary.withValues(alpha: 0.16)
-                              : context.cs.secondaryContainer,
-                          shape: BoxShape.circle,
+                              : context.cs.primary,
+                          borderRadius: BorderRadius.circular(10.r),
                         ),
                         child: Text(
-                          code.toUpperCase(),
+                          flag,
                           style: TextStyle(
-                            color: selected
-                                ? context.cs.onPrimary
-                                : context.cs.secondary,
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w800,
+                            fontSize: 21.sp,
+                            height: 1,
                           ),
                         ),
                       ),

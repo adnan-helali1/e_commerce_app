@@ -44,6 +44,8 @@ void main() {
     await tester.pumpAndSettle();
 
     expect(find.text('Select Language'), findsOneWidget);
+    expect(find.text('🇬🇧'), findsOneWidget);
+    expect(find.text('🇩🇪'), findsOneWidget);
     expect(find.byType(ListView), findsOneWidget);
     expect(tester.takeException(), isNull);
   });

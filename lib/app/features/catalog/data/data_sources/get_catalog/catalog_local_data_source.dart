@@ -66,4 +66,8 @@ class CatalogLocalDataSource {
       dataKey: key,
     );
   }
+
+  Future<void> clearAll() {
+    return _cache.clearBox(boxKey: CacheKeys.catalogBox);
+  }
 }

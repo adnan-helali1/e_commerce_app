@@ -1,4 +1,3 @@
-import 'package:B2B/app/core/di/dependency_injection.dart';
 import 'package:B2B/app/core/helpers/extensions.dart';
 import 'package:B2B/app/features/catalog/logic/catalog_action_cubit/catalog_action_cubit.dart';
 import 'package:B2B/app/features/catalog/logic/catalog_action_cubit/catalog_action_state.dart';
@@ -23,47 +22,44 @@ class PutchOfferSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => getIt<CatalogActionCubit>(),
-      child: BlocConsumer<CatalogActionCubit, CatalogActionState>(
-        listener: (context, state) {
-          state.whenOrNull(
-            success: () {
-              Navigator.of(context).pop(true);
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  backgroundColor: context.appColors.success,
-                  content: Text(context.l10n.offerUpdatedSuccess),
-                ),
-              );
-            },
-            failure: (error) {
-              Navigator.of(context).pop(true);
+    return BlocConsumer<CatalogActionCubit, CatalogActionState>(
+      listener: (context, state) {
+        state.whenOrNull(
+          success: () {
+            Navigator.of(context).pop(true);
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                backgroundColor: context.appColors.success,
+                content: Text(context.l10n.offerUpdatedSuccess),
+              ),
+            );
+          },
+          failure: (error) {
+            Navigator.of(context).pop(true);
 
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  backgroundColor: context.appColors.failure,
-                  content: Text(error),
-                ),
-              );
-            },
-          );
-        },
-        builder: (context, state) {
-          final loading = state.maybeWhen(
-            loading: () => true,
-            orElse: () => false,
-          );
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                backgroundColor: context.appColors.failure,
+                content: Text(error),
+              ),
+            );
+          },
+        );
+      },
+      builder: (context, state) {
+        final loading = state.maybeWhen(
+          loading: () => true,
+          orElse: () => false,
+        );
 
-          return AddOfferLog(
-            supplierProductId: supplierProductId,
-            loading: loading,
-            isEdit: isEdit,
-            initialSellPrice: initialSellPrice,
-            initialIsActive: initialIsActive,
-          );
-        },
-      ),
+        return AddOfferLog(
+          supplierProductId: supplierProductId,
+          loading: loading,
+          isEdit: isEdit,
+          initialSellPrice: initialSellPrice,
+          initialIsActive: initialIsActive,
+        );
+      },
     );
   }
 }

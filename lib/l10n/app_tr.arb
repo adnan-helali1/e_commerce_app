@@ -227,6 +227,7 @@
   "itemDeleteType": "Ürünü",
   "offerUpdatedSuccess": "Teklif başarıyla güncellendi",
   "catalogItemUpdatedSuccess": "Katalog öğesi başarıyla güncellendi",
+  "catalogItemDeletedSuccess": "Katalog öğesi başarıyla silindi",
   "supplierOffers": "Tedarikçi Teklifleri",
   "totalOffers": "Toplam teklif",
   "allOffersReceived": "Alınan tüm teklifler",

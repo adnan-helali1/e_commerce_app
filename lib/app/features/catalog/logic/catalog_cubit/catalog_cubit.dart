@@ -118,7 +118,6 @@ class CatalogCubit extends Cubit<CatalogState> {
     result.when(
       success: (data) {
         if (!isClosed) {
-          clearCache();
           emit(CatalogState.success(data));
         }
       },

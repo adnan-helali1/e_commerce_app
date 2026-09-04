@@ -1,4 +1,5 @@
 import 'package:B2B/app/core/theme/light_theme.dart';
+import 'package:B2B/app/core/widgets/b2b_info_card.dart';
 import 'package:B2B/app/features/home/data/models/home_ui_models.dart';
 import 'package:B2B/app/features/home/ui/widgets/home_metrics_section.dart';
 import 'package:B2B/l10n/app_localizations.dart';
@@ -50,6 +51,8 @@ void main() {
 
     expect(find.text('Margen de beneficio'), findsOneWidget);
     expect(find.text('Existencias bajas'), findsOneWidget);
+    expect(
+        tester.getSize(find.byType(B2BInfoCard).first).height, lessThan(100));
     expect(tester.takeException(), isNull);
   });
 }

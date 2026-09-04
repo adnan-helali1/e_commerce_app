@@ -40,7 +40,7 @@ class HomeMetricsSection extends StatelessWidget {
               crossAxisCount: 2,
               crossAxisSpacing: 22.w,
               mainAxisSpacing: 24.h,
-              mainAxisExtent: 140.h,
+              childAspectRatio: 2.1,
             ),
             itemBuilder: (context, index) =>
                 _MetricCard(metric: metrics[index]),
@@ -78,12 +78,17 @@ class _MetricCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
-                child: Text(
-                  metric.title,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyles.note(context)
-                      .copyWith(fontSize: 15.sp, fontWeight: FontWeight.w700),
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  alignment: AlignmentDirectional.centerStart,
+                  child: Text(
+                    metric.title,
+                    maxLines: 1,
+                    style: TextStyles.note(context).copyWith(
+                      fontSize: 15.sp,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
                 ),
               ),
               Container(
@@ -109,19 +114,22 @@ class _MetricCard extends StatelessWidget {
           ),
           verticalSpace(0.3),
           if (metric.note != null)
-            Text(
-              metric.note!,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyles.note(context).copyWith(
-                color: metric.note!.contains(context.l10n.metricIncrease)
-                    ? context.appColors.success
-                    : metric.note!.contains(context.l10n.metricDecrease)
-                        ? context.cs.error
-                        : context.cs.onSurfaceVariant,
-                fontSize: 12.sp,
-                height: 1,
-                fontWeight: FontWeight.w700,
+            FittedBox(
+              fit: BoxFit.scaleDown,
+              alignment: AlignmentDirectional.centerStart,
+              child: Text(
+                metric.note!,
+                maxLines: 1,
+                style: TextStyles.note(context).copyWith(
+                  color: metric.note!.contains(context.l10n.metricIncrease)
+                      ? context.appColors.success
+                      : metric.note!.contains(context.l10n.metricDecrease)
+                          ? context.cs.error
+                          : context.cs.onSurfaceVariant,
+                  fontSize: 12.sp,
+                  height: 1,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
             ),
         ],

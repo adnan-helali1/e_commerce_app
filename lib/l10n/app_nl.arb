@@ -227,6 +227,7 @@
   "itemDeleteType": "het artikel",
   "offerUpdatedSuccess": "Aanbieding is bijgewerkt",
   "catalogItemUpdatedSuccess": "Catalogusartikel is bijgewerkt",
+  "catalogItemDeletedSuccess": "Catalogusartikel is verwijderd",
   "supplierOffers": "Leveranciersaanbiedingen",
   "totalOffers": "Totaal aantal aanbiedingen",
   "allOffersReceived": "Alle aanbiedingen ontvangen",

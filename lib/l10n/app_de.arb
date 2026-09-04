@@ -227,6 +227,7 @@
   "itemDeleteType": "Artikel",
   "offerUpdatedSuccess": "Angebot erfolgreich aktualisiert",
   "catalogItemUpdatedSuccess": "Katalogartikel erfolgreich aktualisiert",
+  "catalogItemDeletedSuccess": "Katalogartikel erfolgreich gelöscht",
   "supplierOffers": "Lieferantenangebote",
   "totalOffers": "Angebote gesamt",
   "allOffersReceived": "Alle Angebote erhalten",

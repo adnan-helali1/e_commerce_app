@@ -227,6 +227,7 @@
   "itemDeleteType": "товар",
   "offerUpdatedSuccess": "Предложение успешно обновлено",
   "catalogItemUpdatedSuccess": "Позиция каталога успешно обновлена",
+  "catalogItemDeletedSuccess": "Позиция каталога успешно удалена",
   "supplierOffers": "Предложения поставщиков",
   "totalOffers": "Всего предложений",
   "allOffersReceived": "Все полученные предложения",
