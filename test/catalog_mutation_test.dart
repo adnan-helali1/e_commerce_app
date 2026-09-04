@@ -6,6 +6,7 @@ import 'package:B2B/app/features/catalog/data/models/catalog_response.dart';
 import 'package:B2B/app/features/catalog/data/repos/get_catalog/catalog_repo.dart';
 import 'package:B2B/app/features/catalog/logic/catalog_action_cubit/catalog_action_cubit.dart';
 import 'package:B2B/app/features/catalog/logic/catalog_cubit/catalog_cubit.dart';
+import 'package:B2B/app/features/catalog/logic/catalog_cubit/catalog_state.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -34,9 +35,11 @@ void main() {
 }
 
 List<CatalogItem> _items(CatalogCubit cubit) {
-  return cubit.state.maybeWhen(
+  return cubit.state.when(
+    initial: () => const [],
+    loading: () => const [],
     success: (response) => response.data,
-    orElse: () => const [],
+    failure: (_) => const [],
   );
 }
 
