@@ -35,6 +35,8 @@ mixin _$CatalogItem {
   bool get isActive;
   @JsonKey(name: 'image_url')
   String? get imageUrl;
+  @JsonKey(name: 'category_image_url')
+  String? get categoryImageUrl;
 
   /// Create a copy of CatalogItem
   /// with the given fields replaced by the non-null parameter values.
@@ -71,7 +73,9 @@ mixin _$CatalogItem {
             (identical(other.isActive, isActive) ||
                 other.isActive == isActive) &&
             (identical(other.imageUrl, imageUrl) ||
-                other.imageUrl == imageUrl));
+                other.imageUrl == imageUrl) &&
+            (identical(other.categoryImageUrl, categoryImageUrl) ||
+                other.categoryImageUrl == categoryImageUrl));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -89,11 +93,12 @@ mixin _$CatalogItem {
       stock,
       totalProfit,
       isActive,
-      imageUrl);
+      imageUrl,
+      categoryImageUrl);
 
   @override
   String toString() {
-    return 'CatalogItem(id: $id, supplierProductId: $supplierProductId, name: $name, supplierName: $supplierName, buyPrice: $buyPrice, sellPrice: $sellPrice, profitPerUnit: $profitPerUnit, profitPercentage: $profitPercentage, stock: $stock, totalProfit: $totalProfit, isActive: $isActive, imageUrl: $imageUrl)';
+    return 'CatalogItem(id: $id, supplierProductId: $supplierProductId, name: $name, supplierName: $supplierName, buyPrice: $buyPrice, sellPrice: $sellPrice, profitPerUnit: $profitPerUnit, profitPercentage: $profitPercentage, stock: $stock, totalProfit: $totalProfit, isActive: $isActive, imageUrl: $imageUrl, categoryImageUrl: $categoryImageUrl)';
   }
 }
 
@@ -115,7 +120,8 @@ abstract mixin class $CatalogItemCopyWith<$Res> {
       int stock,
       @JsonKey(name: 'total_profit') double totalProfit,
       @JsonKey(name: 'is_active') bool isActive,
-      @JsonKey(name: 'image_url') String? imageUrl});
+      @JsonKey(name: 'image_url') String? imageUrl,
+      @JsonKey(name: 'category_image_url') String? categoryImageUrl});
 }
 
 /// @nodoc
@@ -142,6 +148,7 @@ class _$CatalogItemCopyWithImpl<$Res> implements $CatalogItemCopyWith<$Res> {
     Object? totalProfit = null,
     Object? isActive = null,
     Object? imageUrl = freezed,
+    Object? categoryImageUrl = freezed,
   }) {
     return _then(_self.copyWith(
       id: null == id
@@ -191,6 +198,10 @@ class _$CatalogItemCopyWithImpl<$Res> implements $CatalogItemCopyWith<$Res> {
       imageUrl: freezed == imageUrl
           ? _self.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      categoryImageUrl: freezed == categoryImageUrl
+          ? _self.categoryImageUrl
+          : categoryImageUrl // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -301,7 +312,8 @@ extension CatalogItemPatterns on CatalogItem {
             int stock,
             @JsonKey(name: 'total_profit') double totalProfit,
             @JsonKey(name: 'is_active') bool isActive,
-            @JsonKey(name: 'image_url') String? imageUrl)?
+            @JsonKey(name: 'image_url') String? imageUrl,
+            @JsonKey(name: 'category_image_url') String? categoryImageUrl)?
         $default, {
     required TResult orElse(),
   }) {
@@ -320,7 +332,8 @@ extension CatalogItemPatterns on CatalogItem {
             _that.stock,
             _that.totalProfit,
             _that.isActive,
-            _that.imageUrl);
+            _that.imageUrl,
+            _that.categoryImageUrl);
       case _:
         return orElse();
     }
@@ -353,7 +366,8 @@ extension CatalogItemPatterns on CatalogItem {
             int stock,
             @JsonKey(name: 'total_profit') double totalProfit,
             @JsonKey(name: 'is_active') bool isActive,
-            @JsonKey(name: 'image_url') String? imageUrl)
+            @JsonKey(name: 'image_url') String? imageUrl,
+            @JsonKey(name: 'category_image_url') String? categoryImageUrl)
         $default,
   ) {
     final _that = this;
@@ -371,7 +385,8 @@ extension CatalogItemPatterns on CatalogItem {
             _that.stock,
             _that.totalProfit,
             _that.isActive,
-            _that.imageUrl);
+            _that.imageUrl,
+            _that.categoryImageUrl);
       case _:
         throw StateError('Unexpected subclass');
     }
@@ -403,7 +418,8 @@ extension CatalogItemPatterns on CatalogItem {
             int stock,
             @JsonKey(name: 'total_profit') double totalProfit,
             @JsonKey(name: 'is_active') bool isActive,
-            @JsonKey(name: 'image_url') String? imageUrl)?
+            @JsonKey(name: 'image_url') String? imageUrl,
+            @JsonKey(name: 'category_image_url') String? categoryImageUrl)?
         $default,
   ) {
     final _that = this;
@@ -421,7 +437,8 @@ extension CatalogItemPatterns on CatalogItem {
             _that.stock,
             _that.totalProfit,
             _that.isActive,
-            _that.imageUrl);
+            _that.imageUrl,
+            _that.categoryImageUrl);
       case _:
         return null;
     }
@@ -443,7 +460,8 @@ class _CatalogItem implements CatalogItem {
       required this.stock,
       @JsonKey(name: 'total_profit') required this.totalProfit,
       @JsonKey(name: 'is_active') required this.isActive,
-      @JsonKey(name: 'image_url') this.imageUrl});
+      @JsonKey(name: 'image_url') this.imageUrl,
+      @JsonKey(name: 'category_image_url') this.categoryImageUrl});
   factory _CatalogItem.fromJson(Map<String, dynamic> json) =>
       _$CatalogItemFromJson(json);
 
@@ -480,6 +498,9 @@ class _CatalogItem implements CatalogItem {
   @override
   @JsonKey(name: 'image_url')
   final String? imageUrl;
+  @override
+  @JsonKey(name: 'category_image_url')
+  final String? categoryImageUrl;
 
   /// Create a copy of CatalogItem
   /// with the given fields replaced by the non-null parameter values.
@@ -521,7 +542,9 @@ class _CatalogItem implements CatalogItem {
             (identical(other.isActive, isActive) ||
                 other.isActive == isActive) &&
             (identical(other.imageUrl, imageUrl) ||
-                other.imageUrl == imageUrl));
+                other.imageUrl == imageUrl) &&
+            (identical(other.categoryImageUrl, categoryImageUrl) ||
+                other.categoryImageUrl == categoryImageUrl));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
@@ -539,11 +562,12 @@ class _CatalogItem implements CatalogItem {
       stock,
       totalProfit,
       isActive,
-      imageUrl);
+      imageUrl,
+      categoryImageUrl);
 
   @override
   String toString() {
-    return 'CatalogItem(id: $id, supplierProductId: $supplierProductId, name: $name, supplierName: $supplierName, buyPrice: $buyPrice, sellPrice: $sellPrice, profitPerUnit: $profitPerUnit, profitPercentage: $profitPercentage, stock: $stock, totalProfit: $totalProfit, isActive: $isActive, imageUrl: $imageUrl)';
+    return 'CatalogItem(id: $id, supplierProductId: $supplierProductId, name: $name, supplierName: $supplierName, buyPrice: $buyPrice, sellPrice: $sellPrice, profitPerUnit: $profitPerUnit, profitPercentage: $profitPercentage, stock: $stock, totalProfit: $totalProfit, isActive: $isActive, imageUrl: $imageUrl, categoryImageUrl: $categoryImageUrl)';
   }
 }
 
@@ -567,7 +591,8 @@ abstract mixin class _$CatalogItemCopyWith<$Res>
       int stock,
       @JsonKey(name: 'total_profit') double totalProfit,
       @JsonKey(name: 'is_active') bool isActive,
-      @JsonKey(name: 'image_url') String? imageUrl});
+      @JsonKey(name: 'image_url') String? imageUrl,
+      @JsonKey(name: 'category_image_url') String? categoryImageUrl});
 }
 
 /// @nodoc
@@ -594,6 +619,7 @@ class __$CatalogItemCopyWithImpl<$Res> implements _$CatalogItemCopyWith<$Res> {
     Object? totalProfit = null,
     Object? isActive = null,
     Object? imageUrl = freezed,
+    Object? categoryImageUrl = freezed,
   }) {
     return _then(_CatalogItem(
       id: null == id
@@ -643,6 +669,10 @@ class __$CatalogItemCopyWithImpl<$Res> implements _$CatalogItemCopyWith<$Res> {
       imageUrl: freezed == imageUrl
           ? _self.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      categoryImageUrl: freezed == categoryImageUrl
+          ? _self.categoryImageUrl
+          : categoryImageUrl // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }

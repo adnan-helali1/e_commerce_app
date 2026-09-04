@@ -33,6 +33,7 @@ ProfileCacheData _$ProfileCacheDataFromJson(Map<String, dynamic> json) =>
       email: json['email'] as String?,
       address: json['address'] as String?,
       status: json['status'] as String?,
+      imageUrl: json['imageUrl'] as String?,
       createdAt: json['createdAt'] == null
           ? null
           : DateTime.parse(json['createdAt'] as String),
@@ -50,6 +51,7 @@ Map<String, dynamic> _$ProfileCacheDataToJson(ProfileCacheData instance) =>
       'email': instance.email,
       'address': instance.address,
       'status': instance.status,
+      'imageUrl': instance.imageUrl,
       'createdAt': instance.createdAt?.toIso8601String(),
       'updatedAt': instance.updatedAt?.toIso8601String(),
     };

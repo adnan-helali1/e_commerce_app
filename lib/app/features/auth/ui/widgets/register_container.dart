@@ -7,6 +7,8 @@ import 'package:B2B/app/features/auth/logic/register/register_cubit.dart';
 import 'package:B2B/app/features/auth/logic/register/register_state.dart';
 import 'package:B2B/app/features/auth/ui/widgets/auth_header.dart';
 import 'package:B2B/app/features/auth/ui/widgets/login_textfiled.dart';
+import 'package:B2B/app/core/images/selected_image.dart';
+import 'package:B2B/app/core/widgets/image_picker_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -26,6 +28,7 @@ class _RegisterContainerState extends State<RegisterContainer> {
   late TextEditingController passwordController;
   late TextEditingController confirmPasswordController;
   late TextEditingController addressController;
+  SelectedImage? _image;
 
   @override
   void initState() {
@@ -70,10 +73,13 @@ class _RegisterContainerState extends State<RegisterContainer> {
           password: passwordController.text,
           passwordConfirmation: confirmPasswordController.text,
           address: addressController.text,
+          image: _image,
         );
   }
 
   void _handleRegister(BuildContext context) {
+    final image = _image;
+    if (image == null) return;
     context.read<RegisterCubit>().emitRegisterStates(
           storeName: storeNameController.text,
           ownerName: ownerNameController.text,
@@ -82,6 +88,7 @@ class _RegisterContainerState extends State<RegisterContainer> {
           password: passwordController.text,
           passwordConfirmation: confirmPasswordController.text,
           address: addressController.text,
+          image: image,
         );
   }
 
@@ -113,6 +120,21 @@ class _RegisterContainerState extends State<RegisterContainer> {
             subtitle: l10n.registerSubtitle,
           ),
           verticalSpace(24),
+          BlocBuilder<RegisterCubit, RegisterState>(
+            builder: (context, state) => ImagePickerField(
+              required: true,
+              image: _image,
+              errorText: state.maybeWhen(
+                failure: (_, imageError) => imageError,
+                orElse: () => null,
+              ),
+              onChanged: (image) {
+                setState(() => _image = image);
+                _validateForm();
+              },
+            ),
+          ),
+          verticalSpace(16),
           Field(
             context: context,
             label: l10n.storeNameRequiredLabel,
@@ -195,6 +217,10 @@ class _RegisterContainerState extends State<RegisterContainer> {
                 initial: (isFormValid) => isFormValid,
                 orElse: () => false,
               );
+              final progress = state.maybeWhen(
+                loading: (value) => value,
+                orElse: () => null,
+              );
 
               return SizedBox(
                 height: 50.h,
@@ -202,7 +228,11 @@ class _RegisterContainerState extends State<RegisterContainer> {
                   onPressed:
                       isFormValid ? () => _handleRegister(context) : null,
                   child: Text(
-                    l10n.createAccount,
+                    progress == null
+                        ? l10n.createAccount
+                        : progress == 0
+                            ? 'Uploading…'
+                            : 'Uploading ${(progress * 100).round()}%',
                     style: TextStyles.button(context),
                   ),
                 ),

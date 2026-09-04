@@ -47,7 +47,11 @@ class OfferCard extends StatelessWidget {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const OfferThumb(),
+          OfferThumb(
+            imageUrl: offer.imageUrl ??
+                offer.supplierProduct.imageUrl ??
+                offer.supplierProduct.product.imageUrl,
+          ),
           horizontalSpace(16),
           Expanded(
             child: Column(

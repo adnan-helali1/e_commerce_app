@@ -28,6 +28,8 @@ mixin _$OfferData {
   DateTime get createdAt;
   @JsonKey(name: 'updated_at')
   DateTime get updatedAt;
+  @JsonKey(name: 'image_url')
+  String? get imageUrl;
   @JsonKey(name: 'supplier_product')
   SupplierProduct get supplierProduct;
 
@@ -60,6 +62,8 @@ mixin _$OfferData {
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
                 other.updatedAt == updatedAt) &&
+            (identical(other.imageUrl, imageUrl) ||
+                other.imageUrl == imageUrl) &&
             (identical(other.supplierProduct, supplierProduct) ||
                 other.supplierProduct == supplierProduct));
   }
@@ -76,11 +80,12 @@ mixin _$OfferData {
       expiresAt,
       createdAt,
       updatedAt,
+      imageUrl,
       supplierProduct);
 
   @override
   String toString() {
-    return 'OfferData(id: $id, supplierProductId: $supplierProductId, offerPrice: $offerPrice, offerStock: $offerStock, status: $status, expiresAt: $expiresAt, createdAt: $createdAt, updatedAt: $updatedAt, supplierProduct: $supplierProduct)';
+    return 'OfferData(id: $id, supplierProductId: $supplierProductId, offerPrice: $offerPrice, offerStock: $offerStock, status: $status, expiresAt: $expiresAt, createdAt: $createdAt, updatedAt: $updatedAt, imageUrl: $imageUrl, supplierProduct: $supplierProduct)';
   }
 }
 
@@ -98,6 +103,7 @@ abstract mixin class $OfferDataCopyWith<$Res> {
       @JsonKey(name: 'expires_at') DateTime expiresAt,
       @JsonKey(name: 'created_at') DateTime createdAt,
       @JsonKey(name: 'updated_at') DateTime updatedAt,
+      @JsonKey(name: 'image_url') String? imageUrl,
       @JsonKey(name: 'supplier_product') SupplierProduct supplierProduct});
 
   $SupplierProductCopyWith<$Res> get supplierProduct;
@@ -123,6 +129,7 @@ class _$OfferDataCopyWithImpl<$Res> implements $OfferDataCopyWith<$Res> {
     Object? expiresAt = null,
     Object? createdAt = null,
     Object? updatedAt = null,
+    Object? imageUrl = freezed,
     Object? supplierProduct = null,
   }) {
     return _then(_self.copyWith(
@@ -158,6 +165,10 @@ class _$OfferDataCopyWithImpl<$Res> implements $OfferDataCopyWith<$Res> {
           ? _self.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      imageUrl: freezed == imageUrl
+          ? _self.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
       supplierProduct: null == supplierProduct
           ? _self.supplierProduct
           : supplierProduct // ignore: cast_nullable_to_non_nullable
@@ -278,6 +289,7 @@ extension OfferDataPatterns on OfferData {
             @JsonKey(name: 'expires_at') DateTime expiresAt,
             @JsonKey(name: 'created_at') DateTime createdAt,
             @JsonKey(name: 'updated_at') DateTime updatedAt,
+            @JsonKey(name: 'image_url') String? imageUrl,
             @JsonKey(name: 'supplier_product') SupplierProduct supplierProduct)?
         $default, {
     required TResult orElse(),
@@ -294,6 +306,7 @@ extension OfferDataPatterns on OfferData {
             _that.expiresAt,
             _that.createdAt,
             _that.updatedAt,
+            _that.imageUrl,
             _that.supplierProduct);
       case _:
         return orElse();
@@ -324,6 +337,7 @@ extension OfferDataPatterns on OfferData {
             @JsonKey(name: 'expires_at') DateTime expiresAt,
             @JsonKey(name: 'created_at') DateTime createdAt,
             @JsonKey(name: 'updated_at') DateTime updatedAt,
+            @JsonKey(name: 'image_url') String? imageUrl,
             @JsonKey(name: 'supplier_product') SupplierProduct supplierProduct)
         $default,
   ) {
@@ -339,6 +353,7 @@ extension OfferDataPatterns on OfferData {
             _that.expiresAt,
             _that.createdAt,
             _that.updatedAt,
+            _that.imageUrl,
             _that.supplierProduct);
       case _:
         throw StateError('Unexpected subclass');
@@ -368,6 +383,7 @@ extension OfferDataPatterns on OfferData {
             @JsonKey(name: 'expires_at') DateTime expiresAt,
             @JsonKey(name: 'created_at') DateTime createdAt,
             @JsonKey(name: 'updated_at') DateTime updatedAt,
+            @JsonKey(name: 'image_url') String? imageUrl,
             @JsonKey(name: 'supplier_product') SupplierProduct supplierProduct)?
         $default,
   ) {
@@ -383,6 +399,7 @@ extension OfferDataPatterns on OfferData {
             _that.expiresAt,
             _that.createdAt,
             _that.updatedAt,
+            _that.imageUrl,
             _that.supplierProduct);
       case _:
         return null;
@@ -402,6 +419,7 @@ class _OfferData implements OfferData {
       @JsonKey(name: 'expires_at') required this.expiresAt,
       @JsonKey(name: 'created_at') required this.createdAt,
       @JsonKey(name: 'updated_at') required this.updatedAt,
+      @JsonKey(name: 'image_url') this.imageUrl,
       @JsonKey(name: 'supplier_product') required this.supplierProduct});
   factory _OfferData.fromJson(Map<String, dynamic> json) =>
       _$OfferDataFromJson(json);
@@ -428,6 +446,9 @@ class _OfferData implements OfferData {
   @override
   @JsonKey(name: 'updated_at')
   final DateTime updatedAt;
+  @override
+  @JsonKey(name: 'image_url')
+  final String? imageUrl;
   @override
   @JsonKey(name: 'supplier_product')
   final SupplierProduct supplierProduct;
@@ -466,6 +487,8 @@ class _OfferData implements OfferData {
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
                 other.updatedAt == updatedAt) &&
+            (identical(other.imageUrl, imageUrl) ||
+                other.imageUrl == imageUrl) &&
             (identical(other.supplierProduct, supplierProduct) ||
                 other.supplierProduct == supplierProduct));
   }
@@ -482,11 +505,12 @@ class _OfferData implements OfferData {
       expiresAt,
       createdAt,
       updatedAt,
+      imageUrl,
       supplierProduct);
 
   @override
   String toString() {
-    return 'OfferData(id: $id, supplierProductId: $supplierProductId, offerPrice: $offerPrice, offerStock: $offerStock, status: $status, expiresAt: $expiresAt, createdAt: $createdAt, updatedAt: $updatedAt, supplierProduct: $supplierProduct)';
+    return 'OfferData(id: $id, supplierProductId: $supplierProductId, offerPrice: $offerPrice, offerStock: $offerStock, status: $status, expiresAt: $expiresAt, createdAt: $createdAt, updatedAt: $updatedAt, imageUrl: $imageUrl, supplierProduct: $supplierProduct)';
   }
 }
 
@@ -507,6 +531,7 @@ abstract mixin class _$OfferDataCopyWith<$Res>
       @JsonKey(name: 'expires_at') DateTime expiresAt,
       @JsonKey(name: 'created_at') DateTime createdAt,
       @JsonKey(name: 'updated_at') DateTime updatedAt,
+      @JsonKey(name: 'image_url') String? imageUrl,
       @JsonKey(name: 'supplier_product') SupplierProduct supplierProduct});
 
   @override
@@ -533,6 +558,7 @@ class __$OfferDataCopyWithImpl<$Res> implements _$OfferDataCopyWith<$Res> {
     Object? expiresAt = null,
     Object? createdAt = null,
     Object? updatedAt = null,
+    Object? imageUrl = freezed,
     Object? supplierProduct = null,
   }) {
     return _then(_OfferData(
@@ -568,6 +594,10 @@ class __$OfferDataCopyWithImpl<$Res> implements _$OfferDataCopyWith<$Res> {
           ? _self.updatedAt
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      imageUrl: freezed == imageUrl
+          ? _self.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
       supplierProduct: null == supplierProduct
           ? _self.supplierProduct
           : supplierProduct // ignore: cast_nullable_to_non_nullable

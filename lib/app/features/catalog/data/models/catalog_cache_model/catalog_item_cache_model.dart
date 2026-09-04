@@ -16,6 +16,7 @@ class CatalogItemCacheModel {
   final double totalProfit;
   final bool isActive;
   final String? imageUrl;
+  final String? categoryImageUrl;
 
   CatalogItemCacheModel({
     required this.id,
@@ -29,6 +30,7 @@ class CatalogItemCacheModel {
     required this.totalProfit,
     required this.isActive,
     this.imageUrl,
+    this.categoryImageUrl,
   });
 
   /// JSON
@@ -51,6 +53,7 @@ class CatalogItemCacheModel {
       totalProfit: model.totalProfit,
       isActive: model.isActive,
       imageUrl: model.imageUrl,
+      categoryImageUrl: model.categoryImageUrl,
     );
   }
 
@@ -69,6 +72,7 @@ class CatalogItemCacheModel {
       totalProfit: totalProfit,
       isActive: isActive,
       imageUrl: imageUrl,
+      categoryImageUrl: categoryImageUrl,
     );
   }
 }

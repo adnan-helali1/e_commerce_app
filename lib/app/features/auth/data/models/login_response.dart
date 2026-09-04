@@ -33,8 +33,10 @@ class StoreData {
   int? id;
   String? name;
   String? email;
+  @JsonKey(name: 'image_url')
+  String? imageUrl;
 
-  StoreData({this.id, this.name, this.email});
+  StoreData({this.id, this.name, this.email, this.imageUrl});
 
   factory StoreData.fromJson(Map<String, dynamic> json) =>
       _$StoreDataFromJson(json);

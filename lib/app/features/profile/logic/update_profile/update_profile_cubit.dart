@@ -21,7 +21,13 @@ class UpdateProfileCubit extends Cubit<UpdateProfileState> {
           name: items.name,
           phone: items.phone,
           address: items.address,
-          ownerName: items.ownerName),
+          ownerName: items.ownerName,
+          image: items.image),
+      onSendProgress: (sent, total) {
+        if (!isClosed && total > 0) {
+          emit(UpdateProfileState.loading(progress: sent / total));
+        }
+      },
     );
 
     response.when(
@@ -33,10 +39,15 @@ class UpdateProfileCubit extends Cubit<UpdateProfileState> {
       failure: (error) {
         emit(
           UpdateProfileState.failure(
-            error: error.apiErrorModel.message ?? 'Something went wrong',
+            error: error.apiErrorModel.getErrorMessage(),
+            imageError: _imageError(error.apiErrorModel.errors?['image']),
           ),
         );
       },
     );
+  }
+
+  String? _imageError(dynamic errors) {
+    return errors is List && errors.isNotEmpty ? errors.first.toString() : null;
   }
 }

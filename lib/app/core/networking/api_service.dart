@@ -1,8 +1,6 @@
 import 'package:B2B/app/core/networking/api_constans.dart';
 import 'package:B2B/app/features/auth/data/models/login_request_body.dart';
 import 'package:B2B/app/features/auth/data/models/login_response.dart';
-import 'package:B2B/app/features/auth/data/models/register_request_body.dart';
-import 'package:B2B/app/features/auth/data/models/register_response.dart';
 import 'package:B2B/app/features/catalog/data/models/catalog_response.dart';
 import 'package:B2B/app/features/home/data/models/home_dashboard_response.dart';
 import 'package:B2B/app/features/ledger/data/models/ledger_response.dart';
@@ -13,6 +11,7 @@ import 'package:B2B/app/features/orders/data/models/get_active_offers/active_off
 import 'package:B2B/app/features/orders/data/models/create_order/create_order_response.dart';
 import 'package:B2B/app/features/orders/data/models/get_orders/models/orders_response.dart';
 import 'package:B2B/app/features/profile/data/models/get_profile_response.dart';
+import 'package:B2B/app/features/products/data/models/store_product_response.dart';
 import 'package:B2B/app/features/stock/data/models/add_stock/add_stock_response.dart';
 import 'package:B2B/app/features/stock/data/models/get_stock/get_stock_response.dart';
 import 'package:dio/dio.dart';
@@ -26,9 +25,6 @@ abstract class ApiService {
 // Auth Endpoints
   @POST(ApiConstants.login)
   Future<LoginResponse> login(@Body() LoginRequestBody request);
-
-  @POST(ApiConstants.register)
-  Future<RegisterResponse> register(@Body() RegisterRequestBody request);
 
   @POST(ApiConstants.logout)
   Future<void> logout();
@@ -47,6 +43,12 @@ abstract class ApiService {
       @Query('category') int category,
       @Query('status') String status,
       @Query('search') String search);
+
+  @GET(ApiConstants.products)
+  Future<StoreProductsResponse> getStoreProducts(@Query('page') int page);
+
+  @GET('${ApiConstants.products}/{id}')
+  Future<StoreProductDetailResponse> getStoreProduct(@Path('id') int id);
 
   @POST(ApiConstants.catalog + '/{supplierProductId}')
   Future<AddOfferResponse> addOfferToCatalog(
@@ -103,10 +105,6 @@ abstract class ApiService {
   @GET(ApiConstants.profile)
   Future<GetProfileResponse> getProfile();
 
-  @PUT(ApiConstants.profile)
-  Future<GetProfileResponse> updateProfile(
-    @Body() Map<String, dynamic> request,
-  );
   // ledger Endpoints
   @GET(ApiConstants.ledger)
   Future<LedgerResponse> getLedger();

@@ -71,6 +71,7 @@ abstract class SupplierProduct with _$SupplierProduct {
     @JsonKey(name: 'updated_at') required DateTime updatedAt,
     required Supplier supplier,
     required Product product,
+    @JsonKey(name: 'image_url') String? imageUrl,
   }) = _SupplierProduct;
 
   factory SupplierProduct.fromJson(Map<String, dynamic> json) =>
@@ -109,6 +110,7 @@ abstract class Product with _$Product {
     @JsonKey(name: 'buy_price') required String buyPrice,
     @JsonKey(name: 'stock_quantity') required int stockQuantity,
     required String status,
+    @JsonKey(name: 'image_url') String? imageUrl,
     @JsonKey(name: 'created_at') required DateTime createdAt,
     @JsonKey(name: 'updated_at') required DateTime updatedAt,
   }) = _Product;

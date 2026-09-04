@@ -13,6 +13,7 @@ abstract class ProfileModel with _$ProfileModel {
     required String email,
     required String address,
     required String status,
+    @JsonKey(name: 'image_url') String? imageUrl,
     @JsonKey(name: 'created_at') required DateTime createdAt,
     @JsonKey(name: 'updated_at') required DateTime updatedAt,
   }) = _ProfileModel;

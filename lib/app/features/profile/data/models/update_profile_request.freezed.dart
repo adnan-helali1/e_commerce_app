@@ -19,6 +19,8 @@ mixin _$UpdateProfileRequest {
   String? get ownerName;
   String? get phone;
   String? get address;
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  SelectedImage? get image;
 
   /// Create a copy of UpdateProfileRequest
   /// with the given fields replaced by the non-null parameter values.
@@ -40,16 +42,18 @@ mixin _$UpdateProfileRequest {
             (identical(other.ownerName, ownerName) ||
                 other.ownerName == ownerName) &&
             (identical(other.phone, phone) || other.phone == phone) &&
-            (identical(other.address, address) || other.address == address));
+            (identical(other.address, address) || other.address == address) &&
+            (identical(other.image, image) || other.image == image));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, name, ownerName, phone, address);
+  int get hashCode =>
+      Object.hash(runtimeType, name, ownerName, phone, address, image);
 
   @override
   String toString() {
-    return 'UpdateProfileRequest(name: $name, ownerName: $ownerName, phone: $phone, address: $address)';
+    return 'UpdateProfileRequest(name: $name, ownerName: $ownerName, phone: $phone, address: $address, image: $image)';
   }
 }
 
@@ -63,7 +67,9 @@ abstract mixin class $UpdateProfileRequestCopyWith<$Res> {
       {String? name,
       @JsonKey(name: 'owner_name') String? ownerName,
       String? phone,
-      String? address});
+      String? address,
+      @JsonKey(includeFromJson: false, includeToJson: false)
+      SelectedImage? image});
 }
 
 /// @nodoc
@@ -83,6 +89,7 @@ class _$UpdateProfileRequestCopyWithImpl<$Res>
     Object? ownerName = freezed,
     Object? phone = freezed,
     Object? address = freezed,
+    Object? image = freezed,
   }) {
     return _then(_self.copyWith(
       name: freezed == name
@@ -101,6 +108,10 @@ class _$UpdateProfileRequestCopyWithImpl<$Res>
           ? _self.address
           : address // ignore: cast_nullable_to_non_nullable
               as String?,
+      image: freezed == image
+          ? _self.image
+          : image // ignore: cast_nullable_to_non_nullable
+              as SelectedImage?,
     ));
   }
 }
@@ -202,15 +213,17 @@ extension UpdateProfileRequestPatterns on UpdateProfileRequest {
             String? name,
             @JsonKey(name: 'owner_name') String? ownerName,
             String? phone,
-            String? address)?
+            String? address,
+            @JsonKey(includeFromJson: false, includeToJson: false)
+            SelectedImage? image)?
         $default, {
     required TResult orElse(),
   }) {
     final _that = this;
     switch (_that) {
       case _UpdateProfileRequest() when $default != null:
-        return $default(
-            _that.name, _that.ownerName, _that.phone, _that.address);
+        return $default(_that.name, _that.ownerName, _that.phone, _that.address,
+            _that.image);
       case _:
         return orElse();
     }
@@ -235,14 +248,16 @@ extension UpdateProfileRequestPatterns on UpdateProfileRequest {
             String? name,
             @JsonKey(name: 'owner_name') String? ownerName,
             String? phone,
-            String? address)
+            String? address,
+            @JsonKey(includeFromJson: false, includeToJson: false)
+            SelectedImage? image)
         $default,
   ) {
     final _that = this;
     switch (_that) {
       case _UpdateProfileRequest():
-        return $default(
-            _that.name, _that.ownerName, _that.phone, _that.address);
+        return $default(_that.name, _that.ownerName, _that.phone, _that.address,
+            _that.image);
       case _:
         throw StateError('Unexpected subclass');
     }
@@ -266,14 +281,16 @@ extension UpdateProfileRequestPatterns on UpdateProfileRequest {
             String? name,
             @JsonKey(name: 'owner_name') String? ownerName,
             String? phone,
-            String? address)?
+            String? address,
+            @JsonKey(includeFromJson: false, includeToJson: false)
+            SelectedImage? image)?
         $default,
   ) {
     final _that = this;
     switch (_that) {
       case _UpdateProfileRequest() when $default != null:
-        return $default(
-            _that.name, _that.ownerName, _that.phone, _that.address);
+        return $default(_that.name, _that.ownerName, _that.phone, _that.address,
+            _that.image);
       case _:
         return null;
     }
@@ -282,12 +299,14 @@ extension UpdateProfileRequestPatterns on UpdateProfileRequest {
 
 /// @nodoc
 @JsonSerializable()
-class _UpdateProfileRequest implements UpdateProfileRequest {
+class _UpdateProfileRequest extends UpdateProfileRequest {
   const _UpdateProfileRequest(
       {this.name,
       @JsonKey(name: 'owner_name') this.ownerName,
       this.phone,
-      this.address});
+      this.address,
+      @JsonKey(includeFromJson: false, includeToJson: false) this.image})
+      : super._();
   factory _UpdateProfileRequest.fromJson(Map<String, dynamic> json) =>
       _$UpdateProfileRequestFromJson(json);
 
@@ -300,6 +319,9 @@ class _UpdateProfileRequest implements UpdateProfileRequest {
   final String? phone;
   @override
   final String? address;
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  final SelectedImage? image;
 
   /// Create a copy of UpdateProfileRequest
   /// with the given fields replaced by the non-null parameter values.
@@ -326,16 +348,18 @@ class _UpdateProfileRequest implements UpdateProfileRequest {
             (identical(other.ownerName, ownerName) ||
                 other.ownerName == ownerName) &&
             (identical(other.phone, phone) || other.phone == phone) &&
-            (identical(other.address, address) || other.address == address));
+            (identical(other.address, address) || other.address == address) &&
+            (identical(other.image, image) || other.image == image));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, name, ownerName, phone, address);
+  int get hashCode =>
+      Object.hash(runtimeType, name, ownerName, phone, address, image);
 
   @override
   String toString() {
-    return 'UpdateProfileRequest(name: $name, ownerName: $ownerName, phone: $phone, address: $address)';
+    return 'UpdateProfileRequest(name: $name, ownerName: $ownerName, phone: $phone, address: $address, image: $image)';
   }
 }
 
@@ -351,7 +375,9 @@ abstract mixin class _$UpdateProfileRequestCopyWith<$Res>
       {String? name,
       @JsonKey(name: 'owner_name') String? ownerName,
       String? phone,
-      String? address});
+      String? address,
+      @JsonKey(includeFromJson: false, includeToJson: false)
+      SelectedImage? image});
 }
 
 /// @nodoc
@@ -371,6 +397,7 @@ class __$UpdateProfileRequestCopyWithImpl<$Res>
     Object? ownerName = freezed,
     Object? phone = freezed,
     Object? address = freezed,
+    Object? image = freezed,
   }) {
     return _then(_UpdateProfileRequest(
       name: freezed == name
@@ -389,6 +416,10 @@ class __$UpdateProfileRequestCopyWithImpl<$Res>
           ? _self.address
           : address // ignore: cast_nullable_to_non_nullable
               as String?,
+      image: freezed == image
+          ? _self.image
+          : image // ignore: cast_nullable_to_non_nullable
+              as SelectedImage?,
     ));
   }
 }

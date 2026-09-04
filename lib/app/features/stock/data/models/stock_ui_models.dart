@@ -11,6 +11,7 @@ class InventoryItem {
   final int id;
   final int storeProduct;
   final int supplierProduct;
+  final String? imageUrl;
 
   final StoreProductModel? storeProductModel;
   final SupplierProductModel? supplierProductModel;
@@ -31,6 +32,7 @@ class InventoryItem {
     required this.id,
     required this.storeProduct,
     required this.supplierProduct,
+    this.imageUrl,
 
     // new optional
     this.storeProductModel,

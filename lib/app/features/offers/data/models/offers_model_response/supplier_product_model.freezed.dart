@@ -26,6 +26,8 @@ mixin _$SupplierProduct {
   String get status;
   Supplier get supplier;
   Product get product;
+  @JsonKey(name: 'image_url')
+  String? get imageUrl;
   @JsonKey(name: 'created_at')
   DateTime get createdAt;
   @JsonKey(name: 'updated_at')
@@ -60,6 +62,8 @@ mixin _$SupplierProduct {
             (identical(other.supplier, supplier) ||
                 other.supplier == supplier) &&
             (identical(other.product, product) || other.product == product) &&
+            (identical(other.imageUrl, imageUrl) ||
+                other.imageUrl == imageUrl) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
@@ -68,12 +72,23 @@ mixin _$SupplierProduct {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, supplierId, productId,
-      buyPrice, stockQuantity, status, supplier, product, createdAt, updatedAt);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      supplierId,
+      productId,
+      buyPrice,
+      stockQuantity,
+      status,
+      supplier,
+      product,
+      imageUrl,
+      createdAt,
+      updatedAt);
 
   @override
   String toString() {
-    return 'SupplierProduct(id: $id, supplierId: $supplierId, productId: $productId, buyPrice: $buyPrice, stockQuantity: $stockQuantity, status: $status, supplier: $supplier, product: $product, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'SupplierProduct(id: $id, supplierId: $supplierId, productId: $productId, buyPrice: $buyPrice, stockQuantity: $stockQuantity, status: $status, supplier: $supplier, product: $product, imageUrl: $imageUrl, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 }
 
@@ -92,6 +107,7 @@ abstract mixin class $SupplierProductCopyWith<$Res> {
       String status,
       Supplier supplier,
       Product product,
+      @JsonKey(name: 'image_url') String? imageUrl,
       @JsonKey(name: 'created_at') DateTime createdAt,
       @JsonKey(name: 'updated_at') DateTime updatedAt});
 
@@ -120,6 +136,7 @@ class _$SupplierProductCopyWithImpl<$Res>
     Object? status = null,
     Object? supplier = null,
     Object? product = null,
+    Object? imageUrl = freezed,
     Object? createdAt = null,
     Object? updatedAt = null,
   }) {
@@ -156,6 +173,10 @@ class _$SupplierProductCopyWithImpl<$Res>
           ? _self.product
           : product // ignore: cast_nullable_to_non_nullable
               as Product,
+      imageUrl: freezed == imageUrl
+          ? _self.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
       createdAt: null == createdAt
           ? _self.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -290,6 +311,7 @@ extension SupplierProductPatterns on SupplierProduct {
             String status,
             Supplier supplier,
             Product product,
+            @JsonKey(name: 'image_url') String? imageUrl,
             @JsonKey(name: 'created_at') DateTime createdAt,
             @JsonKey(name: 'updated_at') DateTime updatedAt)?
         $default, {
@@ -307,6 +329,7 @@ extension SupplierProductPatterns on SupplierProduct {
             _that.status,
             _that.supplier,
             _that.product,
+            _that.imageUrl,
             _that.createdAt,
             _that.updatedAt);
       case _:
@@ -338,6 +361,7 @@ extension SupplierProductPatterns on SupplierProduct {
             String status,
             Supplier supplier,
             Product product,
+            @JsonKey(name: 'image_url') String? imageUrl,
             @JsonKey(name: 'created_at') DateTime createdAt,
             @JsonKey(name: 'updated_at') DateTime updatedAt)
         $default,
@@ -354,6 +378,7 @@ extension SupplierProductPatterns on SupplierProduct {
             _that.status,
             _that.supplier,
             _that.product,
+            _that.imageUrl,
             _that.createdAt,
             _that.updatedAt);
       case _:
@@ -384,6 +409,7 @@ extension SupplierProductPatterns on SupplierProduct {
             String status,
             Supplier supplier,
             Product product,
+            @JsonKey(name: 'image_url') String? imageUrl,
             @JsonKey(name: 'created_at') DateTime createdAt,
             @JsonKey(name: 'updated_at') DateTime updatedAt)?
         $default,
@@ -400,6 +426,7 @@ extension SupplierProductPatterns on SupplierProduct {
             _that.status,
             _that.supplier,
             _that.product,
+            _that.imageUrl,
             _that.createdAt,
             _that.updatedAt);
       case _:
@@ -420,6 +447,7 @@ class _SupplierProduct implements SupplierProduct {
       required this.status,
       required this.supplier,
       required this.product,
+      @JsonKey(name: 'image_url') this.imageUrl,
       @JsonKey(name: 'created_at') required this.createdAt,
       @JsonKey(name: 'updated_at') required this.updatedAt});
   factory _SupplierProduct.fromJson(Map<String, dynamic> json) =>
@@ -445,6 +473,9 @@ class _SupplierProduct implements SupplierProduct {
   final Supplier supplier;
   @override
   final Product product;
+  @override
+  @JsonKey(name: 'image_url')
+  final String? imageUrl;
   @override
   @JsonKey(name: 'created_at')
   final DateTime createdAt;
@@ -485,6 +516,8 @@ class _SupplierProduct implements SupplierProduct {
             (identical(other.supplier, supplier) ||
                 other.supplier == supplier) &&
             (identical(other.product, product) || other.product == product) &&
+            (identical(other.imageUrl, imageUrl) ||
+                other.imageUrl == imageUrl) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
@@ -493,12 +526,23 @@ class _SupplierProduct implements SupplierProduct {
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode => Object.hash(runtimeType, id, supplierId, productId,
-      buyPrice, stockQuantity, status, supplier, product, createdAt, updatedAt);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      supplierId,
+      productId,
+      buyPrice,
+      stockQuantity,
+      status,
+      supplier,
+      product,
+      imageUrl,
+      createdAt,
+      updatedAt);
 
   @override
   String toString() {
-    return 'SupplierProduct(id: $id, supplierId: $supplierId, productId: $productId, buyPrice: $buyPrice, stockQuantity: $stockQuantity, status: $status, supplier: $supplier, product: $product, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'SupplierProduct(id: $id, supplierId: $supplierId, productId: $productId, buyPrice: $buyPrice, stockQuantity: $stockQuantity, status: $status, supplier: $supplier, product: $product, imageUrl: $imageUrl, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 }
 
@@ -519,6 +563,7 @@ abstract mixin class _$SupplierProductCopyWith<$Res>
       String status,
       Supplier supplier,
       Product product,
+      @JsonKey(name: 'image_url') String? imageUrl,
       @JsonKey(name: 'created_at') DateTime createdAt,
       @JsonKey(name: 'updated_at') DateTime updatedAt});
 
@@ -549,6 +594,7 @@ class __$SupplierProductCopyWithImpl<$Res>
     Object? status = null,
     Object? supplier = null,
     Object? product = null,
+    Object? imageUrl = freezed,
     Object? createdAt = null,
     Object? updatedAt = null,
   }) {
@@ -585,6 +631,10 @@ class __$SupplierProductCopyWithImpl<$Res>
           ? _self.product
           : product // ignore: cast_nullable_to_non_nullable
               as Product,
+      imageUrl: freezed == imageUrl
+          ? _self.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
       createdAt: null == createdAt
           ? _self.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable

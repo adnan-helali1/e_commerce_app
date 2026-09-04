@@ -15,6 +15,7 @@ _ProfileModel _$ProfileModelFromJson(Map<String, dynamic> json) =>
       email: json['email'] as String,
       address: json['address'] as String,
       status: json['status'] as String,
+      imageUrl: json['image_url'] as String?,
       createdAt: DateTime.parse(json['created_at'] as String),
       updatedAt: DateTime.parse(json['updated_at'] as String),
     );
@@ -28,6 +29,7 @@ Map<String, dynamic> _$ProfileModelToJson(_ProfileModel instance) =>
       'email': instance.email,
       'address': instance.address,
       'status': instance.status,
+      'image_url': instance.imageUrl,
       'created_at': instance.createdAt.toIso8601String(),
       'updated_at': instance.updatedAt.toIso8601String(),
     };

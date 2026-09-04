@@ -114,6 +114,7 @@ StockSupplierProductCacheModel _$StockSupplierProductCacheModelFromJson(
           ? null
           : StockProductCacheModel.fromJson(
               json['product'] as Map<String, dynamic>),
+      imageUrl: json['imageUrl'] as String?,
     );
 
 Map<String, dynamic> _$StockSupplierProductCacheModelToJson(
@@ -129,6 +130,7 @@ Map<String, dynamic> _$StockSupplierProductCacheModelToJson(
       'updatedAt': instance.updatedAt?.toIso8601String(),
       'supplier': instance.supplier?.toJson(),
       'product': instance.product?.toJson(),
+      'imageUrl': instance.imageUrl,
     };
 
 StockSupplierCacheModel _$StockSupplierCacheModelFromJson(
@@ -178,6 +180,7 @@ StockProductCacheModel _$StockProductCacheModelFromJson(
       updatedAt: json['updatedAt'] == null
           ? null
           : DateTime.parse(json['updatedAt'] as String),
+      imageUrl: json['imageUrl'] as String?,
     );
 
 Map<String, dynamic> _$StockProductCacheModelToJson(
@@ -193,4 +196,5 @@ Map<String, dynamic> _$StockProductCacheModelToJson(
       'status': instance.status,
       'createdAt': instance.createdAt?.toIso8601String(),
       'updatedAt': instance.updatedAt?.toIso8601String(),
+      'imageUrl': instance.imageUrl,
     };

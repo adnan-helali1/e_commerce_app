@@ -1,6 +1,7 @@
 import 'package:B2B/app/core/helpers/extensions.dart';
 import 'package:B2B/app/features/stock/data/models/get_stock/get_stock_response.dart';
 import 'package:flutter/material.dart';
+import 'package:B2B/app/core/widgets/app_network_image.dart';
 
 class StockDetailsDialog extends StatelessWidget {
   final StockItem item;
@@ -46,6 +47,17 @@ class StockDetailsDialog extends StatelessWidget {
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
                 color: context.cs.primary,
+              ),
+            ),
+
+            const SizedBox(height: 16),
+
+            SizedBox(
+              height: 180,
+              width: double.infinity,
+              child: AppNetworkImage(
+                imageUrl: supplierProduct.imageUrl ?? product.imageUrl,
+                borderRadius: BorderRadius.circular(12),
               ),
             ),
 

@@ -27,6 +27,8 @@ mixin _$Product {
   int get stockQuantity;
   String get status;
   Category get category;
+  @JsonKey(name: 'image_url')
+  String? get imageUrl;
   @JsonKey(name: 'created_at')
   DateTime get createdAt;
   @JsonKey(name: 'updated_at')
@@ -62,6 +64,8 @@ mixin _$Product {
             (identical(other.status, status) || other.status == status) &&
             (identical(other.category, category) ||
                 other.category == category) &&
+            (identical(other.imageUrl, imageUrl) ||
+                other.imageUrl == imageUrl) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
@@ -81,12 +85,13 @@ mixin _$Product {
       stockQuantity,
       status,
       category,
+      imageUrl,
       createdAt,
       updatedAt);
 
   @override
   String toString() {
-    return 'Product(id: $id, supplierId: $supplierId, categoryId: $categoryId, name: $name, description: $description, buyPrice: $buyPrice, stockQuantity: $stockQuantity, status: $status, category: $category, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'Product(id: $id, supplierId: $supplierId, categoryId: $categoryId, name: $name, description: $description, buyPrice: $buyPrice, stockQuantity: $stockQuantity, status: $status, category: $category, imageUrl: $imageUrl, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 }
 
@@ -105,6 +110,7 @@ abstract mixin class $ProductCopyWith<$Res> {
       @JsonKey(name: 'stock_quantity') int stockQuantity,
       String status,
       Category category,
+      @JsonKey(name: 'image_url') String? imageUrl,
       @JsonKey(name: 'created_at') DateTime createdAt,
       @JsonKey(name: 'updated_at') DateTime updatedAt});
 
@@ -132,6 +138,7 @@ class _$ProductCopyWithImpl<$Res> implements $ProductCopyWith<$Res> {
     Object? stockQuantity = null,
     Object? status = null,
     Object? category = null,
+    Object? imageUrl = freezed,
     Object? createdAt = null,
     Object? updatedAt = null,
   }) {
@@ -172,6 +179,10 @@ class _$ProductCopyWithImpl<$Res> implements $ProductCopyWith<$Res> {
           ? _self.category
           : category // ignore: cast_nullable_to_non_nullable
               as Category,
+      imageUrl: freezed == imageUrl
+          ? _self.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
       createdAt: null == createdAt
           ? _self.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -297,6 +308,7 @@ extension ProductPatterns on Product {
             @JsonKey(name: 'stock_quantity') int stockQuantity,
             String status,
             Category category,
+            @JsonKey(name: 'image_url') String? imageUrl,
             @JsonKey(name: 'created_at') DateTime createdAt,
             @JsonKey(name: 'updated_at') DateTime updatedAt)?
         $default, {
@@ -315,6 +327,7 @@ extension ProductPatterns on Product {
             _that.stockQuantity,
             _that.status,
             _that.category,
+            _that.imageUrl,
             _that.createdAt,
             _that.updatedAt);
       case _:
@@ -347,6 +360,7 @@ extension ProductPatterns on Product {
             @JsonKey(name: 'stock_quantity') int stockQuantity,
             String status,
             Category category,
+            @JsonKey(name: 'image_url') String? imageUrl,
             @JsonKey(name: 'created_at') DateTime createdAt,
             @JsonKey(name: 'updated_at') DateTime updatedAt)
         $default,
@@ -364,6 +378,7 @@ extension ProductPatterns on Product {
             _that.stockQuantity,
             _that.status,
             _that.category,
+            _that.imageUrl,
             _that.createdAt,
             _that.updatedAt);
       case _:
@@ -395,6 +410,7 @@ extension ProductPatterns on Product {
             @JsonKey(name: 'stock_quantity') int stockQuantity,
             String status,
             Category category,
+            @JsonKey(name: 'image_url') String? imageUrl,
             @JsonKey(name: 'created_at') DateTime createdAt,
             @JsonKey(name: 'updated_at') DateTime updatedAt)?
         $default,
@@ -412,6 +428,7 @@ extension ProductPatterns on Product {
             _that.stockQuantity,
             _that.status,
             _that.category,
+            _that.imageUrl,
             _that.createdAt,
             _that.updatedAt);
       case _:
@@ -433,6 +450,7 @@ class _Product implements Product {
       @JsonKey(name: 'stock_quantity') required this.stockQuantity,
       required this.status,
       required this.category,
+      @JsonKey(name: 'image_url') this.imageUrl,
       @JsonKey(name: 'created_at') required this.createdAt,
       @JsonKey(name: 'updated_at') required this.updatedAt});
   factory _Product.fromJson(Map<String, dynamic> json) =>
@@ -460,6 +478,9 @@ class _Product implements Product {
   final String status;
   @override
   final Category category;
+  @override
+  @JsonKey(name: 'image_url')
+  final String? imageUrl;
   @override
   @JsonKey(name: 'created_at')
   final DateTime createdAt;
@@ -502,6 +523,8 @@ class _Product implements Product {
             (identical(other.status, status) || other.status == status) &&
             (identical(other.category, category) ||
                 other.category == category) &&
+            (identical(other.imageUrl, imageUrl) ||
+                other.imageUrl == imageUrl) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
@@ -521,12 +544,13 @@ class _Product implements Product {
       stockQuantity,
       status,
       category,
+      imageUrl,
       createdAt,
       updatedAt);
 
   @override
   String toString() {
-    return 'Product(id: $id, supplierId: $supplierId, categoryId: $categoryId, name: $name, description: $description, buyPrice: $buyPrice, stockQuantity: $stockQuantity, status: $status, category: $category, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'Product(id: $id, supplierId: $supplierId, categoryId: $categoryId, name: $name, description: $description, buyPrice: $buyPrice, stockQuantity: $stockQuantity, status: $status, category: $category, imageUrl: $imageUrl, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 }
 
@@ -546,6 +570,7 @@ abstract mixin class _$ProductCopyWith<$Res> implements $ProductCopyWith<$Res> {
       @JsonKey(name: 'stock_quantity') int stockQuantity,
       String status,
       Category category,
+      @JsonKey(name: 'image_url') String? imageUrl,
       @JsonKey(name: 'created_at') DateTime createdAt,
       @JsonKey(name: 'updated_at') DateTime updatedAt});
 
@@ -574,6 +599,7 @@ class __$ProductCopyWithImpl<$Res> implements _$ProductCopyWith<$Res> {
     Object? stockQuantity = null,
     Object? status = null,
     Object? category = null,
+    Object? imageUrl = freezed,
     Object? createdAt = null,
     Object? updatedAt = null,
   }) {
@@ -614,6 +640,10 @@ class __$ProductCopyWithImpl<$Res> implements _$ProductCopyWith<$Res> {
           ? _self.category
           : category // ignore: cast_nullable_to_non_nullable
               as Category,
+      imageUrl: freezed == imageUrl
+          ? _self.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
       createdAt: null == createdAt
           ? _self.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable

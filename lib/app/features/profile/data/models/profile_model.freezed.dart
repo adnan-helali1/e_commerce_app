@@ -22,6 +22,8 @@ mixin _$ProfileModel {
   String get email;
   String get address;
   String get status;
+  @JsonKey(name: 'image_url')
+  String? get imageUrl;
   @JsonKey(name: 'created_at')
   DateTime get createdAt;
   @JsonKey(name: 'updated_at')
@@ -51,6 +53,8 @@ mixin _$ProfileModel {
             (identical(other.email, email) || other.email == email) &&
             (identical(other.address, address) || other.address == address) &&
             (identical(other.status, status) || other.status == status) &&
+            (identical(other.imageUrl, imageUrl) ||
+                other.imageUrl == imageUrl) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
@@ -60,11 +64,11 @@ mixin _$ProfileModel {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, id, name, ownerName, phone,
-      email, address, status, createdAt, updatedAt);
+      email, address, status, imageUrl, createdAt, updatedAt);
 
   @override
   String toString() {
-    return 'ProfileModel(id: $id, name: $name, ownerName: $ownerName, phone: $phone, email: $email, address: $address, status: $status, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'ProfileModel(id: $id, name: $name, ownerName: $ownerName, phone: $phone, email: $email, address: $address, status: $status, imageUrl: $imageUrl, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 }
 
@@ -82,6 +86,7 @@ abstract mixin class $ProfileModelCopyWith<$Res> {
       String email,
       String address,
       String status,
+      @JsonKey(name: 'image_url') String? imageUrl,
       @JsonKey(name: 'created_at') DateTime createdAt,
       @JsonKey(name: 'updated_at') DateTime updatedAt});
 }
@@ -105,6 +110,7 @@ class _$ProfileModelCopyWithImpl<$Res> implements $ProfileModelCopyWith<$Res> {
     Object? email = null,
     Object? address = null,
     Object? status = null,
+    Object? imageUrl = freezed,
     Object? createdAt = null,
     Object? updatedAt = null,
   }) {
@@ -137,6 +143,10 @@ class _$ProfileModelCopyWithImpl<$Res> implements $ProfileModelCopyWith<$Res> {
           ? _self.status
           : status // ignore: cast_nullable_to_non_nullable
               as String,
+      imageUrl: freezed == imageUrl
+          ? _self.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
       createdAt: null == createdAt
           ? _self.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -250,6 +260,7 @@ extension ProfileModelPatterns on ProfileModel {
             String email,
             String address,
             String status,
+            @JsonKey(name: 'image_url') String? imageUrl,
             @JsonKey(name: 'created_at') DateTime createdAt,
             @JsonKey(name: 'updated_at') DateTime updatedAt)?
         $default, {
@@ -266,6 +277,7 @@ extension ProfileModelPatterns on ProfileModel {
             _that.email,
             _that.address,
             _that.status,
+            _that.imageUrl,
             _that.createdAt,
             _that.updatedAt);
       case _:
@@ -296,6 +308,7 @@ extension ProfileModelPatterns on ProfileModel {
             String email,
             String address,
             String status,
+            @JsonKey(name: 'image_url') String? imageUrl,
             @JsonKey(name: 'created_at') DateTime createdAt,
             @JsonKey(name: 'updated_at') DateTime updatedAt)
         $default,
@@ -311,6 +324,7 @@ extension ProfileModelPatterns on ProfileModel {
             _that.email,
             _that.address,
             _that.status,
+            _that.imageUrl,
             _that.createdAt,
             _that.updatedAt);
       case _:
@@ -340,6 +354,7 @@ extension ProfileModelPatterns on ProfileModel {
             String email,
             String address,
             String status,
+            @JsonKey(name: 'image_url') String? imageUrl,
             @JsonKey(name: 'created_at') DateTime createdAt,
             @JsonKey(name: 'updated_at') DateTime updatedAt)?
         $default,
@@ -355,6 +370,7 @@ extension ProfileModelPatterns on ProfileModel {
             _that.email,
             _that.address,
             _that.status,
+            _that.imageUrl,
             _that.createdAt,
             _that.updatedAt);
       case _:
@@ -374,6 +390,7 @@ class _ProfileModel implements ProfileModel {
       required this.email,
       required this.address,
       required this.status,
+      @JsonKey(name: 'image_url') this.imageUrl,
       @JsonKey(name: 'created_at') required this.createdAt,
       @JsonKey(name: 'updated_at') required this.updatedAt});
   factory _ProfileModel.fromJson(Map<String, dynamic> json) =>
@@ -394,6 +411,9 @@ class _ProfileModel implements ProfileModel {
   final String address;
   @override
   final String status;
+  @override
+  @JsonKey(name: 'image_url')
+  final String? imageUrl;
   @override
   @JsonKey(name: 'created_at')
   final DateTime createdAt;
@@ -429,6 +449,8 @@ class _ProfileModel implements ProfileModel {
             (identical(other.email, email) || other.email == email) &&
             (identical(other.address, address) || other.address == address) &&
             (identical(other.status, status) || other.status == status) &&
+            (identical(other.imageUrl, imageUrl) ||
+                other.imageUrl == imageUrl) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.updatedAt, updatedAt) ||
@@ -438,11 +460,11 @@ class _ProfileModel implements ProfileModel {
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   int get hashCode => Object.hash(runtimeType, id, name, ownerName, phone,
-      email, address, status, createdAt, updatedAt);
+      email, address, status, imageUrl, createdAt, updatedAt);
 
   @override
   String toString() {
-    return 'ProfileModel(id: $id, name: $name, ownerName: $ownerName, phone: $phone, email: $email, address: $address, status: $status, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'ProfileModel(id: $id, name: $name, ownerName: $ownerName, phone: $phone, email: $email, address: $address, status: $status, imageUrl: $imageUrl, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 }
 
@@ -462,6 +484,7 @@ abstract mixin class _$ProfileModelCopyWith<$Res>
       String email,
       String address,
       String status,
+      @JsonKey(name: 'image_url') String? imageUrl,
       @JsonKey(name: 'created_at') DateTime createdAt,
       @JsonKey(name: 'updated_at') DateTime updatedAt});
 }
@@ -486,6 +509,7 @@ class __$ProfileModelCopyWithImpl<$Res>
     Object? email = null,
     Object? address = null,
     Object? status = null,
+    Object? imageUrl = freezed,
     Object? createdAt = null,
     Object? updatedAt = null,
   }) {
@@ -518,6 +542,10 @@ class __$ProfileModelCopyWithImpl<$Res>
           ? _self.status
           : status // ignore: cast_nullable_to_non_nullable
               as String,
+      imageUrl: freezed == imageUrl
+          ? _self.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
       createdAt: null == createdAt
           ? _self.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable

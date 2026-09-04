@@ -15,6 +15,7 @@ abstract class Product with _$Product {
     @JsonKey(name: 'stock_quantity') required int stockQuantity,
     required String status,
     required Category category,
+    @JsonKey(name: 'image_url') String? imageUrl,
     @JsonKey(name: 'created_at') required DateTime createdAt,
     @JsonKey(name: 'updated_at') required DateTime updatedAt,
   }) = _Product;

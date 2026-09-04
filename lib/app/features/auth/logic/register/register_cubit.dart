@@ -6,6 +6,7 @@ import 'package:B2B/app/features/auth/logic/register/register_state.dart';
 import 'package:B2B/l10n/app_localizations.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:B2B/app/core/images/selected_image.dart';
 
 class RegisterCubit extends Cubit<RegisterState> {
   final RegisterRepo _registerRepo;
@@ -22,9 +23,9 @@ class RegisterCubit extends Cubit<RegisterState> {
     required String password,
     required String passwordConfirmation,
     required String address,
+    required SelectedImage? image,
   }) {
-    final storeNameError =
-        ValidationHelper.validateStoreName(storeName, l10n);
+    final storeNameError = ValidationHelper.validateStoreName(storeName, l10n);
     final ownerNameError = ValidationHelper.validateName(
       ownerName,
       l10n,
@@ -46,7 +47,9 @@ class RegisterCubit extends Cubit<RegisterState> {
         emailError == null &&
         passwordError == null &&
         confirmPasswordError == null &&
-        addressError == null;
+        addressError == null &&
+        image != null &&
+        image.validate(required: true) == null;
 
     emit(RegisterState.initial(isFormValid: isValid));
   }
@@ -59,6 +62,7 @@ class RegisterCubit extends Cubit<RegisterState> {
     required String password,
     required String passwordConfirmation,
     required String address,
+    required SelectedImage image,
   }) async {
     emit(const RegisterState.loading());
 
@@ -71,7 +75,13 @@ class RegisterCubit extends Cubit<RegisterState> {
         password: password,
         passwordConfirmation: passwordConfirmation,
         address: address,
+        image: image,
       ),
+      onSendProgress: (sent, total) {
+        if (!isClosed && total > 0) {
+          emit(RegisterState.loading(progress: sent / total));
+        }
+      },
     );
 
     response.when(
@@ -79,8 +89,12 @@ class RegisterCubit extends Cubit<RegisterState> {
         emit(RegisterState.success(registerResponse));
       },
       failure: (error) {
+        final imageErrors = error.apiErrorModel.errors?['image'];
         emit(RegisterState.failure(
-          error: error.apiErrorModel.message ?? 'Registration failed',
+          error: error.apiErrorModel.getErrorMessage(),
+          imageError: imageErrors is List && imageErrors.isNotEmpty
+              ? imageErrors.first.toString()
+              : null,
         ));
       },
     );

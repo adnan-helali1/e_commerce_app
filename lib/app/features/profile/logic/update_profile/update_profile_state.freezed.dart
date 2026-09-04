@@ -156,9 +156,9 @@ extension UpdateProfileStatePatterns on UpdateProfileState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function()? loading,
+    TResult Function(double progress)? loading,
     TResult Function(GetProfileResponse response)? success,
-    TResult Function(String error)? failure,
+    TResult Function(String error, String? imageError)? failure,
     required TResult orElse(),
   }) {
     final _that = this;
@@ -166,11 +166,11 @@ extension UpdateProfileStatePatterns on UpdateProfileState {
       case _Initial() when initial != null:
         return initial();
       case _Loading() when loading != null:
-        return loading();
+        return loading(_that.progress);
       case _Success() when success != null:
         return success(_that.response);
       case _Failure() when failure != null:
-        return failure(_that.error);
+        return failure(_that.error, _that.imageError);
       case _:
         return orElse();
     }
@@ -192,20 +192,20 @@ extension UpdateProfileStatePatterns on UpdateProfileState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function() loading,
+    required TResult Function(double progress) loading,
     required TResult Function(GetProfileResponse response) success,
-    required TResult Function(String error) failure,
+    required TResult Function(String error, String? imageError) failure,
   }) {
     final _that = this;
     switch (_that) {
       case _Initial():
         return initial();
       case _Loading():
-        return loading();
+        return loading(_that.progress);
       case _Success():
         return success(_that.response);
       case _Failure():
-        return failure(_that.error);
+        return failure(_that.error, _that.imageError);
       case _:
         throw StateError('Unexpected subclass');
     }
@@ -226,20 +226,20 @@ extension UpdateProfileStatePatterns on UpdateProfileState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function()? loading,
+    TResult? Function(double progress)? loading,
     TResult? Function(GetProfileResponse response)? success,
-    TResult? Function(String error)? failure,
+    TResult? Function(String error, String? imageError)? failure,
   }) {
     final _that = this;
     switch (_that) {
       case _Initial() when initial != null:
         return initial();
       case _Loading() when loading != null:
-        return loading();
+        return loading(_that.progress);
       case _Success() when success != null:
         return success(_that.response);
       case _Failure() when failure != null:
-        return failure(_that.error);
+        return failure(_that.error, _that.imageError);
       case _:
         return null;
     }
@@ -269,20 +269,64 @@ class _Initial implements UpdateProfileState {
 /// @nodoc
 
 class _Loading implements UpdateProfileState {
-  const _Loading();
+  const _Loading({this.progress = 0});
+
+  @JsonKey()
+  final double progress;
+
+  /// Create a copy of UpdateProfileState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @pragma('vm:prefer-inline')
+  _$LoadingCopyWith<_Loading> get copyWith =>
+      __$LoadingCopyWithImpl<_Loading>(this, _$identity);
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _Loading);
+        (other.runtimeType == runtimeType &&
+            other is _Loading &&
+            (identical(other.progress, progress) ||
+                other.progress == progress));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, progress);
 
   @override
   String toString() {
-    return 'UpdateProfileState.loading()';
+    return 'UpdateProfileState.loading(progress: $progress)';
+  }
+}
+
+/// @nodoc
+abstract mixin class _$LoadingCopyWith<$Res>
+    implements $UpdateProfileStateCopyWith<$Res> {
+  factory _$LoadingCopyWith(_Loading value, $Res Function(_Loading) _then) =
+      __$LoadingCopyWithImpl;
+  @useResult
+  $Res call({double progress});
+}
+
+/// @nodoc
+class __$LoadingCopyWithImpl<$Res> implements _$LoadingCopyWith<$Res> {
+  __$LoadingCopyWithImpl(this._self, this._then);
+
+  final _Loading _self;
+  final $Res Function(_Loading) _then;
+
+  /// Create a copy of UpdateProfileState
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  $Res call({
+    Object? progress = null,
+  }) {
+    return _then(_Loading(
+      progress: null == progress
+          ? _self.progress
+          : progress // ignore: cast_nullable_to_non_nullable
+              as double,
+    ));
   }
 }
 
@@ -364,9 +408,10 @@ class __$SuccessCopyWithImpl<$Res> implements _$SuccessCopyWith<$Res> {
 /// @nodoc
 
 class _Failure implements UpdateProfileState {
-  const _Failure({required this.error});
+  const _Failure({required this.error, this.imageError});
 
   final String error;
+  final String? imageError;
 
   /// Create a copy of UpdateProfileState
   /// with the given fields replaced by the non-null parameter values.
@@ -380,15 +425,17 @@ class _Failure implements UpdateProfileState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _Failure &&
-            (identical(other.error, error) || other.error == error));
+            (identical(other.error, error) || other.error == error) &&
+            (identical(other.imageError, imageError) ||
+                other.imageError == imageError));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, error);
+  int get hashCode => Object.hash(runtimeType, error, imageError);
 
   @override
   String toString() {
-    return 'UpdateProfileState.failure(error: $error)';
+    return 'UpdateProfileState.failure(error: $error, imageError: $imageError)';
   }
 }
 
@@ -398,7 +445,7 @@ abstract mixin class _$FailureCopyWith<$Res>
   factory _$FailureCopyWith(_Failure value, $Res Function(_Failure) _then) =
       __$FailureCopyWithImpl;
   @useResult
-  $Res call({String error});
+  $Res call({String error, String? imageError});
 }
 
 /// @nodoc
@@ -413,12 +460,17 @@ class __$FailureCopyWithImpl<$Res> implements _$FailureCopyWith<$Res> {
   @pragma('vm:prefer-inline')
   $Res call({
     Object? error = null,
+    Object? imageError = freezed,
   }) {
     return _then(_Failure(
       error: null == error
           ? _self.error
           : error // ignore: cast_nullable_to_non_nullable
               as String,
+      imageError: freezed == imageError
+          ? _self.imageError
+          : imageError // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }

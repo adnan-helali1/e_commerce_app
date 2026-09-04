@@ -5,6 +5,7 @@ import 'package:B2B/app/features/catalog/data/models/catalog_models/catalog_item
 import 'package:B2B/app/features/catalog/ui/widgets/catalog_icons_and_actions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:B2B/app/core/widgets/app_network_image.dart';
 
 class CatalogProductCard extends StatelessWidget {
   final CatalogItem item;
@@ -159,17 +160,7 @@ class _ProductThumb extends StatelessWidget {
         borderRadius: BorderRadius.circular(6.r),
       ),
       clipBehavior: Clip.antiAlias,
-      child: imageUrl != null && imageUrl!.isNotEmpty
-          ? Image.network(
-              imageUrl!,
-              fit: BoxFit.cover,
-              errorBuilder: (_, __, ___) => Icon(
-                Icons.inventory_2_outlined,
-                color: iconColor,
-                size: 28.sp,
-              ),
-            )
-          : Icon(Icons.inventory_2_outlined, color: iconColor, size: 28.sp),
+      child: AppNetworkImage(imageUrl: imageUrl),
     );
   }
 }

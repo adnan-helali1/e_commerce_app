@@ -18,6 +18,8 @@ import 'package:B2B/app/features/orders/logic/get_orders/orders_cubit.dart';
 import 'package:B2B/app/features/orders/ui/screens/purchase_orders_screen.dart';
 import 'package:B2B/app/features/stock/logic/get_stock/get_stock_cubit.dart';
 import 'package:B2B/app/features/stock/ui/screens/stock_screen.dart';
+import 'package:B2B/app/features/profile/logic/get_profile/profile_cubit.dart';
+import 'package:B2B/app/features/profile/logic/get_profile/profile_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:B2B/app/core/helpers/shared_pref_helper.dart';
@@ -58,6 +60,7 @@ class _MainLayoutState extends State<MainLayout> {
         BlocProvider(create: (_) => getIt<OrdersCubit>()),
         BlocProvider(create: (_) => getIt<LedgerCubit>()..load()),
         BlocProvider(create: (_) => getIt<GetStockCubit>()),
+        BlocProvider(create: (_) => getIt<ProfileCubit>()),
       ],
       child: Builder(
         builder: (context) => BlocListener<ConnectivityCubit, ConnectionStatus>(
@@ -65,53 +68,64 @@ class _MainLayoutState extends State<MainLayout> {
               previous == ConnectionStatus.disconnected &&
               current == ConnectionStatus.connected,
           listener: (context, _) => _refreshVisiblePage(context),
-          child: Scaffold(
-            appBar: B2bAppBar(
-              title: _storeName ?? context.l10n.storeFallbackTitle,
-              subtitle: _ownerName ?? '',
-            ),
-            extendBody: true,
-            body: PageView(
-              controller: cubit.pageController,
-              onPageChanged: cubit.onPageChanged,
-              physics: const BouncingScrollPhysics(),
-              children: const [
-                HomeScreen(),
-                OffersScreen(),
-                MyCatalogScreen(),
-                PurchaseOrdersScreen(),
-                LedgerScreen(),
-                InventoryOverviewScreen(),
-              ],
-            ),
-            bottomNavigationBar: AppBottomNavBar(
-              items: [
-                AppBottomNavItem(
-                  label: context.l10n.navHome,
-                  icon: Icons.home_rounded,
+          child: BlocBuilder<ProfileCubit, ProfileState>(
+            builder: (context, profileState) {
+              final profile = profileState.maybeWhen(
+                success: (response) => response.data,
+                orElse: () => null,
+              );
+              return Scaffold(
+                appBar: B2bAppBar(
+                  title: profile?.name ??
+                      _storeName ??
+                      context.l10n.storeFallbackTitle,
+                  subtitle: profile?.ownerName ?? _ownerName ?? '',
+                  imageUrl: profile?.imageUrl,
                 ),
-                AppBottomNavItem(
-                  label: context.l10n.navOffers,
-                  icon: Icons.inventory_2_outlined,
+                extendBody: true,
+                body: PageView(
+                  controller: cubit.pageController,
+                  onPageChanged: cubit.onPageChanged,
+                  physics: const BouncingScrollPhysics(),
+                  children: const [
+                    HomeScreen(),
+                    OffersScreen(),
+                    MyCatalogScreen(),
+                    PurchaseOrdersScreen(),
+                    LedgerScreen(),
+                    InventoryOverviewScreen(),
+                  ],
                 ),
-                AppBottomNavItem(
-                  label: context.l10n.navCatalog,
-                  icon: Icons.map_outlined,
+                bottomNavigationBar: AppBottomNavBar(
+                  items: [
+                    AppBottomNavItem(
+                      label: context.l10n.navHome,
+                      icon: Icons.home_rounded,
+                    ),
+                    AppBottomNavItem(
+                      label: context.l10n.navOffers,
+                      icon: Icons.inventory_2_outlined,
+                    ),
+                    AppBottomNavItem(
+                      label: context.l10n.navCatalog,
+                      icon: Icons.map_outlined,
+                    ),
+                    AppBottomNavItem(
+                      label: context.l10n.navOrders,
+                      icon: Icons.shopping_bag_outlined,
+                    ),
+                    AppBottomNavItem(
+                      label: context.l10n.navLedger,
+                      icon: Icons.description_outlined,
+                    ),
+                    AppBottomNavItem(
+                      label: context.l10n.navStock,
+                      icon: Icons.store_outlined,
+                    ),
+                  ],
                 ),
-                AppBottomNavItem(
-                  label: context.l10n.navOrders,
-                  icon: Icons.shopping_bag_outlined,
-                ),
-                AppBottomNavItem(
-                  label: context.l10n.navLedger,
-                  icon: Icons.description_outlined,
-                ),
-                AppBottomNavItem(
-                  label: context.l10n.navStock,
-                  icon: Icons.store_outlined,
-                ),
-              ],
-            ),
+              );
+            },
           ),
         ),
       ),

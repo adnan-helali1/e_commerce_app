@@ -62,6 +62,8 @@ import 'package:B2B/app/features/profile/data/repos/profile_repo_imp.dart';
 import 'package:B2B/app/features/profile/data/repos/update_profile_repo.dart';
 import 'package:B2B/app/features/profile/logic/get_profile/profile_cubit.dart';
 import 'package:B2B/app/features/profile/logic/update_profile/update_profile_cubit.dart';
+import 'package:B2B/app/features/products/data/data_sources/store_products_remote_data_source.dart';
+import 'package:B2B/app/features/products/data/repos/store_products_repo.dart';
 import 'package:B2B/app/features/stock/data/data_sources/add_stock_remote_data_source.dart';
 import 'package:B2B/app/features/stock/data/data_sources/get_stock_local_data_source.dart';
 import 'package:B2B/app/features/stock/data/data_sources/get_stock_remote_data_source.dart';
@@ -72,6 +74,7 @@ import 'package:B2B/app/features/stock/data/repos/get_stock/get_stock_repo_imp.d
 import 'package:B2B/app/features/stock/logic/add_stock/add_stock_cubit.dart';
 import 'package:B2B/app/features/stock/logic/get_stock/get_stock_cubit.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:dio/dio.dart';
 
 import 'package:get_it/get_it.dart';
 
@@ -99,6 +102,7 @@ Future<void> setupGetIt() async {
   getIt.registerSingleton<TokenStorage>(tokenStorage);
   getIt.registerSingleton<AuthSessionNotifier>(sessionNotifier);
   getIt.registerSingleton<AuthRepository>(authRepository);
+  getIt.registerSingleton<Dio>(dio);
   getIt.registerLazySingleton(() => ApiService(dio));
   getIt.registerLazySingleton(() => HiveService());
   getIt.registerLazySingleton(() => CacheDataSource<dynamic>(getIt()));
@@ -193,11 +197,14 @@ Future<void> setupGetIt() async {
   getIt.registerLazySingleton<ProfileRepo>(
       () => ProfileRepoImpl(getIt(), getIt()));
   getIt.registerLazySingleton(() => UpdateProfileRemoteDataSource(getIt()));
-  getIt.registerLazySingleton(() => UpdateProfileRepo(getIt()));
+  getIt.registerLazySingleton(() => UpdateProfileRepo(getIt(), getIt()));
 
   getIt.registerFactory(() => UpdateProfileCubit(getIt()));
 
   getIt.registerFactory(() => ProfileCubit(getIt()));
+
+  getIt.registerLazySingleton(() => StoreProductsRemoteDataSource(getIt()));
+  getIt.registerLazySingleton(() => StoreProductsRepo(getIt()));
 
   //ledger
   getIt.registerLazySingleton(() => LedgerRemoteDataSource(getIt()));

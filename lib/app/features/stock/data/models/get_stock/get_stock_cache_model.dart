@@ -178,6 +178,7 @@ class StockSupplierProductCacheModel {
   final DateTime? updatedAt;
   final StockSupplierCacheModel? supplier;
   final StockProductCacheModel? product;
+  final String? imageUrl;
 
   StockSupplierProductCacheModel({
     this.id,
@@ -190,6 +191,7 @@ class StockSupplierProductCacheModel {
     this.updatedAt,
     this.supplier,
     this.product,
+    this.imageUrl,
   });
 
   factory StockSupplierProductCacheModel.fromJson(Map<String, dynamic> json) =>
@@ -209,6 +211,7 @@ class StockSupplierProductCacheModel {
       updatedAt: model.updatedAt,
       supplier: StockSupplierCacheModel.fromResponse(model.supplier),
       product: StockProductCacheModel.fromResponse(model.product),
+      imageUrl: model.imageUrl,
     );
   }
 
@@ -224,6 +227,7 @@ class StockSupplierProductCacheModel {
       updatedAt: updatedAt!,
       supplier: supplier!.toResponse(),
       product: product!.toResponse(),
+      imageUrl: imageUrl,
     );
   }
 }
@@ -298,6 +302,7 @@ class StockProductCacheModel {
   final String? status;
   final DateTime? createdAt;
   final DateTime? updatedAt;
+  final String? imageUrl;
 
   StockProductCacheModel({
     this.id,
@@ -310,6 +315,7 @@ class StockProductCacheModel {
     this.status,
     this.createdAt,
     this.updatedAt,
+    this.imageUrl,
   });
 
   factory StockProductCacheModel.fromJson(Map<String, dynamic> json) =>
@@ -329,6 +335,7 @@ class StockProductCacheModel {
       status: p.status,
       createdAt: p.createdAt,
       updatedAt: p.updatedAt,
+      imageUrl: p.imageUrl,
     );
   }
 
@@ -344,6 +351,7 @@ class StockProductCacheModel {
       status: status!,
       createdAt: createdAt!,
       updatedAt: updatedAt!,
+      imageUrl: imageUrl,
     );
   }
 }

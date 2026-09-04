@@ -17,6 +17,23 @@ class RegisterResponse {
 
 @JsonSerializable()
 class RegisterUserData {
+  String? token;
+  @JsonKey(name: 'token_type')
+  String? tokenType;
+  RegisterStoreData? store;
+
+  RegisterUserData({
+    this.token,
+    this.tokenType,
+    this.store,
+  });
+
+  factory RegisterUserData.fromJson(Map<String, dynamic> json) =>
+      _$RegisterUserDataFromJson(json);
+}
+
+@JsonSerializable()
+class RegisterStoreData {
   int? id;
   String? name;
   String? email;
@@ -24,21 +41,19 @@ class RegisterUserData {
   String? address;
   @JsonKey(name: 'owner_name')
   String? ownerName;
-  String? token;
-  @JsonKey(name: 'token_type')
-  String? tokenType;
+  @JsonKey(name: 'image_url')
+  String? imageUrl;
 
-  RegisterUserData({
+  RegisterStoreData({
     this.id,
     this.name,
     this.email,
     this.phone,
     this.address,
     this.ownerName,
-    this.token,
-    this.tokenType,
+    this.imageUrl,
   });
 
-  factory RegisterUserData.fromJson(Map<String, dynamic> json) =>
-      _$RegisterUserDataFromJson(json);
+  factory RegisterStoreData.fromJson(Map<String, dynamic> json) =>
+      _$RegisterStoreDataFromJson(json);
 }

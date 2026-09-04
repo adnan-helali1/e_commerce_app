@@ -8,15 +8,19 @@ import 'package:B2B/app/core/theme/theme_mode_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:B2B/app/core/widgets/app_network_image.dart';
+import 'package:B2B/app/features/profile/logic/get_profile/profile_cubit.dart';
 
 class B2bAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final String subtitle;
+  final String? imageUrl;
 
   const B2bAppBar({
     super.key,
     required this.title,
     required this.subtitle,
+    this.imageUrl,
   });
 
   @override
@@ -40,14 +44,19 @@ class B2bAppBar extends StatelessWidget implements PreferredSizeWidget {
               color: cs.primary,
               shape: BoxShape.circle,
             ),
-            child:
-                Icon(Icons.fire_truck_outlined, color: cs.onPrimary, size: 20),
+            clipBehavior: Clip.antiAlias,
+            child: AppNetworkImage(
+              imageUrl: imageUrl,
+              placeholderIcon: Icons.store_outlined,
+            ),
           ),
           horizontalSpace(10),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(title, style: TextStyles.font18blackBold(context)),
+              if (subtitle.isNotEmpty)
+                Text(subtitle, style: TextStyles.note(context)),
             ],
           ),
         ],
@@ -78,7 +87,12 @@ class B2bAppBar extends StatelessWidget implements PreferredSizeWidget {
       actions: [
         IconButton(
           icon: Icon(Icons.settings, color: cs.primary),
-          onPressed: () => context.pushNamed(Routes.profileScreen),
+          onPressed: () async {
+            await context.pushNamed(Routes.profileScreen);
+            if (context.mounted) {
+              await context.read<ProfileCubit>().refresh();
+            }
+          },
         ),
         IconButton(
           icon: Icon(

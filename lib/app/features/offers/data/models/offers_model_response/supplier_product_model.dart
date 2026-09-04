@@ -15,6 +15,7 @@ abstract class SupplierProduct with _$SupplierProduct {
     required String status,
     required Supplier supplier,
     required Product product,
+    @JsonKey(name: 'image_url') String? imageUrl,
     @JsonKey(name: 'created_at') required DateTime createdAt,
     @JsonKey(name: 'updated_at') required DateTime updatedAt,
   }) = _SupplierProduct;

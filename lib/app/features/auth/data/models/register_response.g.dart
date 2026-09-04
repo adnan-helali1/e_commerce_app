@@ -24,17 +24,32 @@ Map<String, dynamic> _$RegisterResponseToJson(RegisterResponse instance) =>
 
 RegisterUserData _$RegisterUserDataFromJson(Map<String, dynamic> json) =>
     RegisterUserData(
+      token: json['token'] as String?,
+      tokenType: json['token_type'] as String?,
+      store: json['store'] == null
+          ? null
+          : RegisterStoreData.fromJson(json['store'] as Map<String, dynamic>),
+    );
+
+Map<String, dynamic> _$RegisterUserDataToJson(RegisterUserData instance) =>
+    <String, dynamic>{
+      'token': instance.token,
+      'token_type': instance.tokenType,
+      'store': instance.store,
+    };
+
+RegisterStoreData _$RegisterStoreDataFromJson(Map<String, dynamic> json) =>
+    RegisterStoreData(
       id: (json['id'] as num?)?.toInt(),
       name: json['name'] as String?,
       email: json['email'] as String?,
       phone: json['phone'] as String?,
       address: json['address'] as String?,
       ownerName: json['owner_name'] as String?,
-      token: json['token'] as String?,
-      tokenType: json['token_type'] as String?,
+      imageUrl: json['image_url'] as String?,
     );
 
-Map<String, dynamic> _$RegisterUserDataToJson(RegisterUserData instance) =>
+Map<String, dynamic> _$RegisterStoreDataToJson(RegisterStoreData instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
@@ -42,6 +57,5 @@ Map<String, dynamic> _$RegisterUserDataToJson(RegisterUserData instance) =>
       'phone': instance.phone,
       'address': instance.address,
       'owner_name': instance.ownerName,
-      'token': instance.token,
-      'token_type': instance.tokenType,
+      'image_url': instance.imageUrl,
     };

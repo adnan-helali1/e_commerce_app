@@ -85,6 +85,7 @@ _SupplierProduct _$SupplierProductFromJson(Map<String, dynamic> json) =>
       updatedAt: DateTime.parse(json['updated_at'] as String),
       supplier: Supplier.fromJson(json['supplier'] as Map<String, dynamic>),
       product: Product.fromJson(json['product'] as Map<String, dynamic>),
+      imageUrl: json['image_url'] as String?,
     );
 
 Map<String, dynamic> _$SupplierProductToJson(_SupplierProduct instance) =>
@@ -99,6 +100,7 @@ Map<String, dynamic> _$SupplierProductToJson(_SupplierProduct instance) =>
       'updated_at': instance.updatedAt.toIso8601String(),
       'supplier': instance.supplier,
       'product': instance.product,
+      'image_url': instance.imageUrl,
     };
 
 _Supplier _$SupplierFromJson(Map<String, dynamic> json) => _Supplier(
@@ -132,6 +134,7 @@ _Product _$ProductFromJson(Map<String, dynamic> json) => _Product(
       buyPrice: json['buy_price'] as String,
       stockQuantity: (json['stock_quantity'] as num).toInt(),
       status: json['status'] as String,
+      imageUrl: json['image_url'] as String?,
       createdAt: DateTime.parse(json['created_at'] as String),
       updatedAt: DateTime.parse(json['updated_at'] as String),
     );
@@ -145,6 +148,7 @@ Map<String, dynamic> _$ProductToJson(_Product instance) => <String, dynamic>{
       'buy_price': instance.buyPrice,
       'stock_quantity': instance.stockQuantity,
       'status': instance.status,
+      'image_url': instance.imageUrl,
       'created_at': instance.createdAt.toIso8601String(),
       'updated_at': instance.updatedAt.toIso8601String(),
     };

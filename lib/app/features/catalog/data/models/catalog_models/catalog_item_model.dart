@@ -18,6 +18,7 @@ abstract class CatalogItem with _$CatalogItem {
     @JsonKey(name: 'total_profit') required double totalProfit,
     @JsonKey(name: 'is_active') required bool isActive,
     @JsonKey(name: 'image_url') String? imageUrl,
+    @JsonKey(name: 'category_image_url') String? categoryImageUrl,
   }) = _CatalogItem;
 
   factory CatalogItem.fromJson(Map<String, dynamic> json) =>

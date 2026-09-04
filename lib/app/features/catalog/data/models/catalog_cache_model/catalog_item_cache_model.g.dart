@@ -20,6 +20,7 @@ CatalogItemCacheModel _$CatalogItemCacheModelFromJson(
       totalProfit: (json['totalProfit'] as num).toDouble(),
       isActive: json['isActive'] as bool,
       imageUrl: json['imageUrl'] as String?,
+      categoryImageUrl: json['categoryImageUrl'] as String?,
     );
 
 Map<String, dynamic> _$CatalogItemCacheModelToJson(
@@ -36,4 +37,5 @@ Map<String, dynamic> _$CatalogItemCacheModelToJson(
       'totalProfit': instance.totalProfit,
       'isActive': instance.isActive,
       'imageUrl': instance.imageUrl,
+      'categoryImageUrl': instance.categoryImageUrl,
     };

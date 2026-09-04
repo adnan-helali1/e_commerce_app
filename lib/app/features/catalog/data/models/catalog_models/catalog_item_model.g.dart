@@ -19,6 +19,7 @@ _CatalogItem _$CatalogItemFromJson(Map<String, dynamic> json) => _CatalogItem(
       totalProfit: (json['total_profit'] as num).toDouble(),
       isActive: json['is_active'] as bool,
       imageUrl: json['image_url'] as String?,
+      categoryImageUrl: json['category_image_url'] as String?,
     );
 
 Map<String, dynamic> _$CatalogItemToJson(_CatalogItem instance) =>
@@ -35,4 +36,5 @@ Map<String, dynamic> _$CatalogItemToJson(_CatalogItem instance) =>
       'total_profit': instance.totalProfit,
       'is_active': instance.isActive,
       'image_url': instance.imageUrl,
+      'category_image_url': instance.categoryImageUrl,
     };

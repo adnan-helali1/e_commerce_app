@@ -7,7 +7,10 @@ part 'register_state.freezed.dart';
 class RegisterState with _$RegisterState {
   const factory RegisterState.initial({@Default(false) bool isFormValid}) =
       _Initial;
-  const factory RegisterState.loading() = _Loading;
+  const factory RegisterState.loading({@Default(0) double progress}) = _Loading;
   const factory RegisterState.success(RegisterResponse response) = _Success;
-  const factory RegisterState.failure({required String error}) = _Failure;
+  const factory RegisterState.failure({
+    required String error,
+    String? imageError,
+  }) = _Failure;
 }

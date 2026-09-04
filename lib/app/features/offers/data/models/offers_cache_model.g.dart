@@ -49,6 +49,7 @@ OfferCacheData _$OfferCacheDataFromJson(Map<String, dynamic> json) =>
       updatedAt: json['updatedAt'] == null
           ? null
           : DateTime.parse(json['updatedAt'] as String),
+      imageUrl: json['imageUrl'] as String?,
       supplierProduct: json['supplierProduct'] == null
           ? null
           : SupplierProductCacheModel.fromJson(
@@ -65,6 +66,7 @@ Map<String, dynamic> _$OfferCacheDataToJson(OfferCacheData instance) =>
       'expiresAt': instance.expiresAt?.toIso8601String(),
       'createdAt': instance.createdAt?.toIso8601String(),
       'updatedAt': instance.updatedAt?.toIso8601String(),
+      'imageUrl': instance.imageUrl,
       'supplierProduct': instance.supplierProduct?.toJson(),
     };
 
@@ -90,6 +92,7 @@ SupplierProductCacheModel _$SupplierProductCacheModelFromJson(
       updatedAt: json['updatedAt'] == null
           ? null
           : DateTime.parse(json['updatedAt'] as String),
+      imageUrl: json['imageUrl'] as String?,
     );
 
 Map<String, dynamic> _$SupplierProductCacheModelToJson(
@@ -105,6 +108,7 @@ Map<String, dynamic> _$SupplierProductCacheModelToJson(
       'product': instance.product?.toJson(),
       'createdAt': instance.createdAt?.toIso8601String(),
       'updatedAt': instance.updatedAt?.toIso8601String(),
+      'imageUrl': instance.imageUrl,
     };
 
 SupplierCacheModel _$SupplierCacheModelFromJson(Map<String, dynamic> json) =>
@@ -155,6 +159,7 @@ ProductCacheModel _$ProductCacheModelFromJson(Map<String, dynamic> json) =>
       updatedAt: json['updatedAt'] == null
           ? null
           : DateTime.parse(json['updatedAt'] as String),
+      imageUrl: json['imageUrl'] as String?,
     );
 
 Map<String, dynamic> _$ProductCacheModelToJson(ProductCacheModel instance) =>
@@ -170,6 +175,7 @@ Map<String, dynamic> _$ProductCacheModelToJson(ProductCacheModel instance) =>
       'category': instance.category?.toJson(),
       'createdAt': instance.createdAt?.toIso8601String(),
       'updatedAt': instance.updatedAt?.toIso8601String(),
+      'imageUrl': instance.imageUrl,
     };
 
 CategoryCacheModel _$CategoryCacheModelFromJson(Map<String, dynamic> json) =>

@@ -14,6 +14,7 @@ abstract class OfferData with _$OfferData {
     @JsonKey(name: 'expires_at') required DateTime expiresAt,
     @JsonKey(name: 'created_at') required DateTime createdAt,
     @JsonKey(name: 'updated_at') required DateTime updatedAt,
+    @JsonKey(name: 'image_url') String? imageUrl,
     @JsonKey(name: 'supplier_product') required SupplierProduct supplierProduct,
   }) = _OfferData;
 

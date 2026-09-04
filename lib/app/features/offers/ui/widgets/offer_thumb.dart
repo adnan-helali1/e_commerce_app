@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:B2B/app/core/helpers/extensions.dart';
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:B2B/app/core/widgets/app_network_image.dart';
 
 class OfferThumb extends StatelessWidget {
-  const OfferThumb();
+  const OfferThumb({super.key, this.imageUrl});
+
+  final String? imageUrl;
 
   @override
   Widget build(BuildContext context) {
@@ -16,10 +19,10 @@ class OfferThumb extends StatelessWidget {
         color: context.cs.surfaceContainerHighest.withValues(alpha: 0.72),
         borderRadius: BorderRadius.circular(6.r),
       ),
-      child: Icon(
-        Icons.inventory_2_outlined,
-        color: context.cs.onSurfaceVariant,
-        size: 30.sp,
+      clipBehavior: Clip.antiAlias,
+      child: AppNetworkImage(
+        imageUrl: imageUrl,
+        borderRadius: BorderRadius.circular(6.r),
       ),
     );
   }

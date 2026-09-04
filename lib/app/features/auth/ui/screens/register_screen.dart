@@ -48,7 +48,7 @@ class RegisterScreen extends StatelessWidget {
                           context.pushReplacementNamed(Routes.loginscreen);
                         });
                       },
-                      failure: (error) {
+                      failure: (error, _) {
                         // Error
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
@@ -62,7 +62,7 @@ class RegisterScreen extends StatelessWidget {
                   child: BlocBuilder<RegisterCubit, RegisterState>(
                     builder: (context, state) {
                       final isLoading = state.maybeWhen(
-                        loading: () => true,
+                        loading: (_) => true,
                         orElse: () => false,
                       );
                       return LoadingOverlay(

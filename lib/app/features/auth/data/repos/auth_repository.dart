@@ -49,10 +49,14 @@ class AuthRepository {
     return loginResponse;
   }
 
-  Future<RegisterResponse> register(RegisterRequestBody request) async {
+  Future<RegisterResponse> register(
+    RegisterRequestBody request, {
+    ProgressCallback? onSendProgress,
+  }) async {
     final response = await _apiDio.post<Map<String, dynamic>>(
       ApiConstants.register,
-      data: request.toJson(),
+      data: await request.toFormData(),
+      onSendProgress: onSendProgress,
     );
     return RegisterResponse.fromJson(response.data!);
   }

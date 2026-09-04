@@ -4,6 +4,7 @@ import 'package:B2B/app/core/widgets/app_summary_header.dart';
 import 'package:B2B/app/features/profile/data/models/get_profile_response.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:B2B/app/core/widgets/app_network_image.dart';
 
 class ProfileHeader extends StatelessWidget {
   final GetProfileResponse profile;
@@ -24,8 +25,14 @@ class ProfileHeader extends StatelessWidget {
           CircleAvatar(
             radius: 40.r,
             backgroundColor: context.cs.onPrimary.withOpacity(0.2),
-            child: Icon(Icons.store_outlined,
-                color: context.cs.onPrimary, size: 60.sp),
+            child: ClipOval(
+              child: SizedBox.expand(
+                child: AppNetworkImage(
+                  imageUrl: profile.data.imageUrl,
+                  placeholderIcon: Icons.store_outlined,
+                ),
+              ),
+            ),
           ),
           horizontalSpace(12),
           Expanded(

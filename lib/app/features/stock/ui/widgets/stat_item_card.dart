@@ -6,6 +6,7 @@ import 'package:B2B/app/features/stock/data/models/stock_ui_models.dart';
 import 'package:B2B/app/features/stock/ui/widgets/stock_action_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:B2B/app/core/widgets/app_network_image.dart';
 
 class InventoryItemCard extends StatelessWidget {
   final InventoryItem item;
@@ -48,17 +49,12 @@ class InventoryItemCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Icon container
-              Container(
+              SizedBox(
                 width: 46,
                 height: 46,
-                decoration: BoxDecoration(
-                  color: context.cs.primary.withOpacity(0.9),
+                child: AppNetworkImage(
+                  imageUrl: item.imageUrl,
                   borderRadius: BorderRadius.circular(10),
-                ),
-                child: Icon(
-                  Icons.inventory_2_outlined,
-                  color: context.cs.surface.withOpacity(0.8),
-                  size: 27,
                 ),
               ),
               horizontalSpace(12),

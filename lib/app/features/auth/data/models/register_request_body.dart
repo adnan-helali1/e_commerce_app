@@ -1,18 +1,15 @@
-import 'package:json_annotation/json_annotation.dart';
+import 'package:B2B/app/core/images/selected_image.dart';
+import 'package:dio/dio.dart';
 
-part 'register_request_body.g.dart';
-
-@JsonSerializable()
 class RegisterRequestBody {
   final String name; // Store name
-  @JsonKey(name: 'owner_name')
   final String ownerName;
   final String email;
   final String phone;
   final String password;
-  @JsonKey(name: 'password_confirmation')
   final String passwordConfirmation;
   final String address;
+  final SelectedImage image;
 
   RegisterRequestBody({
     required this.name,
@@ -22,7 +19,17 @@ class RegisterRequestBody {
     required this.password,
     required this.passwordConfirmation,
     required this.address,
+    required this.image,
   });
 
-  Map<String, dynamic> toJson() => _$RegisterRequestBodyToJson(this);
+  Future<FormData> toFormData() async => FormData.fromMap({
+        'name': name,
+        'owner_name': ownerName,
+        'email': email,
+        'phone': phone,
+        'password': password,
+        'password_confirmation': passwordConfirmation,
+        'address': address,
+        'image': await image.toMultipartFile(),
+      });
 }

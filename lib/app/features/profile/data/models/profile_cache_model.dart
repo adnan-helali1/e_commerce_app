@@ -55,6 +55,7 @@ class ProfileCacheData {
   final String? email;
   final String? address;
   final String? status;
+  final String? imageUrl;
   final DateTime? createdAt;
   final DateTime? updatedAt;
 
@@ -66,6 +67,7 @@ class ProfileCacheData {
     this.email,
     this.address,
     this.status,
+    this.imageUrl,
     this.createdAt,
     this.updatedAt,
   });
@@ -88,6 +90,7 @@ class ProfileCacheData {
       email: profile.email,
       address: profile.address,
       status: profile.status,
+      imageUrl: profile.imageUrl,
       createdAt: profile.createdAt,
       updatedAt: profile.updatedAt,
     );
@@ -102,6 +105,7 @@ class ProfileCacheData {
       email: email!,
       address: address!,
       status: status!,
+      imageUrl: imageUrl,
       createdAt: createdAt!,
       updatedAt: updatedAt!,
     );

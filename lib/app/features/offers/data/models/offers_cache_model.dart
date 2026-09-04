@@ -70,6 +70,7 @@ class OfferCacheData {
   final DateTime? expiresAt;
   final DateTime? createdAt;
   final DateTime? updatedAt;
+  final String? imageUrl;
   final SupplierProductCacheModel? supplierProduct;
 
   OfferCacheData({
@@ -81,6 +82,7 @@ class OfferCacheData {
     this.expiresAt,
     this.createdAt,
     this.updatedAt,
+    this.imageUrl,
     this.supplierProduct,
   });
 
@@ -99,6 +101,7 @@ class OfferCacheData {
       expiresAt: data.expiresAt,
       createdAt: data.createdAt,
       updatedAt: data.updatedAt,
+      imageUrl: data.imageUrl,
       supplierProduct:
           SupplierProductCacheModel.fromResponse(data.supplierProduct),
     );
@@ -114,6 +117,7 @@ class OfferCacheData {
       expiresAt: expiresAt!,
       createdAt: createdAt!,
       updatedAt: updatedAt!,
+      imageUrl: imageUrl,
       supplierProduct: supplierProduct!.toResponse(),
     );
   }
@@ -131,6 +135,7 @@ class SupplierProductCacheModel {
   final ProductCacheModel? product;
   final DateTime? createdAt;
   final DateTime? updatedAt;
+  final String? imageUrl;
 
   SupplierProductCacheModel({
     this.id,
@@ -143,6 +148,7 @@ class SupplierProductCacheModel {
     this.product,
     this.createdAt,
     this.updatedAt,
+    this.imageUrl,
   });
 
   factory SupplierProductCacheModel.fromJson(Map<String, dynamic> json) =>
@@ -162,6 +168,7 @@ class SupplierProductCacheModel {
       product: ProductCacheModel.fromResponse(model.product),
       createdAt: model.createdAt,
       updatedAt: model.updatedAt,
+      imageUrl: model.imageUrl,
     );
   }
 
@@ -177,6 +184,7 @@ class SupplierProductCacheModel {
       product: product!.toResponse(),
       createdAt: createdAt!,
       updatedAt: updatedAt!,
+      imageUrl: imageUrl,
     );
   }
 }
@@ -248,6 +256,7 @@ class ProductCacheModel {
   final CategoryCacheModel? category;
   final DateTime? createdAt;
   final DateTime? updatedAt;
+  final String? imageUrl;
 
   ProductCacheModel({
     this.id,
@@ -261,6 +270,7 @@ class ProductCacheModel {
     this.category,
     this.createdAt,
     this.updatedAt,
+    this.imageUrl,
   });
 
   factory ProductCacheModel.fromJson(Map<String, dynamic> json) =>
@@ -281,6 +291,7 @@ class ProductCacheModel {
       category: CategoryCacheModel.fromResponse(p.category),
       createdAt: p.createdAt,
       updatedAt: p.updatedAt,
+      imageUrl: p.imageUrl,
     );
   }
 
@@ -297,6 +308,7 @@ class ProductCacheModel {
       category: category!.toResponse(),
       createdAt: createdAt!,
       updatedAt: updatedAt!,
+      imageUrl: imageUrl,
     );
   }
 }
