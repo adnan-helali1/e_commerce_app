@@ -747,6 +747,9 @@ class AppLocalizationsNl extends AppLocalizations {
   String get catalogItemUpdatedSuccess => 'Catalogusartikel is bijgewerkt';
 
   @override
+  String get catalogItemDeletedSuccess => 'Catalogusartikel is verwijderd';
+
+  @override
   String get supplierOffers => 'Leveranciersaanbiedingen';
 
   @override

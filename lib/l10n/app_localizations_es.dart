@@ -751,6 +751,10 @@ class AppLocalizationsEs extends AppLocalizations {
       'Artículo del catálogo actualizado correctamente';
 
   @override
+  String get catalogItemDeletedSuccess =>
+      'Artículo del catálogo eliminado correctamente';
+
+  @override
   String get supplierOffers => 'Ofertas de proveedores';
 
   @override

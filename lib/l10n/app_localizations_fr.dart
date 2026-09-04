@@ -755,6 +755,10 @@ class AppLocalizationsFr extends AppLocalizations {
       'Article du catalogue mis à jour avec succès';
 
   @override
+  String get catalogItemDeletedSuccess =>
+      'Article du catalogue supprimé avec succès';
+
+  @override
   String get supplierOffers => 'Offres des fournisseurs';
 
   @override

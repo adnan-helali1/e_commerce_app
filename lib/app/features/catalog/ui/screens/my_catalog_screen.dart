@@ -3,6 +3,7 @@ import 'package:B2B/app/core/helpers/extensions.dart';
 import 'package:B2B/app/core/helpers/spacing.dart';
 import 'package:B2B/app/core/widgets/app_shimer.dart';
 import 'package:B2B/app/features/catalog/logic/catalog_action_cubit/catalog_action_cubit.dart';
+import 'package:B2B/app/features/catalog/logic/catalog_action_cubit/catalog_action_state.dart';
 import 'package:B2B/app/features/catalog/logic/catalog_cubit/catalog_cubit.dart';
 import 'package:B2B/app/features/catalog/logic/catalog_ui_cubit/catalog_ui_cubit.dart';
 import 'package:B2B/app/features/catalog/logic/catalog_ui_cubit/catalog_ui_state.dart';

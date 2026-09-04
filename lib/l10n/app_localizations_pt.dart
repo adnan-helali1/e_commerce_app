@@ -746,6 +746,10 @@ class AppLocalizationsPt extends AppLocalizations {
       'Item do catálogo atualizado com sucesso';
 
   @override
+  String get catalogItemDeletedSuccess =>
+      'Item do catálogo eliminado com sucesso';
+
+  @override
   String get supplierOffers => 'Ofertas de fornecedores';
 
   @override

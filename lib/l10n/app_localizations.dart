@@ -1472,6 +1472,12 @@ abstract class AppLocalizations {
   /// **'Catalog item updated successfully'**
   String get catalogItemUpdatedSuccess;
 
+  /// No description provided for @catalogItemDeletedSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Catalog item deleted successfully'**
+  String get catalogItemDeletedSuccess;
+
   /// No description provided for @supplierOffers.
   ///
   /// In en, this message translates to:

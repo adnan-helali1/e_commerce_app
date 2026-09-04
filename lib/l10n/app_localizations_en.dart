@@ -742,6 +742,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get catalogItemUpdatedSuccess => 'Catalog item updated successfully';
 
   @override
+  String get catalogItemDeletedSuccess => 'Catalog item deleted successfully';
+
+  @override
   String get supplierOffers => 'Supplier Offers';
 
   @override

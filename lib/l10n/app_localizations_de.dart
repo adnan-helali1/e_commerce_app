@@ -754,6 +754,9 @@ class AppLocalizationsDe extends AppLocalizations {
       'Katalogartikel erfolgreich aktualisiert';
 
   @override
+  String get catalogItemDeletedSuccess => 'Katalogartikel erfolgreich gelöscht';
+
+  @override
   String get supplierOffers => 'Lieferantenangebote';
 
   @override

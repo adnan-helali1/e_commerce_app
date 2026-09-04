@@ -745,6 +745,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get catalogItemUpdatedSuccess => 'Позиция каталога успешно обновлена';
 
   @override
+  String get catalogItemDeletedSuccess => 'Позиция каталога успешно удалена';
+
+  @override
   String get supplierOffers => 'Предложения поставщиков';
 
   @override

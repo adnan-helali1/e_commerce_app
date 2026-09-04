@@ -742,6 +742,9 @@ class AppLocalizationsTr extends AppLocalizations {
   String get catalogItemUpdatedSuccess => 'Katalog öğesi başarıyla güncellendi';
 
   @override
+  String get catalogItemDeletedSuccess => 'Katalog öğesi başarıyla silindi';
+
+  @override
   String get supplierOffers => 'Tedarikçi Teklifleri';
 
   @override
