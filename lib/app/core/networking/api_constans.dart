@@ -2,6 +2,7 @@ class ApiConstants {
   static const String apiBaseUrl = "http://192.168.100.22:8000/api/store/";
   static const String login = 'login';
   static const String register = 'register';
+  static const String refresh = 'refresh';
   static const String logout = 'logout';
   static const String homeDashboard = 'dashboard';
   static const String offers = 'offers';

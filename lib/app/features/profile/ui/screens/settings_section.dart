@@ -63,20 +63,10 @@ class SettingsScreen extends StatelessWidget {
                   );
                 },
               ),
-              SettingsTile(
-                icon: Icons.notifications_none,
-                title: l10n.notifications,
-                subtitle: l10n.manageAlertsAndUpdates,
-                badge: 3,
-                backgroundIconColor: context.cs.secondary.withOpacity(0.3),
-                iconColor: context.cs.secondary,
-                onTap: () {},
-              ),
               SettingsTile.switchTile(
                 icon: Icons.dark_mode_outlined,
                 title: l10n.appearance,
-                subtitle:
-                    isDark ? l10n.darkModeEnabled : l10n.lightModeEnabled,
+                subtitle: isDark ? l10n.darkModeEnabled : l10n.lightModeEnabled,
                 backgroundIconColor: context.appColors.warning.withOpacity(0.3),
                 iconColor: context.appColors.warning,
                 onChanged: (v) {

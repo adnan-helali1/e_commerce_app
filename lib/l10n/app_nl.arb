@@ -292,5 +292,7 @@
   "langDutch": "Nederlands",
   "langPortuguese": "Português",
   "langRussian": "Русский",
-  "langTurkish": "Türkçe"
+  "langTurkish": "Türkçe",
+  "offlineCachedDataMessage": "Je bent offline. We blijven je opgeslagen gegevens tonen.",
+  "connectionRestoredMessage": "Je bent weer online. De nieuwste gegevens worden geladen."
 }

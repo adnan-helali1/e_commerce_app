@@ -1,10 +1,15 @@
 import 'package:B2B/app/core/cache/cache_data_source.dart';
 import 'package:B2B/app/core/networking/api_service.dart';
+import 'package:B2B/app/core/networking/auth_interceptor.dart';
 import 'package:B2B/app/core/cache/hive_service.dart';
 import 'package:B2B/app/core/networking/dio_factory.dart';
 import 'package:B2B/app/core/pdf_services/pdf_export_service.dart';
 import 'package:B2B/app/features/auth/data/repos/login_repo.dart';
 import 'package:B2B/app/features/auth/data/repos/register_repo.dart';
+import 'package:B2B/app/features/auth/data/auth_session_notifier.dart';
+import 'package:B2B/app/features/auth/data/repos/auth_repository.dart';
+import 'package:B2B/app/features/auth/data/storage/token_storage.dart';
+import 'package:B2B/app/features/auth/logic/auth_cubit.dart';
 import 'package:B2B/app/features/auth/logic/login/login_cubit.dart';
 import 'package:B2B/app/features/auth/logic/register/register_cubit.dart';
 import 'package:B2B/app/features/catalog/data/data_sources/get_catalog/catalog_local_data_source.dart';
@@ -76,9 +81,25 @@ final getIt = GetIt.instance;
 Future<void> setupGetIt() async {
   await Hive.initFlutter();
 
-  final dio = await DioFactory.getDio();
+  final dio = DioFactory.createDio();
+  final refreshDio = DioFactory.createDio();
+  final retryDio = DioFactory.createDio();
+  final tokenStorage = SecureTokenStorage();
+  final sessionNotifier = AuthSessionNotifier();
+  final authRepository = AuthRepository(
+    apiDio: dio,
+    refreshDio: refreshDio,
+    tokenStorage: tokenStorage,
+    sessionNotifier: sessionNotifier,
+  );
+  dio.interceptors.add(
+    AuthInterceptor(retryDio: retryDio, authRepository: authRepository),
+  );
 
   // Core
+  getIt.registerSingleton<TokenStorage>(tokenStorage);
+  getIt.registerSingleton<AuthSessionNotifier>(sessionNotifier);
+  getIt.registerSingleton<AuthRepository>(authRepository);
   getIt.registerLazySingleton(() => ApiService(dio));
   getIt.registerLazySingleton(() => HiveService());
   getIt.registerLazySingleton(() => CacheDataSource<dynamic>(getIt()));
@@ -90,6 +111,7 @@ Future<void> setupGetIt() async {
   );
 
   // Auth
+  getIt.registerLazySingleton(() => AuthCubit(getIt(), getIt()));
   getIt.registerLazySingleton(() => LoginRepo(getIt()));
   getIt.registerFactory(() => LoginCubit(getIt()));
 

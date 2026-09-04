@@ -1,5 +1,4 @@
 import 'package:B2B/app/core/helpers/extensions.dart';
-import 'package:B2B/app/core/routing/routes.dart';
 import 'package:B2B/app/core/widgets/loading_overlay.dart';
 import 'package:B2B/app/features/auth/logic/login/login_state.dart';
 import 'package:B2B/app/features/auth/logic/login/login_cubit.dart';
@@ -52,12 +51,6 @@ class LoginScreen extends StatelessWidget {
                               duration: Duration(seconds: 2),
                             ),
                           );
-                          Future.delayed(const Duration(seconds: 2), () {
-                            context.pushNamedAndRemoveUntil(
-                              Routes.homescreen,
-                              predicate: (route) => false,
-                            );
-                          });
                         },
                         failure: (error) {
                           // Error

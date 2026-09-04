@@ -961,4 +961,12 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get langTurkish => 'Türkçe';
+
+  @override
+  String get offlineCachedDataMessage =>
+      'Нет подключения. Мы продолжим показывать сохранённые данные.';
+
+  @override
+  String get connectionRestoredMessage =>
+      'Подключение восстановлено. Обновляем последние данные.';
 }

@@ -970,4 +970,12 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get langTurkish => 'Türkçe';
+
+  @override
+  String get offlineCachedDataMessage =>
+      'Du bist offline. Wir zeigen weiterhin deine gespeicherten Daten.';
+
+  @override
+  String get connectionRestoredMessage =>
+      'Du bist wieder online. Die neuesten Daten werden geladen.';
 }

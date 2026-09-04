@@ -292,5 +292,7 @@
   "langDutch": "Nederlands",
   "langPortuguese": "Português",
   "langRussian": "Русский",
-  "langTurkish": "Türkçe"
+  "langTurkish": "Türkçe",
+  "offlineCachedDataMessage": "Vous êtes hors ligne. Nous continuons d’afficher vos données enregistrées.",
+  "connectionRestoredMessage": "Vous êtes de nouveau en ligne. Actualisation des dernières données."
 }

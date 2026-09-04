@@ -292,5 +292,7 @@
   "langDutch": "Nederlands",
   "langPortuguese": "Português",
   "langRussian": "Русский",
-  "langTurkish": "Türkçe"
+  "langTurkish": "Türkçe",
+  "offlineCachedDataMessage": "No tienes conexión. Seguiremos mostrando tus datos guardados.",
+  "connectionRestoredMessage": "Has recuperado la conexión. Actualizando los datos más recientes."
 }

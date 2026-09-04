@@ -7,6 +7,7 @@ import 'package:B2B/app/features/auth/logic/register/register_cubit.dart';
 import 'package:B2B/app/features/auth/ui/screens/register_screen.dart';
 import 'package:B2B/app/features/auth/ui/screens/loginscreen.dart';
 import 'package:B2B/app/features/auth/ui/screens/forgotpasswordscreen.dart';
+import 'package:B2B/app/features/auth/ui/screens/auth_splash_screen.dart';
 import 'package:B2B/app/features/catalog/logic/catalog_cubit/catalog_cubit.dart';
 import 'package:B2B/app/features/catalog/ui/screens/my_catalog_screen.dart';
 import 'package:B2B/app/features/ledger/ui/screens/ledger_screen.dart';
@@ -26,6 +27,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class AppRouter {
   Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
+      case Routes.authSplash:
+        return MaterialPageRoute(
+          builder: (_) => const AuthSplashScreen(),
+        );
       case Routes.loginscreen:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(

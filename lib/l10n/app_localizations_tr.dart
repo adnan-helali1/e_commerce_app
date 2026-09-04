@@ -957,4 +957,12 @@ class AppLocalizationsTr extends AppLocalizations {
 
   @override
   String get langTurkish => 'Türkçe';
+
+  @override
+  String get offlineCachedDataMessage =>
+      'Çevrimdışısınız. Kayıtlı verilerinizi göstermeye devam edeceğiz.';
+
+  @override
+  String get connectionRestoredMessage =>
+      'Tekrar çevrimiçisiniz. En güncel veriler yenileniyor.';
 }

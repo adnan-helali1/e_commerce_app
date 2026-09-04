@@ -7,10 +7,19 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 void showLanguagePickerSheet(BuildContext context) {
   showModalBottomSheet(
     context: context,
+    isScrollControlled: true,
+    useSafeArea: true,
+    backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+    clipBehavior: Clip.antiAlias,
     shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
+      borderRadius: BorderRadius.vertical(top: Radius.circular(24.r)),
     ),
-    builder: (_) => const LanguagePickerSheet(),
+    builder: (_) => ConstrainedBox(
+      constraints: BoxConstraints(
+        maxHeight: MediaQuery.sizeOf(context).height * 0.78,
+      ),
+      child: const LanguagePickerSheet(),
+    ),
   );
 }
 
@@ -33,39 +42,112 @@ class LanguagePickerSheet extends StatelessWidget {
       ('tr', l10n.langTurkish),
     ];
 
-    return SafeArea(
-      child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 12.h),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+    return ColoredBox(
+      color: Theme.of(context).scaffoldBackgroundColor,
+      child: Column(
+        children: [
+          SizedBox(height: 10.h),
+          Container(
+            width: 42.w,
+            height: 4.h,
+            decoration: BoxDecoration(
+              color: context.cs.outlineVariant,
+              borderRadius: BorderRadius.circular(20.r),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.fromLTRB(20.w, 18.h, 20.w, 12.h),
+            child: Align(
+              alignment: AlignmentDirectional.centerStart,
               child: Text(
                 l10n.selectLanguage,
                 style: TextStyle(
-                  fontSize: 18.sp,
-                  fontWeight: FontWeight.w600,
+                  color: context.cs.primary,
+                  fontSize: 20.sp,
+                  fontWeight: FontWeight.w800,
                 ),
               ),
             ),
-            ...languages.map((entry) {
-              final (code, label) = entry;
-              final selected = current == code;
-              return ListTile(
-                title: Text(label),
-                trailing: selected
-                    ? Icon(Icons.check, color: context.cs.primary)
-                    : null,
-                onTap: () {
-                  context.read<LocaleCubit>().changeLocale(Locale(code));
-                  Navigator.of(context).pop();
-                },
-              );
-            }),
-          ],
-        ),
+          ),
+          Divider(height: 1, color: context.cs.outlineVariant),
+          Expanded(
+            child: ListView.separated(
+              padding: EdgeInsets.fromLTRB(12.w, 12.h, 12.w, 16.h),
+              itemCount: languages.length,
+              separatorBuilder: (_, __) => SizedBox(height: 4.h),
+              itemBuilder: (context, index) {
+                final entry = languages[index];
+                final (code, label) = entry;
+                final selected = current == code;
+                return AnimatedContainer(
+                  duration: const Duration(milliseconds: 180),
+                  decoration: BoxDecoration(
+                    color: selected ? context.cs.primary : Colors.transparent,
+                    borderRadius: BorderRadius.circular(14.r),
+                  ),
+                  child: Material(
+                    type: MaterialType.transparency,
+                    borderRadius: BorderRadius.circular(14.r),
+                    clipBehavior: Clip.antiAlias,
+                    child: ListTile(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(14.r),
+                      ),
+                      leading: Container(
+                        width: 38.r,
+                        height: 38.r,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          color: selected
+                              ? context.cs.onPrimary.withValues(alpha: 0.16)
+                              : context.cs.secondaryContainer,
+                          shape: BoxShape.circle,
+                        ),
+                        child: Text(
+                          code.toUpperCase(),
+                          style: TextStyle(
+                            color: selected
+                                ? context.cs.onPrimary
+                                : context.cs.secondary,
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.w800,
+                          ),
+                        ),
+                      ),
+                      title: Text(
+                        label,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          color: selected
+                              ? context.cs.onPrimary
+                              : context.cs.secondary,
+                          fontSize: 16.sp,
+                          fontWeight:
+                              selected ? FontWeight.w800 : FontWeight.w600,
+                        ),
+                      ),
+                      trailing: selected
+                          ? Icon(
+                              Icons.check_circle_rounded,
+                              color: context.cs.onPrimary,
+                            )
+                          : Icon(
+                              Icons.circle_outlined,
+                              color:
+                                  context.cs.secondary.withValues(alpha: 0.5),
+                            ),
+                      onTap: () {
+                        context.read<LocaleCubit>().changeLocale(Locale(code));
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }

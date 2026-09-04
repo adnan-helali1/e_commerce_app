@@ -962,4 +962,12 @@ class AppLocalizationsNl extends AppLocalizations {
 
   @override
   String get langTurkish => 'Türkçe';
+
+  @override
+  String get offlineCachedDataMessage =>
+      'Je bent offline. We blijven je opgeslagen gegevens tonen.';
+
+  @override
+  String get connectionRestoredMessage =>
+      'Je bent weer online. De nieuwste gegevens worden geladen.';
 }

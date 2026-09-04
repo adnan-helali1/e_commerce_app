@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:B2B/app/core/connection/connection_status.dart';
 import 'package:B2B/app/core/helpers/extensions.dart';
 import 'package:B2B/app/core/widgets/app_bottom_bar_cubit.dart';
 import 'package:B2B/app/core/widgets/b2b_app_bar.dart';
@@ -47,60 +50,85 @@ class _MainLayoutState extends State<MainLayout> {
   Widget build(BuildContext context) {
     final cubit = context.read<BottomNavCubit>();
 
-    final screens = [
-      BlocProvider(
-        create: (_) => getIt<HomeCubit>()..load(),
-        child: const HomeScreen(),
-      ),
-      BlocProvider(
-        create: (_) => getIt<OffersCubit>(),
-        child: const OffersScreen(),
-      ),
-      BlocProvider(
-        create: (context) => getIt<CatalogCubit>(),
-        child: const MyCatalogScreen(),
-      ),
-      BlocProvider(
-        create: (context) => getIt<OrdersCubit>(),
-        child: PurchaseOrdersScreen(),
-      ),
-      BlocProvider(
-        create: (context) => getIt<LedgerCubit>()..load(),
-        child: const LedgerScreen(),
-      ),
-      BlocProvider(
-        create: (context) => getIt<GetStockCubit>(),
-        child: InventoryOverviewScreen(),
-      )
-    ];
-
-    return Scaffold(
-      appBar: B2bAppBar(
-        title: _storeName ?? context.l10n.storeFallbackTitle,
-        subtitle: _ownerName ?? '',
-      ),
-      extendBody: true,
-      body: PageView(
-        controller: cubit.pageController,
-        onPageChanged: cubit.onPageChanged,
-        physics: const BouncingScrollPhysics(),
-        children: screens,
-      ),
-      bottomNavigationBar: AppBottomNavBar(
-        items: [
-          AppBottomNavItem(label: context.l10n.navHome, icon: Icons.home_rounded),
-          AppBottomNavItem(
-              label: context.l10n.navOffers, icon: Icons.inventory_2_outlined),
-          AppBottomNavItem(
-              label: context.l10n.navCatalog, icon: Icons.map_outlined),
-          AppBottomNavItem(
-              label: context.l10n.navOrders, icon: Icons.shopping_bag_outlined),
-          AppBottomNavItem(
-              label: context.l10n.navLedger, icon: Icons.description_outlined),
-          AppBottomNavItem(
-              label: context.l10n.navStock, icon: Icons.store_outlined),
-        ],
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => getIt<HomeCubit>()..load()),
+        BlocProvider(create: (_) => getIt<OffersCubit>()),
+        BlocProvider(create: (_) => getIt<CatalogCubit>()),
+        BlocProvider(create: (_) => getIt<OrdersCubit>()),
+        BlocProvider(create: (_) => getIt<LedgerCubit>()..load()),
+        BlocProvider(create: (_) => getIt<GetStockCubit>()),
+      ],
+      child: Builder(
+        builder: (context) => BlocListener<ConnectivityCubit, ConnectionStatus>(
+          listenWhen: (previous, current) =>
+              previous == ConnectionStatus.disconnected &&
+              current == ConnectionStatus.connected,
+          listener: (context, _) => _refreshVisiblePage(context),
+          child: Scaffold(
+            appBar: B2bAppBar(
+              title: _storeName ?? context.l10n.storeFallbackTitle,
+              subtitle: _ownerName ?? '',
+            ),
+            extendBody: true,
+            body: PageView(
+              controller: cubit.pageController,
+              onPageChanged: cubit.onPageChanged,
+              physics: const BouncingScrollPhysics(),
+              children: const [
+                HomeScreen(),
+                OffersScreen(),
+                MyCatalogScreen(),
+                PurchaseOrdersScreen(),
+                LedgerScreen(),
+                InventoryOverviewScreen(),
+              ],
+            ),
+            bottomNavigationBar: AppBottomNavBar(
+              items: [
+                AppBottomNavItem(
+                  label: context.l10n.navHome,
+                  icon: Icons.home_rounded,
+                ),
+                AppBottomNavItem(
+                  label: context.l10n.navOffers,
+                  icon: Icons.inventory_2_outlined,
+                ),
+                AppBottomNavItem(
+                  label: context.l10n.navCatalog,
+                  icon: Icons.map_outlined,
+                ),
+                AppBottomNavItem(
+                  label: context.l10n.navOrders,
+                  icon: Icons.shopping_bag_outlined,
+                ),
+                AppBottomNavItem(
+                  label: context.l10n.navLedger,
+                  icon: Icons.description_outlined,
+                ),
+                AppBottomNavItem(
+                  label: context.l10n.navStock,
+                  icon: Icons.store_outlined,
+                ),
+              ],
+            ),
+          ),
+        ),
       ),
     );
+  }
+
+  void _refreshVisiblePage(BuildContext context) {
+    final index = context.read<BottomNavCubit>().state.index;
+    final refresh = switch (index) {
+      0 => context.read<HomeCubit>().refresh(),
+      1 => context.read<OffersCubit>().refresh(),
+      2 => context.read<CatalogCubit>().refresh(),
+      3 => context.read<OrdersCubit>().refresh(),
+      4 => context.read<LedgerCubit>().refresh(),
+      5 => context.read<GetStockCubit>().refresh(),
+      _ => Future<void>.value(),
+    };
+    unawaited(refresh);
   }
 }

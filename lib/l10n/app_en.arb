@@ -434,5 +434,7 @@
   "langDutch": "Nederlands",
   "langPortuguese": "Português",
   "langRussian": "Русский",
-  "langTurkish": "Türkçe"
+  "langTurkish": "Türkçe",
+  "offlineCachedDataMessage": "You're offline. We'll keep showing your saved data.",
+  "connectionRestoredMessage": "You're back online. Refreshing with the latest data."
 }

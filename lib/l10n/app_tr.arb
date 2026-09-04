@@ -292,5 +292,7 @@
   "langDutch": "Nederlands",
   "langPortuguese": "Português",
   "langRussian": "Русский",
-  "langTurkish": "Türkçe"
+  "langTurkish": "Türkçe",
+  "offlineCachedDataMessage": "Çevrimdışısınız. Kayıtlı verilerinizi göstermeye devam edeceğiz.",
+  "connectionRestoredMessage": "Tekrar çevrimiçisiniz. En güncel veriler yenileniyor."
 }

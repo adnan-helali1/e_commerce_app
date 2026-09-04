@@ -961,4 +961,12 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get langTurkish => 'Türkçe';
+
+  @override
+  String get offlineCachedDataMessage =>
+      'Está sem ligação. Continuaremos a mostrar os dados guardados.';
+
+  @override
+  String get connectionRestoredMessage =>
+      'A ligação voltou. A atualizar os dados mais recentes.';
 }

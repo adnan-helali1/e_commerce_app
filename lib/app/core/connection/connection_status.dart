@@ -1,70 +1,44 @@
-// import 'dart:async';
-// import 'dart:io';
-// import 'package:bloc/bloc.dart';
-// import 'package:connectivity_plus/connectivity_plus.dart';
+import 'dart:async';
 
-// enum ConnectionStatus { connected, disconnected }
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-// class ConnectivityCubit extends Cubit<ConnectionStatus> {
-//   final Connectivity _connectivity;
+enum ConnectionStatus { initial, connected, disconnected }
 
-//   StreamSubscription<List<ConnectivityResult>>? _subscription;
-//   Timer? _timer;
+class ConnectivityCubit extends Cubit<ConnectionStatus> {
+  ConnectivityCubit({
+    Connectivity? connectivity,
+    Stream<List<ConnectivityResult>>? changes,
+    Future<List<ConnectivityResult>> Function()? checkConnectivity,
+  })  : _connectivity = connectivity ?? Connectivity(),
+        _checkConnectivity = checkConnectivity,
+        super(ConnectionStatus.initial) {
+    _subscription =
+        (changes ?? _connectivity.onConnectivityChanged).listen(_updateStatus);
+    unawaited(checkNow());
+  }
 
-//   ConnectivityCubit(this._connectivity) : super(ConnectionStatus.connected) {
-//     _init();
-//   }
+  final Connectivity _connectivity;
+  final Future<List<ConnectivityResult>> Function()? _checkConnectivity;
+  StreamSubscription<List<ConnectivityResult>>? _subscription;
 
-//   void _init() async {
-//     // أول check
-//     await _checkInternet();
+  Future<void> checkNow() async {
+    final results =
+        await (_checkConnectivity?.call() ?? _connectivity.checkConnectivity());
+    _updateStatus(results);
+  }
 
-//     // listen لنوع الاتصال
-//     _subscription = _connectivity.onConnectivityChanged.listen((_) {
-//       _checkInternet(); // 🔥 ignore type → افحص الإنترنت مباشرة
-//     });
+  void _updateStatus(List<ConnectivityResult> results) {
+    if (isClosed) return;
+    final next = results.isEmpty || results.contains(ConnectivityResult.none)
+        ? ConnectionStatus.disconnected
+        : ConnectionStatus.connected;
+    if (state != next) emit(next);
+  }
 
-//     // 🔥 polling ثابت (حل مشاكل المحاكي)
-//     _timer = Timer.periodic(const Duration(seconds: 3), (_) {
-//       _checkInternet();
-//     });
-//   }
-
-//   bool _checking = false;
-
-//   Future<void> _checkInternet() async {
-//     if (_checking) return;
-//     _checking = true;
-
-//     final hasInternet = await _hasInternet();
-
-//     if (hasInternet && state != ConnectionStatus.connected) {
-//       emit(ConnectionStatus.connected); //
-//     } else if (!hasInternet && state != ConnectionStatus.disconnected) {
-//       emit(ConnectionStatus.disconnected); //
-//     }
-
-//     _checking = false;
-//   }
-
-//   Future<bool> _hasInternet() async {
-//     try {
-//       final request = await HttpClient()
-//           .getUrl(Uri.parse('https://clients3.google.com/generate_204'))
-//           .timeout(const Duration(seconds: 2));
-
-//       final response = await request.close();
-
-//       return response.statusCode == 204;
-//     } catch (_) {
-//       return false;
-//     }
-//   }
-
-//   @override
-//   Future<void> close() {
-//     _subscription?.cancel();
-//     _timer?.cancel();
-//     return super.close();
-//   }
-// }
+  @override
+  Future<void> close() async {
+    await _subscription?.cancel();
+    return super.close();
+  }
+}

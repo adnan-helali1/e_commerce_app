@@ -40,7 +40,7 @@ class HomeMetricsSection extends StatelessWidget {
               crossAxisCount: 2,
               crossAxisSpacing: 22.w,
               mainAxisSpacing: 24.h,
-              childAspectRatio: 2.1,
+              mainAxisExtent: 140.h,
             ),
             itemBuilder: (context, index) =>
                 _MetricCard(metric: metrics[index]),
@@ -80,6 +80,8 @@ class _MetricCard extends StatelessWidget {
               Expanded(
                 child: Text(
                   metric.title,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
                   style: TextStyles.note(context)
                       .copyWith(fontSize: 15.sp, fontWeight: FontWeight.w700),
                 ),
@@ -96,9 +98,14 @@ class _MetricCard extends StatelessWidget {
               ),
             ],
           ),
-          Text(
-            metric.value,
-            style: TextStyles.screenTitle(context).copyWith(fontSize: 24.sp),
+          FittedBox(
+            fit: BoxFit.scaleDown,
+            alignment: AlignmentDirectional.centerStart,
+            child: Text(
+              metric.value,
+              maxLines: 1,
+              style: TextStyles.screenTitle(context).copyWith(fontSize: 24.sp),
+            ),
           ),
           verticalSpace(0.3),
           if (metric.note != null)

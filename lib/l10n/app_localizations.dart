@@ -1867,6 +1867,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Türkçe'**
   String get langTurkish;
+
+  /// No description provided for @offlineCachedDataMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re offline. We\'ll keep showing your saved data.'**
+  String get offlineCachedDataMessage;
+
+  /// No description provided for @connectionRestoredMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re back online. Refreshing with the latest data.'**
+  String get connectionRestoredMessage;
 }
 
 class _AppLocalizationsDelegate

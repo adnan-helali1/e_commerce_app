@@ -33,7 +33,6 @@ class LogoutButton extends StatelessWidget {
         ),
         onPressed: () async {
           await logout(
-            context,
             getIt<LoginRepo>(),
           );
         },

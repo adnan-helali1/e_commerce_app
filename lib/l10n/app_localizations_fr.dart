@@ -971,4 +971,12 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get langTurkish => 'Türkçe';
+
+  @override
+  String get offlineCachedDataMessage =>
+      'Vous êtes hors ligne. Nous continuons d’afficher vos données enregistrées.';
+
+  @override
+  String get connectionRestoredMessage =>
+      'Vous êtes de nouveau en ligne. Actualisation des dernières données.';
 }

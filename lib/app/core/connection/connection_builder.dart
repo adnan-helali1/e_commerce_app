@@ -1,44 +1,43 @@
-// import 'package:B2B/app/core/helpers/extensions.dart';
-// import 'package:B2B/app/core/widgets/connection_status.dart';
-// import 'package:flutter/material.dart';
-// import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:B2B/app/core/connection/connection_status.dart';
+import 'package:B2B/app/core/helpers/extensions.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-// class ConnectionListener extends StatelessWidget {
-//   final Widget child;
+class ConnectionListener extends StatelessWidget {
+  const ConnectionListener({required this.child, super.key});
 
-//   const ConnectionListener({
-//     super.key,
-//     required this.child,
-//   });
+  final Widget child;
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return BlocListener<ConnectivityCubit, ConnectionStatus>(
-//       listenWhen: (previous, current) => previous != current,
-//       listener: (context, state) {
-//         final messenger = ScaffoldMessenger.of(context);
+  @override
+  Widget build(BuildContext context) {
+    return BlocListener<ConnectivityCubit, ConnectionStatus>(
+      listenWhen: (previous, current) =>
+          current == ConnectionStatus.disconnected ||
+          previous == ConnectionStatus.disconnected,
+      listener: (context, status) {
+        final messenger = ScaffoldMessenger.of(context)..clearSnackBars();
+        if (status == ConnectionStatus.disconnected) {
+          messenger.showSnackBar(
+            SnackBar(
+              content: Text(context.l10n.offlineCachedDataMessage),
+              backgroundColor: context.cs.error,
+              duration: const Duration(days: 1),
+              behavior: SnackBarBehavior.floating,
+            ),
+          );
+          return;
+        }
 
-//         messenger.clearSnackBars();
-
-//         if (state == ConnectionStatus.disconnected) {
-//           messenger.showSnackBar(
-//             SnackBar(
-//               content: const Text("You lost the connection"),
-//               backgroundColor: context.appColors.warning,
-//               duration: const Duration(days: 1),
-//             ),
-//           );
-//         } else {
-//           messenger.showSnackBar(
-//             SnackBar(
-//               content: const Text("Connection restored"),
-//               backgroundColor: context.appColors.success,
-//               duration: const Duration(days: 3),
-//             ),
-//           );
-//         }
-//       },
-//       child: child,
-//     );
-//   }
-// }
+        messenger.showSnackBar(
+          SnackBar(
+            content: Text(context.l10n.connectionRestoredMessage),
+            backgroundColor: context.appColors.success,
+            duration: const Duration(seconds: 3),
+            behavior: SnackBarBehavior.floating,
+          ),
+        );
+      },
+      child: child,
+    );
+  }
+}
